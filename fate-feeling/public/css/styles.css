@@ -2796,6 +2796,78 @@ button.scan-icon:hover {
 .energy-chip.mid { color: #f6d682; border-color: rgba(246,196,91,.35); }
 .energy-chip.high { color: #a9e9ba; border-color: rgba(129,199,132,.35); }
 .metric-inline-cause { opacity: .92; }
+.energy-compare-wrap {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.03);
+}
+.energy-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.energy-row span { font-size: 11px; color: #cfd4e5; }
+.energy-row b { font-size: 11px; color: #f0f3fb; }
+.energy-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  overflow: hidden;
+}
+.energy-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  animation: fillBar .7s ease forwards;
+  box-shadow: 0 0 10px currentColor;
+}
+.energy-bar i.solid { border-radius: 999px; }
+.energy-bar i.dashed { background-image: repeating-linear-gradient(90deg, currentColor 0 7px, rgba(255,255,255,.2) 7px 12px) !important; }
+.energy-bar i.wood { color: #4ADE80; background: #4ADE80; }
+.energy-bar i.fire { color: #FB7185; background: #FB7185; }
+.energy-bar i.earth { color: #FDE047; background: #FDE047; }
+.energy-bar i.metal { color: #F8FAFC; background: #F8FAFC; }
+.energy-bar i.water { color: #38BDF8; background: #38BDF8; }
+.energy-bar i { width: var(--w, 50%); }
+@keyframes fillBar { from { width: 0; } to { width: var(--w, 50%); } }
+.gauge-tip-btn {
+  position: absolute;
+  right: -4px;
+  top: -6px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(20,18,34,.78) !important;
+  color: #dbe3ff;
+  font-size: 12px;
+  padding: 0;
+  line-height: 1;
+}
+.gauge-floating-tip {
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translateX(-50%);
+  width: min(240px, 70vw);
+  border-radius: 12px;
+  border: 1px solid rgba(239,203,100,.42);
+  background: rgba(14,14,24,.86);
+  backdrop-filter: blur(8px);
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: 5;
+  animation: tipDrop .22s ease;
+}
+.gauge-floating-tip strong { color: #f6d783; font-size: 12px; }
+.gauge-floating-tip p { margin: 4px 0 0; color: #d8dff2; font-size: 12px; }
+@keyframes tipDrop { from { opacity: 0; transform: translateX(-50%) translateY(-8px);} to { opacity: 1; transform: translateX(-50%) translateY(0);} }
 @media (max-width: 640px) {
   .gauge-detail .gauge-layout { grid-template-columns: 1fr; }
   .gauge-detail .gauge-wrap { margin-inline: auto; }
