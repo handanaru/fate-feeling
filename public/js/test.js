@@ -387,7 +387,8 @@ function selectMode(mode, withPulse = false) {
   document.body.classList.toggle('adult-mode', isAdultConcern(concern));
   document.body.classList.toggle('compat-mode', isCompat);
   if (analysisTitle) analysisTitle.textContent = isCompat ? `${userName} ❤️ ${partnerName} 궁합 분석 중` : `[${concern}] 분석 중`;
-  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>${isCompat ? ` · <span class="small">${userName} & ${partnerName}</span>` : ''}`;
+  const conciseGuide = `${modeMeta[selectedMode].label} 흐름 문항이야. 지금 느낌대로 선택해줘.`;
+  modeHint.innerHTML = `<span class="mode-guide-text">${conciseGuide}</span><span class="mode-meta-row"><button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button></span>`;
   document.getElementById('openConcernPicker')?.addEventListener('click', () => {
     if (concernPickerModal) concernPickerModal.hidden = false;
   });

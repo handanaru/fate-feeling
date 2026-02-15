@@ -2236,23 +2236,35 @@ select,
   word-break: keep-all;
 }
 #modeHint {
-  font-size: 16px !important;
-  line-height: 1.7;
+  font-size: 15px !important;
+  line-height: 1.62;
   color: #f5ecff;
   font-weight: 700;
+  margin: 8px 0 10px !important;
+}
+.mode-guide-text {
+  display: block;
+  word-break: keep-all;
+}
+.mode-meta-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
 }
 .concern-pill {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(239,203,100,.18);
-  border: 1px solid rgba(239,203,100,.5);
+  background: linear-gradient(135deg, rgba(239,203,100,.28), rgba(129,92,215,.16));
+  border: 1px solid rgba(255,235,167,.75);
+  box-shadow: 0 0 0 1px rgba(255,235,167,.25), 0 0 14px rgba(239,203,100,.22);
   color: #ffe6a7;
-  margin-left: 4px;
+  margin-left: 0;
   cursor: pointer;
-  font-size: inherit;
+  font-size: 14px;
   line-height: 1.2;
+  font-weight: 800;
 }
 
 body.adult-mode .live-analyzing-card {
@@ -2592,7 +2604,7 @@ button.scan-icon:hover {
   #modeHint { font-size: 14px !important; }
   .question-context { font-size: 13px !important; }
   .question-card h3 { font-size: clamp(18px, 5.2vw, 24px); line-height: 1.42; }
-  .concern-pill { margin-left: 0; margin-top: 6px; }
+  .concern-pill { margin-left: 0; margin-top: 0; font-size: 13px; }
   .header-actions { gap: 6px; }
   .icon-btn { min-height: 34px; min-width: 34px; font-size: 16px; }
   .theme-btn { font-size: 11px; min-height: 34px; padding: 7px 10px; }
