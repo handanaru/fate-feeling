@@ -2555,6 +2555,21 @@ button.scan-icon:hover {
   line-height: 1.8;
   letter-spacing: -0.5px;
 }
+.metric-deep {
+  margin-top: 8px;
+  display: grid;
+  gap: 10px;
+}
+.metric-deep .metric-evidence {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,.02);
+}
+.metric-deep .metric-evidence strong {
+  color: #f1f4ff;
+}
 .pillars-compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
