@@ -50,6 +50,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   background-color: #0A0B14;
+  overflow-x: hidden;
   background-image:
     radial-gradient(circle at 0% 0%, rgba(18, 13, 38, 0.8) 0%, transparent 40%),
     radial-gradient(circle at 100% 100%, rgba(30, 20, 50, 0.5) 0%, transparent 40%);
@@ -2512,10 +2513,14 @@ button.scan-icon:hover {
 .detail-metric-grid { grid-template-columns: 1fr; gap: 10px; }
 .gauge-detail .gauge-layout {
   display: grid;
-  grid-template-columns: 124px 1fr;
+  grid-template-columns: 124px minmax(0, 1fr);
   gap: 12px;
   align-items: center;
 }
+.gauge-card { overflow: hidden; }
+.metric-copy,
+.metric-block,
+.metric-accordion { min-width: 0; }
 .metric-copy p {
   margin: 0;
   color: #E0E0E0;
@@ -2702,6 +2707,8 @@ button.scan-icon:hover {
 @media (max-width: 640px) {
   .gauge-detail .gauge-layout { grid-template-columns: 1fr; }
   .gauge-detail .gauge-wrap { margin-inline: auto; }
+  .reveal-page .card,
+  .ziwei-report-page .card { overflow-x: clip; }
 }
 
 .golden-calendar { display:flex; gap:10px; flex-wrap:wrap; margin: 8px 0; }
