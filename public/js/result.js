@@ -620,14 +620,13 @@ if (!saved) {
     const band = data.gradeBand || (totalScore >= 85 ? 'A' : totalScore >= 60 ? 'B' : totalScore >= 40 ? 'C' : 'D');
     const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
+    if (resultBox) {
+      resultBox.insertAdjacentHTML('beforeend', `<div class="hero-merged-summary"><div class="grade-emblem" style="--grade-color:${gradeMeta.color}">GRADE <strong>${gradeMeta.grade}</strong></div><p class="grade-label"><strong>${gradeMeta.label}</strong></p><p class="small">${gradeMeta.brief}</p></div>`);
+    }
+
     if (gradeBox) {
-      gradeBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">1</span> 요약' : '등급 리포트'}</h3>
-        <div class="grade-emblem" style="--grade-color:${gradeMeta.color}">Your Grade <strong>${gradeMeta.grade}</strong></div>
-        <div class="fortune-score-bar"><span style="width:${totalScore}%; background:${gradeMeta.color};"></span></div>
-        <p class="grade-label"><strong>${gradeMeta.label}</strong></p>
-        <p>${gradeMeta.brief}</p>
-        <p class="small">${gradeMeta.detail}</p>
-        <p class="small grade-tip-inline">💡 행운의 조언: ${gradeMeta.tip}</p>`;
+      gradeBox.hidden = true;
+      gradeBox.innerHTML = '';
     }
 
     if (concern === '일반 궁합') {

@@ -2059,6 +2059,14 @@ button.scan-icon:hover {
   font-weight: 800;
   margin: 2px 0 8px;
 }
+.hero-merged-summary {
+  margin-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 12px;
+}
+.hero-merged-summary .grade-emblem {
+  margin-bottom: 8px;
+}
 .hero-score-bar .hero-score-fill {
   display: block;
   height: 100%;
