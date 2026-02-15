@@ -714,13 +714,21 @@ if (!saved) {
     }
 
     if (socialShareBox) {
-      socialShareBox.innerHTML = `<h3>결과 공유</h3><div class="cta-row"><button class="btn kakao-share" id="kakaoShareBtn">🗨 카카오톡으로 결과 공유하기</button></div><div class="cta-row"><button class="btn" data-open-counselor-modal>🔮 전문 상담사에게 더 묻기</button><button class="btn secondary" id="saveGradeBtn">📸 이미지 저장</button></div><div class="cta-row"><button class="btn secondary" id="copyLinkBtn">🔗 링크 복사</button></div>`;
+      socialShareBox.innerHTML = `<h3>결과 공유</h3><div class="cta-row"><button class="btn kakao-share" id="kakaoShareBtn">🗨 카카오톡으로 공유하기</button><button class="btn instagram-share" id="instaShareBtn">📸 인스타로 공유하기</button></div><div class="cta-row"><button class="btn secondary" id="copyLinkBtn">🔗 링크 복사</button></div>`;
       document.getElementById('kakaoShareBtn')?.addEventListener('click', () => {
         const text = `${userName}님의 2026년 운세 등급은 [${gradeMeta.grade}] (${totalScore}점)!\n지금 확인해봐: https://fate-feeling.vercel.app`;
         const url = `https://share.kakao.com/talk/friends/picker/link?url=${encodeURIComponent('https://fate-feeling.vercel.app')}&text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
       });
-      document.getElementById('saveGradeBtn')?.addEventListener('click', () => document.getElementById('saveSummaryBtn')?.click());
+      document.getElementById('instaShareBtn')?.addEventListener('click', async () => {
+        document.getElementById('saveSummaryBtn')?.click();
+        try {
+          await navigator.clipboard.writeText('https://fate-feeling.vercel.app');
+        } catch (e) {
+          // noop
+        }
+        setTimeout(() => alert('이미지 저장 완료! 인스타 스토리에서 업로드하면 돼.'), 240);
+      });
       document.getElementById('copyLinkBtn')?.addEventListener('click', async () => {
         await navigator.clipboard.writeText('https://fate-feeling.vercel.app');
         alert('링크 복사 완료!');
