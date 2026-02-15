@@ -1854,6 +1854,7 @@ button.scan-icon:hover {
 @keyframes fadeInSoft { from { opacity: 0; transform: translateY(8px) scale(.985);} to { opacity: 1; transform: translateY(0) scale(1);} }
 .slide-out { animation: fadeOutSoft .46s ease forwards !important; }
 .slide-in { animation: fadeInSoft .52s ease !important; }
+.fade-swap { animation: fadeInSoft .34s ease; }
 
 /* font strategy reset and remap */
 #resultBox h1,

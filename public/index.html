@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The First Impact | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=onboard5" />
+  <link rel="stylesheet" href="/css/styles.css?v=onboard6" />
 </head>
 <body>
   <div class="container first-impact-page">
@@ -14,12 +14,12 @@
     </header>
 
     <section class="card trust-counter-card">
-      <p>지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong>명이 재회 타이밍을 확인했습니다</p>
+      <p id="trustCounterText">지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong><span id="trustCounterTail">명이 이별 후 재회 타이밍을 확인했습니다.</span></p>
     </section>
 
     <section class="card first-impact" id="firstImpact">
       <div class="impact-glow" aria-hidden="true"></div>
-      <p class="impact-copy">어긋난 인연에도 다시 만날 '때'는 있습니다.</p>
+      <p class="impact-copy" id="impactCopy">어긋난 인연에도 다시 만날 '때'는 반드시 있습니다.</p>
 
       <div class="impact-object" aria-hidden="true">
         <div class="gold-tarot-card" id="modeCard">
@@ -31,7 +31,7 @@
       </div>
 
       <form id="firstImpactForm" class="impact-form" novalidate>
-        <label for="name">당신의 이름을 입력해 운명의 문을 여세요.</label>
+        <label for="name" id="nameGuideLabel">당신의 이름을 입력해 사랑의 문을 여세요.</label>
         <input id="name" placeholder="예: 지수" required />
 
         <label for="birth">생년월일</label>
@@ -55,6 +55,8 @@
         <select id="concern" required>
           <option value="재회">재회</option>
           <option value="짝사랑/썸">짝사랑/썸</option>
+          <option value="취업/금전">취업/금전</option>
+          <option value="MBTI">MBTI</option>
           <option value="연락 타이밍">연락 타이밍</option>
           <option value="속마음">속마음</option>
           <option value="애정">애정</option>
@@ -69,7 +71,7 @@
           <option value="mbti">MBTI</option>
         </select>
 
-        <button class="btn impact-cta" type="submit">관점 선택하고 테스트 시작하기</button>
+        <button class="btn impact-cta" id="startSubmitBtn" type="submit">자미두수로 재회 운 확인하기</button>
       </form>
     </section>
   </div>
@@ -95,6 +97,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow6"></script>
+  <script src="/js/index.js?v=modeflow7"></script>
 </body>
 </html>

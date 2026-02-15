@@ -1,5 +1,11 @@
 const firstImpactForm = document.getElementById('firstImpactForm');
 const trustCounter = document.getElementById('trustCounterValue');
+const trustCounterText = document.getElementById('trustCounterText');
+const trustCounterTail = document.getElementById('trustCounterTail');
+const impactCopy = document.getElementById('impactCopy');
+const concernSelect = document.getElementById('concern');
+const nameGuideLabel = document.getElementById('nameGuideLabel');
+const startSubmitBtn = document.getElementById('startSubmitBtn');
 const firstVisitModal = document.getElementById('firstVisitModal');
 const hideOnboardingForever = document.getElementById('hideOnboardingForever');
 const onboardingStartBtn = document.getElementById('onboardingStartBtn');
@@ -31,21 +37,67 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
   localStorage.setItem('ff-intake', JSON.stringify(payload));
 }
 
-function animateTrustCounter() {
+const concernCopyMap = {
+  '재회': {
+    count: 12405,
+    counterTail: '명이 이별 후 재회 타이밍을 확인했습니다.',
+    headline: "어긋난 인연에도 다시 만날 '때'는 반드시 있습니다.",
+    nameGuide: '당신의 이름을 입력해 사랑의 문을 여세요.',
+    ctaGoal: '재회 운'
+  },
+  '짝사랑/썸': {
+    count: 8920,
+    counterTail: '명이 고백 성공 확률을 확인했습니다.',
+    headline: "닿지 않는 마음이 '진심'으로 전해지는 찰나를 포착하세요.",
+    nameGuide: '당신의 이름을 입력해 사랑의 문을 여세요.',
+    ctaGoal: '짝사랑 운'
+  },
+  '취업/금전': {
+    count: 15340,
+    counterTail: '명이 대박 운 흐름을 확인했습니다.',
+    headline: "막혔던 운의 흐름이 터지는 '결정적 순간'을 짚어드립니다.",
+    nameGuide: '당신의 이름을 입력해 성공의 문을 여세요.',
+    ctaGoal: '성공 운'
+  },
+  MBTI: {
+    count: 10480,
+    counterTail: '명이 성향 기반 관계 해석을 확인했습니다.',
+    headline: "데이터가 말해주는 당신의 '진짜 모습'을 마주해 보세요.",
+    nameGuide: '당신의 이름을 입력해 성향 분석의 문을 여세요.',
+    ctaGoal: '성향'
+  }
+};
+
+function concernMeta() {
+  const key = concernSelect?.value || '재회';
+  return concernCopyMap[key] || concernCopyMap['재회'];
+}
+
+let counterAnimFrame = null;
+function animateTrustCounter(target = 12405) {
   if (!trustCounter) return;
-  const end = 12405;
-  const duration = 1300;
+  if (counterAnimFrame) cancelAnimationFrame(counterAnimFrame);
+  const current = Number((trustCounter.textContent || '0').replace(/,/g, '')) || 0;
+  const duration = 820;
   const startAt = performance.now();
-  const start = 11890;
   const tick = (now) => {
     const ratio = Math.min(1, (now - startAt) / duration);
     const eased = 1 - Math.pow(1 - ratio, 3);
-    const value = Math.round(start + (end - start) * eased);
+    const value = Math.round(current + (target - current) * eased);
     trustCounter.textContent = value.toLocaleString('ko-KR');
-    if (ratio < 1) requestAnimationFrame(tick);
+    if (ratio < 1) counterAnimFrame = requestAnimationFrame(tick);
   };
-  requestAnimationFrame(tick);
+  counterAnimFrame = requestAnimationFrame(tick);
 }
+
+function softSwapText(el, text) {
+  if (!el) return;
+  el.classList.remove('fade-swap');
+  void el.offsetWidth;
+  el.textContent = text;
+  el.classList.add('fade-swap');
+}
+
 
 function spawnSpark(x, y) {
   const dot = document.createElement('span');
@@ -127,7 +179,10 @@ function syncModeUI(mode) {
   onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
   const label = modeLabel(mode);
   if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${label}`;
-  if (onboardingStartBtn) onboardingStartBtn.textContent = `${label}로 바로 시작하기`;
+
+  const meta = concernMeta();
+  if (onboardingStartBtn) onboardingStartBtn.textContent = `${label}로 ${meta.ctaGoal} 확인하기`;
+  if (startSubmitBtn) startSubmitBtn.textContent = `${label}로 ${meta.ctaGoal} 확인하기`;
 
   const card = modeCardMeta[mode] || modeCardMeta.ziwei;
   if (modeCardTitle) modeCardTitle.textContent = card.title;
@@ -144,10 +199,20 @@ function syncModeUI(mode) {
   }
 }
 
+function syncConcernUI() {
+  const meta = concernMeta();
+  animateTrustCounter(meta.count);
+  if (trustCounterTail) softSwapText(trustCounterTail, meta.counterTail);
+  softSwapText(impactCopy, meta.headline);
+  softSwapText(nameGuideLabel, meta.nameGuide);
+  syncModeUI(analysisModeSelect?.value || 'ziwei');
+}
+
 onboardingModeButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
 });
 analysisModeSelect?.addEventListener('change', () => syncModeUI(analysisModeSelect.value));
+concernSelect?.addEventListener('change', syncConcernUI);
 if (analysisModeSelect?.value) syncModeUI(analysisModeSelect.value);
 
 onboardingStartBtn?.addEventListener('click', closeOnboarding);
@@ -159,5 +224,5 @@ firstVisitModal?.addEventListener('click', (e) => {
   if (e.target === firstVisitModal) closeOnboarding();
 });
 
-animateTrustCounter();
+syncConcernUI();
 openOnboardingIfNeeded();
