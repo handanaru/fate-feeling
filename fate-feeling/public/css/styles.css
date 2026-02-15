@@ -1443,6 +1443,18 @@ select,
 .result-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 8px 0 12px; }
 .metric-chip { border: 1px solid var(--border); background: rgba(255,255,255,.35); padding: 10px; border-radius: 20px; }
 .metric-chip strong { display: block; }
+.timeline-card { border: 1px solid var(--border); }
+.timeline-summary { margin: 6px 0 10px; color: var(--muted); font-size: 13px; }
+.timeline-tabs { display: inline-flex; gap: 6px; padding: 4px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,.05); margin-bottom: 10px; }
+.timeline-tabs button { border: 0; border-radius: 999px; padding: 6px 10px; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; }
+.timeline-tabs button.active { background: linear-gradient(135deg, #e8c46f, #dba54b); color: #1f1235; font-weight: 700; }
+.timeline-hash { font-weight: 700; margin: 6px 0 8px; }
+.monthly-bars { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; align-items: end; height: 120px; margin: 10px 0 8px; }
+.monthly-bars .mbar { display: grid; gap: 4px; justify-items: center; align-content: end; }
+.monthly-bars .mbar span { width: 100%; border-radius: 8px; background: linear-gradient(180deg, rgba(242,208,122,.95), rgba(128,84,218,.95)); min-height: 10px; }
+.monthly-bars .mbar em { font-style: normal; font-size: 10px; color: var(--muted); }
+.timeline-panel.fade-in { animation: fadeIn .25s ease; }
+.timeline-tip { margin-top: 6px; }
 .radial-wrap { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 12px; }
 .radial-item { text-align: center; }
 .radial-chart {

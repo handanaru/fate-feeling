@@ -2,6 +2,7 @@ const resultBox = document.getElementById('resultBox');
 const coreMetricsBox = document.getElementById('coreMetricsBox');
 const bridgeBox = document.getElementById('bridgeBox');
 const chartsBox = document.getElementById('chartsBox');
+const timelineBox = document.getElementById('timelineBox');
 const briefingBox = document.getElementById('briefingBox');
 const counselorBox = document.getElementById('counselorBox');
 const goldenTimeCard = document.getElementById('goldenTimeCard');
@@ -57,6 +58,56 @@ function hourToBranchLabel(time = '') {
   return '해시(亥時)';
 }
 
+function buildYearTimelineData(concern = '일반 궁합') {
+  const baseByConcern = {
+    '금전/재산': { k: ['#현금흐름회복', '#분산투자', '#지출관리'], tip: '💰 금전운: 5월 이후 목돈 운이 강해. 단기보다 분할 접근이 유리해.' },
+    '취업/직장': { k: ['#문서운상승', '#이직기회', '#평판관리'], tip: '💼 직장운: 상반기 준비, 하반기 이동수가 강하게 들어와.' },
+    '사업/창업': { k: ['#시장검증', '#파트너십', '#확장타이밍'], tip: '🚀 사업운: 성급 확장보다 3분기 검증 후 확장이 안정적이야.' },
+    '애정운': { k: ['#감정회복', '#표현강화', '#신뢰형성'], tip: '❤️ 애정운: 관계를 급하게 결론내기보다 템포를 맞추는 게 핵심이야.' }
+  };
+  const base = baseByConcern[concern] || { k: ['#변화의시작', '#문서운상승', '#인간관계주의'], tip: '✨ 올해 포인트: 감정적 결정보다 기록 기반 판단이 운을 살려.' };
+  return {
+    2025: { label: '지나온 흐름', keywords: ['#정체기', '#관계재정렬', '#기반정비'], desc: '지난 해는 속도를 줄이고 기반을 재정비한 시기였어. 무리한 확장보다 정리에 집중하면서 손실을 줄인 흐름이야.', months: [42, 38, 45, 48, 51, 46, 50, 55, 52, 58, 61, 64] },
+    2026: { label: '현재의 운세', keywords: base.k, desc: '올해는 정체를 벗어나 새로운 문서·연결·결정이 시작되는 해야. 다만 감정적 충돌 가능성이 있으니 속도 조절이 중요해.', months: [56, 61, 64, 68, 74, 71, 76, 80, 77, 83, 79, 86] },
+    2027: { label: '준비할 미래', keywords: ['#확장', '#성과가시화', '#선택집중'], desc: '내년은 올해의 선택이 성과로 드러나는 시기야. 잘 맞는 축에 집중하면 체감 성취가 크게 올라갈 가능성이 높아.', months: [63, 66, 69, 73, 76, 79, 82, 84, 81, 86, 88, 90] },
+    tip: base.tip
+  };
+}
+
+function renderTimelineCard(data, concern = '일반 궁합') {
+  if (!timelineBox) return;
+  const years = [2025, 2026, 2027];
+  const thisYear = 2026;
+  timelineBox.innerHTML = `<h3>나의 운세 타임라인</h3>
+    <div class="timeline-summary">인생 총운 · ${concern} 흐름 기반 해석</div>
+    <div class="timeline-tabs" id="yearTabs">${years.map((y) => `<button type="button" data-year="${y}" class="${y === thisYear ? 'active' : ''}">${y}</button>`).join('')}</div>
+    <div class="timeline-panel" id="timelinePanel"></div>`;
+
+  const panel = timelineBox.querySelector('#timelinePanel');
+  const drawYear = (year) => {
+    const y = data[year];
+    if (!panel || !y) return;
+    const max = Math.max(...y.months, 100);
+    panel.innerHTML = `<p class="small">${y.label}</p>
+      <p class="timeline-hash">${y.keywords.join(' ')}</p>
+      <p>${y.desc}</p>
+      <div class="monthly-bars">${y.months.map((v, i) => `<div class="mbar"><span style="height:${Math.max(10, Math.round((v / max) * 100))}%"></span><em>${i + 1}월</em></div>`).join('')}</div>
+      <p class="small timeline-tip">${data.tip}</p>`;
+  };
+
+  drawYear(thisYear);
+  timelineBox.querySelectorAll('#yearTabs [data-year]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      timelineBox.querySelectorAll('#yearTabs button').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      panel?.classList.remove('fade-in');
+      void panel?.offsetWidth;
+      drawYear(Number(btn.dataset.year));
+      panel?.classList.add('fade-in');
+    });
+  });
+}
+
 if (!saved) {
   location.href = '/test.html';
 } else {
@@ -66,18 +117,25 @@ if (!saved) {
     const userName = intake.name || '당신';
     const targetName = intake.targetName || '';
 
+    const concern = data.troubleLabel || data.troubleType || '일반 궁합';
     const weatherMap = {
-      reunion: { icon: '⛈️', label: '폭풍우 후 약한 개임' },
-      crush: { icon: '🌫️', label: '안개 속 미세한 맑음' },
-      timing: { icon: '🌤️', label: '맑음 뒤 흐림' }
+      '결혼 운세': { icon: '🌤️', label: '안정 속 점진적 상승' },
+      '일반 궁합': { icon: '⛅', label: '구름 사이 맑음' },
+      '애정운': { icon: '🌸', label: '온기 상승 기류' },
+      '재회운': { icon: '⛈️', label: '폭풍우 후 약한 개임' },
+      '금전/재산': { icon: '💰', label: '수입 파동 후 회복세' },
+      '취업/직장': { icon: '💼', label: '변동 뒤 기회 유입' },
+      '사업/창업': { icon: '🚀', label: '상승 기류 형성' },
+      '속궁합': { icon: '🔥', label: '열기 상승 구간' },
+      '키스 궁합': { icon: '💋', label: '밀착도 상승' }
     };
-    const weather = weatherMap[data.troubleType] || weatherMap.reunion;
-    const goldenTime = data.troubleType === 'timing' ? '22:40' : data.troubleType === 'crush' ? '21:20' : '23:00';
+    const weather = weatherMap[concern] || weatherMap['일반 궁합'];
+    const goldenTime = concern === '취업/직장' ? '09:20' : concern === '금전/재산' ? '14:10' : concern === '사업/창업' ? '10:40' : '21:20';
     const starWord = data.mode === 'ziwei' ? '천희(天喜)' : data.mode === 'saju' ? '문창(文昌)' : '홍염(紅艶)';
     const modeLabel = data.modeLabel || '종합';
     if (reportTitle) reportTitle.textContent = `${modeLabel} 정밀 분석 리포트`;
 
-    resultBox.innerHTML = `<div class="weather-hero"><div><div class="mode-hero-badge">✦ 분석 관점 · ${modeLabel}</div><p class="mode-hero-note destiny-line hand-font">명반의 별들이 다시 연결되고 있어요.</p><h1 class="result-main-title">${userName}님의 재회 기상도</h1><div class="weather-badge">${weather.icon} ${weather.label}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 재회 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+    resultBox.innerHTML = `<div class="weather-hero"><div><div class="mode-hero-badge">✦ 분석 관점 · ${modeLabel}</div><p class="mode-hero-note destiny-line hand-font">명반의 별들이 다시 연결되고 있어요.</p><h1 class="result-main-title">${userName}님의 ${concern} 기상도</h1><div class="weather-badge">${weather.icon} ${weather.label}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
 
     const reunionRate = Math.min(96, Math.max(51, data.reunionForce || 78));
     const responseRate = Math.min(97, Math.max(48, data.recoveryIndex || 67));
@@ -110,7 +168,9 @@ if (!saved) {
 
     chartsBox.innerHTML = `<h3>${modeLabel} 명반 인포그래픽</h3><div class="reveal-ziwei"></div><div class="star-word destiny-line">핵심 별 문구: ${starWord}</div><blockquote class="authority-quote destiny-line">"인연의 시계는 멈춘 듯 보여도, 맞물릴 톱니는 결국 같은 시간을 가리킵니다."</blockquote>`;
 
-    briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${data.troubleLabel || '재회'} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p>`;
+    renderTimelineCard(buildYearTimelineData(concern), concern);
+
+    briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p>`;
 
     goldenTimeCard.innerHTML = `<h3>재회 골든타임 캘린더</h3>
       <div class="golden-calendar">
@@ -119,7 +179,14 @@ if (!saved) {
       </div>
       <p class="small">이번 달 하이라이트 2회 · ${goldenTime} ± 20분</p>`;
 
-    const keywordPool = data.troubleType === 'crush' ? ['망설임', '기대', '확인 욕구'] : data.troubleType === 'timing' ? ['타이밍 관망', '답장 고민', '심리적 거리'] : ['여운', '경계', '재접촉 신호'];
+    const keywordByConcern = {
+      '금전/재산': ['현금흐름', '분산', '기회포착'],
+      '취업/직장': ['문서운', '평판', '이동수'],
+      '사업/창업': ['검증', '확장', '파트너십'],
+      '애정운': ['감정온도', '표현', '신뢰'],
+      '재회운': ['여운', '경계', '재접촉 신호']
+    };
+    const keywordPool = keywordByConcern[concern] || ['균형', '타이밍', '집중'];
     mindKeywordCard.innerHTML = `<h3>운명의 한마디</h3><p class="gold-highlight-value destiny-line hand-font">${keywordPool.join(' · ')}</p><p class="small">키워드를 기준으로 첫 문장 톤을 차분하게 맞추면 성공 확률이 올라갑니다.</p>`;
 
     lockedReportBox.innerHTML = `<h3>운명의 미완성 리포트</h3>
