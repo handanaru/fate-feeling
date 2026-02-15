@@ -802,22 +802,23 @@ input[type="date"]::-webkit-date-and-time-value {
   gap: 6px;
   padding: 4px;
   border-radius: 999px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(239,203,100,.25);
   background: rgba(255,255,255,.05);
   margin: 8px 0 6px;
 }
 .dual-step-nav button {
   border: 0;
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 7px 12px;
   background: transparent;
   color: var(--muted);
   cursor: pointer;
   font-size: 12px;
 }
 .dual-step-nav button.active {
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  color: #fff;
+  background: linear-gradient(135deg, rgba(239,203,100,.9), rgba(172,124,55,.85));
+  color: #1d122a;
+  font-weight: 800;
 }
 .onboarding-chips {
   display: flex;
@@ -1987,13 +1988,24 @@ select,
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(340px 220px at 50% 38%, rgba(255,236,184,.22), transparent 70%),
-    linear-gradient(160deg, #190f2f, #2b1950 48%, #160d2a);
+    radial-gradient(420px 260px at 50% 34%, rgba(255,236,184,.16), transparent 68%),
+    linear-gradient(160deg, #0A0B14 0%, #151126 58%, #1c1432 100%);
+}
+.first-impact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .15;
+  background-image:
+    radial-gradient(rgba(255,255,255,.65) .6px, transparent .9px),
+    linear-gradient(120deg, rgba(201,181,255,.16), rgba(201,181,255,0) 40%);
+  background-size: 3px 3px, 100% 100%;
 }
 .impact-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(238,198,110,.3), transparent 48%);
+  background: radial-gradient(circle at 50% 40%, rgba(238,198,110,.22), transparent 48%);
   pointer-events: none;
 }
 .impact-copy {
@@ -2019,6 +2031,29 @@ select,
   position: relative;
   overflow: hidden;
 }
+.gold-tarot-card::before,
+.gold-tarot-card::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.gold-tarot-card::before {
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(131, 198, 255, .28);
+  box-shadow: 0 0 16px rgba(131,198,255,.25);
+  animation: flowOrbit 8s linear infinite;
+}
+.gold-tarot-card::after {
+  width: 120px;
+  height: 120px;
+  border: 1px dashed rgba(239,203,100,.32);
+  animation: flowOrbit 6s linear infinite reverse;
+}
+.gold-tarot-card.flow-active {
+  box-shadow: 0 0 0 2px rgba(239,203,100,.24), 0 18px 40px rgba(0,0,0,.45), 0 0 30px rgba(131,198,255,.34);
+}
 .gold-tarot-card .card-mini { font-size: 12px; letter-spacing: 1.5px; z-index: 2; }
 .gold-tarot-card strong { font-size: 28px; letter-spacing: 1px; z-index: 2; }
 .gold-tarot-card .card-icon { z-index: 2; font-size: 20px; }
@@ -2034,8 +2069,34 @@ select,
 .gold-tarot-card.is-flipping { animation: cardFlipSwap .56s ease, cardFloat 4s ease-in-out infinite; }
 .gold-tarot-card.mode-glow { box-shadow: 0 0 0 2px rgba(239,203,100,.24), 0 18px 40px rgba(0,0,0,.45), 0 0 26px rgba(239,203,100,.38); }
 .impact-form { z-index: 1; width: min(540px, 92%); display: grid; gap: 10px; }
-.impact-form label { color: rgba(255,255,255,.9); font-weight: 600; }
-.impact-form input { background: rgba(14,8,24,.55); color: #fff; }
+.impact-form label {
+  color: rgba(255,255,255,.9);
+  font-weight: 600;
+  font-family: var(--font-serif);
+  letter-spacing: .01em;
+}
+.impact-form input,
+.impact-form select {
+  background: rgba(34, 34, 46, .66);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  min-height: 44px;
+}
+.impact-form input:focus,
+.impact-form select:focus {
+  outline: none;
+  border-color: rgba(239,203,100,.55);
+  box-shadow: 0 0 0 2px rgba(239,203,100,.16), 0 0 14px rgba(131,198,255,.18);
+}
+#selfFields,
+#partnerFields {
+  min-width: 0;
+}
+#selfFields.form-slide,
+#partnerFields.form-slide {
+  animation: formSlideIn .34s ease;
+}
 .impact-cta {
   font-size: 16px;
   width: 100%;
@@ -2392,6 +2453,14 @@ button.scan-icon:hover {
   0% { transform: rotateY(0deg); }
   50% { transform: rotateY(90deg); }
   100% { transform: rotateY(0deg); }
+}
+@keyframes flowOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes formSlideIn {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 @keyframes rippleOut { to { transform: scale(40); opacity: 0; } }
 @keyframes scanPulse {

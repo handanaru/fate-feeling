@@ -178,8 +178,20 @@ function isAdultVerified() {
 function setDualStep(step = 'self') {
   if (!dualStepNav) return;
   dualStepButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.step === step));
-  if (selfFields) selfFields.hidden = step !== 'self';
-  if (partnerFields) partnerFields.hidden = step !== 'partner';
+  if (selfFields) {
+    selfFields.hidden = step !== 'self';
+    if (step === 'self') {
+      selfFields.classList.remove('form-slide');
+      requestAnimationFrame(() => selfFields.classList.add('form-slide'));
+    }
+  }
+  if (partnerFields) {
+    partnerFields.hidden = step !== 'partner';
+    if (step === 'partner') {
+      partnerFields.classList.remove('form-slide');
+      requestAnimationFrame(() => partnerFields.classList.add('form-slide'));
+    }
+  }
 }
 
 function updateInputLayout(concern = concernSelect?.value || '일반 궁합') {
@@ -325,6 +337,24 @@ function spawnSpark(x, y) {
   setTimeout(() => dot.remove(), 750);
 }
 
+function bindFlowReactiveInput() {
+  if (!firstImpactForm || !modeCard) return;
+  const fields = [...firstImpactForm.querySelectorAll('input, select')];
+  let t = null;
+  fields.forEach((el) => {
+    el.addEventListener('input', () => {
+      modeCard.classList.add('flow-active');
+      clearTimeout(t);
+      t = setTimeout(() => modeCard.classList.remove('flow-active'), 360);
+    });
+    el.addEventListener('change', () => {
+      modeCard.classList.add('flow-active');
+      clearTimeout(t);
+      t = setTimeout(() => modeCard.classList.remove('flow-active'), 420);
+    });
+  });
+}
+
 let sparkThrottle = 0;
 window.addEventListener('mousemove', (e) => {
   const now = Date.now();
@@ -440,7 +470,7 @@ function updateEntryHero(concern, mode) {
   };
   const icon = iconByConcern[concern] || '✨';
   const modeText = modeLabel(mode || 'saju');
-  if (entryEyebrow) entryEyebrow.textContent = 'Step 1 · 정보 입력 중';
+  if (entryEyebrow) entryEyebrow.textContent = '🌠 THE FLOW · 정보 입력';
   if (entryHeroTitle) entryHeroTitle.textContent = `${icon} ${modeText}로 분석하는 ${concern}`;
   if (entryHeroSub) entryHeroSub.textContent = '선택한 고민 기준으로 정확히 분석할게. 먼저 입력 정보를 확인해줘.';
   if (entryHeroChips) {
@@ -576,6 +606,7 @@ adultQuickBtn?.addEventListener('click', () => {
 });
 
 setAudience('general');
+bindFlowReactiveInput();
 syncConcernSelection(concernSelect?.value || '일반 궁합');
 syncConcernUI();
 openOnboardingIfNeeded();
