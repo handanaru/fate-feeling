@@ -2431,6 +2431,40 @@ button.scan-icon:hover {
   font-size: clamp(30px, 7vw, 46px);
   text-shadow: 0 0 16px rgba(239,203,100,.35);
 }
+.detail-metric-grid { grid-template-columns: 1fr; gap: 10px; }
+.gauge-detail .gauge-layout {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.metric-copy p {
+  margin: 0;
+  color: #E0E0E0;
+  line-height: 1.65;
+  font-size: 14px;
+}
+.metric-info {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0a0b14;
+  background: #d8def7;
+  margin-left: 6px;
+  cursor: help;
+}
+.gauge-detail.low { border-color: rgba(255, 183, 77, .45); box-shadow: 0 0 0 1px rgba(255,183,77,.15), 0 12px 28px rgba(0,0,0,.34); }
+.gauge-detail.low .gauge-ring-progress { stroke: #FFB74D !important; filter: drop-shadow(0 0 10px rgba(255,183,77,.45)); }
+.gauge-detail.high { border-color: rgba(129, 199, 132, .5); box-shadow: 0 0 0 1px rgba(129,199,132,.2), 0 0 22px rgba(129,199,132,.2), 0 12px 28px rgba(0,0,0,.34); }
+.gauge-detail.high .gauge-ring-progress { stroke: #81C784 !important; filter: drop-shadow(0 0 12px rgba(129,199,132,.55)); }
+@media (max-width: 640px) {
+  .gauge-detail .gauge-layout { grid-template-columns: 1fr; }
+  .gauge-detail .gauge-wrap { margin-inline: auto; }
+}
 
 .golden-calendar { display:flex; gap:10px; flex-wrap:wrap; margin: 8px 0; }
 .day-mark {

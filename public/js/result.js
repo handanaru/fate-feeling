@@ -398,35 +398,55 @@ if (!saved) {
       });
     }
 
-    const firstGauge = Math.min(96, Math.max(51, data.reunionForce || 78));
-    const secondGauge = Math.min(97, Math.max(48, data.recoveryIndex || 67));
+    const firstGauge = Math.min(96, Math.max(35, data.reunionForce || 78));
+    const secondGauge = Math.min(97, Math.max(35, data.recoveryIndex || 67));
     const firstLabel = isCompat ? '관계 안정도' : '핵심 가능성';
     const secondLabel = isCompat ? '소통 반응도' : '상대 반응도';
 
+    const getMetricNarrative = (value, type) => {
+      if (type === 'stability') {
+        if (value >= 80) return '두 사람의 기본 리듬이 잘 맞아. 큰 변수에도 관계 회복력이 높은 축복 구간이야.';
+        if (value >= 60) return '서로의 생활 패턴은 비교적 안정적이야. 고집만 줄이면 안정감이 더 올라가.';
+        if (value >= 50) return '서로의 고집이 충돌할 수 있지만, 시간과 대화로 충분히 맞춰갈 수 있는 흐름이야.';
+        return '감정 기복과 오해가 쉽게 쌓일 수 있어. 속도를 줄이고 약속 규칙을 먼저 맞추는 게 좋아.';
+      }
+      if (value >= 80) return '말이 잘 통하고 반응 템포도 좋아. 솔직한 표현이 오히려 관계를 더 단단하게 만들어.';
+      if (value >= 60) return '기본 소통은 괜찮아. 직설보다 부드러운 화법을 쓰면 반응률이 더 올라가.';
+      if (value >= 50) return '표현 방식 차이가 있어. 질문형 대화와 공감 문장을 먼저 쓰는 게 유리해.';
+      return '감정 전달이 자주 엇갈리는 구간이야. 짧고 단정한 문장으로 오해를 줄이는 게 우선이야.';
+    };
+
+    const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');
+
     coreMetricsBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">2</span> 상세 분석' : '핵심 운명 지표'}</h3>
-      <div class="core-metric-grid wizard-dashboard">
-        <article class="gauge-card" data-target="${firstGauge}">
-          <div class="gauge-head"><span class="metric-icon">✦</span><span>${firstLabel}</span></div>
-          <div class="gauge-wrap">
-            <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
-              <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
-              <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
-            </svg>
-            <strong class="gauge-value number-metric">0%</strong>
+      <div class="core-metric-grid wizard-dashboard detail-metric-grid">
+        <article class="gauge-card gauge-detail ${metricState(firstGauge)}" data-target="${firstGauge}">
+          <div class="gauge-head"><span class="metric-icon">✦</span><span>${firstLabel}</span><span class="metric-info" title="두 사람의 충돌 빈도, 회복 탄력, 생활 리듬 합을 바탕으로 계산">i</span></div>
+          <div class="gauge-layout">
+            <div class="gauge-wrap">
+              <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
+                <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
+                <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
+              </svg>
+              <strong class="gauge-value number-metric">0%</strong>
+            </div>
+            <div class="metric-copy"><p>${getMetricNarrative(firstGauge, 'stability')}</p></div>
           </div>
         </article>
-        <article class="gauge-card" data-target="${secondGauge}">
-          <div class="gauge-head"><span class="metric-icon">🧭</span><span>${secondLabel}</span></div>
-          <div class="gauge-wrap">
-            <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
-              <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
-              <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
-            </svg>
-            <strong class="gauge-value number-metric">0%</strong>
+        <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
+          <div class="gauge-head"><span class="metric-icon">🧭</span><span>${secondLabel}</span><span class="metric-info" title="질문 응답 패턴과 감정 표현 성향을 기반으로 계산">i</span></div>
+          <div class="gauge-layout">
+            <div class="gauge-wrap">
+              <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
+                <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
+                <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
+              </svg>
+              <strong class="gauge-value number-metric">0%</strong>
+            </div>
+            <div class="metric-copy"><p>${getMetricNarrative(secondGauge, 'reaction')}</p></div>
           </div>
         </article>
-      </div>
-      <p class="small">지표 해석: 첫 번째는 관계의 기본 안정, 두 번째는 감정 교환의 반응성을 의미해.</p>`;
+      </div>`;
 
     bridgeBox.innerHTML = `<h3>${isCompat ? '세부 운세' : `결과 브릿지 안내 · ${modeLabel} 관점`}</h3><p>${targetName ? `${targetName}님과의` : ''} 현재 패턴을 빠르게 읽어주는 요약입니다. 정밀 리딩에서는 상대 성향/연락 히스토리/시간축을 함께 교차해 행동 순서를 제안합니다.</p>`;
 
