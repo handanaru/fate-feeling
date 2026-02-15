@@ -87,7 +87,17 @@
           <label class="tiny-check"><input type="checkbox" id="partnerBirthTimeUnknown" /> 상대방 태어난 시간 모름</label>
         </div>
 
-        <label for="concern">고민 선택</label>
+        <label>오늘 어떤 고민을 풀어볼까?</label>
+        <div class="concern-grid-main" id="concernGridMain">
+          <button type="button" data-concern="금전/재산">💰 금전</button>
+          <button type="button" data-concern="취업/직장">💼 취업</button>
+          <button type="button" data-concern="애정운">❤️ 애정</button>
+          <button type="button" data-concern="일반 궁합" class="active">💍 궁합</button>
+          <button type="button" data-concern="속궁합">🔞 19금</button>
+          <button type="button" data-concern="사업/창업">🚀 사업</button>
+        </div>
+
+        <label for="concern" class="small">고민(세부)</label>
         <select id="concern" required>
           <option value="결혼 운세">결혼 운세</option>
           <option value="일반 궁합" selected>일반 궁합</option>
@@ -102,7 +112,7 @@
           <option value="키스 궁합">[19금] 키스 궁합</option>
         </select>
 
-        <label for="analysisMode">분석 관점 선택</label>
+        <label for="analysisMode" class="small">분석 관점 선택</label>
         <select id="analysisMode" required>
           <option value="ziwei">자미두수</option>
           <option value="saju" selected>사주</option>
@@ -180,6 +190,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow20"></script>
+  <script src="/js/index.js?v=modeflow21"></script>
 </body>
 </html>

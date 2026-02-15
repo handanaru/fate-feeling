@@ -7,6 +7,7 @@ const concernSelect = document.getElementById('concern');
 const nameGuideLabel = document.getElementById('nameGuideLabel');
 const startSubmitBtn = document.getElementById('startSubmitBtn');
 const onboardingConcernButtons = [...document.querySelectorAll('#onboardingConcernButtons [data-concern]')];
+const concernGridMainButtons = [...document.querySelectorAll('#concernGridMain [data-concern]')];
 const onboardingConcernStatus = document.getElementById('onboardingConcernStatus');
 const audienceTabButtons = [...document.querySelectorAll('#audienceTabs [data-audience]')];
 const firstVisitModal = document.getElementById('firstVisitModal');
@@ -206,6 +207,11 @@ function applyConcern(concern) {
   if (concernSelect) concernSelect.value = concern;
   setAudience(isAdultConcern(concern) ? 'adult' : 'general');
   onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
+  concernGridMainButtons.forEach((btn) => {
+    const key = btn.dataset.concern;
+    const isMatch = key === concern || (key === '속궁합' && concern === '키스 궁합');
+    btn.classList.toggle('active', isMatch);
+  });
   if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 고민: ${concern}`;
 }
 
@@ -434,6 +440,14 @@ audienceTabButtons.forEach((tab) => {
 onboardingConcernButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     syncConcernSelection(btn.dataset.concern);
+    syncConcernUI();
+  });
+});
+concernGridMainButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const concern = btn.dataset.concern;
+    if (!concern) return;
+    syncConcernSelection(concern);
     syncConcernUI();
   });
 });

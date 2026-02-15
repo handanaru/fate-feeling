@@ -832,6 +832,26 @@ input[type="date"]::-webkit-date-and-time-value {
   box-shadow: 0 0 0 1px rgba(255,235,167,.45), 0 0 16px rgba(239,203,100,.25);
 }
 .concern-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin: 10px 0 14px; }
+.concern-grid-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+.concern-grid-main button {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.concern-grid-main button.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  border-color: rgba(255,235,167,.9);
+}
 .concern-item { background: var(--primary-soft); color: var(--text); border:1px solid var(--border); }
 .concern-item.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color:#fff; }
 
