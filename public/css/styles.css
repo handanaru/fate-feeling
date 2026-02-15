@@ -59,6 +59,7 @@ body {
   padding-bottom: 88px;
   animation: pageFade 0.55s ease;
   position: relative;
+  -webkit-text-size-adjust: 100%;
 }
 
 .ff-starfield {
@@ -375,6 +376,7 @@ input, textarea, select {
   padding: 12px 14px;
   background: rgba(255,255,255,.45);
   color: var(--text);
+  font-size: 16px;
 }
 #birthTime {
   font-size: 15px;
@@ -1647,8 +1649,10 @@ button.scan-icon:hover {
 
 @media (max-width: 640px) {
   .weather-hero { grid-template-columns: 1fr; }
-  .analysis-title { font-size: clamp(24px, 7vw, 32px); }
-  #modeHint { font-size: 15px !important; }
+  .analysis-title { font-size: clamp(20px, 5.8vw, 28px); }
+  #modeHint { font-size: 14px !important; }
+  .question-context { font-size: 13px !important; }
+  .question-card h3 { font-size: clamp(18px, 5.2vw, 24px); line-height: 1.42; }
   .concern-pill { margin-left: 0; margin-top: 6px; }
 }
 
