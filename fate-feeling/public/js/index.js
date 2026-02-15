@@ -20,6 +20,7 @@ const modeCard = document.getElementById('modeCard');
 const modeCardTitle = document.getElementById('modeCardTitle');
 const modeCardIcon = document.getElementById('modeCardIcon');
 const modeCardBg = document.getElementById('modeCardBg');
+const backBtnLanding = document.getElementById('backBtnLanding');
 const adultGateModal = document.getElementById('adultGateModal');
 const adultGateConfirm = document.getElementById('adultGateConfirm');
 const adultGateCancel = document.getElementById('adultGateCancel');
@@ -485,6 +486,11 @@ loveStateCancel?.addEventListener('click', () => {
 });
 loveStateModal?.addEventListener('click', (e) => {
   if (e.target === loveStateModal) loveStateCancel?.click();
+});
+
+backBtnLanding?.addEventListener('click', () => {
+  if (window.history.length > 1) history.back();
+  else location.href = '/';
 });
 
 setAudience('general');
