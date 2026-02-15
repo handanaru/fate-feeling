@@ -601,7 +601,7 @@ if (!saved) {
     const heroStability = data.reunionForce || 78;
     const heroReaction = data.recoveryIndex || 67;
 
-    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title hero-name">${heroTitle}</h1><p class="mode-hero-note destiny-line hand-font">${heroSub}</p><div class="hero-grade-badge">GRADE ${bandPreview}</div><div class="fortune-score-head">종합 점수 <strong>${totalScore} / 100</strong></div><div class="fortune-score-bar hero-score-bar"><span class="hero-score-fill" style="--score:${totalScore};"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div></div></div>`;
+    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div class="hero-focus-wrap"><div class="mode-hero-badge hero-eyebrow">✨ 사주 정밀 궁합 리포트</div><h1 class="result-main-title hero-name">${heroTitle}</h1><div class="hero-grade-badge hero-grade-display">GRADE ${bandPreview}</div><p class="mode-hero-note destiny-line hand-font hero-one-liner">${heroSub}</p><div class="fortune-score-head">Score <strong>${totalScore} / 100</strong></div><div class="fortune-score-bar hero-score-bar"><span class="hero-score-fill" style="--score:${totalScore};"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div></div></div>`;
 
     const compatGradeMap = {
       A: { grade: 'A', label: '천생연분: 찰떡궁합', brief: '서로의 부족함을 완벽히 채워주는, 하늘이 맺어준 인연입니다.', detail: '두 분은 오행과 성향이 조화롭고 함께 있을 때 운이 상승하는 결합입니다. 어려운 시기도 서로를 믿고 지혜롭게 넘어갈 수 있어.', tip: '서로에 대한 감사를 잊지 않으면 더할 나위 없는 축복받은 관계야.', color: '#f4cd72' },

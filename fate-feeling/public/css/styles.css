@@ -2020,45 +2020,54 @@ button.scan-icon:hover {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 22px;
-  font-weight: 900;
-  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(239,203,100,.82);
-  background: linear-gradient(135deg, rgba(95,63,163,.55), rgba(44,31,85,.82));
-  color: #fff6cf;
-  box-shadow: 0 0 24px rgba(239,203,100,.45), 0 0 44px rgba(159,116,255,.28);
-  margin-bottom: 8px;
-}
-.mode-hero-note {
-  font-size: 16px;
-  line-height: 1.75;
-  margin: 2px 0 8px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.05);
+  color: #d9deec;
+  margin-bottom: 10px;
 }
 .result-main-title { font-size: clamp(28px, 5vw, 36px); }
+.hero-focus-wrap { text-align: center; padding: 6px 2px; }
 .hero-name {
-  font-size: clamp(24px, 5.8vw, 32px);
-  font-weight: 800;
+  font-size: clamp(30px, 7vw, 44px);
+  font-weight: 900;
   letter-spacing: .2px;
-  line-height: 1.2;
-}
-.mode-hero-note {
-  font-size: 15px;
-  opacity: .9;
-  color: #BDBDBD;
-  margin-bottom: 12px;
+  line-height: 1.15;
+  margin-bottom: 8px;
 }
 .hero-grade-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
+  padding: 12px 22px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.24);
-  background: rgba(255,255,255,.08);
-  color: #f5f6fb;
+  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  font-weight: 900;
+  margin: 4px 0 12px;
+}
+.hero-grade-display {
+  font-size: clamp(26px, 7vw, 42px);
+  line-height: 1;
+  box-shadow: 0 0 18px rgba(239,203,100,.42), 0 0 34px rgba(152,116,255,.28);
+}
+.mode-hero-note.hero-one-liner {
+  font-size: clamp(18px, 4.5vw, 24px);
   font-weight: 800;
-  margin: 2px 0 8px;
+  line-height: 1.4;
+  margin: 2px 0 14px;
+  background: linear-gradient(90deg, #f6e39b, #eebf63);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.reveal-weather .weather-hero {
+  background: linear-gradient(160deg, rgba(24,20,43,.34), rgba(36,25,65,.26));
+  border-radius: 22px;
 }
 .hero-merged-summary {
   margin-top: 14px;
@@ -2068,6 +2077,8 @@ button.scan-icon:hover {
 .hero-merged-summary .grade-emblem {
   margin-bottom: 8px;
 }
+.fortune-score-head { text-align: center; margin-bottom: 6px; }
+.hero-score-bar { max-width: 520px; margin: 0 auto; }
 .hero-score-bar .hero-score-fill {
   display: block;
   height: 100%;
