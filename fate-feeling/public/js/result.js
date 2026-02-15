@@ -842,9 +842,37 @@ if (!saved) {
       };
       const picked = gaeunByWeak[weakKey] || gaeunByWeak.water;
       set[2] = picked.spell;
+      const weakLabel = names[weakKey] || '보완 기운';
+      const placeQuery = encodeURIComponent(`${picked.place} 데이트 추천`);
+      const itemQuery = encodeURIComponent(`${picked.item} 추천`);
+      const imageMap = {
+        wood: { place: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80' },
+        fire: { place: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80' },
+        earth: { place: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80' },
+        metal: { place: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80' },
+        water: { place: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=80' }
+      };
+      const img = imageMap[weakKey] || imageMap.water;
+
       const luckCards = `<div class="luck-scroll luck-${weakKey}">
-        <article class="luck-mini-card"><strong>📍 두 분의 기운을 깨울 장소</strong><p>${picked.place}</p></article>
-        <article class="luck-mini-card"><strong>🎁 조화를 돕는 영험한 물건</strong><p>${picked.item}</p></article>
+        <article class="luck-commerce-card">
+          <div class="luck-label">${userName}님께 필요한 #${weakLabel}</div>
+          <img src="${img.place}" alt="행운의 장소" loading="lazy" />
+          <div class="luck-body">
+            <strong>📿 두 분의 기운을 깨울 장소</strong>
+            <p>${picked.place}</p>
+            <a class="luck-cta" href="https://www.google.com/search?q=${placeQuery}" target="_blank" rel="noopener">비책 실천하기</a>
+          </div>
+        </article>
+        <article class="luck-commerce-card">
+          <div class="luck-label">${targetName || '상대'}님과 조화를 돕는 #${weakLabel}</div>
+          <img src="${img.item}" alt="행운의 아이템" loading="lazy" />
+          <div class="luck-body">
+            <strong>🪷 조화를 돕는 영험한 물건</strong>
+            <p>${picked.item}</p>
+            <a class="luck-cta silver" href="https://www.google.com/search?q=${itemQuery}" target="_blank" rel="noopener">기운 담기</a>
+          </div>
+        </article>
       </div>`;
       return `<div class="metric-deep"><p class="small metric-evidence"><strong>✨ 타고난 관계의 결</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>⚠️ 조심해야 할 기운의 부딪힘</strong><br/>${set[1]}</p><p class="small metric-evidence gaeun-${weakKey}"><strong>🕯 관계를 밝히는 개운법(開運法)</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>📜 두 분을 위한 화합의 비책</strong><br/>${set[3]}</p><div class="small metric-evidence"><strong>🍀 기운을 깨우는 행운의 요소</strong>${luckCards}</div></div>`;
     };

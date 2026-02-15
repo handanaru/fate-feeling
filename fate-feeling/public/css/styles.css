@@ -2599,24 +2599,55 @@ button.scan-icon:hover {
   margin-top: 8px;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 1fr);
-  gap: 10px;
+  grid-auto-columns: minmax(260px, 82%);
+  gap: 12px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  scroll-snap-type: x mandatory;
 }
-.luck-mini-card {
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 12px;
+.luck-commerce-card {
+  scroll-snap-align: start;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  overflow: hidden;
   background: rgba(255,255,255,.04);
-  padding: 10px;
+  box-shadow: 0 0 18px rgba(146,118,216,.22);
 }
-.luck-mini-card strong { display: block; margin-bottom: 6px; color: #f3f5ff; }
-.luck-mini-card p { margin: 0; font-size: 13px; line-height: 1.65; color: #d7dceb; }
-.luck-wood .luck-mini-card { background: linear-gradient(145deg, rgba(74,222,128,.12), rgba(255,255,255,.03)); }
-.luck-fire .luck-mini-card { background: linear-gradient(145deg, rgba(251,113,133,.12), rgba(255,255,255,.03)); }
-.luck-earth .luck-mini-card { background: linear-gradient(145deg, rgba(253,224,71,.12), rgba(255,255,255,.03)); }
-.luck-metal .luck-mini-card { background: linear-gradient(145deg, rgba(248,250,252,.12), rgba(255,255,255,.03)); }
-.luck-water .luck-mini-card { background: linear-gradient(145deg, rgba(56,189,248,.12), rgba(255,255,255,.03)); }
+.luck-label {
+  font-size: 12px;
+  color: #dbe2f5;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.luck-commerce-card img {
+  width: 100%;
+  height: 124px;
+  object-fit: cover;
+  display: block;
+}
+.luck-body { padding: 10px; }
+.luck-body strong { display: block; margin-bottom: 6px; color: #f3f5ff; }
+.luck-body p { margin: 0 0 10px; font-size: 13px; line-height: 1.65; color: #d7dceb; }
+.luck-cta {
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #241400;
+  background: linear-gradient(135deg, #f3d37a, #d7a53d);
+  box-shadow: 0 0 12px rgba(243,211,122,.45);
+}
+.luck-cta.silver {
+  color: #151824;
+  background: linear-gradient(135deg, #d9deec, #aeb8d4);
+  box-shadow: 0 0 10px rgba(189,200,232,.35);
+}
+.luck-wood .luck-commerce-card { background: linear-gradient(145deg, rgba(74,222,128,.10), rgba(255,255,255,.03)); }
+.luck-fire .luck-commerce-card { background: linear-gradient(145deg, rgba(251,113,133,.10), rgba(255,255,255,.03)); }
+.luck-earth .luck-commerce-card { background: linear-gradient(145deg, rgba(253,224,71,.10), rgba(255,255,255,.03)); }
+.luck-metal .luck-commerce-card { background: linear-gradient(145deg, rgba(248,250,252,.10), rgba(255,255,255,.03)); }
+.luck-water .luck-commerce-card { background: linear-gradient(145deg, rgba(56,189,248,.10), rgba(255,255,255,.03)); }
 .pillars-compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2692,12 +2723,7 @@ button.scan-icon:hover {
   #pillarsBox,
   #ossEngineBox { padding: 18px 14px !important; }
   .rule-map-table { grid-template-columns: 1fr; }
-  .luck-scroll {
-    grid-auto-flow: row;
-    grid-auto-columns: auto;
-    grid-template-columns: 1fr;
-    overflow-x: visible;
-  }
+  .luck-scroll { grid-auto-columns: minmax(240px, 88%); }
 }
 .metric-info {
   display: inline-grid;
