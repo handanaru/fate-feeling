@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자미두수 명반 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">✨ Fate & Feeling · 자미두수</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card patterned compact-card">
+      <h1>12궁 명반 회전 리딩</h1>
+      <p data-personal-header></p>
+      <p id="ziweiPersonal">테스트 결과를 불러오면 지금 당신의 기운 흐름에 맞춘 해석이 표시돼요.</p>
+
+      <div class="ziwei-board-wrap">
+        <span class="orbit-dot dot-1" aria-hidden="true"></span>
+        <span class="orbit-dot dot-2" aria-hidden="true"></span>
+        <div class="ziwei-board" id="ziweiBoard" role="listbox" aria-label="12궁 명반"></div>
+        <div class="ziwei-core">主星 흐름</div>
+      </div>
+      <div class="ziwei-detail-card" id="ziweiDetail">명반의 각 칸을 클릭하면 궁위 해석이 열립니다.</div>
+
+      <div class="character-bubble" id="ziweiBubble">
+        🌟 별자리 캐릭터: "오늘은 마음을 서두르지 말고, 당신의 빛이 회복되는 순서를 믿어봐요."
+      </div>
+      <div class="astro-tech-grid" aria-label="명반 기술 라벨">
+        <div>궁위 샘플링: 12/12</div><div>주성 벡터 안정도: 0.82</div>
+        <div>행성 궤도 오차: ±0.03rad</div><div>시기 매칭 라벨: T+2 슬롯</div>
+      </div>
+
+      <div class="grid cards tight-grid">
+        <article class="card compact-card lucky-star-card" id="luckyStarCard">
+          <h3>오늘의 길한 별</h3>
+          <p id="todayLuckyStar">천복성 · 관계 운 회복 +12%</p>
+          <p class="small">오늘은 감정 안정 루틴을 먼저 실행할수록 별의 가호가 커져요.</p>
+          <button class="btn secondary" id="saveTalismanBtn" type="button">오늘의 부적으로 저장</button>
+          <p class="small" id="saveTalismanState"></p>
+        </article>
+        <article class="card compact-card">
+          <h3>24시간 기운 강도</h3>
+          <div class="energy-chart" id="energyChart" aria-label="24시간 기운 강도 차트"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="fortune-card-section" data-card-theme="ziwei">
+      <div class="fortune-card-grid">
+        <button class="fortune-card" data-card-title="명궁 성수" data-interpretation="명궁의 빛이 다시 정렬되고 있어요.|지금은 마음 중심을 먼저 고정하는 것이 우선이에요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>명궁 성수</strong>
+              <small>감정 중심 회복 · 별자리 정렬</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="부부궁 은하선" data-interpretation="관계선은 끊기지 않고 약하게 이어져 있어요.|말 수를 줄이고 진심 한 줄로 접근해보세요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>부부궁 은하선</strong>
+              <small>재접촉 타이밍 · 관계 흐름</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="천이궁 항성문" data-interpretation="움직임의 문이 조용히 열리는 구간이에요.|이번 주 한 번의 정확한 시도가 더 유리해요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>천이궁 항성문</strong>
+              <small>행동 시점 · 저진폭 전략</small>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <aside class="coach-panel" aria-live="polite">
+        <h3>AI 코치</h3>
+        <div class="coach-bubbles">
+          <p class="bubble ai">별자리 카드를 뒤집으면 문장형 코칭이 순서대로 출력됩니다.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid cards tight-grid">
+      <article class="card compact-card" id="luckyItemCard">
+        <h3>오늘의 행운 아이템 뽑기</h3>
+        <p id="luckyItemText">카드를 눌러 오늘의 아이템을 확인하세요.</p>
+        <button class="btn secondary" type="button" id="drawLuckyItemBtn">행운 아이템 뽑기</button>
+      </article>
+      <article class="card compact-card">
+        <h3>오늘 집중 궁</h3>
+        <p id="focusPalace">부부궁 · 감정 속도 조절</p>
+      </article>
+      <article class="card compact-card">
+        <h3>권장 행동</h3>
+        <p id="focusAction">연락 전 하루 정리 루틴으로 감정 진폭을 줄여봐.</p>
+      </article>
+      <article class="card compact-card">
+        <h3>다음 연결</h3>
+        <div class="nav">
+          <a class="btn secondary" href="/experts.html">상담사 바로 보기</a>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/card-section.js"></script>
+  <script src="/js/ziwei.js"></script>
+</body>
+</html>

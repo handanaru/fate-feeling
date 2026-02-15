@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 코치 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce2" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🌙 Fate & Feeling</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card">
+      <h1>AI 코치 대화</h1>
+      <p>지금 감정을 짧게 남기면, 공감과 함께 다음 행동을 차분히 제안해 드려요.</p>
+      <div class="chat-panel" id="chatPanel">
+        <div class="bubble ai">안녕하세요. 오늘 가장 마음에 걸리는 상황을 편하게 적어주세요.</div>
+      </div>
+      <label for="goal">원하는 방향(선택)</label>
+      <input id="goal" placeholder="예: 감정적으로 흔들리지 않고 대화하고 싶어요." />
+      <label for="situation">메시지</label>
+      <textarea id="situation" rows="3" placeholder="예: 연락이 끊긴 지 2주가 지나서 마음이 불안해요."></textarea>
+      <button id="coachBtn" class="btn" style="margin-top:10px;">보내기</button>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/ai.js"></script>
+</body>
+</html>

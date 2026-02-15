@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MBTI 관계 매트릭스 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🧠 Fate & Feeling · MBTI</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card mbti-hero patterned compact-card">
+      <h1>성향 매트릭스 · 대화 타입 비교</h1>
+      <p data-personal-header></p>
+      <p>MBTI 관점에서 감정 처리 방식과 대화 전략을 비교형 UI로 보여줍니다.</p>
+    </section>
+
+    <section class="card compact-card">
+      <div class="mbti-matrix">
+        <div class="cell head"></div><div class="cell head">감정표현</div><div class="cell head">갈등대응</div>
+        <div class="cell head">INFP</div><div class="cell">깊고 조심스러움</div><div class="cell">시간 필요</div>
+        <div class="cell head">ENTJ</div><div class="cell">명확하고 직접적</div><div class="cell">빠른 해결 선호</div>
+      </div>
+    </section>
+
+    <section class="grid cards tight-grid">
+      <article class="card compact-card convo-card soft">
+        <h3>대화 타입 A</h3>
+        <p class="small">공감 먼저 → 사실 정리 순서가 안정적.</p>
+      </article>
+      <article class="card compact-card convo-card strong">
+        <h3>대화 타입 B</h3>
+        <p class="small">핵심 쟁점 먼저 → 해결 행동 합의가 효과적.</p>
+      </article>
+      <article class="card compact-card convo-card mix">
+        <h3>비교 결론</h3>
+        <p class="small">감정 확인 한 문장 + 요청 한 문장을 분리해 전달하세요.</p>
+      </article>
+    </section>
+
+    <section class="card compact-card">
+      <h3>MBTI별 재회 시그널 카드</h3>
+      <div class="grid cards tight-grid">
+        <article class="card compact-card signal-card t-type">
+          <h4>T형 시그널 예시 (INTJ/ENTP)</h4>
+          <p class="small">"우리 대화 패턴 다시 맞춰보자"처럼 해결 중심 문장을 먼저 꺼내면 반응 확률이 올라가요.</p>
+        </article>
+        <article class="card compact-card signal-card f-type">
+          <h4>F형 시그널 예시 (INFP/ENFJ)</h4>
+          <p class="small">"그때 네 마음을 놓쳤던 것 같아" 같은 공감 문장 후 요청을 붙이면 재접촉 톤이 안정돼요.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+</body>
+</html>

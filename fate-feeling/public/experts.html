@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상담사 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🌙 Fate & Feeling</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card experts-top-banner">
+      <p>현재 <strong id="similarUsers" class="number-metric">48</strong>명의 사용자가 비슷한 고민으로 상담을 기다리고 있어요</p>
+      <p class="small">실시간 상담 중 인원 <b id="liveCounselingCount">4</b>명</p>
+    </section>
+
+    <section class="card">
+      <h1>재회 타로/사주 상담사</h1>
+      <p>카드에 마우스를 올리면 상담사의 전문분야와 후기 요약을 확인할 수 있어요.</p>
+      <p class="small">※ 아래 상태는 서버 연동 전 임시로 제공되는 <strong>실시간 추정 상태</strong>입니다.</p>
+    </section>
+
+    <section class="tarot-grid">
+      <article class="tarot-card">
+        <div class="tarot-back"><span class="badge">추천</span><h3>타로 레아</h3><p>✦ 관계 흐름 리딩</p><span class="live-badge">실시간 추정 상태 · 대기 가능성 높음</span><p class="status-updated" data-status-updated></p></div>
+        <div class="tarot-front"><h3>타로 레아</h3><p><strong>개인화 카피</strong> 지금 필요한 건 감정의 언어를 바꾸는 한 문장입니다.</p><button class="btn" type="button" data-open-expert-modal data-expert="타로 레아" data-style="공감형·현실형 균형 조언" data-case="재접촉 전 대화 톤 설계로 답장률 상승">상담하기</button><div class="expert-meta"><span>평균 응답 4분</span></div><p class="expert-live-meta">실시간 추정 · 현재 상담 중 <b data-waiting></b>명</p></div>
+      </article>
+      <article class="tarot-card">
+        <div class="tarot-back"><span class="badge">추천</span><h3>명리 송암</h3><p>✦ 시기/흐름 분석</p><span class="live-badge">실시간 추정 상태 · 대기 가능성 높음</span><p class="status-updated" data-status-updated></p></div>
+        <div class="tarot-front"><h3>명리 송암</h3><p><strong>개인화 카피</strong> 타이밍이 어긋난 인연도 리듬을 맞추면 다시 흐릅니다.</p><button class="btn" type="button" data-open-expert-modal data-expert="명리 송암" data-style="타이밍 중심 전략 코칭" data-case="연락 간격 조정으로 대화 재개">상담하기</button><div class="expert-meta"><span>평균 응답 6분</span></div><p class="expert-live-meta">실시간 추정 · 현재 상담 중 <b data-waiting></b>명</p></div>
+      </article>
+      <article class="tarot-card">
+        <div class="tarot-back"><span class="badge">추천</span><h3>타로 유진</h3><p>✦ 감정 소통 코칭</p><span class="live-badge">실시간 추정 상태 · 대기 가능성 높음</span><p class="status-updated" data-status-updated></p></div>
+        <div class="tarot-front"><h3>타로 유진</h3><p><strong>개인화 카피</strong> 상대의 침묵은 거절이 아니라 준비의 신호일 수 있어요.</p><button class="btn" type="button" data-open-expert-modal data-expert="타로 유진" data-style="정서 안정 + 문장 교정" data-case="감정 표현 톤 조절로 갈등 완화">상담하기</button><div class="expert-meta"><span>평균 응답 5분</span></div><p class="expert-live-meta">실시간 추정 · 현재 상담 중 <b data-waiting></b>명</p></div>
+      </article>
+      <article class="tarot-card">
+        <div class="tarot-back"><span class="badge">추천</span><h3>사주 도현</h3><p>✦ 현실 조언 중심</p><span class="live-badge">실시간 추정 상태 · 대기 가능성 높음</span><p class="status-updated" data-status-updated></p></div>
+        <div class="tarot-front"><h3>사주 도현</h3><p><strong>개인화 카피</strong> 관계 회복은 감정과 일상의 균형부터 다시 세우는 일입니다.</p><button class="btn" type="button" data-open-expert-modal data-expert="사주 도현" data-style="현실 점검·경계 설정형" data-case="과몰입 방지 루틴으로 관계 피로 감소">상담하기</button><div class="expert-meta"><span>평균 응답 7분</span></div><p class="expert-live-meta">실시간 추정 · 현재 상담 중 <b data-waiting></b>명</p></div>
+      </article>
+    </section>
+  </div>
+
+  <div class="modal" id="expertModal" hidden>
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-close-expert-modal>✕</button>
+      <h3 id="expertModalTitle">상담사 연결 안내</h3>
+      <p><strong>대표 답변 스타일</strong> <span id="expertModalStyle"></span></p>
+      <p><strong>최근 성공 사례</strong> <span id="expertModalCase"></span></p>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" data-close-expert-modal>닫기</button>
+        <a class="btn" href="https://example.com" target="_blank" rel="noopener">연결하기</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/experts.js"></script>
+</body>
+</html>
