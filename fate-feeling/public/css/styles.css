@@ -2512,6 +2512,11 @@ button.scan-icon:hover {
   line-height: 1.65;
   font-size: 14px;
 }
+.metric-evidence {
+  margin-top: 6px;
+  color: #b9c2da;
+  font-size: 12px;
+}
 .metric-info {
   display: inline-grid;
   place-items: center;

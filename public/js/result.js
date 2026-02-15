@@ -18,6 +18,7 @@ const revealCtaCard = document.getElementById('revealCtaCard');
 const overlay = document.getElementById('resultOverlay');
 const reportTitle = document.getElementById('reportTitle');
 const saved = localStorage.getItem('ff-result');
+let pendingOrreryEvidence = null;
 
 function animateGaugeMetrics(root = document) {
   const widgets = [...root.querySelectorAll('.gauge-card[data-target]')];
@@ -65,6 +66,39 @@ function hourToBranchLabel(time = '') {
   return '해시(亥時)';
 }
 
+function buildOrreryEvidence(data, concern = '') {
+  const selfPillars = data?.self?.pillars || [];
+  const partnerPillars = data?.partner?.pillars || [];
+  const selfUnseong = selfPillars.map((p) => p.unseong).filter(Boolean);
+  const partnerUnseong = partnerPillars.map((p) => p.unseong).filter(Boolean);
+  const selfSipsin = selfPillars.map((p) => p.stemSipsin).filter(Boolean);
+  const partnerSipsin = partnerPillars.map((p) => p.stemSipsin).filter(Boolean);
+
+  const stabilityHint = concern === '일반 궁합'
+    ? `원국 근거: ${selfUnseong.slice(0, 2).join('·') || '운성 데이터'}${partnerUnseong.length ? ` ↔ ${partnerUnseong.slice(0, 2).join('·')}` : ''} 흐름이 보여서, 관계 안정은 리듬 조절형으로 해석했어.`
+    : `원국 근거: ${selfUnseong.slice(0, 2).join('·') || '운성 데이터'} 흐름으로 안정도를 계산했어.`;
+
+  const reactionHint = concern === '일반 궁합'
+    ? `성향 근거: ${selfSipsin.slice(0, 2).join('·') || '십신 데이터'}${partnerSipsin.length ? ` / ${partnerSipsin.slice(0, 2).join('·')}` : ''} 조합에서 표현 템포 차이가 보여 소통 반응도에 반영했어.`
+    : `성향 근거: ${selfSipsin.slice(0, 2).join('·') || '십신 데이터'} 조합으로 반응 지표를 보정했어.`;
+
+  return { stabilityHint, reactionHint };
+}
+
+function applyOrreryEvidence(evidence) {
+  if (!evidence) return;
+  const s = document.getElementById('metricEvidenceStability');
+  const r = document.getElementById('metricEvidenceReaction');
+  const b = document.getElementById('briefingEvidence');
+  if (!s || !r) {
+    pendingOrreryEvidence = evidence;
+    return;
+  }
+  s.textContent = evidence.stabilityHint;
+  r.textContent = evidence.reactionHint;
+  if (b) b.textContent = `${evidence.stabilityHint} ${evidence.reactionHint}`;
+}
+
 async function renderOrreryEngineBox(intake = {}, concern = '') {
   if (!ossEngineBox) return;
   ossEngineBox.innerHTML = '<h3>오러리 기반 원국 계산 중...</h3>';
@@ -101,6 +135,8 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       ${partnerPillars.length ? `<p class="small">상대 사주: <strong>${partnerPillars.join(' · ')}</strong></p>` : ''}
       <p class="small">엔진: ${data.engine} · 라이선스: ${data.license}</p>
       <p class="small"><a href="${data.sourceUrl}" target="_blank" rel="noopener">소스코드 공개 저장소 보기</a></p>`;
+
+    applyOrreryEvidence(buildOrreryEvidence(data, concern));
   } catch (e) {
     ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 연결</h3><p class="small">엔진 계산에 실패했어. (${e.message || 'unknown'})</p>`;
   }
@@ -485,7 +521,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${getMetricNarrative(firstGauge, 'stability')}</p></div>
+            <div class="metric-copy"><p>${getMetricNarrative(firstGauge, 'stability')}</p><p class="small metric-evidence" id="metricEvidenceStability">원국 근거를 불러오는 중...</p></div>
           </div>
         </article>
         <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
@@ -498,7 +534,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${getMetricNarrative(secondGauge, 'reaction')}</p></div>
+            <div class="metric-copy"><p>${getMetricNarrative(secondGauge, 'reaction')}</p><p class="small metric-evidence" id="metricEvidenceReaction">성향 근거를 불러오는 중...</p></div>
           </div>
         </article>
       </div>`;
@@ -509,7 +545,8 @@ if (!saved) {
 
     renderTimelineCard(buildYearTimelineData(concern), concern);
 
-    briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p>`;
+    briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p><p class="small" id="briefingEvidence">원국 근거를 불러오면 이 브리핑에 자동 반영돼.</p>`;
+    if (pendingOrreryEvidence) applyOrreryEvidence(pendingOrreryEvidence);
 
     const keywordByConcern = {
       '금전/재산': ['현금흐름', '분산', '기회포착'],
