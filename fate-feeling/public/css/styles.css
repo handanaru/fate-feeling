@@ -2521,6 +2521,12 @@ button.scan-icon:hover {
 .metric-copy,
 .metric-block,
 .metric-accordion { min-width: 0; }
+.metric-copy p,
+.metric-evidence,
+.metric-block p {
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
 .metric-copy p {
   margin: 0;
   color: #E0E0E0;
@@ -2686,6 +2692,12 @@ button.scan-icon:hover {
   #pillarsBox,
   #ossEngineBox { padding: 18px 14px !important; }
   .rule-map-table { grid-template-columns: 1fr; }
+  .luck-scroll {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+  }
 }
 .metric-info {
   display: inline-grid;
@@ -2707,8 +2719,6 @@ button.scan-icon:hover {
 @media (max-width: 640px) {
   .gauge-detail .gauge-layout { grid-template-columns: 1fr; }
   .gauge-detail .gauge-wrap { margin-inline: auto; }
-  .reveal-page .card,
-  .ziwei-report-page .card { overflow-x: clip; }
 }
 
 .golden-calendar { display:flex; gap:10px; flex-wrap:wrap; margin: 8px 0; }
