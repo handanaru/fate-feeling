@@ -2628,6 +2628,7 @@ button.scan-icon:hover {
 .luck-body { padding: 10px; }
 .luck-body strong { display: block; margin-bottom: 6px; color: #f3f5ff; }
 .luck-body p { margin: 0 0 10px; font-size: 13px; line-height: 1.65; color: #d7dceb; }
+.luck-body .small { margin-top: -4px; margin-bottom: 10px; color: #bfc7de; font-size: 12px; }
 .luck-cta {
   display: inline-block;
   text-decoration: none;

@@ -843,8 +843,11 @@ if (!saved) {
       const picked = gaeunByWeak[weakKey] || gaeunByWeak.water;
       set[2] = picked.spell;
       const weakLabel = names[weakKey] || '보완 기운';
-      const placeQuery = encodeURIComponent(`${picked.place} 데이트 추천`);
-      const itemQuery = encodeURIComponent(`${picked.item} 추천`);
+      const links = (window.FF_LUCKY_LINKS && window.FF_LUCKY_LINKS[weakKey]) || {};
+      const placeLink = links.place?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.place} 데이트 추천`)}`;
+      const itemLink = links.item?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.item} 추천`)}`;
+      const placeLinkLabel = links.place?.label || '추천 장소';
+      const itemLinkLabel = links.item?.label || '추천 아이템';
       const imageMap = {
         wood: { place: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80' },
         fire: { place: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80' },
@@ -861,7 +864,8 @@ if (!saved) {
           <div class="luck-body">
             <strong>📿 두 분의 기운을 깨울 장소</strong>
             <p>${picked.place}</p>
-            <a class="luck-cta" href="https://www.google.com/search?q=${placeQuery}" target="_blank" rel="noopener">비책 실천하기</a>
+            <p class="small">연결: ${placeLinkLabel}</p>
+            <a class="luck-cta" href="${placeLink}" target="_blank" rel="noopener">비책 실천하기</a>
           </div>
         </article>
         <article class="luck-commerce-card">
@@ -870,7 +874,8 @@ if (!saved) {
           <div class="luck-body">
             <strong>🪷 조화를 돕는 영험한 물건</strong>
             <p>${picked.item}</p>
-            <a class="luck-cta silver" href="https://www.google.com/search?q=${itemQuery}" target="_blank" rel="noopener">기운 담기</a>
+            <p class="small">연결: ${itemLinkLabel}</p>
+            <a class="luck-cta silver" href="${itemLink}" target="_blank" rel="noopener">기운 담기</a>
           </div>
         </article>
       </div>`;
