@@ -49,10 +49,7 @@
 body {
   margin: 0;
   font-family: var(--font-body);
-  background:
-    linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-mid) 48%, var(--bg-grad-end) 100%),
-    radial-gradient(1200px 620px at 8% -12%, rgba(177, 146, 255, 0.22), transparent 65%),
-    radial-gradient(980px 680px at 86% 8%, rgba(95, 130, 228, 0.16), transparent 72%);
+  background: #0A0B14;
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
@@ -74,10 +71,9 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(255,255,255,.05) 0.6px, transparent 0.6px);
-  background-size: 3px 3px;
-  opacity: .2;
-  mix-blend-mode: soft-light;
+  background:
+    radial-gradient(680px 420px at 12% 10%, rgba(61, 78, 160, 0.22), transparent 66%),
+    radial-gradient(780px 520px at 88% 92%, rgba(80, 48, 150, 0.24), transparent 68%);
   z-index: -1;
 }
 
@@ -1642,7 +1638,7 @@ select,
   padding: 7px 11px;
   font-weight: 700;
   letter-spacing: .01em;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255,255,255,.1);
   box-shadow: 0 0 12px rgba(0,0,0,.16);
 }
 .compat-keyword-tag.good {
@@ -1656,13 +1652,13 @@ select,
   color: #ffe3b5;
 }
 #mindKeywordCard {
-  background: linear-gradient(160deg, rgba(31, 18, 56, .94), rgba(50, 28, 85, .9));
-  border: 1px solid rgba(190, 158, 255, .35);
+  background: linear-gradient(160deg, rgba(31, 18, 56, .82), rgba(50, 28, 85, .76));
+  border: 1px solid rgba(255,255,255,.14);
 }
 #mindKeywordCard h3,
 #mindKeywordCard .small,
-#mindKeywordCard p { color: #f4ecff; }
-#mindKeywordCard .small { opacity: .9; }
+#mindKeywordCard p { color: #E0E0E0; }
+#mindKeywordCard .small { opacity: .92; }
 @media (max-width: 640px) {
   .lucky-grid { grid-template-columns: 1fr; }
 }
@@ -2370,9 +2366,35 @@ button.scan-icon:hover {
 }
 
 #mindKeywordCard {
-  background:
-   linear-gradient(160deg, rgba(249, 235, 206, .95), rgba(237, 217, 173, .78)),
-   repeating-linear-gradient(0deg, rgba(107,79,38,.09) 0 2px, transparent 2px 6px);
+  background: linear-gradient(160deg, rgba(31, 18, 56, .82), rgba(50, 28, 85, .76));
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.reveal-page,
+.ziwei-report-page {
+  color: #E0E0E0;
+}
+.reveal-page h1,
+.reveal-page h2,
+.reveal-page h3,
+.ziwei-report-page h1,
+.ziwei-report-page h2,
+.ziwei-report-page h3 {
+  color: #f3f4f8;
+}
+.reveal-page p,
+.reveal-page .small,
+.ziwei-report-page p,
+.ziwei-report-page .small {
+  color: #E0E0E0;
+}
+.reveal-page .card,
+.ziwei-report-page .card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.34);
 }
 
 .locked-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 10px; }
@@ -2450,12 +2472,8 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.16), transparent 60%),
-    radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.13), transparent 60%),
-    radial-gradient(1px 1px at 60% 80%, rgba(255,255,255,.12), transparent 60%);
-  animation: particleDrift 18s linear infinite;
-  opacity: .55;
+  background: none;
+  opacity: 0;
 }
 @keyframes particleDrift {
   0% { transform: translateY(0); }
