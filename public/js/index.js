@@ -21,6 +21,7 @@ const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
 const analysisModeGridButtons = [...document.querySelectorAll('#analysisModeGrid [data-mode]')];
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
+const onboardingTotalFortuneBtn = document.getElementById('onboardingTotalFortuneBtn');
 const modeCard = document.getElementById('modeCard');
 const modeCardTitle = document.getElementById('modeCardTitle');
 const modeCardIcon = document.getElementById('modeCardIcon');
@@ -608,6 +609,11 @@ adultQuickBtn?.addEventListener('click', () => {
   syncConcernSelection('속궁합');
   syncConcernUI();
   if (firstVisitModal) firstVisitModal.hidden = false;
+});
+
+onboardingTotalFortuneBtn?.addEventListener('click', () => {
+  if (firstVisitModal) firstVisitModal.hidden = true;
+  location.href = '/total-fortune.html';
 });
 
 setAudience('general');
