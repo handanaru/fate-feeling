@@ -814,14 +814,39 @@ if (!saved) {
       const setRaw = (toneMap[gradeBand] || toneMap.B)[type] || toneMap.B[type];
       const set = [...setRaw];
       const gaeunByWeak = {
-        wood: '함께 <span class="spell-key">숲길</span>을 걷거나 <span class="spell-key">초록빛 식물</span>을 가까이 두세요. 새로운 시작의 생명력이 두 분의 관계에 활력을 불어넣어 줍니다.',
-        fire: '따뜻한 <span class="spell-key">차</span>를 마시며 밝은 조명 아래서 대화하세요. 차가워진 감정의 벽을 녹이고 서로의 진심을 밝게 비춰줍니다.',
-        earth: '<span class="spell-key">도자기 공방</span> 체험이나 황토색 아이템을 활용해 보세요. 흔들리는 마음을 다잡고 관계의 단단한 뿌리를 내리게 합니다.',
-        metal: '<span class="spell-key">금속 액세서리</span>를 착용하거나 정갈한 공간에서 시간을 보내세요. 흐트러진 생각의 질서를 잡고 명확한 결단을 돕습니다.',
-        water: '<span class="spell-key">강변 산책</span>이나 푸른색 소품을 가까이하세요. 막힌 대화의 흐름을 유연하게 만들고 깊은 공감을 이끌어냅니다.'
+        wood: {
+          spell: '함께 <span class="spell-key">숲길</span>을 걷거나 <span class="spell-key">초록빛 식물</span>을 가까이 두세요. 새로운 시작의 생명력이 두 분의 관계에 활력을 불어넣어 줍니다.',
+          place: '숲길 · 공원 · 화원 · 목조 카페',
+          item: '나무 액세서리 · 식물 · 서적 · 초록 소품'
+        },
+        fire: {
+          spell: '따뜻한 <span class="spell-key">차</span>를 마시며 밝은 조명 아래서 대화하세요. 차가워진 감정의 벽을 녹이고 서로의 진심을 밝게 비춰줍니다.',
+          place: '햇빛 테라스 · 번화가 · 공연장',
+          item: '시트러스/플로럴 향수 · 붉은 포인트 의상 · 조명'
+        },
+        earth: {
+          spell: '<span class="spell-key">도자기 공방</span> 체험이나 황토색 아이템을 활용해 보세요. 흔들리는 마음을 다잡고 관계의 단단한 뿌리를 내리게 합니다.',
+          place: '사찰 · 고궁 · 공예방 · 흙길 산책로',
+          item: '도자기 소품 · 황토색 지갑 · 호안석 팔찌'
+        },
+        metal: {
+          spell: '<span class="spell-key">금속 액세서리</span>를 착용하거나 정갈한 공간에서 시간을 보내세요. 흐트러진 생각의 질서를 잡고 명확한 결단을 돕습니다.',
+          place: '현대적 빌딩 숲 · 정갈한 서재 · 보석상',
+          item: '금속 시계 · 은색 주얼리 · 백색 계열 향수'
+        },
+        water: {
+          spell: '<span class="spell-key">강변 산책</span>이나 푸른색 소품을 가까이하세요. 막힌 대화의 흐름을 유연하게 만들고 깊은 공감을 이끌어냅니다.',
+          place: '호숫가 · 바다 · 분수 광장 · 온천',
+          item: '안경 · 푸른 스카프 · 수분감 화장품'
+        }
       };
-      set[2] = gaeunByWeak[weakKey] || gaeunByWeak.water;
-      return `<div class="metric-deep"><p class="small metric-evidence"><strong>✨ 타고난 관계의 결</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>⚠️ 조심해야 할 기운의 부딪힘</strong><br/>${set[1]}</p><p class="small metric-evidence gaeun-${weakKey}"><strong>🕯 관계를 밝히는 개운법(開運法)</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>📜 두 분을 위한 화합의 비책</strong><br/>${set[3]}</p></div>`;
+      const picked = gaeunByWeak[weakKey] || gaeunByWeak.water;
+      set[2] = picked.spell;
+      const luckCards = `<div class="luck-scroll luck-${weakKey}">
+        <article class="luck-mini-card"><strong>📍 두 분의 기운을 깨울 장소</strong><p>${picked.place}</p></article>
+        <article class="luck-mini-card"><strong>🎁 조화를 돕는 영험한 물건</strong><p>${picked.item}</p></article>
+      </div>`;
+      return `<div class="metric-deep"><p class="small metric-evidence"><strong>✨ 타고난 관계의 결</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>⚠️ 조심해야 할 기운의 부딪힘</strong><br/>${set[1]}</p><p class="small metric-evidence gaeun-${weakKey}"><strong>🕯 관계를 밝히는 개운법(開運法)</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>📜 두 분을 위한 화합의 비책</strong><br/>${set[3]}</p><div class="small metric-evidence"><strong>🍀 기운을 깨우는 행운의 요소</strong>${luckCards}</div></div>`;
     };
 
     const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');

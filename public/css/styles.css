@@ -2584,6 +2584,28 @@ button.scan-icon:hover {
 .metric-deep .metric-evidence.gaeun-metal { background: rgba(248,250,252,.10); }
 .metric-deep .metric-evidence.gaeun-water { background: rgba(56,189,248,.10); }
 .spell-key { color: #efcb64; font-weight: 700; }
+.luck-scroll {
+  margin-top: 8px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.luck-mini-card {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  padding: 10px;
+}
+.luck-mini-card strong { display: block; margin-bottom: 6px; color: #f3f5ff; }
+.luck-mini-card p { margin: 0; font-size: 13px; line-height: 1.65; color: #d7dceb; }
+.luck-wood .luck-mini-card { background: linear-gradient(145deg, rgba(74,222,128,.12), rgba(255,255,255,.03)); }
+.luck-fire .luck-mini-card { background: linear-gradient(145deg, rgba(251,113,133,.12), rgba(255,255,255,.03)); }
+.luck-earth .luck-mini-card { background: linear-gradient(145deg, rgba(253,224,71,.12), rgba(255,255,255,.03)); }
+.luck-metal .luck-mini-card { background: linear-gradient(145deg, rgba(248,250,252,.12), rgba(255,255,255,.03)); }
+.luck-water .luck-mini-card { background: linear-gradient(145deg, rgba(56,189,248,.12), rgba(255,255,255,.03)); }
 .pillars-compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
