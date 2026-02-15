@@ -532,22 +532,63 @@ function renderLuckyGuide(elementPack) {
   const avg = self.map((v, i) => Math.round((v + partner[i]) / 2));
   const minIdx = avg.indexOf(Math.min(...avg));
   const lacking = keys[minIdx];
+  const keyMap = { '목': 'wood', '화': 'fire', '토': 'earth', '금': 'metal', '수': 'water' };
+  const weakKey = keyMap[lacking] || 'water';
+
   const luckyMap = {
-    '목': { place: '고즈넉한 숲길 산책로', item: '원목 액세서리', color: '그린', reason: '부족한 목(木) 기운을 채워 관계의 성장성과 회복력을 높여줘.' },
-    '화': { place: '노을이 보이는 루프탑', item: '레드 포인트 소품', color: '레드/코랄', reason: '화(火) 기운을 보강해 표현력과 열정을 자연스럽게 끌어올려.' },
-    '토': { place: '고즈넉한 사찰/정원', item: '도자기·스톤 소품', color: '머스타드/베이지', reason: '토(土) 기운이 안정감을 주어 관계의 중심을 단단히 잡아줘.' },
-    '금': { place: '미술관/모던 라운지', item: '메탈 시계·실버링', color: '실버/화이트', reason: '금(金) 기운으로 판단력과 질서를 높여 갈등을 줄여줘.' },
-    '수': { place: '물소리 들리는 카페', item: '블루 계열 아이템', color: '네이비/딥블루', reason: '수(水) 기운을 채워 감정 열기를 식히고 대화 흐름을 부드럽게 해줘.' }
+    '목': { place: '숲길·공원·화원·목조 카페', item: '나무 액세서리·식물·서적·초록 소품', color: '그린', reason: '성장 에너지를 살려 관계 정체를 풀어줘.' },
+    '화': { place: '햇빛 테라스·번화가·공연장', item: '시트러스 향수·붉은 포인트 의상·조명', color: '레드/코랄', reason: '차가운 감정을 녹이고 대화 온도를 올려줘.' },
+    '토': { place: '사찰·고궁·공예방·흙길 산책로', item: '도자기 소품·황토색 지갑·원석 팔찌', color: '머스타드/베이지', reason: '흔들리는 기운을 안정시켜 신뢰를 단단히 해줘.' },
+    '금': { place: '빌딩 숲·정갈한 서재·보석상', item: '금속 시계·실버 주얼리·화이트 향수', color: '실버/화이트', reason: '흐트러진 생각을 정돈해 오해를 줄여줘.' },
+    '수': { place: '호숫가·바다·분수 광장·온천', item: '블루 스카프·안경·수분 케어 아이템', color: '네이비/딥블루', reason: '막힌 대화의 흐름을 부드럽게 풀어줘.' }
   };
   const picked = luckyMap[lacking] || luckyMap['수'];
+
+  const links = (window.FF_LUCKY_LINKS && window.FF_LUCKY_LINKS[weakKey]) || {};
+  const placeLink = links.place?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.place} 데이트`)}`;
+  const itemLink = links.item?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.item} 구매`)}`;
+
+  const imgMap = {
+    wood: { place: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80' },
+    fire: { place: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80' },
+    earth: { place: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80' },
+    metal: { place: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80' },
+    water: { place: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80', item: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=80' }
+  };
+  const img = imgMap[weakKey] || imgMap.water;
+
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=96x96&data=${encodeURIComponent(location.origin + location.pathname)}`;
+
   luckyGuideBox.hidden = false;
   luckyGuideBox.innerHTML = `<h3><span class="section-badge">3</span> 행운 가이드</h3>
-    <div class="lucky-grid">
-      <article class="lucky-item"><h4>📍 행운의 장소</h4><strong>${picked.place}</strong><p class="small">${picked.reason}</p></article>
-      <article class="lucky-item"><h4>🎁 행운의 아이템</h4><strong>${picked.item}</strong><p class="small">부족한 ${lacking} 기운을 보완해 관계의 균형을 맞춰줘.</p></article>
+    <p class="small">✨ ${lacking}(기운)을 보완하면 두 분의 흐름이 더 부드러워져.</p>
+    <div class="lucky-commerce-slider ${weakKey}">
+      <article class="lucky-slide-card stagger-1">
+        <img src="${img.place}" alt="행운의 장소" loading="lazy" />
+        <div class="slide-overlay">
+          <p class="small">${picked.reason}</p>
+          <strong>📍 두 분의 기운을 깨울 장소</strong>
+          <p>${picked.place}</p>
+          <a class="lucky-cta-btn" href="${placeLink}" target="_blank" rel="noopener">근처 행운 장소 보기</a>
+        </div>
+      </article>
+      <article class="lucky-slide-card stagger-2">
+        <img src="${img.item}" alt="행운의 아이템" loading="lazy" />
+        <div class="slide-overlay">
+          <p class="small">${lacking} 기운을 채우는 운명적 아이템</p>
+          <strong>🎁 조화를 돕는 영험한 물건</strong>
+          <p>${picked.item}</p>
+          <a class="lucky-cta-btn alt" href="${itemLink}" target="_blank" rel="noopener">이 아이템 보러가기</a>
+        </div>
+      </article>
     </div>
-    <p class="lucky-color">🎨 두 분의 행운 컬러: <strong>${picked.color}</strong></p>
-    <div class="cta-row"><button class="btn secondary">이 아이템 보러가기</button><button class="btn secondary">근처 행운 장소 보기</button></div>`;
+    <div class="lucky-footer-row">
+      <span class="lucky-color-badge">🎨 두 분의 행운 컬러: ${picked.color}</span>
+      <div class="lucky-branding">
+        <img src="${qrUrl}" alt="공유 QR" />
+        <small>Powered by Fate & Feeling</small>
+      </div>
+    </div>`;
 }
 
 if (!saved) {
