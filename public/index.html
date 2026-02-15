@@ -90,7 +90,7 @@
         <label for="concern">카테고리 선택</label>
         <select id="concern" required>
           <option value="결혼 운세">결혼 운세</option>
-          <option value="일반 궁합">일반 궁합</option>
+          <option value="일반 궁합" selected>일반 궁합</option>
           <option value="재회운">재회운</option>
           <option value="애정운">애정운</option>
           <option value="커플운">커플운</option>
@@ -105,7 +105,7 @@
         <label for="analysisMode">분석 관점 선택</label>
         <select id="analysisMode" required>
           <option value="ziwei">자미두수</option>
-          <option value="saju">사주</option>
+          <option value="saju" selected>사주</option>
           <option value="tarot">타로</option>
           <option value="astro">점성술</option>
           <option value="mbti">MBTI</option>
@@ -125,8 +125,8 @@
         <button type="button" data-audience="adult">19세 버전</button>
       </div>
       <div class="onboarding-chips" id="onboardingConcernButtons">
-        <button type="button" data-audience="general" data-concern="결혼 운세" class="active">💍 결혼 운세</button>
-        <button type="button" data-audience="general" data-concern="일반 궁합">💞 일반 궁합</button>
+        <button type="button" data-audience="general" data-concern="결혼 운세">💍 결혼 운세</button>
+        <button type="button" data-audience="general" data-concern="일반 궁합" class="active">💞 일반 궁합</button>
         <button type="button" data-audience="general" data-concern="재회운">🌈 재회운</button>
         <button type="button" data-audience="general" data-concern="애정운">💗 애정운</button>
         <button type="button" data-audience="general" data-concern="커플운">💕 커플운</button>
@@ -137,15 +137,15 @@
         <button type="button" data-audience="adult" data-concern="속궁합">🔞 속궁합</button>
         <button type="button" data-audience="adult" data-concern="키스 궁합">💋 키스 궁합</button>
       </div>
-      <p class="small" id="onboardingConcernStatus">현재 카테고리: 결혼 운세</p>
+      <p class="small" id="onboardingConcernStatus">현재 카테고리: 일반 궁합</p>
       <div class="onboarding-chips" id="onboardingModeButtons">
-        <button type="button" data-mode="saju">☯ 사주</button>
+        <button type="button" data-mode="saju" class="active">☯ 사주</button>
         <button type="button" data-mode="tarot">🃏 타로</button>
-        <button type="button" data-mode="ziwei" class="active">✦ 자미두수</button>
+        <button type="button" data-mode="ziwei">✦ 자미두수</button>
         <button type="button" data-mode="astro">◎ 점성술</button>
         <button type="button" data-mode="mbti">◆ MBTI</button>
       </div>
-      <p class="small" id="onboardingModeStatus">현재 관점: 자미두수</p>
+      <p class="small" id="onboardingModeStatus">현재 관점: 사주</p>
       <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
       <div class="cta-row">
         <button class="btn secondary" type="button" id="onboardingPreviewBtn">관점 미리보기</button>
@@ -182,6 +182,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow16"></script>
+  <script src="/js/index.js?v=modeflow17"></script>
 </body>
 </html>

@@ -43,8 +43,8 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     birthTime: normalizedBirthTime,
     birthTimeUnknown: normalizedBirthTime.includes('모름'),
     birthPlace: birthPlace || prev.birthPlace || '서울',
-    concern: concern || prev.concern || '결혼 운세',
-    mode: mode || prev.mode || 'ziwei',
+    concern: concern || prev.concern || '일반 궁합',
+    mode: mode || prev.mode || 'saju',
     mbti: prev.mbti || 'INFP',
     partnerName: partner.name || prev.partnerName || '',
     partnerGender: partner.gender || prev.partnerGender || '기타',
@@ -138,8 +138,8 @@ const concernCopyMap = {
 };
 
 function concernMeta() {
-  const key = concernSelect?.value || '결혼 운세';
-  return concernCopyMap[key] || concernCopyMap['결혼 운세'];
+  const key = concernSelect?.value || '일반 궁합';
+  return concernCopyMap[key] || concernCopyMap['일반 궁합'];
 }
 
 const ALWAYS_PAIR_CONCERNS = ['일반 궁합', '결혼 운세', '속궁합', '키스 궁합'];
@@ -173,7 +173,7 @@ function setDualStep(step = 'self') {
   if (partnerFields) partnerFields.hidden = step !== 'partner';
 }
 
-function updateInputLayout(concern = concernSelect?.value || '결혼 운세') {
+function updateInputLayout(concern = concernSelect?.value || '일반 궁합') {
   const state = getLoveState();
   const needPartner = requiresPartner(concern, state);
   if (dualStepNav) dualStepNav.hidden = !needPartner;
@@ -289,8 +289,8 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const birth = (document.getElementById('birth')?.value || '').trim();
   const birthTime = (document.getElementById('birthTime')?.value || '').trim();
   const birthPlace = (document.getElementById('birthPlace')?.value || '').trim();
-  const concern = (document.getElementById('concern')?.value || '결혼 운세').trim();
-  const mode = (document.getElementById('analysisMode')?.value || 'ziwei').trim();
+  const concern = (document.getElementById('concern')?.value || '일반 궁합').trim();
+  const mode = (document.getElementById('analysisMode')?.value || 'saju').trim();
   const gender = (document.getElementById('gender')?.value || '기타').trim();
   const partnerName = (document.getElementById('partnerName')?.value || '').trim();
   const partnerGender = (document.getElementById('partnerGender')?.value || '기타').trim();
@@ -384,8 +384,8 @@ function syncModeUI(mode) {
 }
 
 function syncConcernUI() {
-  const concern = concernSelect?.value || '결혼 운세';
-  const meta = concernCopyMap[concern] || concernCopyMap['결혼 운세'];
+  const concern = concernSelect?.value || '일반 궁합';
+  const meta = concernCopyMap[concern] || concernCopyMap['일반 궁합'];
   animateTrustCounter(meta.count);
   if (trustCounterTail) softSwapText(trustCounterTail, meta.counterTail);
   softSwapText(impactCopy, meta.headline);
@@ -399,7 +399,7 @@ function syncConcernUI() {
     const stateLabel = ({ solo: '완전한 솔로', crush: '썸/짝사랑', dating: '연애 중', reunion: '이별/재회 고민' }[state] || '미선택');
     onboardingConcernStatus.textContent = `현재 카테고리: ${concern} · 상태: ${stateLabel}`;
   }
-  syncModeUI(analysisModeSelect?.value || 'ziwei');
+  syncModeUI(analysisModeSelect?.value || 'saju');
 }
 
 dualStepButtons.forEach((btn) => {
@@ -494,6 +494,6 @@ backBtnLanding?.addEventListener('click', () => {
 });
 
 setAudience('general');
-syncConcernSelection(concernSelect?.value || '결혼 운세');
+syncConcernSelection(concernSelect?.value || '일반 궁합');
 syncConcernUI();
 openOnboardingIfNeeded();
