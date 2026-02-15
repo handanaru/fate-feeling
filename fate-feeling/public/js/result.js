@@ -363,7 +363,7 @@ if (!saved) {
         <p class="grade-label"><strong>${gradeMeta.label}</strong></p>
         <p>${gradeMeta.brief}</p>
         <p class="small">${gradeMeta.detail}</p>
-        <p class="grade-tip">💡 행운의 조언: ${gradeMeta.tip}</p>`;
+        <p class="small grade-tip-inline">💡 행운의 조언: ${gradeMeta.tip}</p>`;
     }
 
     if (concern === '일반 궁합') {

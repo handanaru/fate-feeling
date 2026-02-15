@@ -1601,13 +1601,7 @@ select,
 .timeline-panel.tone-future { background: linear-gradient(165deg, rgba(96,164,124,.14), rgba(52,101,87,.08)); padding: 10px; border-radius: 14px; }
 .timeline-tip { margin-top: 6px; }
 .grade-card, .social-share-card { border: 1px solid var(--border); }
-.reveal-page .grade-card {
-  background: linear-gradient(165deg, rgba(13,14,24,.78), rgba(24,17,44,.72));
-}
-.grade-emblem {
-  color: #000;
-}
-.grade-emblem strong { color: #000 !important; }
+/* grade card override removed */
 .grade-emblem {
   display: inline-flex;
   align-items: center;
@@ -1619,12 +1613,9 @@ select,
 }
 .grade-emblem strong { font-size: 22px; color: var(--grade-color); }
 .grade-label { margin: 8px 0 4px; }
-.grade-tip {
+.grade-tip-inline {
   margin-top: 8px;
-  border-radius: 12px;
-  padding: 9px 10px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.08);
+  color: #cfd3df;
 }
 .five-elements-card { border: 1px solid var(--border); }
 .five-wrap { display: grid; place-items: center; margin: 8px 0; }
