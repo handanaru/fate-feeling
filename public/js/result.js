@@ -621,7 +621,7 @@ if (!saved) {
     const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
     if (resultBox) {
-      resultBox.insertAdjacentHTML('beforeend', `<div class="hero-merged-summary"><div class="grade-emblem" style="--grade-color:${gradeMeta.color}">GRADE <strong>${gradeMeta.grade}</strong></div><p class="grade-label"><strong>${gradeMeta.label}</strong></p><p class="small">${gradeMeta.brief}</p></div>`);
+      resultBox.insertAdjacentHTML('beforeend', `<div class="hero-merged-summary"><p class="grade-label"><strong>${gradeMeta.label}</strong></p><p class="small">${gradeMeta.brief}</p></div>`);
     }
 
     if (gradeBox) {
