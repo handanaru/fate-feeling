@@ -4,6 +4,9 @@ const firstVisitModal = document.getElementById('firstVisitModal');
 const hideOnboardingForever = document.getElementById('hideOnboardingForever');
 const onboardingStartBtn = document.getElementById('onboardingStartBtn');
 const onboardingPreviewBtn = document.getElementById('onboardingPreviewBtn');
+const analysisModeSelect = document.getElementById('analysisMode');
+const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
+const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 
 function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
@@ -101,6 +104,23 @@ function openOnboardingIfNeeded() {
   if (hide) return;
   setTimeout(() => { firstVisitModal.hidden = false; }, 320);
 }
+
+function modeLabel(mode) {
+  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', mbti: 'MBTI' }[mode] || '자미두수');
+}
+
+function syncModeUI(mode) {
+  if (!mode) return;
+  if (analysisModeSelect) analysisModeSelect.value = mode;
+  onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
+  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${modeLabel(mode)}`;
+}
+
+onboardingModeButtons.forEach((btn) => {
+  btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
+});
+analysisModeSelect?.addEventListener('change', () => syncModeUI(analysisModeSelect.value));
+if (analysisModeSelect?.value) syncModeUI(analysisModeSelect.value);
 
 onboardingStartBtn?.addEventListener('click', closeOnboarding);
 onboardingPreviewBtn?.addEventListener('click', () => {

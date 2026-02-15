@@ -707,12 +707,23 @@ input, textarea, select {
   gap: 8px;
   margin: 10px 0 8px;
 }
-.onboarding-chips span {
+.onboarding-chips button {
   padding: 7px 10px;
   border-radius: 999px;
   border: 1px solid rgba(212,175,55,.45);
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.08) !important;
   font-size: 13px;
+  color: var(--text) !important;
+  min-height: 0;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.onboarding-chips button:active { transform: scale(.98); }
+.onboarding-chips button.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+  color: #fff !important;
+  border-color: rgba(255,235,167,.9);
+  box-shadow: 0 0 0 1px rgba(255,235,167,.45), 0 0 16px rgba(239,203,100,.25);
 }
 .concern-grid { display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin: 10px 0 14px; }
 .concern-item { background: var(--primary-soft); color: var(--text); border:1px solid var(--border); }
