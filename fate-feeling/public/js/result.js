@@ -162,6 +162,73 @@ function setupMetricAccordion() {
   });
 }
 
+function parseBirthClient(birth = '2000-01-01') {
+  const raw = String(birth || '').trim();
+  if (/^\d{8}$/.test(raw)) return { year: Number(raw.slice(0, 4)), month: Number(raw.slice(4, 6)), day: Number(raw.slice(6, 8)) };
+  const normalized = raw.replace(/\./g, '-').replace(/\//g, '-');
+  const [y, m, d] = normalized.split('-').map((v) => Number(v));
+  return { year: y || 2000, month: m || 1, day: d || 1 };
+}
+
+function parseTimeClient(time = '') {
+  const v = String(time || '').trim();
+  if (!v || v.includes('모름')) return { hour: 12, minute: 0, unknownTime: true };
+  const [h, m] = v.split(':').map((x) => Number(x));
+  return { hour: Number.isFinite(h) ? h : 12, minute: Number.isFinite(m) ? m : 0, unknownTime: false };
+}
+
+function mapGenderClient(g = '') {
+  const s = String(g || '').toLowerCase();
+  if (s.includes('남') || s === 'm') return 'M';
+  if (s.includes('여') || s === 'f') return 'F';
+  return 'F';
+}
+
+function stemToElement(stem = '') {
+  const m = { '甲': 'wood', '乙': 'wood', '丙': 'fire', '丁': 'fire', '戊': 'earth', '己': 'earth', '庚': 'metal', '辛': 'metal', '壬': 'water', '癸': 'water' };
+  return m[stem] || 'earth';
+}
+function branchToElement(branch = '') {
+  const m = { '寅': 'wood', '卯': 'wood', '巳': 'fire', '午': 'fire', '辰': 'earth', '戌': 'earth', '丑': 'earth', '未': 'earth', '申': 'metal', '酉': 'metal', '亥': 'water', '子': 'water' };
+  return m[branch] || 'earth';
+}
+
+async function calculateClientSideOrrery(intake = {}, concern = '') {
+  const mod = await import('https://cdn.jsdelivr.net/npm/@orrery/core@0.3.0/dist/saju.js');
+  const makeOne = (person = {}) => {
+    const { year, month, day } = parseBirthClient(person.birth || '2000-01-01');
+    const { hour, minute, unknownTime } = parseTimeClient(person.birthTime || '');
+    const input = { year, month, day, hour, minute, unknownTime, gender: mapGenderClient(person.gender) };
+    const r = mod.calculateSaju(input);
+    return {
+      input,
+      pillars: (r.pillars || []).map((p) => ({
+        ganzi: p?.pillar?.ganzi,
+        stem: p?.pillar?.stem || '',
+        branch: p?.pillar?.branch || '',
+        stemElement: stemToElement(p?.pillar?.stem || ''),
+        branchElement: branchToElement(p?.pillar?.branch || ''),
+        stemSipsin: p?.stemSipsin,
+        unseong: p?.unseong
+      }))
+    };
+  };
+
+  const self = makeOne({ birth: intake.birth, birthTime: intake.birthTime, gender: intake.gender });
+  const partner = (concern === '일반 궁합' && intake.partnerBirth)
+    ? makeOne({ birth: intake.partnerBirth, birthTime: intake.partnerBirthTime, gender: intake.partnerGender })
+    : null;
+
+  return {
+    ok: true,
+    engine: '@orrery/core@0.3.0 (browser fallback)',
+    license: 'AGPL-3.0-only',
+    sourceUrl: 'https://github.com/rath/orrery',
+    self,
+    partner
+  };
+}
+
 async function renderOrreryEngineBox(intake = {}, concern = '') {
   if (!ossEngineBox) return;
   ossEngineBox.innerHTML = '<h3>오러리 기반 원국 계산 중...</h3>';
@@ -182,13 +249,20 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       };
     }
 
-    const res = await fetch('/api/orrery/saju', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!data?.ok) throw new Error(data?.error || 'engine error');
+    let data;
+    try {
+      const res = await fetch('/api/orrery/saju', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const ct = res.headers.get('content-type') || '';
+      if (!res.ok || !ct.includes('application/json')) throw new Error('api_unavailable');
+      data = await res.json();
+      if (!data?.ok) throw new Error(data?.error || 'engine error');
+    } catch (_) {
+      data = await calculateClientSideOrrery(intake, concern);
+    }
 
     const selfPillars = (data.self?.pillars || []).map((p) => p.ganzi).filter(Boolean);
     const partnerPillars = (data.partner?.pillars || []).map((p) => p.ganzi).filter(Boolean);
@@ -200,6 +274,7 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       <p class="small"><a href="${data.sourceUrl}" target="_blank" rel="noopener">소스코드 공개 저장소 보기</a></p>`;
 
     latestOrreryData = data;
+    if (pillarsBox) pillarsBox.hidden = false;
     renderPillarsGrid(data, concern);
     applyOrreryEvidence(buildOrreryEvidence(data, concern));
   } catch (e) {
