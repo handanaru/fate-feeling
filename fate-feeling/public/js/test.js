@@ -103,7 +103,6 @@ const modeMeta = {
   saju: { label: '사주', guide: '당신의 사주 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '기운 흐름 분석' },
   tarot: { label: '타로', guide: '당신의 타로 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '현재 카드 해석' },
   astro: { label: '점성술', guide: '당신의 점성술 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '행성 에너지 흐름' },
-  mbti: { label: 'MBTI', guide: '당신의 MBTI 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '연애 성향 리포트' },
   ziwei: { label: '자미두수', guide: '당신의 자미두수 명반 흐름을 보기 위한 문항입니다. 내면의 기운 변화를 중심으로 선택해 주세요.', lensTitle: '12궁 명반 해석' }
 };
 

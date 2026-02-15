@@ -349,12 +349,11 @@ const modeCardMeta = {
   saju: { title: 'FLOW', icon: '☯' },
   tarot: { title: 'DESTINY', icon: '✶' },
   ziwei: { title: 'ZODIAC', icon: '✦' },
-  astro: { title: 'UNIVERSE', icon: '🪐' },
-  mbti: { title: 'TYPE', icon: '◆' }
+  astro: { title: 'UNIVERSE', icon: '🪐' }
 };
 
 function modeLabel(mode) {
-  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', mbti: 'MBTI' }[mode] || '자미두수');
+  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술' }[mode] || '자미두수');
 }
 
 function syncModeUI(mode) {
