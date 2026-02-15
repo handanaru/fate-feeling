@@ -2054,6 +2054,48 @@ select,
 .gold-tarot-card.flow-active {
   box-shadow: 0 0 0 2px rgba(239,203,100,.24), 0 18px 40px rgba(0,0,0,.45), 0 0 30px rgba(131,198,255,.34);
 }
+.flow-link {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 22%;
+  height: 46px;
+  pointer-events: none;
+}
+.flow-orb {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 12px rgba(255,255,255,.75);
+}
+.flow-orb.left { left: 0; background: #8ed1ff; }
+.flow-orb.right { right: 0; background: #f7c46d; }
+.flow-bridge {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 50%;
+  height: 2px;
+  transform-origin: center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(142,209,255,.18), rgba(255,255,255,.75), rgba(247,196,109,.2));
+  box-shadow: 0 0 12px rgba(173, 199, 255, .34);
+}
+.flow-bridge.one {
+  transform: translateY(-50%) rotate(-12deg);
+  animation: flowBridgePulse 2.8s ease-in-out infinite;
+}
+.flow-bridge.two {
+  transform: translateY(-50%) rotate(11deg);
+  animation: flowBridgePulse 2.8s ease-in-out infinite .35s;
+}
+@keyframes flowBridgePulse {
+  0%,100% { opacity: .45; filter: brightness(.95); }
+  50% { opacity: 1; filter: brightness(1.2); }
+}
 .gold-tarot-card .card-mini { font-size: 12px; letter-spacing: 1.5px; z-index: 2; }
 .gold-tarot-card strong { font-size: 28px; letter-spacing: 1px; z-index: 2; }
 .gold-tarot-card .card-icon { z-index: 2; font-size: 20px; }
