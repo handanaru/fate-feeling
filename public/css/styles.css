@@ -1629,6 +1629,16 @@ select,
 .lucky-item { border: 1px solid var(--border); border-radius: 14px; padding: 10px; background: rgba(255,255,255,.08); }
 .lucky-item h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
 .lucky-color { margin-top: 8px; }
+.compat-keyword-block {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+.compat-keyword-block h4 {
+  margin: 0 0 8px;
+  color: #f3f4f8;
+  font-size: 15px;
+}
 .compat-keyword-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 8px; }
 .compat-keyword-tag {
   display: inline-flex;

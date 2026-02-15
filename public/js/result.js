@@ -307,7 +307,8 @@ if (!saved) {
       theme: 'default'
     };
 
-    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+    const isCompat = concern === '일반 궁합';
+    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">${isCompat ? `관계 안정도 <span class="core-value">${data.reunionForce || 78}</span> · 소통 반응도 <span class="core-value">${data.recoveryIndex || 67}</span>` : `현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span>`}</p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
 
     const compatGradeMap = {
       A: { grade: 'A', label: '천생연분: 찰떡궁합', brief: '서로의 부족함을 완벽히 채워주는, 하늘이 맺어준 인연입니다.', detail: '두 분은 오행과 성향이 조화롭고 함께 있을 때 운이 상승하는 결합입니다. 어려운 시기도 서로를 믿고 지혜롭게 넘어갈 수 있어.', tip: '서로에 대한 감사를 잊지 않으면 더할 나위 없는 축복받은 관계야.', color: '#f4cd72' },
@@ -327,7 +328,7 @@ if (!saved) {
     const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
     if (gradeBox) {
-      gradeBox.innerHTML = `<h3>등급 리포트</h3>
+      gradeBox.innerHTML = `<h3>${isCompat ? '요약 리포트' : '등급 리포트'}</h3>
         <div class="grade-emblem" style="--grade-color:${gradeMeta.color}">Your Grade <strong>${gradeMeta.grade}</strong></div>
         <div class="fortune-score-bar"><span style="width:${totalScore}%; background:${gradeMeta.color};"></span></div>
         <p class="grade-label"><strong>${gradeMeta.label}</strong></p>
@@ -380,7 +381,6 @@ if (!saved) {
       });
     }
 
-    const isCompat = concern === '일반 궁합';
     const firstGauge = Math.min(96, Math.max(51, data.reunionForce || 78));
     const secondGauge = Math.min(97, Math.max(48, data.recoveryIndex || 67));
     const firstLabel = isCompat ? '관계 안정도' : '핵심 가능성';
@@ -452,7 +452,15 @@ if (!saved) {
       const m = keywordMeta[k] || { icon: '✨', tone: 'good' };
       return `<span class="compat-keyword-tag ${m.tone}">${m.icon} ${k}</span>`;
     }).join('');
-    mindKeywordCard.innerHTML = `<h3>${isCompat ? '궁합 키워드' : '운명의 한마디'}</h3><div class="compat-keyword-row">${keywordTags}</div><p class="small"><em>키워드 해석: 관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</em></p>`;
+    if (isCompat && fiveElementsBox && !fiveElementsBox.hidden) {
+      fiveElementsBox.insertAdjacentHTML('beforeend', `<div class="compat-keyword-block"><h4>✨ 두 분의 관계를 정의하는 키워드</h4><div class="compat-keyword-row">${keywordTags}</div><p class="small"><em>관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</em></p></div>`);
+      if (mindKeywordCard) mindKeywordCard.hidden = true;
+    } else {
+      if (mindKeywordCard) {
+        mindKeywordCard.hidden = false;
+        mindKeywordCard.innerHTML = `<h3>${isCompat ? '궁합 키워드' : '운명의 한마디'}</h3><div class="compat-keyword-row">${keywordTags}</div><p class="small"><em>키워드 해석: 관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</em></p>`;
+      }
+    }
 
     const successRate = Math.max(83, Math.min(97, Math.round(((data.recoveryIndex || 64) + (data.reunionForce || 72)) / 2)));
     const waitingMin = 8 + Math.floor(Math.random() * 22);
@@ -463,10 +471,21 @@ if (!saved) {
       if (lockedReportBox) lockedReportBox.hidden = true;
       if (goldenTimeCard) goldenTimeCard.hidden = true;
       if (revealCtaCard) revealCtaCard.hidden = true;
+      if (shareBox) shareBox.hidden = true;
+      if (bridgeBox) bridgeBox.hidden = true;
+      if (chartsBox) chartsBox.hidden = true;
+      if (timelineBox) timelineBox.hidden = true;
+      if (briefingBox) briefingBox.hidden = true;
+      if (coreMetricsBox) coreMetricsBox.hidden = false;
     } else {
       if (lockedReportBox) lockedReportBox.hidden = false;
       if (goldenTimeCard) goldenTimeCard.hidden = false;
       if (revealCtaCard) revealCtaCard.hidden = false;
+      if (shareBox) shareBox.hidden = false;
+      if (bridgeBox) bridgeBox.hidden = false;
+      if (chartsBox) chartsBox.hidden = false;
+      if (timelineBox) timelineBox.hidden = false;
+      if (briefingBox) briefingBox.hidden = false;
       goldenTimeCard.innerHTML = `<h3>재회 골든타임 캘린더</h3>
         <div class="golden-calendar">
           <div class="day-mark">${new Date().getMonth() + 1}월 12일</div>
