@@ -2615,7 +2615,7 @@ button.scan-icon:hover {
   font-size: 12px;
   line-height: 1.55;
 }
-.rule-map-table code { color: #efcb64; }
+.rule-map-table strong { color: #efcb64; font-size: 12px; }
 
 @media (max-width: 640px) {
   .pillars-compare { grid-template-columns: 1fr; }

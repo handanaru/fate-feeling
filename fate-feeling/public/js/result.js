@@ -83,8 +83,8 @@ function buildOrreryEvidence(data, concern = '') {
   const hasWater = stems.some((s) => ['壬', '癸'].includes(s)) || branches.some((b) => ['子', '亥'].includes(b));
   const hasWood = stems.some((s) => ['甲', '乙'].includes(s)) || branches.some((b) => ['寅', '卯'].includes(b));
 
-  let ruleStability = 'RULE-U0';
-  let ruleReaction = 'RULE-R0';
+  let ruleStability = '기본 균형형';
+  let ruleReaction = '기본 소통형';
 
   const stabilityCore = concern === '일반 궁합'
     ? `${selfUnseong.slice(0, 2).join('·') || '운성 데이터'}${partnerUnseong.length ? ` ↔ ${partnerUnseong.slice(0, 2).join('·')}` : ''}`
@@ -92,13 +92,13 @@ function buildOrreryEvidence(data, concern = '') {
 
   let stabilityHint = `원국 근거: ${stabilityCore} 흐름이 보여서, 관계 안정은 리듬 조절형으로 해석했어.`;
   if (hasFire && hasMetal) {
-    ruleStability = 'RULE-U1(화극금)';
+    ruleStability = '열정-원칙 충돌형';
     stabilityHint = '원국 근거: 화(火)·금(金) 기운이 동시에 강해 열정은 높지만 충돌 시 완충이 느린 화극금 패턴이 보여.';
   } else if (hasWood && hasFire) {
-    ruleStability = 'RULE-U2(목생화)';
+    ruleStability = '상생 추진형';
     stabilityHint = '원국 근거: 목(木)→화(火) 상생 흐름이 살아 있어 관계 추진력과 회복력이 같이 올라가는 구조야.';
   } else if (!hasWater) {
-    ruleStability = 'RULE-U3(수기부족)';
+    ruleStability = '감정 냉각 보완형';
     stabilityHint = '원국 근거: 수(水) 기운이 약해 감정 온도 조절이 느리게 작동할 수 있어 안정도에 보수적으로 반영했어.';
   }
 
@@ -109,10 +109,10 @@ function buildOrreryEvidence(data, concern = '') {
   let reactionHint = `성향 근거: ${reactionCore} 조합에서 표현 템포 차이가 보여 소통 반응도에 반영했어.`;
   const yangCount = stems.filter((s) => ['甲', '丙', '戊', '庚', '壬'].includes(s)).length;
   if (yangCount >= Math.ceil(stems.length / 2)) {
-    ruleReaction = 'RULE-R1(양기과다)';
+    ruleReaction = '직설 소통 보완형';
     reactionHint = '성향 근거: 양(陽) 기질이 강해 경청보다 선발언 패턴이 나타나서 소통 반응도 보정이 들어갔어.';
   } else if (hasWater && hasWood) {
-    ruleReaction = 'RULE-R2(수생목)';
+    ruleReaction = '경청 반응 상승형';
     reactionHint = '성향 근거: 수(水)→목(木) 흐름이 살아 있어 질문·경청형 대화에서 반응도가 빠르게 회복되는 구조야.';
   }
 
@@ -128,9 +128,9 @@ function applyOrreryEvidence(evidence) {
     pendingOrreryEvidence = evidence;
     return;
   }
-  s.textContent = `${evidence.stabilityHint} [${evidence.ruleStability || 'RULE-U0'}]`;
-  r.textContent = `${evidence.reactionHint} [${evidence.ruleReaction || 'RULE-R0'}]`;
-  if (b) b.textContent = `${evidence.stabilityHint} (${evidence.ruleStability || 'RULE-U0'}) ${evidence.reactionHint} (${evidence.ruleReaction || 'RULE-R0'})`;
+  s.textContent = `${evidence.stabilityHint} · 해석 타입: ${evidence.ruleStability || '기본 균형형'}`;
+  r.textContent = `${evidence.reactionHint} · 해석 타입: ${evidence.ruleReaction || '기본 소통형'}`;
+  if (b) b.textContent = `${evidence.stabilityHint} (${evidence.ruleStability || '기본 균형형'}) ${evidence.reactionHint} (${evidence.ruleReaction || '기본 소통형'})`;
 }
 
 function renderPillarsGrid(data, concern = '') {
@@ -145,11 +145,11 @@ function renderPillarsGrid(data, concern = '') {
   };
 
   const ruleMapRows = [
-    ['RULE-U1', '화(火)+금(金) 동시 강세', '충돌 시 완충 지연 → 안정도 보수 반영'],
-    ['RULE-U2', '목(木)→화(火) 상생', '관계 추진/회복 탄력 가점'],
-    ['RULE-U3', '수(水) 기운 부족', '감정 냉각 지연 가능성 반영'],
-    ['RULE-R1', '양(陽) 기질 우세', '선발언 성향으로 소통 반응도 보정'],
-    ['RULE-R2', '수(水)→목(木) 흐름', '질문·경청형 대화 반응 가점']
+    ['열정-원칙 충돌형', '화(火)+금(金) 동시 강세', '충돌 시 완충 지연 → 안정도 보수 반영'],
+    ['상생 추진형', '목(木)→화(火) 상생', '관계 추진/회복 탄력 가점'],
+    ['감정 냉각 보완형', '수(水) 기운 부족', '감정 냉각 지연 가능성 반영'],
+    ['직설 소통 보완형', '양(陽) 기질 우세', '선발언 성향으로 소통 반응도 보정'],
+    ['경청 반응 상승형', '수(水)→목(木) 흐름', '질문·경청형 대화 반응 가점']
   ];
 
   pillarsBox.innerHTML = `<h3>✨ 두 분의 타고난 기운 (사주 원국)</h3>
@@ -159,8 +159,8 @@ function renderPillarsGrid(data, concern = '') {
     </div>
     <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루)</p>
     <details class="rule-map">
-      <summary>📘 해석 규칙표 보기</summary>
-      <div class="rule-map-table">${ruleMapRows.map((r) => `<div><code>${r[0]}</code></div><div>${r[1]}</div><div>${r[2]}</div>`).join('')}</div>
+      <summary>📘 해석 기준 보기</summary>
+      <div class="rule-map-table">${ruleMapRows.map((r) => `<div><strong>${r[0]}</strong></div><div>${r[1]}</div><div>${r[2]}</div>`).join('')}</div>
     </details>`;
 }
 
@@ -686,7 +686,7 @@ if (!saved) {
         if (value >= 80) {
           return {
             summary: '안정감이 높은 축복 구간이야.',
-            cause: `사주적 근거: 두 사람의 오행 분포가 상생 구조(목→화, 금→수)로 이어져 관계 회복 탄력이 좋아.${orreryEvidence ? ` [${orreryEvidence.ruleStability}]` : ''}`,
+            cause: `사주적 근거: 두 사람의 오행 분포가 상생 구조(목→화, 금→수)로 이어져 관계 회복 탄력이 좋아.${orreryEvidence ? ` (${orreryEvidence.ruleStability})` : ''}`, 
             solution: '솔루션: 갈등이 생겨도 당일 마무리 원칙을 지키면 안정 흐름을 더 오래 유지할 수 있어.'
           };
         }
