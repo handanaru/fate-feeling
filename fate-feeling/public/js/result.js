@@ -461,7 +461,7 @@ function renderFiveElements(answerById, userName, partnerName) {
 
   const selfPoints = radarCoords(self);
   const partnerPoints = radarCoords(partner);
-  const axisPoints = radarCoords([100, 100, 100, 100, 100], 112);
+  const axisPoints = radarCoords([100, 100, 100, 100, 100], 98);
   const pointClass = ['wood', 'fire', 'earth', 'metal', 'water'];
 
   fiveElementsBox.innerHTML = `<h3>✨ 오행 조화 에너지</h3>
