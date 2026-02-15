@@ -64,6 +64,33 @@ function hourToBranchLabel(time = '') {
 }
 
 function buildYearTimelineData(concern = '일반 궁합') {
+  if (concern === '일반 궁합') {
+    return {
+      2025: {
+        label: '지나온 관계 흐름',
+        keywords: ['#서로탐색', '#관계재정렬', '#기반쌓기'],
+        desc: '작년은 두 사람이 서로의 차이를 확인하고 관계의 기본 리듬을 맞춰가던 시기였어. 빠른 결론보다 이해의 폭을 넓히는 과정이었어.',
+        months: [44, 46, 45, 47, 50, 52, 49, 53, 55, 58, 60, 62],
+        tone: 'past'
+      },
+      2026: {
+        label: '현재의 관계 운세',
+        keywords: ['#관계상승', '#신뢰강화', '#표현조율'],
+        desc: '올해는 관계의 밀도가 올라가는 해야. 서로의 강점을 연결하면 상승폭이 크고, 감정 표현만 부드럽게 조율하면 충돌을 크게 줄일 수 있어.',
+        months: [60, 63, 67, 71, 76, 74, 79, 83, 80, 85, 87, 89],
+        tone: 'now'
+      },
+      2027: {
+        label: '함께 준비할 미래',
+        keywords: ['#관계안정', '#장기합', '#공동성장'],
+        desc: '내년은 함께 만든 신뢰가 구조로 자리 잡는 시기야. 역할 분담과 공감 루틴이 안정되면 장기적으로 더 단단한 관계를 만들 수 있어.',
+        months: [66, 68, 72, 75, 78, 81, 83, 85, 84, 87, 89, 91],
+        tone: 'future'
+      },
+      tip: '💞 우리 관계 포인트: 속도를 맞추고, 감정 표현을 한 템포 부드럽게 가져가면 운이 커져.'
+    };
+  }
+
   const concernTip = {
     '금전/재산': '💰 금전운: 5월 이후 목돈이 들어올 운세가 강해. 재테크는 장기 안목으로 접근해.',
     '취업/직장': '💼 직장운: 상반기 준비, 하반기에 승진/이동수가 강해.',
@@ -100,8 +127,10 @@ function renderTimelineCard(data, concern = '일반 궁합') {
   if (!timelineBox) return;
   const years = [2025, 2026, 2027];
   const thisYear = 2026;
-  timelineBox.innerHTML = `<h3>나의 운세 타임라인</h3>
-    <div class="timeline-summary">인생 총운 · ${concern} 흐름 기반 해석</div>
+  const title = concern === '일반 궁합' ? '두 사람의 관계 타임라인' : '나의 운세 타임라인';
+  const summary = concern === '일반 궁합' ? '두 사람 궁합 흐름 기반 해석' : `인생 총운 · ${concern} 흐름 기반 해석`;
+  timelineBox.innerHTML = `<h3>${title}</h3>
+    <div class="timeline-summary">${summary}</div>
     <div class="timeline-tabs" id="yearTabs">${years.map((y) => `<button type="button" data-year="${y}" class="${y === thisYear ? 'active' : ''}">${y}</button>`).join('')}</div>
     <div class="timeline-panel" id="timelinePanel"></div>`;
 
