@@ -407,6 +407,17 @@ input, textarea, select {
   color: var(--text);
   font-size: 16px;
 }
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 48px;
+  line-height: 1.2;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
 #birthTime {
   font-size: 15px;
   text-overflow: ellipsis;

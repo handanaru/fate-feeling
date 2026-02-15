@@ -51,6 +51,17 @@
         </label>
         <input id="birthPlace" placeholder="예: 서울" />
 
+        <div id="partnerFields" hidden>
+          <label for="partnerName">상대 이름</label>
+          <input id="partnerName" placeholder="예: 민수" />
+
+          <label for="partnerBirth">상대 생년월일</label>
+          <input id="partnerBirth" type="date" />
+
+          <label for="partnerBirthTime">상대 출생시간 (선택)</label>
+          <input id="partnerBirthTime" placeholder="예: 22:10 (모르면 '모름' 입력)" />
+        </div>
+
         <label for="concern">카테고리 선택</label>
         <select id="concern" required>
           <option value="결혼 운세">결혼 운세</option>
@@ -124,6 +135,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow11"></script>
+  <script src="/js/index.js?v=modeflow12"></script>
 </body>
 </html>

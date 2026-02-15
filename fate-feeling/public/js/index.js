@@ -23,8 +23,9 @@ const modeCardBg = document.getElementById('modeCardBg');
 const adultGateModal = document.getElementById('adultGateModal');
 const adultGateConfirm = document.getElementById('adultGateConfirm');
 const adultGateCancel = document.getElementById('adultGateCancel');
+const partnerFields = document.getElementById('partnerFields');
 
-function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
+function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner = {}) {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
   const normalizedBirthTime = birthTime || prev.birthTime || '모름(입력 안 함)';
   const payload = {
@@ -38,6 +39,9 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
     concern: concern || prev.concern || '결혼 운세',
     mode: mode || prev.mode || 'ziwei',
     mbti: prev.mbti || 'INFP',
+    partnerName: partner.name || prev.partnerName || '',
+    partnerBirth: partner.birth || prev.partnerBirth || '',
+    partnerBirthTime: partner.birthTime || prev.partnerBirthTime || '',
     agree: true
   };
   localStorage.setItem('ff-intake', JSON.stringify(payload));
@@ -216,12 +220,23 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const birthPlace = (document.getElementById('birthPlace')?.value || '').trim();
   const concern = (document.getElementById('concern')?.value || '결혼 운세').trim();
   const mode = (document.getElementById('analysisMode')?.value || 'ziwei').trim();
+  const partnerName = (document.getElementById('partnerName')?.value || '').trim();
+  const partnerBirth = (document.getElementById('partnerBirth')?.value || '').trim();
+  const partnerBirthTime = (document.getElementById('partnerBirthTime')?.value || '').trim();
 
   if (!name) return alert('이름을 입력해줘.');
   if (!birth) return alert('생년월일을 입력해줘.');
   if (!birthPlace) return alert('출생지를 입력해줘.');
+  if (isAdultConcern(concern)) {
+    if (!partnerName) return alert('상대 이름을 입력해줘.');
+    if (!partnerBirth) return alert('상대 생년월일을 입력해줘.');
+  }
 
-  saveIntake(name, birth, birthTime, birthPlace, concern, mode);
+  saveIntake(name, birth, birthTime, birthPlace, concern, mode, {
+    name: partnerName,
+    birth: partnerBirth,
+    birthTime: partnerBirthTime
+  });
   window.location.replace('/test.html');
 });
 
@@ -295,7 +310,9 @@ function syncConcernUI() {
   softSwapText(impactCopy, meta.headline);
   softSwapText(nameGuideLabel, meta.nameGuide);
   applyConcern(concern);
-  document.body.classList.toggle('adult-mode', isAdultConcern(concern));
+  const adult = isAdultConcern(concern);
+  document.body.classList.toggle('adult-mode', adult);
+  if (partnerFields) partnerFields.hidden = !adult;
   syncModeUI(analysisModeSelect?.value || 'ziwei');
 }
 
