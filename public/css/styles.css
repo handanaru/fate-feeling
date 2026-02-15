@@ -191,6 +191,11 @@ header {
   backdrop-filter: blur(6px);
   animation: liftIn .45s ease;
 }
+.reveal-page .card,
+.ziwei-report-page .card {
+  padding: 32px 24px;
+  margin-bottom: 40px;
+}
 .compact-card { padding: 14px; } 
 .tight-grid { gap: 10px; }
 
@@ -1596,6 +1601,13 @@ select,
 .timeline-panel.tone-future { background: linear-gradient(165deg, rgba(96,164,124,.14), rgba(52,101,87,.08)); padding: 10px; border-radius: 14px; }
 .timeline-tip { margin-top: 6px; }
 .grade-card, .social-share-card { border: 1px solid var(--border); }
+.reveal-page .grade-card {
+  background: linear-gradient(165deg, rgba(13,14,24,.78), rgba(24,17,44,.72));
+}
+.grade-emblem {
+  color: #000;
+}
+.grade-emblem strong { color: #000 !important; }
 .grade-emblem {
   display: inline-flex;
   align-items: center;
@@ -2033,10 +2045,14 @@ button.scan-icon:hover {
 }
 .result-main-title { font-size: clamp(28px, 5vw, 36px); }
 .hero-name {
-  font-size: clamp(34px, 7.2vw, 52px);
-  font-weight: 900;
+  font-size: clamp(24px, 5.8vw, 32px);
+  font-weight: 800;
   letter-spacing: .2px;
-  line-height: 1.15;
+  line-height: 1.2;
+}
+.mode-hero-note {
+  font-size: 15px;
+  opacity: .7;
 }
 .hero-grade-badge {
   display: inline-flex;
@@ -2056,6 +2072,7 @@ button.scan-icon:hover {
   width: 0;
   background: linear-gradient(90deg, #8d6dff, #efcb64);
   border-radius: inherit;
+  box-shadow: 0 0 10px rgba(141,109,255,.45), 0 0 18px rgba(239,203,100,.35);
   animation: scoreFill .8s ease forwards;
   animation-delay: .15s;
 }
@@ -2078,11 +2095,13 @@ button.scan-icon:hover {
   display: block;
   font-size: 11px;
   color: #cfd3df;
+  font-weight: 500;
 }
 .mini-metric strong {
   display: block;
   margin-top: 2px;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
   color: #f4f6fb;
 }
 
@@ -2133,6 +2152,8 @@ button.scan-icon:hover {
 
 @media (max-width: 640px) {
   .weather-hero { grid-template-columns: 1fr; }
+  .reveal-page .card,
+  .ziwei-report-page .card { padding: 32px 24px; }
   .hero-mini-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .mini-metric { padding: 7px 8px; }
   .mini-metric strong { font-size: 13px; }
