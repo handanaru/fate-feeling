@@ -48,6 +48,22 @@
     </section>
   </div>
 
+  <div class="modal" id="concernPickerModal" hidden>
+    <div class="modal-card">
+      <h3>현재 고민 변경</h3>
+      <p class="small">고민을 바꾸면 문항이 처음부터 다시 시작돼.</p>
+      <div class="onboarding-chips" id="concernPickerButtons">
+        <button type="button" data-concern="재회">💞 재회</button>
+        <button type="button" data-concern="짝사랑/썸">🌹 짝사랑/썸</button>
+        <button type="button" data-concern="취업/금전">💼 취업/금전</button>
+        <button type="button" data-concern="MBTI">🧠 MBTI</button>
+      </div>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" id="closeConcernPicker">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <div id="preResultLoader" class="result-overlay" hidden>
     <div class="overlay-card pre-result-card">
       <div class="pre-result-orbit" aria-hidden="true">
@@ -66,6 +82,6 @@
   </div>
 
   <script src="/js/common.js"></script>
-  <script src="/js/test.js?v=focusui3"></script>
+  <script src="/js/test.js?v=focusui4"></script>
 </body>
 </html>

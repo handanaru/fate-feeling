@@ -52,9 +52,12 @@ const pullMetric = document.getElementById('pullMetric');
 const scanIcons = [...document.querySelectorAll('.scan-icon')];
 const backBtn = document.getElementById('backBtn');
 const homeBtn = document.getElementById('homeBtn');
+const concernPickerModal = document.getElementById('concernPickerModal');
+const concernPickerButtons = [...document.querySelectorAll('#concernPickerButtons [data-concern]')];
+const closeConcernPicker = document.getElementById('closeConcernPicker');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
-const concernLabelDisplay = intake.concern || '재회';
+let concernLabelDisplay = intake.concern || '재회';
 
 function normalizeTrouble(concern = '') {
   if (concern.includes('짝사랑') || concern.includes('썸')) return 'crush';
@@ -63,7 +66,7 @@ function normalizeTrouble(concern = '') {
   return 'reunion';
 }
 
-const troubleType = normalizeTrouble(concernLabelDisplay);
+let troubleType = normalizeTrouble(concernLabelDisplay);
 const commonQuestionMapping = {
   reunion: { Q1: '상대방의 SNS나 프로필 메시지를 하루에도 몇 번씩 확인하게 된다.', Q4: '상대방과 좋았던 기억보다 마지막의 좋지 않았던 장면이 자꾸 떠오른다.', Q5: '다시 연락하고 싶지만, 거절당할까 봐 혹은 자존심 때문에 망설여진다.', Q7: '우리는 서로 너무 달랐지만, 그래서 더 잘 맞을 수 있었다고 믿는다.' },
   crush: { Q1: '그 사람의 SNS나 프로필 메시지를 하루에도 몇 번씩 확인하게 된다.', Q4: '좋았던 상상보다 나를 대하던 차가운 말투가 더 오래 남는다.', Q5: '먼저 다가가고 싶지만, 어색해질까 봐 혹은 자존심 때문에 망설여진다.', Q7: '우린 잘 맞을 것 같은데, 그 미묘한 거리감이 더 신경 쓰인다.' },
@@ -189,8 +192,12 @@ function selectMode(mode, withPulse = false) {
   }
 
   const concern = troubleLabel(troubleType);
+  concernPickerButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
   if (analysisTitle) analysisTitle.textContent = `[${concern}] 운세 분석 중`;
-  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <span class="concern-pill">현재 고민: ${concern}</span>`;
+  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>`;
+  document.getElementById('openConcernPicker')?.addEventListener('click', () => {
+    if (concernPickerModal) concernPickerModal.hidden = false;
+  });
   startTest();
 }
 
@@ -208,6 +215,28 @@ homeBtn?.addEventListener('click', (e) => {
   if (!confirmLeaveIfNeeded()) {
     e.preventDefault();
   }
+});
+
+closeConcernPicker?.addEventListener('click', () => {
+  if (concernPickerModal) concernPickerModal.hidden = true;
+});
+concernPickerModal?.addEventListener('click', (e) => {
+  if (e.target === concernPickerModal) concernPickerModal.hidden = true;
+});
+concernPickerButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const nextConcern = btn.dataset.concern;
+    if (!nextConcern) return;
+    concernLabelDisplay = nextConcern;
+    troubleType = normalizeTrouble(concernLabelDisplay);
+
+    const intakeDraft = JSON.parse(localStorage.getItem('ff-intake') || '{}');
+    intakeDraft.concern = concernLabelDisplay;
+    localStorage.setItem('ff-intake', JSON.stringify(intakeDraft));
+
+    if (concernPickerModal) concernPickerModal.hidden = true;
+    selectMode(selectedMode || intake.mode || 'ziwei', false);
+  });
 });
 
 modeButtons.forEach((btn) => {

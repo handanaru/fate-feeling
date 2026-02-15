@@ -1539,6 +1539,9 @@ select,
   border: 1px solid rgba(239,203,100,.5);
   color: #ffe6a7;
   margin-left: 4px;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: 1.2;
 }
 .question-context {
   font-size: 15px !important;
