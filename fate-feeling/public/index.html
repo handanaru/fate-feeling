@@ -55,6 +55,10 @@
         <select id="concern" required>
           <option value="결혼 운세">결혼 운세</option>
           <option value="일반 궁합">일반 궁합</option>
+          <option value="재회운">재회운</option>
+          <option value="애정운">애정운</option>
+          <option value="커플운">커플운</option>
+          <option value="썸운">썸운</option>
           <option value="속궁합">[19금] 속궁합</option>
           <option value="키스 궁합">[19금] 키스 궁합</option>
         </select>
@@ -77,11 +81,19 @@
     <div class="modal-card onboarding-modal">
       <h3>어떤 관점으로 분석해볼까?</h3>
       <p class="small">사주 · 타로 · 자미두수 · 점성술 · MBTI 전부 지원해.</p>
+      <div class="audience-tabs" id="audienceTabs">
+        <button type="button" class="active" data-audience="general">일반 버전</button>
+        <button type="button" data-audience="adult">19세 버전</button>
+      </div>
       <div class="onboarding-chips" id="onboardingConcernButtons">
-        <button type="button" data-concern="결혼 운세" class="active">💍 결혼 운세</button>
-        <button type="button" data-concern="일반 궁합">💞 일반 궁합</button>
-        <button type="button" data-concern="속궁합">🔞 속궁합</button>
-        <button type="button" data-concern="키스 궁합">💋 키스 궁합</button>
+        <button type="button" data-audience="general" data-concern="결혼 운세" class="active">💍 결혼 운세</button>
+        <button type="button" data-audience="general" data-concern="일반 궁합">💞 일반 궁합</button>
+        <button type="button" data-audience="general" data-concern="재회운">🌈 재회운</button>
+        <button type="button" data-audience="general" data-concern="애정운">💗 애정운</button>
+        <button type="button" data-audience="general" data-concern="커플운">💕 커플운</button>
+        <button type="button" data-audience="general" data-concern="썸운">🥰 썸운</button>
+        <button type="button" data-audience="adult" data-concern="속궁합">🔞 속궁합</button>
+        <button type="button" data-audience="adult" data-concern="키스 궁합">💋 키스 궁합</button>
       </div>
       <p class="small" id="onboardingConcernStatus">현재 카테고리: 결혼 운세</p>
       <div class="onboarding-chips" id="onboardingModeButtons">
@@ -112,6 +124,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow9"></script>
+  <script src="/js/index.js?v=modeflow10"></script>
 </body>
 </html>

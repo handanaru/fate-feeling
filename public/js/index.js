@@ -8,6 +8,7 @@ const nameGuideLabel = document.getElementById('nameGuideLabel');
 const startSubmitBtn = document.getElementById('startSubmitBtn');
 const onboardingConcernButtons = [...document.querySelectorAll('#onboardingConcernButtons [data-concern]')];
 const onboardingConcernStatus = document.getElementById('onboardingConcernStatus');
+const audienceTabButtons = [...document.querySelectorAll('#audienceTabs [data-audience]')];
 const firstVisitModal = document.getElementById('firstVisitModal');
 const hideOnboardingForever = document.getElementById('hideOnboardingForever');
 const onboardingStartBtn = document.getElementById('onboardingStartBtn');
@@ -57,6 +58,34 @@ const concernCopyMap = {
     nameGuide: '당신의 이름을 입력해 궁합 분석을 시작하세요.',
     ctaGoal: '궁합'
   },
+  '재회운': {
+    count: 12970,
+    counterTail: '명이 재회운 타이밍을 점검했습니다.',
+    headline: '엇갈린 인연의 재접점과 다시 붙는 타이밍을 추적합니다.',
+    nameGuide: '당신의 이름을 입력해 재회운을 확인하세요.',
+    ctaGoal: '재회 운'
+  },
+  '애정운': {
+    count: 14020,
+    counterTail: '명이 애정운 흐름을 확인했습니다.',
+    headline: '감정 온도 변화와 관계 안정도를 정밀 분석합니다.',
+    nameGuide: '당신의 이름을 입력해 애정운을 확인하세요.',
+    ctaGoal: '애정 운'
+  },
+  '커플운': {
+    count: 11640,
+    counterTail: '명이 커플운 리듬을 확인했습니다.',
+    headline: '연인 관계의 장기 안정성과 갈등 패턴을 함께 분석합니다.',
+    nameGuide: '당신의 이름을 입력해 커플운을 확인하세요.',
+    ctaGoal: '커플 운'
+  },
+  '썸운': {
+    count: 12110,
+    counterTail: '명이 썸운 확률을 확인했습니다.',
+    headline: '썸 단계에서 관계가 진전될 확률을 읽어드립니다.',
+    nameGuide: '당신의 이름을 입력해 썸운을 확인하세요.',
+    ctaGoal: '썸 운'
+  },
   '속궁합': {
     count: 9340,
     counterTail: '명이 19금 속궁합 리듬을 점검했습니다.',
@@ -86,6 +115,14 @@ function isAdultVerified() {
   return localStorage.getItem('ff-adult-verified') === '1';
 }
 
+function setAudience(audience = 'general') {
+  audienceTabButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.audience === audience));
+  onboardingConcernButtons.forEach((btn) => {
+    const isMatch = (btn.dataset.audience || 'general') === audience;
+    btn.hidden = !isMatch;
+  });
+}
+
 let pendingConcern = null;
 function openAdultGate(nextConcern) {
   pendingConcern = nextConcern;
@@ -95,17 +132,22 @@ function openAdultGate(nextConcern) {
 function applyConcern(concern) {
   if (!concern) return;
   if (concernSelect) concernSelect.value = concern;
+  setAudience(isAdultConcern(concern) ? 'adult' : 'general');
   onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
   if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 카테고리: ${concern}`;
 }
 
 function syncConcernSelection(concern) {
-  if (!concern) return;
+  if (!concern) return false;
   if (isAdultConcern(concern) && !isAdultVerified()) {
     openAdultGate(concern);
-    return;
+    const fallback = '일반 궁합';
+    if (concernSelect) concernSelect.value = fallback;
+    applyConcern(fallback);
+    return false;
   }
   applyConcern(concern);
+  return true;
 }
 
 let counterAnimFrame = null;
@@ -249,6 +291,22 @@ function syncConcernUI() {
 onboardingModeButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
 });
+audienceTabButtons.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const audience = tab.dataset.audience || 'general';
+    if (audience === 'adult' && !isAdultVerified()) {
+      openAdultGate('속궁합');
+      return;
+    }
+    setAudience(audience);
+    const firstVisible = onboardingConcernButtons.find((btn) => !btn.hidden);
+    if (firstVisible) {
+      syncConcernSelection(firstVisible.dataset.concern);
+      syncConcernUI();
+    }
+  });
+});
+
 onboardingConcernButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     syncConcernSelection(btn.dataset.concern);
@@ -288,6 +346,7 @@ adultGateModal?.addEventListener('click', (e) => {
   if (e.target === adultGateModal) adultGateCancel?.click();
 });
 
+setAudience('general');
 syncConcernSelection(concernSelect?.value || '결혼 운세');
 syncConcernUI();
 openOnboardingIfNeeded();

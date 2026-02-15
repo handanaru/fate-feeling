@@ -90,13 +90,19 @@ function isAdultConcern(concern = '') {
   return concern === '속궁합' || concern === '키스 궁합';
 }
 
+function normalizeConcern(concern = '') {
+  if (categoryQuestions[concern]) return concern;
+  if (['재회운', '애정운', '커플운', '썸운'].includes(concern)) return '일반 궁합';
+  return '결혼 운세';
+}
+
 function concernLabel() {
   return concernLabelDisplay || '결혼 운세';
 }
 
 function currentQuestionSet() {
-  const concern = concernLabel();
-  const questions = categoryQuestions[concern] || categoryQuestions['결혼 운세'];
+  const normalized = normalizeConcern(concernLabel());
+  const questions = categoryQuestions[normalized] || categoryQuestions['결혼 운세'];
   return questions.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
 }
 
@@ -128,6 +134,10 @@ function updateLiveEvidence(index = 0) {
   const categoryTicker = {
     '결혼 운세': ['결혼 운 흐름 분석 중...', '배우자 조건 매칭 중...', '가족/경제 궁합 파악 중...'],
     '일반 궁합': ['관계 소통 패턴 분석 중...', '갈등/보완 포인트 추적 중...', '궁합 싱크로율 계산 중...'],
+    '재회운': ['재회 타이밍 추적 중...', '관계 복원 지수 계산 중...', '감정 재연결 포인트 분석 중...'],
+    '애정운': ['애정 흐름 분석 중...', '감정 온도 변화 추적 중...', '관계 안정도 측정 중...'],
+    '커플운': ['커플 리듬 분석 중...', '장기 궁합 지표 계산 중...', '갈등 완화 포인트 추적 중...'],
+    '썸운': ['썸 진전 확률 분석 중...', '관심 신호 매칭 중...', '연락 텐션 흐름 파악 중...'],
     '속궁합': ['성인 에너지 분석 중...', '관계 리듬 파악 중...', '속궁합 싱크로율 계산 중...'],
     '키스 궁합': ['키스 케미 분석 중...', '호흡 템포 싱크 계산 중...', '감정 밀착도 측정 중...']
   };
