@@ -14,18 +14,18 @@ const categoryQuestions = {
     '나는 지금 결혼을 준비할 심리적 여유와 책임감을 갖추고 있다고 느낀다.'
   ],
   '일반 궁합': [
-    '나는 현재 상대방과 대화할 때 소통이 매우 잘 통한다고 느낀다.',
-    '나는 우리 두 사람의 성격 차이가 갈등보다 보완이 된다고 생각한다.',
-    '나는 데이트나 중요한 결정을 내릴 때 주로 내가 주도하고 싶어 한다.',
-    '나는 상대방의 사소한 습관들이 나를 매우 힘들게 한다고 느낀다.',
-    '나는 서로의 친구 관계나 사생활을 사소한 것까지 전부 공유해야 한다고 본다.',
-    '나는 갈등이 생겼을 때 감정보다 대화로 해결하려는 편이다.',
-    '나는 상대와 함께 있을 때 내 모습이 더 긍정적으로 변한다고 느낀다.',
-    '나는 연락 빈도 차이가 우리 관계의 갈등 요인이라고 느끼는 편이다.',
-    '나는 서운한 점이 생기면 비교적 빠르게 표현하는 편이다.',
-    '나는 관계에서 작은 거짓말도 신뢰를 크게 흔든다고 생각한다.',
-    '나는 상대가 내 목표와 꿈을 진심으로 지지해준다고 느낀다.',
-    '나는 10년 뒤에도 지금 상대와 함께하는 미래를 자연스럽게 상상할 수 있다.'
+    '나는 상대방과 대화할 때 가치관이나 생각이 비슷하다고 느낀다.',
+    '나는 갈등이 생겼을 때 상대방이 나를 배려하고 이해해준다고 믿는다.',
+    '나는 상대방의 생활 습관이나 사소한 행동들이 대체로 마음에 든다.',
+    '나는 우리 두 사람이 함께 있을 때 각자의 에너지가 더 살아난다고 느낀다.',
+    '나는 중요한 결정을 내릴 때 상대방의 의견을 전적으로 신뢰하는 편이다.',
+    '나는 상대방과 있으면 미래에 대한 불안보다 안도감이 더 크게 든다.',
+    '나는 서로의 부족한 점을 상대방이 완벽하게 채워주고 있다고 생각한다.',
+    '나는 상대방의 가족이나 주변 지인들과도 잘 어우러질 자신이 있다.',
+    '나는 우리 관계에서 내가 주도권을 잡기보다 서로 대등하게 소통한다고 느낀다.',
+    '나는 상대방과 함께하는 취미나 활동에서 큰 즐거움을 얻는다.',
+    '나는 힘든 일이 생겼을 때 가장 먼저 상대방에게 기댈 수 있다고 확신한다.',
+    '나는 시간이 지나도 우리 두 사람의 애정이 변치 않고 깊어질 것이라 믿는다.'
   ],
   '속궁합': [
     '상대방과의 성적 에너지가 처음 만났을 때와 비교해 어떻게 변화했나요?',
@@ -125,6 +125,8 @@ const concernPickerButtons = [...document.querySelectorAll('#concernPickerButton
 const closeConcernPicker = document.getElementById('closeConcernPicker');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
+const userName = intake.name || '나';
+const partnerName = intake.partnerName || '상대';
 let concernLabelDisplay = intake.concern || '결혼 운세';
 
 function isAdultConcern(concern = '') {
@@ -261,7 +263,7 @@ function likertLabel(score) { return ['전혀 그렇지 않다', '별로 그렇�
 
 const weightByConcern = {
   '금전/재산': { Q1: 1.5, Q2: 1.2, Q11: 0.8 },
-  '일반 궁합': { Q1: 2.0, Q2: 1.5, Q4: 0.7 },
+  '일반 궁합': { Q1: 1.5, Q2: 1.5, Q7: 1.5, Q11: 1.5 },
   '취업/직장': { Q1: 1.4, Q4: 1.3, Q9: 1.5 },
   '사업/창업': { Q1: 1.5, Q3: 1.3, Q7: 1.4, Q10: 1.5 },
   '애정운': { Q2: 1.4, Q7: 1.5, Q10: 1.3 },
@@ -298,7 +300,9 @@ function renderQuestion(index) {
   const card = document.createElement('div');
   card.className = 'question-card slide-in';
   const isSpecial = index >= 8;
-  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 고민: ${concernLabel()}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option" data-score="${score}"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
+  const isCompat = concernLabel() === '일반 궁합';
+  const compatStep = index < 4 ? 'Step 1: 소통 및 가치관' : index < 8 ? 'Step 2: 신뢰와 생활' : 'Step 3: 장기 안정성';
+  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 고민: ${concernLabel()}${isCompat ? ` · ${compatStep}` : ''}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option" data-score="${score}"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
 
   card.querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', (e) => {
@@ -365,9 +369,11 @@ function selectMode(mode, withPulse = false) {
 
   const concern = concernLabel();
   concernPickerButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
+  const isCompat = concern === '일반 궁합';
   document.body.classList.toggle('adult-mode', isAdultConcern(concern));
-  if (analysisTitle) analysisTitle.textContent = `[${concern}] 분석 중`;
-  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>`;
+  document.body.classList.toggle('compat-mode', isCompat);
+  if (analysisTitle) analysisTitle.textContent = isCompat ? `${userName} ❤️ ${partnerName} 궁합 분석 중` : `[${concern}] 분석 중`;
+  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>${isCompat ? ` · <span class="small">${userName} & ${partnerName}</span>` : ''}`;
   document.getElementById('openConcernPicker')?.addEventListener('click', () => {
     if (concernPickerModal) concernPickerModal.hidden = false;
   });

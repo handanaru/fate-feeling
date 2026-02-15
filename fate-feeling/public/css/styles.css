@@ -1777,6 +1777,14 @@ body.adult-mode .question-card {
 body.adult-mode .option {
   border-color: rgba(232, 122, 170, .32);
 }
+body.compat-mode .live-analyzing-card {
+  background: linear-gradient(165deg, rgba(63, 22, 87, .92), rgba(146, 67, 124, .72));
+  border-color: rgba(255, 174, 212, .45);
+}
+body.compat-mode .question-card {
+  background: linear-gradient(165deg, rgba(82, 33, 109, .66), rgba(168, 80, 138, .46));
+  border-color: rgba(255, 174, 212, .45);
+}
 .question-context {
   font-size: 15px !important;
   line-height: 1.55;
