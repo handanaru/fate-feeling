@@ -2568,7 +2568,15 @@ button.scan-icon:hover {
   background: rgba(255,255,255,.02);
 }
 .metric-deep .metric-evidence strong {
+  display: block;
   color: #f1f4ff;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.metric-deep .metric-evidence {
+  line-height: 1.8;
+  letter-spacing: -0.2px;
 }
 .pillars-compare {
   display: grid;
