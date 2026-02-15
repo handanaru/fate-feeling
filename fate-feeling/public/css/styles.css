@@ -1437,7 +1437,17 @@ select,
 .impact-form { z-index: 1; width: min(540px, 92%); display: grid; gap: 10px; }
 .impact-form label { color: rgba(255,255,255,.9); font-weight: 600; }
 .impact-form input { background: rgba(14,8,24,.55); color: #fff; }
-.impact-cta { font-size: 16px; }
+.impact-cta {
+  font-size: 16px;
+  width: 100%;
+  display: block;
+  margin-top: 4px;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .impact-form { width: 100%; }
+  .impact-cta { width: 100%; }
+}
 .impact-transition {
   position: fixed;
   inset: 0;
