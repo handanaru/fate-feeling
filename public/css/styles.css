@@ -2724,6 +2724,7 @@ button.scan-icon:hover {
   margin-top: 8px;
   display: grid;
   gap: 10px;
+  min-width: 0;
 }
 .metric-deep .metric-evidence {
   margin: 0;
@@ -2758,6 +2759,7 @@ button.scan-icon:hover {
   overflow-x: auto;
   padding-bottom: 6px;
   scroll-snap-type: x mandatory;
+  min-width: 0;
 }
 .luck-commerce-card {
   scroll-snap-align: start;
@@ -2878,7 +2880,23 @@ button.scan-icon:hover {
   #pillarsBox,
   #ossEngineBox { padding: 18px 14px !important; }
   .rule-map-table { grid-template-columns: 1fr; }
-  .luck-scroll { grid-auto-columns: minmax(240px, 88%); }
+  .luck-scroll {
+    grid-auto-flow: row;
+    grid-auto-columns: 1fr;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .luck-commerce-card {
+    width: 100%;
+    min-width: 0;
+  }
+  .luck-body,
+  .luck-label,
+  .metric-deep .metric-evidence {
+    min-width: 0;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
 }
 .metric-info {
   display: inline-grid;
