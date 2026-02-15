@@ -546,6 +546,7 @@ function renderLuckyGuide(elementPack) {
 
   const links = (window.FF_LUCKY_LINKS && window.FF_LUCKY_LINKS[weakKey]) || {};
   const placeLink = links.place?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.place} 데이트`)}`;
+  const itemLink = links.item?.url || `https://www.google.com/search?q=${encodeURIComponent(`${picked.item} 구매`)}`;
 
   luckyGuideBox.hidden = false;
   luckyGuideBox.innerHTML = `<h3><span class="section-badge">3</span> 행운 가이드</h3>
@@ -563,7 +564,7 @@ function renderLuckyGuide(elementPack) {
       </article>
     </div>
     <p class="lucky-color">🎨 두 분의 행운 컬러: <strong>${picked.color}</strong></p>
-    <div class="cta-row"><a class="btn secondary" href="${placeLink}" target="_blank" rel="noopener">근처 행운 장소 보기</a></div>`;
+    <div class="cta-row"><a class="btn secondary" href="${placeLink}" target="_blank" rel="noopener">근처 행운 장소 보기</a><a class="btn secondary" href="${itemLink}" target="_blank" rel="noopener">행운의 아이템 보기</a></div>`;
 }
 
 if (!saved) {
