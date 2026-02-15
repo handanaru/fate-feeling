@@ -8,6 +8,9 @@ const nameGuideLabel = document.getElementById('nameGuideLabel');
 const startSubmitBtn = document.getElementById('startSubmitBtn');
 const onboardingConcernButtons = [...document.querySelectorAll('#onboardingConcernButtons [data-concern]')];
 const concernGridMainButtons = [...document.querySelectorAll('#concernGridMain [data-concern]')];
+const subConcernWrap = document.getElementById('subConcernWrap');
+const subConcernButtons = document.getElementById('subConcernButtons');
+const subConcernTitle = document.getElementById('subConcernTitle');
 const onboardingConcernStatus = document.getElementById('onboardingConcernStatus');
 const audienceTabButtons = [...document.querySelectorAll('#audienceTabs [data-audience]')];
 const firstVisitModal = document.getElementById('firstVisitModal');
@@ -207,16 +210,53 @@ function openAdultGate(nextConcern) {
   if (adultGateModal) adultGateModal.hidden = false;
 }
 
+const concernSubMap = {
+  compat: ['일반 궁합', '결혼 운세'],
+  love: ['애정운', '재회운', '커플운', '썸운'],
+  adult: ['속궁합', '키스 궁합']
+};
+
+function concernGroupFromValue(concern = '') {
+  if (['일반 궁합', '결혼 운세'].includes(concern)) return 'compat';
+  if (['애정운', '재회운', '커플운', '썸운'].includes(concern)) return 'love';
+  if (['속궁합', '키스 궁합'].includes(concern)) return 'adult';
+  if (concern === '금전/재산') return 'money';
+  if (concern === '취업/직장') return 'career';
+  if (concern === '사업/창업') return 'biz';
+  return 'compat';
+}
+
+function renderSubConcerns(currentConcern) {
+  const group = concernGroupFromValue(currentConcern);
+  const options = concernSubMap[group] || [];
+  if (!subConcernWrap || !subConcernButtons || !subConcernTitle) return;
+  if (!options.length) {
+    subConcernWrap.hidden = true;
+    subConcernButtons.innerHTML = '';
+    return;
+  }
+  subConcernWrap.hidden = false;
+  subConcernTitle.textContent = '세부 선택';
+  subConcernButtons.innerHTML = options.map((opt) => `<button type="button" data-concern="${opt}" class="${opt === currentConcern ? 'active' : ''}">${opt}</button>`).join('');
+  [...subConcernButtons.querySelectorAll('[data-concern]')].forEach((btn) => {
+    btn.addEventListener('click', () => {
+      syncConcernSelection(btn.dataset.concern);
+      syncConcernUI();
+    });
+  });
+}
+
 function applyConcern(concern) {
   if (!concern) return;
   if (concernSelect) concernSelect.value = concern;
   setAudience(isAdultConcern(concern) ? 'adult' : 'general');
   onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
   concernGridMainButtons.forEach((btn) => {
-    const key = btn.dataset.concern;
-    const isMatch = key === concern || (key === '속궁합' && concern === '키스 궁합');
-    btn.classList.toggle('active', isMatch);
+    const group = btn.dataset.group || 'compat';
+    const currentGroup = concernGroupFromValue(concern);
+    btn.classList.toggle('active', group === currentGroup);
   });
+  renderSubConcerns(concern);
   if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 고민: ${concern}`;
 }
 
@@ -466,9 +506,12 @@ onboardingConcernButtons.forEach((btn) => {
 });
 concernGridMainButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
+    const group = btn.dataset.group || 'compat';
     const concern = btn.dataset.concern;
     if (!concern) return;
-    syncConcernSelection(concern);
+    const options = concernSubMap[group] || [];
+    const nextConcern = options.length ? options[0] : concern;
+    syncConcernSelection(nextConcern);
     syncConcernUI();
   });
 });

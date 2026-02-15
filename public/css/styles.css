@@ -852,6 +852,8 @@ input[type="date"]::-webkit-date-and-time-value {
   color: #fff;
   border-color: rgba(255,235,167,.9);
 }
+.sub-concern-wrap { margin: 8px 0 6px; }
+.sub-concern-wrap[hidden] { display: none; }
 .home-hero-banner {
   position: relative;
   overflow: hidden;
