@@ -1646,11 +1646,11 @@ select,
 .radar-point.metal { fill: #F8FAFC; filter: drop-shadow(0 0 7px rgba(248,250,252,.9)); }
 .radar-point.water { fill: #38BDF8; filter: drop-shadow(0 0 7px rgba(56,189,248,.9)); }
 .radar-axis-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   paint-order: stroke;
-  stroke: rgba(10,11,20,.75);
-  stroke-width: 2px;
+  stroke: rgba(10,11,20,.88);
+  stroke-width: 2.4px;
   letter-spacing: .02em;
 }
 .radar-axis-label.wood { fill: #4ADE80; }
@@ -1718,14 +1718,14 @@ select,
   box-shadow: 0 0 12px rgba(0,0,0,.16);
 }
 .compat-keyword-tag.good {
-  background: rgba(46, 125, 50, 0.2);
-  border-color: rgba(129, 199, 132, 0.3);
-  color: #81C784;
+  background: rgba(85, 138, 110, 0.16);
+  border-color: rgba(160, 206, 181, 0.32);
+  color: #b9e0ce;
 }
 .compat-keyword-tag.warn {
-  background: rgba(239, 108, 0, 0.2);
-  border-color: rgba(255, 183, 77, 0.3);
-  color: #FFB74D;
+  background: rgba(138, 112, 85, 0.16);
+  border-color: rgba(212, 183, 149, 0.32);
+  color: #e7d2b6;
 }
 .compat-keyword-tag:hover {
   transform: translateY(-2px);
@@ -2043,7 +2043,9 @@ button.scan-icon:hover {
 }
 .mode-hero-note {
   font-size: 15px;
-  opacity: .7;
+  opacity: .9;
+  color: #BDBDBD;
+  margin-bottom: 12px;
 }
 .hero-grade-badge {
   display: inline-flex;
@@ -2509,8 +2511,8 @@ button.scan-icon:hover {
 .metric-copy p {
   margin: 0;
   color: #E0E0E0;
-  line-height: 1.65;
-  font-size: 14px;
+  line-height: 1.6;
+  font-size: 15px;
 }
 .metric-evidence {
   margin-top: 6px;
@@ -2531,10 +2533,12 @@ button.scan-icon:hover {
   color: #f1f3f8;
 }
 .metric-detail-btn {
-  margin-top: 8px;
-  min-height: 34px;
-  padding: 7px 12px;
+  margin-top: 10px;
+  min-height: 36px;
+  padding: 8px 14px;
   font-size: 13px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
 }
 .metric-accordion {
   max-height: 0;
@@ -2564,10 +2568,10 @@ button.scan-icon:hover {
   margin-bottom: 6px;
 }
 .pillar-cell {
-  border-radius: 10px;
-  padding: 8px 6px;
+  border-radius: 14px;
+  padding: 10px 8px;
   text-align: center;
-  border: 1px solid rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.12);
 }
 .pillar-cell small {
   display: block;
@@ -2585,8 +2589,20 @@ button.scan-icon:hover {
 .pillar-cell.earth { background: rgba(253,224,71,.2); color: #ffe894; }
 .pillar-cell.metal { background: rgba(248,250,252,.2); color: #ffffff; }
 .pillar-cell.water { background: rgba(56,189,248,.2); color: #9de3ff; }
+#pillarsBox,
+#ossEngineBox {
+  padding: 22px 18px !important;
+  margin-bottom: 18px !important;
+}
+#pillarsBox h3,
+#ossEngineBox h3 { font-size: 20px; }
+#pillarsBox .small,
+#ossEngineBox .small { font-size: 13px; }
+
 @media (max-width: 640px) {
   .pillars-compare { grid-template-columns: 1fr; }
+  #pillarsBox,
+  #ossEngineBox { padding: 18px 14px !important; }
 }
 .metric-info {
   display: inline-grid;
