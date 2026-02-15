@@ -6,6 +6,7 @@ const onboardingStartBtn = document.getElementById('onboardingStartBtn');
 const onboardingPreviewBtn = document.getElementById('onboardingPreviewBtn');
 const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
+const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 
 function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
@@ -104,10 +105,15 @@ function openOnboardingIfNeeded() {
   setTimeout(() => { firstVisitModal.hidden = false; }, 320);
 }
 
+function modeLabel(mode) {
+  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', mbti: 'MBTI' }[mode] || '자미두수');
+}
+
 function syncModeUI(mode) {
   if (!mode) return;
   if (analysisModeSelect) analysisModeSelect.value = mode;
   onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
+  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${modeLabel(mode)}`;
 }
 
 onboardingModeButtons.forEach((btn) => {
