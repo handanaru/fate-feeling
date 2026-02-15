@@ -4,6 +4,7 @@ const fiveElementsBox = document.getElementById('fiveElementsBox');
 const luckyGuideBox = document.getElementById('luckyGuideBox');
 const shareBox = document.getElementById('shareBox');
 const gradeBox = document.getElementById('gradeBox');
+const ossEngineBox = document.getElementById('ossEngineBox');
 const socialShareBox = document.getElementById('socialShareBox');
 const bridgeBox = document.getElementById('bridgeBox');
 const chartsBox = document.getElementById('chartsBox');
@@ -62,6 +63,47 @@ function hourToBranchLabel(time = '') {
   if (hour < 19) return '유시(酉時)';
   if (hour < 21) return '술시(戌時)';
   return '해시(亥時)';
+}
+
+async function renderOrreryEngineBox(intake = {}, concern = '') {
+  if (!ossEngineBox) return;
+  ossEngineBox.innerHTML = '<h3>오러리 기반 원국 계산 중...</h3>';
+  try {
+    const payload = {
+      self: {
+        birth: intake.birth,
+        birthTime: intake.birthTime,
+        gender: intake.gender
+      }
+    };
+    const needPartner = concern === '일반 궁합' && intake.partnerBirth;
+    if (needPartner) {
+      payload.partner = {
+        birth: intake.partnerBirth,
+        birthTime: intake.partnerBirthTime,
+        gender: intake.partnerGender
+      };
+    }
+
+    const res = await fetch('/api/orrery/saju', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!data?.ok) throw new Error(data?.error || 'engine error');
+
+    const selfPillars = (data.self?.pillars || []).map((p) => p.ganzi).filter(Boolean);
+    const partnerPillars = (data.partner?.pillars || []).map((p) => p.ganzi).filter(Boolean);
+
+    ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 기반 원국</h3>
+      <p class="small">${selfPillars.length ? `내 사주: <strong>${selfPillars.join(' · ')}</strong>` : '내 사주 데이터 계산 대기중'}</p>
+      ${partnerPillars.length ? `<p class="small">상대 사주: <strong>${partnerPillars.join(' · ')}</strong></p>` : ''}
+      <p class="small">엔진: ${data.engine} · 라이선스: ${data.license}</p>
+      <p class="small"><a href="${data.sourceUrl}" target="_blank" rel="noopener">소스코드 공개 저장소 보기</a></p>`;
+  } catch (e) {
+    ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 연결</h3><p class="small">엔진 계산에 실패했어. (${e.message || 'unknown'})</p>`;
+  }
 }
 
 function buildYearTimelineData(concern = '일반 궁합') {
@@ -260,6 +302,7 @@ if (!saved) {
     const targetName = intake.partnerName || intake.targetName || '';
 
     const concern = data.troubleLabel || data.troubleType || '일반 궁합';
+    renderOrreryEngineBox(intake, concern);
     const weatherMap = {
       '결혼 운세': { icon: '🌤️', label: '안정 속 점진적 상승' },
       '일반 궁합': { icon: '⛅', label: '구름 사이 맑음' },
