@@ -22,8 +22,11 @@ const modeCardTitle = document.getElementById('modeCardTitle');
 const modeCardIcon = document.getElementById('modeCardIcon');
 const modeCardBg = document.getElementById('modeCardBg');
 const myPageBtn = document.getElementById('myPageBtn');
-const heroStartBtn = document.getElementById('heroStartBtn');
 const adultQuickBtn = document.getElementById('adultQuickBtn');
+const entryHeroTitle = document.getElementById('entryHeroTitle');
+const entryHeroSub = document.getElementById('entryHeroSub');
+const entryHeroChips = document.getElementById('entryHeroChips');
+const entryEyebrow = document.getElementById('entryEyebrow');
 const adultGateModal = document.getElementById('adultGateModal');
 const adultGateConfirm = document.getElementById('adultGateConfirm');
 const adultGateCancel = document.getElementById('adultGateCancel');
@@ -390,6 +393,21 @@ function syncModeUI(mode) {
   }
 }
 
+function updateEntryHero(concern, mode) {
+  const iconByConcern = {
+    '일반 궁합': '❤️', '결혼 운세': '💍', '금전/재산': '💰', '취업/직장': '💼', '사업/창업': '🚀',
+    '애정운': '🌹', '재회운': '🌈', '속궁합': '🔞', '키스 궁합': '💋'
+  };
+  const icon = iconByConcern[concern] || '✨';
+  const modeText = modeLabel(mode || 'saju');
+  if (entryEyebrow) entryEyebrow.textContent = 'Step 1 · 정보 입력 중';
+  if (entryHeroTitle) entryHeroTitle.textContent = `${icon} ${modeText}로 분석하는 ${concern}`;
+  if (entryHeroSub) entryHeroSub.textContent = '선택한 고민 기준으로 정확히 분석할게. 먼저 입력 정보를 확인해줘.';
+  if (entryHeroChips) {
+    entryHeroChips.innerHTML = `<span class="hero-chip">#${concern.replace(/\s/g, '')}</span><span class="hero-chip">#${modeText}</span><span class="hero-chip">#입력1단계</span>`;
+  }
+}
+
 function syncConcernUI() {
   const concern = concernSelect?.value || '일반 궁합';
   const meta = concernCopyMap[concern] || concernCopyMap['일반 궁합'];
@@ -406,6 +424,7 @@ function syncConcernUI() {
     const stateLabel = ({ solo: '완전한 솔로', crush: '썸/짝사랑', dating: '연애 중', reunion: '이별/재회 고민' }[state] || '미선택');
     onboardingConcernStatus.textContent = `현재 고민: ${concern} · 상태: ${stateLabel}`;
   }
+  updateEntryHero(concern, analysisModeSelect?.value || 'saju');
   syncModeUI(analysisModeSelect?.value || 'saju');
 }
 
@@ -506,9 +525,7 @@ loveStateModal?.addEventListener('click', (e) => {
 myPageBtn?.addEventListener('click', () => {
   location.href = '/result.html';
 });
-heroStartBtn?.addEventListener('click', () => {
-  document.getElementById('firstImpact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+// hero CTA removed: entry header is now informational only.
 adultQuickBtn?.addEventListener('click', () => {
   syncConcernSelection('속궁합');
   syncConcernUI();
