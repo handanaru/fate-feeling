@@ -139,12 +139,17 @@ function renderTimelineCard(data, concern = '일반 궁합') {
   const drawYear = (year) => {
     const y = data[year];
     if (!panel || !y) return;
-    const max = Math.max(...y.months, 100);
+    const max = Math.max(...y.months);
+    const min = Math.min(...y.months);
+    const range = Math.max(1, max - min);
     panel.className = `timeline-panel tone-${y.tone || 'now'}`;
     panel.innerHTML = `<p class="small">${y.label}</p>
       <p class="timeline-hash">${y.keywords.join(' ')}</p>
       <p><strong>${y.desc}</strong></p>
-      <div class="monthly-bars">${y.months.map((v, i) => `<div class="mbar"><span style="--i:${i};height:${Math.max(10, Math.round((v / max) * 100))}%"></span><em>${i + 1}월</em></div>`).join('')}</div>
+      <div class="monthly-bars">${y.months.map((v, i) => {
+        const h = 18 + Math.round(((v - min) / range) * 82);
+        return `<div class="mbar"><span style="--i:${i};height:${h}%" title="${i + 1}월 ${v}"></span><em>${i + 1}월</em></div>`;
+      }).join('')}</div>
       <p class="small timeline-tip">${data.tip}</p>`;
   };
 
