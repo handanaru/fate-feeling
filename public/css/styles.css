@@ -521,17 +521,23 @@ input[type="date"]::-webkit-date-and-time-value {
   margin-top: 6px;
 }
 .live-focus-page .options {
-  gap: 8px;
+  gap: 10px;
   margin-top: 10px;
 }
 .live-focus-page .option {
-  padding: 10px 12px;
-  min-height: 40px;
+  padding: 11px 12px;
+  min-height: 42px;
 }
 .live-focus-page .option input {
   transform: scale(.92);
   margin-right: 7px;
 }
+.live-focus-page .option[data-score="1"] { background: color-mix(in srgb, #8a7ca8 12%, transparent); }
+.live-focus-page .option[data-score="2"] { background: color-mix(in srgb, #8a6db1 18%, transparent); }
+.live-focus-page .option[data-score="3"] { background: color-mix(in srgb, #865fc0 24%, transparent); }
+.live-focus-page .option[data-score="4"] { background: color-mix(in srgb, #8d4fd0 30%, transparent); }
+.live-focus-page .option[data-score="5"] { background: color-mix(in srgb, #9a43df 36%, transparent); }
+.live-focus-page .option.selected { box-shadow: 0 0 0 2px rgba(255, 219, 133, .45), 0 6px 16px rgba(156, 86, 225, .22); }
 .option.selected {
   border-color: var(--gold);
   background: color-mix(in srgb, var(--primary-soft) 80%, #fff);
