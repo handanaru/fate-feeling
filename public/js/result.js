@@ -347,7 +347,7 @@ function buildYearTimelineData(concern = '일반 궁합') {
       2027: {
         label: '함께 준비할 미래',
         keywords: ['#관계안정', '#장기합', '#공동성장'],
-        desc: '내년은 함께 만든 신뢰가 구조로 자리 잡는 시기야. 역할 분담과 공감 루틴이 안정되면 장기적으로 더 단단한 관계를 만들 수 있어.',
+        desc: '내년은 함께 만든 신뢰가 구조로 자리 잡는 시기야. 역할 분담과 공감 실천법이 안정되면 장기적으로 더 단단한 관계를 만들 수 있어.',
         months: [66, 68, 72, 75, 78, 81, 83, 85, 84, 87, 89, 91],
         tone: 'future'
       },
@@ -706,7 +706,7 @@ if (!saved) {
         return {
           summary: '감정 기복 관리가 최우선인 구간이야.',
           cause: '사주적 근거: 수(水) 기운이 약하고 화(火) 압력이 높아 감정 온도 조절이 어렵게 작동할 수 있어.',
-          solution: '솔루션: 주 1회 관계 점검 대화를 루틴화하면 충돌 누적을 크게 줄일 수 있어.'
+          solution: '솔루션: 주 1회 관계 점검 대화를 실천법화하면 충돌 누적을 크게 줄일 수 있어.'
         };
       }
 
@@ -747,8 +747,10 @@ if (!saved) {
       const cnt = elems.reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
       const names = { wood: '목(木)', fire: '화(火)', earth: '토(土)', metal: '금(金)', water: '수(水)' };
       const ordered = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
-      const strong = names[ordered[0]?.[0]] || '특정';
-      const weak = names[ordered[ordered.length - 1]?.[0]] || '보완';
+      const strongKey = ordered[0]?.[0] || 'earth';
+      const weakKey = ordered[ordered.length - 1]?.[0] || 'water';
+      const strong = names[strongKey] || '특정';
+      const weak = names[weakKey] || '보완';
 
       const toneMap = {
         A: {
@@ -756,7 +758,7 @@ if (!saved) {
             `${strong} 기운이 상생 축으로 이어져 두 분의 관계 회복력이 빠르게 작동하는 상위 구간이야.`,
             `${strong} 기운이 과열되는 날엔 사소한 말도 강하게 전달될 수 있어.`,
             `갈등이 오르면 20분 침묵으로 수(水) 기운을 보충하고, 합의 문장 1개만 남기는 게 좋아.`,
-            `주 2회 감사 문장 루틴으로 ${weak} 기운을 채우면 안정 흐름을 오래 유지하기 쉬워.`
+            `주 2회 감사 문장 실천법으로 ${weak} 기운을 채우면 안정 흐름을 오래 유지하기 쉬워.`
           ],
           reaction: [
             `${strong} 기운이 언어 에너지를 밀어 올려 반응 속도와 이해력이 높은 편이야.`,
@@ -776,7 +778,7 @@ if (!saved) {
             `${strong} 기운으로 표현력은 좋지만, 먼저 말하려는 성향이 소통 저항을 만들 때가 있어.`,
             `상대 의도 확인 전 결론을 내리면 반응도 하락이 빨라져.`,
             `3초 멈춤 + 상대 문장 요약 후 의견 1문장으로 전환하면 좋아.`,
-            `질문형 화법을 루틴화하면 ${weak} 기운 보완과 함께 반응도 변동 폭이 줄어들어.`
+            `질문형 화법을 실천법화하면 ${weak} 기운 보완과 함께 반응도 변동 폭이 줄어들어.`
           ]
         },
         C: {
@@ -809,8 +811,17 @@ if (!saved) {
         }
       };
 
-      const set = (toneMap[gradeBand] || toneMap.B)[type] || toneMap.B[type];
-      return `<div class="metric-deep"><p class="small metric-evidence"><strong>✨ 타고난 관계의 결</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>⚠️ 조심해야 할 기운의 부딪힘</strong><br/>${set[1]}</p><p class="small metric-evidence"><strong>🕯 관계를 밝히는 개운법(開運法)</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>📜 두 분을 위한 화합의 비책</strong><br/>${set[3]}</p></div>`;
+      const setRaw = (toneMap[gradeBand] || toneMap.B)[type] || toneMap.B[type];
+      const set = [...setRaw];
+      const gaeunByWeak = {
+        wood: '함께 <span class="spell-key">숲길</span>을 걷거나 <span class="spell-key">초록빛 식물</span>을 가까이 두세요. 새로운 시작의 생명력이 두 분의 관계에 활력을 불어넣어 줍니다.',
+        fire: '따뜻한 <span class="spell-key">차</span>를 마시며 밝은 조명 아래서 대화하세요. 차가워진 감정의 벽을 녹이고 서로의 진심을 밝게 비춰줍니다.',
+        earth: '<span class="spell-key">도자기 공방</span> 체험이나 황토색 아이템을 활용해 보세요. 흔들리는 마음을 다잡고 관계의 단단한 뿌리를 내리게 합니다.',
+        metal: '<span class="spell-key">금속 액세서리</span>를 착용하거나 정갈한 공간에서 시간을 보내세요. 흐트러진 생각의 질서를 잡고 명확한 결단을 돕습니다.',
+        water: '<span class="spell-key">강변 산책</span>이나 푸른색 소품을 가까이하세요. 막힌 대화의 흐름을 유연하게 만들고 깊은 공감을 이끌어냅니다.'
+      };
+      set[2] = gaeunByWeak[weakKey] || gaeunByWeak.water;
+      return `<div class="metric-deep"><p class="small metric-evidence"><strong>✨ 타고난 관계의 결</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>⚠️ 조심해야 할 기운의 부딪힘</strong><br/>${set[1]}</p><p class="small metric-evidence gaeun-${weakKey}"><strong>🕯 관계를 밝히는 개운법(開運法)</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>📜 두 분을 위한 화합의 비책</strong><br/>${set[3]}</p></div>`;
     };
 
     const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');

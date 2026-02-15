@@ -2578,6 +2578,12 @@ button.scan-icon:hover {
   line-height: 1.8;
   letter-spacing: -0.2px;
 }
+.metric-deep .metric-evidence.gaeun-wood { background: rgba(74,222,128,.10); }
+.metric-deep .metric-evidence.gaeun-fire { background: rgba(251,113,133,.10); }
+.metric-deep .metric-evidence.gaeun-earth { background: rgba(253,224,71,.10); }
+.metric-deep .metric-evidence.gaeun-metal { background: rgba(248,250,252,.10); }
+.metric-deep .metric-evidence.gaeun-water { background: rgba(56,189,248,.10); }
+.spell-key { color: #efcb64; font-weight: 700; }
 .pillars-compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
