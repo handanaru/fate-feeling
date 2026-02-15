@@ -738,6 +738,70 @@ if (!saved) {
       };
     };
 
+    const renderDeepAccordion = (type, value, gradeBand = 'B') => {
+      const toneMap = {
+        A: {
+          stability: [
+            '두 사람의 기본 리듬이 상생 구조로 맞물려 회복력이 빠르게 작동하는 상위 구간이야.',
+            '리스크는 주로 일정 과밀, 피로 누적, 메시지 템포 불일치에서 발생해. 감정 문제가 아니라 에너지 관리 문제로 보는 게 맞아.',
+            '갈등이 생기면 20분 냉각 후 핵심 합의 1개만 정하는 방식이 가장 효율적이야.',
+            '2주 루틴: 주 2회 관계 점검 + 주 1회 고마움 피드백을 고정하면 안정도 상단을 유지하기 쉬워.'
+          ],
+          reaction: [
+            '소통 반응이 빠르고 정확한 편이야. 상대 의도를 잡는 감각이 이미 좋은 축에 들어와 있어.',
+            '주의 지점은 “익숙함”으로 인한 생략형 대화야. 잘 통할수록 확인 문장을 빼먹기 쉬워.',
+            '핵심 프로토콜은 “요약 1문장 + 확인 질문 1개”야. 이 패턴이 오해를 거의 막아줘.',
+            '2주 루틴: 하루 5분 감정 체크 + 주 1회 리셋 대화로 반응도를 상위권에서 안정화할 수 있어.'
+          ]
+        },
+        B: {
+          stability: [
+            '관계의 바탕은 탄탄하지만, 충돌이 생길 때 완충 속도는 평균보다 약간 느린 편이야.',
+            '트리거는 “결론 먼저 말하기”와 “상대 의도 추정”이야. 사실보다 해석이 앞서면 마찰이 커져.',
+            '갈등 직후 30분 정리 시간 → 핵심 문장 1개 교환 순서가 회복 효율이 가장 좋아.',
+            '2주 루틴: 주 2회 15분 점검 대화(칭찬1/요청1)로 안정도를 한 단계 올릴 수 있어.'
+          ],
+          reaction: [
+            '소통은 기본적으로 괜찮지만 화법 차이 때문에 순간 반응 저항이 생길 수 있어.',
+            '특히 양(陽) 성향이 겹치면 경청보다 주장이 먼저 나와서 상대가 압박으로 느끼기 쉬워.',
+            '“3초 멈춤 + 내가 이해한 내용 요약” 루틴이 반응도 개선에 가장 빠르게 먹혀.',
+            '2주 루틴: 매일 1회 질문형 대화로 전환하면 소통 지표의 흔들림 폭이 줄어들어.'
+          ]
+        },
+        C: {
+          stability: [
+            '열정은 있지만 감정 완충이 약해 갈등 후 잔열이 오래 남는 구간이야.',
+            '화극금 성향이 강할 때 말의 강도와 표정의 온도 차이가 충돌을 키우는 패턴이 보여.',
+            '프로토콜은 “즉시 해결 시도 금지 → 감정 진정 후 1주제만 대화”가 핵심이야.',
+            '2주 루틴: 주 1회 갈등 리뷰(원인/재발방지 1개씩 기록)로 안정도 반등 여지가 충분해.'
+          ],
+          reaction: [
+            '표현 방식이 엇갈려 오해가 쌓이기 쉬운 단계야. 의도는 좋은데 전달 방식이 충돌해.',
+            '문제는 단어보다 순서야. 주장→설명 순서가 반복되면 상대는 방어적으로 반응해.',
+            '“경청→요약→의견 1문장” 순서를 지키면 체감 반응도가 확실히 올라가.',
+            '2주 루틴: 감정이 큰 날엔 텍스트 길이를 절반으로 줄이고, 핵심 질문 1개만 남겨봐.'
+          ]
+        },
+        D: {
+          stability: [
+            '현재는 감정 기복 관리가 최우선인 구간이야. 속도보다 안전한 대화 환경이 먼저야.',
+            '수기 부족 + 화기 압력 패턴에서 작은 오해도 크게 번질 수 있어 회복 비용이 커져.',
+            '프로토콜은 “즉시 결론 금지 / 타임아웃 합의 / 다음 대화 시간 예약” 3단 고정이 좋아.',
+            '2주 루틴: 갈등 없는 날에도 10분 체크인을 유지해야 하강 추세를 끊을 수 있어.'
+          ],
+          reaction: [
+            '의도 전달이 자주 엇갈리고, 상대의 말을 공격으로 해석하는 빈도가 높은 편이야.',
+            '반응 지연보다 반응 과열이 문제라서, 먼저 진정하고 말하는 구조가 꼭 필요해.',
+            '“한 문장, 한 감정, 한 요청” 포맷으로 말하면 불필요한 방어 반응을 줄일 수 있어.',
+            '2주 루틴: 매일 3분 음성 대화(텍스트 금지)로 톤 오해를 먼저 줄이는 게 효과적이야.'
+          ]
+        }
+      };
+
+      const set = (toneMap[gradeBand] || toneMap.B)[type] || toneMap.B[type];
+      return `<div class="metric-deep"><p class="small metric-evidence"><strong>① 구조 해석</strong><br/>${set[0]}</p><p class="small metric-evidence"><strong>② 리스크 포인트</strong><br/>${set[1]}</p><p class="small metric-evidence"><strong>③ 개선 프로토콜</strong><br/>${set[2]}</p><p class="small metric-evidence"><strong>④ 프리미엄 2주 루틴</strong><br/>${set[3]}</p></div>`;
+    };
+
     const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');
     const stabilityDetail = getMetricDetail(firstGauge, 'stability');
     const reactionDetail = getMetricDetail(secondGauge, 'reaction');
@@ -754,7 +818,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p class="typing-target" data-fulltext="${stabilityDetail.summary}">${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="stability">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="stability" data-open="0"><div class="metric-deep"><p class="small metric-evidence"><strong>① 원국 구조 해석</strong><br/>두 사람은 추진 에너지가 강하게 맞물리는 대신, 감정 완충 장치가 약한 편이야. 그래서 초반엔 빠르게 가까워지지만 갈등 구간에서 회복 속도가 느리게 나타나.</p><p class="small metric-evidence"><strong>② 리스크 트리거</strong><br/>결론부터 말하는 화법, 피곤한 시간대 대화, 과거 이슈 재소환이 겹치면 충돌 강도가 커져. 특히 자존심이 걸린 주제에서 고집이 강화되는 패턴이 보여.</p><p class="small metric-evidence"><strong>③ 안정도 상승 프로토콜</strong><br/>갈등 발생 직후 30분 정리 시간 → 핵심 문장 1개씩 교환 → 해결 합의 1개 기록 순서로 대화하면 안정도 회복이 가장 빠르게 올라가.</p><p class="small metric-evidence"><strong>④ 프리미엄 실행 가이드(2주)</strong><br/>주 2회 15분 점검 대화(칭찬 1 + 요청 1), 주 1회 데이트 리셋 루틴을 고정하면 현재 구간 기준 체감 안정도가 의미 있게 개선될 가능성이 높아.</p></div></div></div>
+            <div class="metric-copy"><p class="typing-target" data-fulltext="${stabilityDetail.summary}">${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="stability">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="stability" data-open="0">${renderDeepAccordion('stability', firstGauge, band)}</div></div>
           </div>
         </article>
         <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
@@ -767,7 +831,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p class="typing-target" data-fulltext="${reactionDetail.summary}">${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="reaction">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="reaction" data-open="0"><div class="metric-deep"><p class="small metric-evidence"><strong>① 성향 데이터 해석</strong><br/>두 사람 모두 자기 주관이 또렷해서 말의 시작점이 ‘설명’보다 ‘주장’에 가깝게 나타나. 이 패턴은 친밀할수록 더 강해질 수 있어.</p><p class="small metric-evidence"><strong>② 오해가 생기는 지점</strong><br/>상대 의도를 확인하기 전에 결론을 추정하면 반응도 점수가 급격히 떨어져. 단어 선택보다 말 순서(경청→요약→의견)가 훨씬 중요한 구조야.</p><p class="small metric-evidence"><strong>③ 반응도 개선 프로토콜</strong><br/>상대 말이 끝난 뒤 3초 멈춤 → “내가 이해한 건 이거 맞지?” 요약 1회 → 내 의견 1문장 순서로 말하면 반응 저항을 크게 줄일 수 있어.</p><p class="small metric-evidence"><strong>④ 프리미엄 대화 루틴</strong><br/>매일 5분 감정 체크(오늘 좋았던 1가지/아쉬웠던 1가지), 주 1회 갈등 리뷰를 고정하면 소통 반응도의 변동 폭이 안정되는 경향이 강해.</p></div></div></div>
+            <div class="metric-copy"><p class="typing-target" data-fulltext="${reactionDetail.summary}">${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="reaction">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="reaction" data-open="0">${renderDeepAccordion('reaction', secondGauge, band)}</div></div>
           </div>
         </article>
       </div>`;
