@@ -1613,6 +1613,14 @@ select,
 .dot.self { background: rgba(246,186,122,.95); }
 .dot.partner { background: rgba(155,193,255,.95); }
 .five-line { margin-top: 6px; }
+.lucky-guide-card { border: 1px solid var(--border); }
+.lucky-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+.lucky-item { border: 1px solid var(--border); border-radius: 14px; padding: 10px; background: rgba(255,255,255,.08); }
+.lucky-item h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+.lucky-color { margin-top: 8px; }
+@media (max-width: 640px) {
+  .lucky-grid { grid-template-columns: 1fr; }
+}
 .kakao-share {
   width: 100%;
   background: #FEE500;

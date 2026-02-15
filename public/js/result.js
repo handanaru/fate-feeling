@@ -1,6 +1,7 @@
 const resultBox = document.getElementById('resultBox');
 const coreMetricsBox = document.getElementById('coreMetricsBox');
 const fiveElementsBox = document.getElementById('fiveElementsBox');
+const luckyGuideBox = document.getElementById('luckyGuideBox');
 const shareBox = document.getElementById('shareBox');
 const gradeBox = document.getElementById('gradeBox');
 const socialShareBox = document.getElementById('socialShareBox');
@@ -140,7 +141,8 @@ function radarPoints(values, r = 86, cx = 110, cy = 110) {
 }
 
 function renderFiveElements(answerById, userName, partnerName) {
-  if (!fiveElementsBox) return;
+  if (!fiveElementsBox) return null;
+  const keys = ['목', '화', '토', '금', '수'];
   const wood = ((answerById.Q1 || 3) + (answerById.Q6 || 3) + (answerById.Q11 || 3)) * 6;
   const fire = ((answerById.Q2 || 3) + (answerById.Q7 || 3) + (answerById.Q12 || 3)) * 6;
   const earth = ((answerById.Q3 || 3) + (answerById.Q8 || 3)) * 9;
@@ -164,6 +166,36 @@ function renderFiveElements(answerById, userName, partnerName) {
     </div>
     <p class="small">🌳목 · 🔥화 · 🟨토 · ⚪금 · 🌊수</p>
     <p class="five-line"><strong>${oneLine}</strong> (조화도 ${harmony}점)</p>`;
+
+  return { keys, self, partner, harmony };
+}
+
+function renderLuckyGuide(elementPack) {
+  if (!luckyGuideBox) return;
+  if (!elementPack) {
+    luckyGuideBox.hidden = true;
+    return;
+  }
+  const { keys, self, partner } = elementPack;
+  const avg = self.map((v, i) => Math.round((v + partner[i]) / 2));
+  const minIdx = avg.indexOf(Math.min(...avg));
+  const lacking = keys[minIdx];
+  const luckyMap = {
+    '목': { place: '고즈넉한 숲길 산책로', item: '원목 액세서리', color: '그린', reason: '부족한 목(木) 기운을 채워 관계의 성장성과 회복력을 높여줘.' },
+    '화': { place: '노을이 보이는 루프탑', item: '레드 포인트 소품', color: '레드/코랄', reason: '화(火) 기운을 보강해 표현력과 열정을 자연스럽게 끌어올려.' },
+    '토': { place: '고즈넉한 사찰/정원', item: '도자기·스톤 소품', color: '머스타드/베이지', reason: '토(土) 기운이 안정감을 주어 관계의 중심을 단단히 잡아줘.' },
+    '금': { place: '미술관/모던 라운지', item: '메탈 시계·실버링', color: '실버/화이트', reason: '금(金) 기운으로 판단력과 질서를 높여 갈등을 줄여줘.' },
+    '수': { place: '물소리 들리는 카페', item: '블루 계열 아이템', color: '네이비/딥블루', reason: '수(水) 기운을 채워 감정 열기를 식히고 대화 흐름을 부드럽게 해줘.' }
+  };
+  const picked = luckyMap[lacking] || luckyMap['수'];
+  luckyGuideBox.hidden = false;
+  luckyGuideBox.innerHTML = `<h3>✨ 두 분을 위한 행운의 가이드</h3>
+    <div class="lucky-grid">
+      <article class="lucky-item"><h4>📍 행운의 장소</h4><strong>${picked.place}</strong><p class="small">${picked.reason}</p></article>
+      <article class="lucky-item"><h4>🎁 행운의 아이템</h4><strong>${picked.item}</strong><p class="small">부족한 ${lacking} 기운을 보완해 관계의 균형을 맞춰줘.</p></article>
+    </div>
+    <p class="lucky-color">🎨 두 분의 행운 컬러: <strong>${picked.color}</strong></p>
+    <div class="cta-row"><button class="btn secondary">이 아이템 보러가기</button><button class="btn secondary">근처 행운 장소 보기</button></div>`;
 }
 
 if (!saved) {
@@ -269,8 +301,13 @@ if (!saved) {
         <p class="grade-tip">💡 행운의 조언: ${gradeMeta.tip}</p>`;
     }
 
-    if (concern === '일반 궁합') renderFiveElements(data.answerById || {}, userName, targetName);
-    else if (fiveElementsBox) fiveElementsBox.hidden = true;
+    if (concern === '일반 궁합') {
+      const pack = renderFiveElements(data.answerById || {}, userName, targetName);
+      renderLuckyGuide(pack);
+    } else {
+      if (fiveElementsBox) fiveElementsBox.hidden = true;
+      if (luckyGuideBox) luckyGuideBox.hidden = true;
+    }
 
     if (shareBox) {
       shareBox.innerHTML = `<h3>결과 공유</h3><p class="small">인스타 스토리용 요약 카드를 저장해 공유해봐.</p><div class="cta-row"><button class="btn" id="saveSummaryBtn">결과 이미지 저장</button></div>`;
