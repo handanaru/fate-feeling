@@ -120,6 +120,8 @@ function setAudience(audience = 'general') {
   onboardingConcernButtons.forEach((btn) => {
     const isMatch = (btn.dataset.audience || 'general') === audience;
     btn.hidden = !isMatch;
+    btn.setAttribute('aria-hidden', String(!isMatch));
+    btn.style.display = isMatch ? 'inline-flex' : 'none';
   });
 }
 
