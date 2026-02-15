@@ -494,20 +494,67 @@ if (!saved) {
     const firstLabel = isCompat ? '관계 안정도' : '핵심 가능성';
     const secondLabel = isCompat ? '소통 반응도' : '상대 반응도';
 
-    const getMetricNarrative = (value, type) => {
+    const getMetricDetail = (value, type) => {
       if (type === 'stability') {
-        if (value >= 80) return '두 사람의 기본 리듬이 잘 맞아. 큰 변수에도 관계 회복력이 높은 축복 구간이야.';
-        if (value >= 60) return '서로의 생활 패턴은 비교적 안정적이야. 고집만 줄이면 안정감이 더 올라가.';
-        if (value >= 50) return '서로의 고집이 충돌할 수 있지만, 시간과 대화로 충분히 맞춰갈 수 있는 흐름이야.';
-        return '감정 기복과 오해가 쉽게 쌓일 수 있어. 속도를 줄이고 약속 규칙을 먼저 맞추는 게 좋아.';
+        if (value >= 80) {
+          return {
+            summary: '안정감이 높은 축복 구간이야.',
+            cause: '사주적 근거: 두 사람의 오행 분포가 상생 구조(목→화, 금→수)로 이어져 관계 회복 탄력이 좋아.',
+            solution: '솔루션: 갈등이 생겨도 당일 마무리 원칙을 지키면 안정 흐름을 더 오래 유지할 수 있어.'
+          };
+        }
+        if (value >= 60) {
+          return {
+            summary: '기본 리듬은 맞지만 충돌 완화가 숙제야.',
+            cause: '사주적 근거: 화(火)와 금(金) 기운이 동시에 강해 추진력은 좋지만 의견 충돌 시 마찰열이 커지기 쉬워.',
+            solution: '솔루션: 다름을 틀림으로 보지 말고 역할 분담을 먼저 합의하면 안정도가 더 올라가.'
+          };
+        }
+        if (value >= 50) {
+          return {
+            summary: '초반 열정은 강한데 감정 완충이 느린 편이야.',
+            cause: '사주적 근거: 화극금(화가 금을 제어) 패턴이 보여 예민한 상황에서 말이 날카롭게 느껴질 가능성이 높아.',
+            solution: '솔루션: 갈등 시 30분만 각자 정리 시간을 갖고 다시 대화하면 안정 구조가 빨리 회복돼.'
+          };
+        }
+        return {
+          summary: '감정 기복 관리가 최우선인 구간이야.',
+          cause: '사주적 근거: 수(水) 기운이 약하고 화(火) 압력이 높아 감정 온도 조절이 어렵게 작동할 수 있어.',
+          solution: '솔루션: 주 1회 관계 점검 대화를 루틴화하면 충돌 누적을 크게 줄일 수 있어.'
+        };
       }
-      if (value >= 80) return '말이 잘 통하고 반응 템포도 좋아. 솔직한 표현이 오히려 관계를 더 단단하게 만들어.';
-      if (value >= 60) return '기본 소통은 괜찮아. 직설보다 부드러운 화법을 쓰면 반응률이 더 올라가.';
-      if (value >= 50) return '표현 방식 차이가 있어. 질문형 대화와 공감 문장을 먼저 쓰는 게 유리해.';
-      return '감정 전달이 자주 엇갈리는 구간이야. 짧고 단정한 문장으로 오해를 줄이는 게 우선이야.';
+
+      if (value >= 80) {
+        return {
+          summary: '소통 운이 열려 있고 반응 템포가 잘 맞아.',
+          cause: '사주적 근거: 음양 밸런스가 비교적 고르게 분포되어 주고받는 리듬이 안정적으로 유지돼.',
+          solution: '솔루션: 좋은 반응이 왔을 때 감사 표현을 즉시 주면 관계 신뢰가 더 빠르게 올라가.'
+        };
+      }
+      if (value >= 60) {
+        return {
+          summary: '기본 소통은 양호하지만 화법 보정이 필요해.',
+          cause: '사주적 근거: 양(陽) 성향이 강해서 먼저 말하고 결론 내리려는 경향이 같이 나타나.',
+          solution: '솔루션: 질문형 문장 1개를 먼저 던지고 의견을 말하면 반응도가 확실히 좋아져.'
+        };
+      }
+      if (value >= 50) {
+        return {
+          summary: '표현 방식 차이로 오해가 생기기 쉬운 구간이야.',
+          cause: '사주적 근거: 두 사람 모두 주관성이 강한 양(陽) 기질이라 경청보다 주장으로 시작하기 쉬워.',
+          solution: '솔루션: 상대 말이 끝난 뒤 3초 쉬고 답하는 습관이 소통 운을 여는 핵심 키야.'
+        };
+      }
+      return {
+        summary: '감정 전달이 자주 엇갈리는 구간이야.',
+        cause: '사주적 근거: 금(金)-수(水) 연결이 약해 의도 전달 과정에서 말의 온도가 차갑게 받아들여질 수 있어.',
+        solution: '솔루션: 짧고 단정한 문장 + 감정 확인 질문을 같이 쓰면 오해를 줄일 수 있어.'
+      };
     };
 
     const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');
+    const stabilityDetail = getMetricDetail(firstGauge, 'stability');
+    const reactionDetail = getMetricDetail(secondGauge, 'reaction');
 
     coreMetricsBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">2</span> 상세 분석' : '핵심 운명 지표'}</h3>
       <div class="core-metric-grid wizard-dashboard detail-metric-grid">
@@ -521,7 +568,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${getMetricNarrative(firstGauge, 'stability')}</p><p class="small metric-evidence" id="metricEvidenceStability">원국 근거를 불러오는 중...</p></div>
+            <div class="metric-copy"><p>${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-open-metric="stability">더 자세히</button></div>
           </div>
         </article>
         <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
@@ -534,10 +581,41 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${getMetricNarrative(secondGauge, 'reaction')}</p><p class="small metric-evidence" id="metricEvidenceReaction">성향 근거를 불러오는 중...</p></div>
+            <div class="metric-copy"><p>${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-open-metric="reaction">더 자세히</button></div>
           </div>
         </article>
+      </div>
+      <div class="modal" id="metricDetailModal" hidden>
+        <div class="modal-card">
+          <button class="modal-close" type="button" id="metricDetailClose">✕</button>
+          <h3 id="metricDetailTitle">상세 해석</h3>
+          <p id="metricDetailCause"></p>
+          <p id="metricDetailSolution"></p>
+        </div>
       </div>`;
+
+    const detailModal = document.getElementById('metricDetailModal');
+    const detailTitle = document.getElementById('metricDetailTitle');
+    const detailCause = document.getElementById('metricDetailCause');
+    const detailSolution = document.getElementById('metricDetailSolution');
+    const detailClose = document.getElementById('metricDetailClose');
+    const detailMap = {
+      stability: { title: firstLabel, ...stabilityDetail },
+      reaction: { title: secondLabel, ...reactionDetail }
+    };
+    coreMetricsBox.querySelectorAll('[data-open-metric]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-open-metric');
+        const item = detailMap[key] || detailMap.stability;
+        if (!detailModal || !detailTitle || !detailCause || !detailSolution) return;
+        detailTitle.textContent = item.title;
+        detailCause.textContent = item.cause;
+        detailSolution.textContent = item.solution;
+        detailModal.hidden = false;
+      });
+    });
+    detailClose?.addEventListener('click', () => { if (detailModal) detailModal.hidden = true; });
+    detailModal?.addEventListener('click', (e) => { if (e.target === detailModal) detailModal.hidden = true; });
 
     bridgeBox.innerHTML = `<h3>${isCompat ? '세부 운세' : `결과 브릿지 안내 · ${modeLabel} 관점`}</h3><p>${targetName ? `${targetName}님과의` : ''} 현재 패턴을 빠르게 읽어주는 요약입니다. 정밀 리딩에서는 상대 성향/연락 히스토리/시간축을 함께 교차해 행동 순서를 제안합니다.</p>`;
 

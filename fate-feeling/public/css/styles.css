@@ -2517,6 +2517,30 @@ button.scan-icon:hover {
   color: #b9c2da;
   font-size: 12px;
 }
+.metric-block {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  background: rgba(255,255,255,.03);
+}
+.metric-block strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #f1f3f8;
+}
+.metric-detail-btn {
+  margin-top: 8px;
+  min-height: 34px;
+  padding: 7px 12px;
+  font-size: 13px;
+}
+#metricDetailCause,
+#metricDetailSolution {
+  line-height: 1.65;
+  color: #E0E0E0;
+}
 .metric-info {
   display: inline-grid;
   place-items: center;
