@@ -1,5 +1,6 @@
 const resultBox = document.getElementById('resultBox');
 const coreMetricsBox = document.getElementById('coreMetricsBox');
+const shareBox = document.getElementById('shareBox');
 const bridgeBox = document.getElementById('bridgeBox');
 const chartsBox = document.getElementById('chartsBox');
 const timelineBox = document.getElementById('timelineBox');
@@ -59,18 +60,35 @@ function hourToBranchLabel(time = '') {
 }
 
 function buildYearTimelineData(concern = '일반 궁합') {
-  const baseByConcern = {
-    '금전/재산': { k: ['#현금흐름회복', '#분산투자', '#지출관리'], tip: '💰 금전운: 5월 이후 목돈 운이 강해. 단기보다 분할 접근이 유리해.' },
-    '취업/직장': { k: ['#문서운상승', '#이직기회', '#평판관리'], tip: '💼 직장운: 상반기 준비, 하반기 이동수가 강하게 들어와.' },
-    '사업/창업': { k: ['#시장검증', '#파트너십', '#확장타이밍'], tip: '🚀 사업운: 성급 확장보다 3분기 검증 후 확장이 안정적이야.' },
-    '애정운': { k: ['#감정회복', '#표현강화', '#신뢰형성'], tip: '❤️ 애정운: 관계를 급하게 결론내기보다 템포를 맞추는 게 핵심이야.' }
+  const concernTip = {
+    '금전/재산': '💰 금전운: 5월 이후 목돈이 들어올 운세가 강해. 재테크는 장기 안목으로 접근해.',
+    '취업/직장': '💼 직장운: 상반기 준비, 하반기에 승진/이동수가 강해.',
+    '애정운': '❤️ 애정운: 매력은 상승하지만 화법을 부드럽게 가져가야 충돌을 줄여.',
+    '사업/창업': '🚀 사업운: 올해 실험, 내년 수확 구조가 가장 안정적이야.'
   };
-  const base = baseByConcern[concern] || { k: ['#변화의시작', '#문서운상승', '#인간관계주의'], tip: '✨ 올해 포인트: 감정적 결정보다 기록 기반 판단이 운을 살려.' };
   return {
-    2025: { label: '지나온 흐름', keywords: ['#정체기', '#관계재정렬', '#기반정비'], desc: '지난 해는 속도를 줄이고 기반을 재정비한 시기였어. 무리한 확장보다 정리에 집중하면서 손실을 줄인 흐름이야.', months: [42, 38, 45, 48, 51, 46, 50, 55, 52, 58, 61, 64] },
-    2026: { label: '현재의 운세', keywords: base.k, desc: '올해는 정체를 벗어나 새로운 문서·연결·결정이 시작되는 해야. 다만 감정적 충돌 가능성이 있으니 속도 조절이 중요해.', months: [56, 61, 64, 68, 74, 71, 76, 80, 77, 83, 79, 86] },
-    2027: { label: '준비할 미래', keywords: ['#확장', '#성과가시화', '#선택집중'], desc: '내년은 올해의 선택이 성과로 드러나는 시기야. 잘 맞는 축에 집중하면 체감 성취가 크게 올라갈 가능성이 높아.', months: [63, 66, 69, 73, 76, 79, 82, 84, 81, 86, 88, 90] },
-    tip: base.tip
+    2025: {
+      label: '지나온 흐름',
+      keywords: ['#인내심', '#내실다지기', '#정체기극복'],
+      desc: '작년은 기운이 안으로 수렴되며 뿌리를 깊게 내린 시기였어. 생각보다 결과가 더뎠지만, 올해 도약을 위한 기반을 만든 해였어.',
+      months: [40, 42, 41, 44, 47, 49, 46, 50, 52, 54, 57, 60],
+      tone: 'past'
+    },
+    2026: {
+      label: '현재의 운세',
+      keywords: ['#거침없는도전', '#문서운상승', '#확실한성과'],
+      desc: '병오(丙午)의 불 기운이 강하게 들어와 정체되던 흐름이 풀리는 해야. 무대 중앙으로 나갈수록 성과가 빨라져. 다만 강한 기세로 인한 마찰은 조심해.',
+      months: [58, 61, 65, 69, 74, 71, 77, 81, 79, 84, 86, 88],
+      tone: 'now'
+    },
+    2027: {
+      label: '준비할 미래',
+      keywords: ['#수확의계절', '#관계의안정', '#장기적계획'],
+      desc: '내년은 올해의 도전이 자리 잡고 결실로 이어지는 시기야. 급변보다 유지·관리 전략이 수익과 평판을 지켜줄 가능성이 높아.',
+      months: [64, 66, 70, 72, 75, 78, 80, 83, 82, 85, 87, 89],
+      tone: 'future'
+    },
+    tip: concernTip[concern] || '✨ 올해 포인트: 결정은 빠르게, 표현은 부드럽게 가져가면 운이 살아.'
   };
 }
 
@@ -88,9 +106,10 @@ function renderTimelineCard(data, concern = '일반 궁합') {
     const y = data[year];
     if (!panel || !y) return;
     const max = Math.max(...y.months, 100);
+    panel.className = `timeline-panel tone-${y.tone || 'now'}`;
     panel.innerHTML = `<p class="small">${y.label}</p>
       <p class="timeline-hash">${y.keywords.join(' ')}</p>
-      <p>${y.desc}</p>
+      <p><strong>${y.desc}</strong></p>
       <div class="monthly-bars">${y.months.map((v, i) => `<div class="mbar"><span style="height:${Math.max(10, Math.round((v / max) * 100))}%"></span><em>${i + 1}월</em></div>`).join('')}</div>
       <p class="small timeline-tip">${data.tip}</p>`;
   };
@@ -135,7 +154,31 @@ if (!saved) {
     const modeLabel = data.modeLabel || '종합';
     if (reportTitle) reportTitle.textContent = `${modeLabel} 정밀 분석 리포트`;
 
-    resultBox.innerHTML = `<div class="weather-hero"><div><div class="mode-hero-badge">✦ 분석 관점 · ${modeLabel}</div><p class="mode-hero-note destiny-line hand-font">명반의 별들이 다시 연결되고 있어요.</p><h1 class="result-main-title">${userName}님의 ${concern} 기상도</h1><div class="weather-badge">${weather.icon} ${weather.label}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+    const totalScore = Math.max(55, Math.min(98, Math.round(((data.recoveryIndex || 66) + (data.reunionForce || 72) + (data.emotionTemp || 64)) / 3)));
+    const summaryTags = (buildYearTimelineData(concern)[2026]?.keywords || ['#변화', '#문서운', '#성과']).slice(0, 3);
+    resultBox.innerHTML = `<div class="weather-hero"><div><div class="mode-hero-badge">✦ 분석 관점 · ${modeLabel}</div><p class="mode-hero-note destiny-line hand-font">명반의 별들이 다시 연결되고 있어요.</p><h1 class="result-main-title">${userName}님의 ${concern} 기상도</h1><div class="weather-badge">${weather.icon} ${weather.label}</div><div class="fortune-score-head">당신의 올해 운세는 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+
+    if (shareBox) {
+      shareBox.innerHTML = `<h3>결과 공유</h3><p class="small">인스타 스토리용 요약 카드를 저장해 공유해봐.</p><div class="cta-row"><button class="btn" id="saveSummaryBtn">결과 이미지 저장</button></div>`;
+      document.getElementById('saveSummaryBtn')?.addEventListener('click', () => {
+        const card = document.createElement('canvas');
+        card.width = 1080; card.height = 1920;
+        const ctx = card.getContext('2d');
+        if (!ctx) return;
+        const g = ctx.createLinearGradient(0, 0, 1080, 1920);
+        g.addColorStop(0, '#1d1436'); g.addColorStop(1, '#4b2a82');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, 1080, 1920);
+        ctx.fillStyle = '#fff'; ctx.font = 'bold 64px sans-serif'; ctx.fillText('Fate & Feeling', 80, 150);
+        ctx.font = 'bold 76px sans-serif'; ctx.fillText(`${concern} ${totalScore}점`, 80, 320);
+        ctx.font = '42px sans-serif'; ctx.fillText(summaryTags.join('  '), 80, 420);
+        ctx.font = '38px sans-serif'; ctx.fillText(`${userName}님의 2026 운세 요약`, 80, 520);
+        ctx.fillStyle = '#f4cd72'; ctx.fillRect(80, 580, Math.round(9.2 * totalScore), 18);
+        const link = document.createElement('a');
+        link.download = `fate-feeling-${Date.now()}.png`;
+        link.href = card.toDataURL('image/png');
+        link.click();
+      });
+    }
 
     const reunionRate = Math.min(96, Math.max(51, data.reunionForce || 78));
     const responseRate = Math.min(97, Math.max(48, data.recoveryIndex || 67));
