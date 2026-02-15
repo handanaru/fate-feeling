@@ -1642,6 +1642,19 @@ select,
 .radar-point.earth { fill: #FDE047; filter: drop-shadow(0 0 7px rgba(253,224,71,.9)); }
 .radar-point.metal { fill: #F8FAFC; filter: drop-shadow(0 0 7px rgba(248,250,252,.9)); }
 .radar-point.water { fill: #38BDF8; filter: drop-shadow(0 0 7px rgba(56,189,248,.9)); }
+.radar-axis-label {
+  font-size: 12px;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: rgba(10,11,20,.75);
+  stroke-width: 2px;
+  letter-spacing: .02em;
+}
+.radar-axis-label.wood { fill: #4ADE80; }
+.radar-axis-label.fire { fill: #FB7185; }
+.radar-axis-label.earth { fill: #FDE047; }
+.radar-axis-label.metal { fill: #F8FAFC; }
+.radar-axis-label.water { fill: #38BDF8; }
 .five-legend { margin-top: 6px; font-size: 13px; color: #cfd3df; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin: 0 4px 0 8px; }
 .dot.self { background: rgba(74,222,128,.95); }

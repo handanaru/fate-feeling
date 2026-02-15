@@ -198,6 +198,7 @@ function renderFiveElements(answerById, userName, partnerName) {
 
   const selfPoints = radarCoords(self);
   const partnerPoints = radarCoords(partner);
+  const axisPoints = radarCoords([100, 100, 100, 100, 100], 102);
   const pointClass = ['wood', 'fire', 'earth', 'metal', 'water'];
 
   fiveElementsBox.innerHTML = `<h3>✨ 오행 조화 에너지</h3>
@@ -210,6 +211,7 @@ function renderFiveElements(answerById, userName, partnerName) {
         <polygon points="${radarPoints(partner)}" class="radar-partner" />
         ${selfPoints.map((p, i) => `<circle cx="${p.x}" cy="${p.y}" r="4.2" class="radar-point self ${pointClass[i]}"></circle>`).join('')}
         ${partnerPoints.map((p, i) => `<circle cx="${p.x}" cy="${p.y}" r="3.4" class="radar-point partner ${pointClass[i]}"></circle>`).join('')}
+        ${axisPoints.map((p, i) => `<text x="${p.x}" y="${p.y}" class="radar-axis-label ${pointClass[i]}" text-anchor="middle" dominant-baseline="middle">${keys[i]}</text>`).join('')}
       </svg>
       <div class="five-legend"><span class="dot self"></span>● ${userName} · <span class="dot partner"></span>■ ${partnerName || '상대'}</div>
     </div>
