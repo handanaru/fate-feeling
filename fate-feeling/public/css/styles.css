@@ -1466,7 +1466,23 @@ select,
 }
 
 .live-analyzing-card { background: linear-gradient(160deg, rgba(27,17,44,.92), rgba(39,27,67,.84)); }
-.live-analyzing-card h1 { color: #fff; }
+.live-analyzing-card h1 { color: #fff; font-size: clamp(36px, 8.4vw, 48px); }
+#modeHint {
+  font-size: 16px !important;
+  line-height: 1.7;
+  color: #f5ecff;
+  font-weight: 700;
+}
+.question-context {
+  font-size: 15px !important;
+  line-height: 1.55;
+  color: #e9dcff !important;
+  font-weight: 700;
+}
+.question-card h3 {
+  font-size: clamp(28px, 6vw, 38px);
+  line-height: 1.35;
+}
 .analyzing-statusbar {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
