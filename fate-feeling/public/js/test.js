@@ -259,6 +259,40 @@ function updateLiveEvidence(index = 0) {
 
 function likertLabel(score) { return ['전혀 아니다', '아니다', '보통이다', '그렇다', '매우 그렇다'][score - 1]; }
 
+const weightByConcern = {
+  '금전/재산': { Q1: 1.5, Q2: 1.2, Q11: 0.8 },
+  '일반 궁합': { Q1: 2.0, Q2: 1.5, Q4: 0.7 },
+  '취업/직장': { Q1: 1.4, Q4: 1.3, Q9: 1.5 },
+  '사업/창업': { Q1: 1.5, Q3: 1.3, Q7: 1.4, Q10: 1.5 },
+  '애정운': { Q2: 1.4, Q7: 1.5, Q10: 1.3 },
+  '재회운': { Q1: 1.5, Q3: 1.4, Q9: 1.5 },
+  '결혼 운세': { Q1: 1.4, Q4: 1.3, Q8: 1.3 },
+  '속궁합': { Q1: 1.5, Q3: 1.3, Q7: 1.4 },
+  '키스 궁합': { Q1: 1.4, Q4: 1.3, Q10: 1.4 }
+};
+
+function calculateWeightedScore(answerById, concern) {
+  const weights = weightByConcern[concern] || {};
+  const ids = Object.keys(answerById);
+  let weightedSum = 0;
+  let maxSum = 0;
+  ids.forEach((id) => {
+    const w = weights[id] || 1;
+    const s = Number(answerById[id] || 0);
+    weightedSum += s * w;
+    maxSum += 5 * w;
+  });
+  if (!maxSum) return 0;
+  return Math.round((weightedSum / maxSum) * 100);
+}
+
+function gradeBandFromScore(score) {
+  if (score >= 85) return 'A';
+  if (score >= 60) return 'B';
+  if (score >= 40) return 'C';
+  return 'D';
+}
+
 function renderQuestion(index) {
   const q = activeQuestions[index];
   const card = document.createElement('div');
@@ -408,10 +442,14 @@ submitBtn.addEventListener('click', () => {
   if (total >= 48) type = '몰입형';
   else if (total >= 36) type = '탐색형';
 
+  const concern = concernLabel();
+  const finalScore = calculateWeightedScore(answerById, concern);
+  const gradeBand = gradeBandFromScore(finalScore);
+
   localStorage.setItem('ff-result', JSON.stringify({
     mode: selectedMode, modeLabel: modeMeta[selectedMode].label, lensTitle: modeMeta[selectedMode].lensTitle,
-    troubleType: concernLabel(), troubleLabel: concernLabel(), answers, answerById, partA, partB, partC,
-    total, recoveryIndex, reunionForce, emotionTemp, type, createdAt: Date.now()
+    troubleType: concern, troubleLabel: concern, answers, answerById, partA, partB, partC,
+    total, finalScore, gradeBand, recoveryIndex, reunionForce, emotionTemp, type, createdAt: Date.now()
   }));
 
   const loader = document.getElementById('preResultLoader');

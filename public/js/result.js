@@ -156,7 +156,7 @@ if (!saved) {
     const modeLabel = data.modeLabel || '종합';
     if (reportTitle) reportTitle.textContent = `${modeLabel} 정밀 분석 리포트`;
 
-    const totalScore = Math.max(55, Math.min(98, Math.round(((data.recoveryIndex || 66) + (data.reunionForce || 72) + (data.emotionTemp || 64)) / 3)));
+    const totalScore = data.finalScore || Math.max(55, Math.min(98, Math.round(((data.recoveryIndex || 66) + (data.reunionForce || 72) + (data.emotionTemp || 64)) / 3)));
     const summaryTags = (buildYearTimelineData(concern)[2026]?.keywords || ['#변화', '#문서운', '#성과']).slice(0, 3);
     const headerCopyByConcern = {
       '일반 궁합': {
