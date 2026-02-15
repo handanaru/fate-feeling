@@ -4,6 +4,7 @@ const fiveElementsBox = document.getElementById('fiveElementsBox');
 const luckyGuideBox = document.getElementById('luckyGuideBox');
 const shareBox = document.getElementById('shareBox');
 const gradeBox = document.getElementById('gradeBox');
+const pillarsBox = document.getElementById('pillarsBox');
 const ossEngineBox = document.getElementById('ossEngineBox');
 const socialShareBox = document.getElementById('socialShareBox');
 const bridgeBox = document.getElementById('bridgeBox');
@@ -19,6 +20,7 @@ const overlay = document.getElementById('resultOverlay');
 const reportTitle = document.getElementById('reportTitle');
 const saved = localStorage.getItem('ff-result');
 let pendingOrreryEvidence = null;
+let latestOrreryData = null;
 
 function animateGaugeMetrics(root = document) {
   const widgets = [...root.querySelectorAll('.gauge-card[data-target]')];
@@ -99,6 +101,67 @@ function applyOrreryEvidence(evidence) {
   if (b) b.textContent = `${evidence.stabilityHint} ${evidence.reactionHint}`;
 }
 
+function renderPillarsGrid(data, concern = '') {
+  if (!pillarsBox) return;
+  const cols = ['시', '일', '월', '년'];
+  const toneMap = { wood: 'wood', fire: 'fire', earth: 'earth', metal: 'metal', water: 'water' };
+  const renderPerson = (title, pillars = []) => {
+    const safe = pillars.slice(0, 4);
+    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong></div>`).join('');
+    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong></div>`).join('');
+    return `<article class="pillars-person"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div></article>`;
+  };
+
+  pillarsBox.innerHTML = `<h3>✨ 두 분의 타고난 기운 (사주 원국)</h3>
+    <div class="pillars-compare">
+      ${renderPerson('나', data?.self?.pillars || [])}
+      ${(concern === '일반 궁합' && data?.partner?.pillars?.length) ? renderPerson('상대방', data.partner.pillars) : ''}
+    </div>
+    <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루)</p>`;
+}
+
+function setupTypingEffect() {
+  const targets = [...document.querySelectorAll('.typing-target')];
+  if (!targets.length) return;
+  const type = (el) => {
+    const full = el.dataset.fulltext || '';
+    el.textContent = '';
+    let idx = 0;
+    const timer = setInterval(() => {
+      idx += 1;
+      el.textContent = full.slice(0, idx);
+      if (idx >= full.length) clearInterval(timer);
+    }, 18);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.typed === '1') return;
+      el.dataset.typed = '1';
+      type(el);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.35 });
+
+  targets.forEach((el) => io.observe(el));
+}
+
+function setupMetricAccordion() {
+  document.querySelectorAll('[data-acc-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-acc-toggle');
+      const panel = document.querySelector(`[data-acc-panel="${key}"]`);
+      if (!panel) return;
+      const isOpen = panel.getAttribute('data-open') === '1';
+      panel.setAttribute('data-open', isOpen ? '0' : '1');
+      panel.style.maxHeight = isOpen ? '0px' : `${panel.scrollHeight + 10}px`;
+      btn.textContent = isOpen ? '🔍 사주학적 근거 더 보기' : '🔽 접기';
+    });
+  });
+}
+
 async function renderOrreryEngineBox(intake = {}, concern = '') {
   if (!ossEngineBox) return;
   ossEngineBox.innerHTML = '<h3>오러리 기반 원국 계산 중...</h3>';
@@ -136,8 +199,11 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       <p class="small">엔진: ${data.engine} · 라이선스: ${data.license}</p>
       <p class="small"><a href="${data.sourceUrl}" target="_blank" rel="noopener">소스코드 공개 저장소 보기</a></p>`;
 
+    latestOrreryData = data;
+    renderPillarsGrid(data, concern);
     applyOrreryEvidence(buildOrreryEvidence(data, concern));
   } catch (e) {
+    if (pillarsBox) pillarsBox.hidden = true;
     ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 연결</h3><p class="small">엔진 계산에 실패했어. (${e.message || 'unknown'})</p>`;
   }
 }
@@ -568,7 +634,7 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-open-metric="stability">더 자세히</button></div>
+            <div class="metric-copy"><p class="typing-target" data-fulltext="${stabilityDetail.summary}">${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="stability">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="stability" data-open="0"><p class="small metric-evidence">오행 상생/상극, 십신 분포, 운성 리듬을 종합해 안정도를 계산했어. 특히 화극금 구간에선 말의 강도를 낮추는 게 핵심이야.</p></div></div>
           </div>
         </article>
         <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
@@ -581,41 +647,13 @@ if (!saved) {
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
             </div>
-            <div class="metric-copy"><p>${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-open-metric="reaction">더 자세히</button></div>
+            <div class="metric-copy"><p class="typing-target" data-fulltext="${reactionDetail.summary}">${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="reaction">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="reaction" data-open="0"><p class="small metric-evidence">양 기질이 강할수록 선발언-후경청 패턴이 나타나기 쉬워. 3초 멈춤 + 질문형 대화가 반응 지표를 안정화해줘.</p></div></div>
           </div>
         </article>
-      </div>
-      <div class="modal" id="metricDetailModal" hidden>
-        <div class="modal-card">
-          <button class="modal-close" type="button" id="metricDetailClose">✕</button>
-          <h3 id="metricDetailTitle">상세 해석</h3>
-          <p id="metricDetailCause"></p>
-          <p id="metricDetailSolution"></p>
-        </div>
       </div>`;
 
-    const detailModal = document.getElementById('metricDetailModal');
-    const detailTitle = document.getElementById('metricDetailTitle');
-    const detailCause = document.getElementById('metricDetailCause');
-    const detailSolution = document.getElementById('metricDetailSolution');
-    const detailClose = document.getElementById('metricDetailClose');
-    const detailMap = {
-      stability: { title: firstLabel, ...stabilityDetail },
-      reaction: { title: secondLabel, ...reactionDetail }
-    };
-    coreMetricsBox.querySelectorAll('[data-open-metric]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const key = btn.getAttribute('data-open-metric');
-        const item = detailMap[key] || detailMap.stability;
-        if (!detailModal || !detailTitle || !detailCause || !detailSolution) return;
-        detailTitle.textContent = item.title;
-        detailCause.textContent = item.cause;
-        detailSolution.textContent = item.solution;
-        detailModal.hidden = false;
-      });
-    });
-    detailClose?.addEventListener('click', () => { if (detailModal) detailModal.hidden = true; });
-    detailModal?.addEventListener('click', (e) => { if (e.target === detailModal) detailModal.hidden = true; });
+    setupTypingEffect();
+    setupMetricAccordion();
 
     bridgeBox.innerHTML = `<h3>${isCompat ? '세부 운세' : `결과 브릿지 안내 · ${modeLabel} 관점`}</h3><p>${targetName ? `${targetName}님과의` : ''} 현재 패턴을 빠르게 읽어주는 요약입니다. 정밀 리딩에서는 상대 성향/연락 히스토리/시간축을 함께 교차해 행동 순서를 제안합니다.</p>`;
 

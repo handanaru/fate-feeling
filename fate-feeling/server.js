@@ -43,6 +43,28 @@ function mapGender(gender = '') {
   return 'F';
 }
 
+function elementFromStem(stem = '') {
+  const map = {
+    '甲': 'wood', '乙': 'wood',
+    '丙': 'fire', '丁': 'fire',
+    '戊': 'earth', '己': 'earth',
+    '庚': 'metal', '辛': 'metal',
+    '壬': 'water', '癸': 'water'
+  };
+  return map[stem] || 'earth';
+}
+
+function elementFromBranch(branch = '') {
+  const map = {
+    '寅': 'wood', '卯': 'wood',
+    '巳': 'fire', '午': 'fire',
+    '辰': 'earth', '戌': 'earth', '丑': 'earth', '未': 'earth',
+    '申': 'metal', '酉': 'metal',
+    '亥': 'water', '子': 'water'
+  };
+  return map[branch] || 'earth';
+}
+
 async function calculateWithOrrery(person = {}) {
   const sajuMod = await import('@orrery/core/saju');
   const { year, month, day } = parseBirth(person.birth || person.partnerBirth || '2000-01-01');
@@ -61,6 +83,10 @@ async function calculateWithOrrery(person = {}) {
     input,
     pillars: (result.pillars || []).map((p) => ({
       ganzi: p?.pillar?.ganzi,
+      stem: p?.pillar?.stem || '',
+      branch: p?.pillar?.branch || '',
+      stemElement: elementFromStem(p?.pillar?.stem || ''),
+      branchElement: elementFromBranch(p?.pillar?.branch || ''),
       stemSipsin: p?.stemSipsin,
       unseong: p?.unseong
     }))
