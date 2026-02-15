@@ -1617,14 +1617,44 @@ select,
 .five-elements-card { border: 1px solid var(--border); }
 .five-wrap { display: grid; place-items: center; margin: 8px 0; }
 .five-radar { width: min(260px, 90%); height: auto; }
-.radar-grid { fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1; }
-.radar-self { fill: rgba(246, 186, 122, .35); stroke: rgba(246,186,122,.95); stroke-width: 2; }
-.radar-partner { fill: rgba(155, 193, 255, .28); stroke: rgba(155,193,255,.95); stroke-width: 2; }
-.five-legend { margin-top: 6px; font-size: 13px; color: var(--muted); }
-.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 4px 0 8px; }
-.dot.self { background: rgba(246,186,122,.95); }
-.dot.partner { background: rgba(155,193,255,.95); }
+.radar-grid { fill: none; stroke: rgba(255,255,255,.05); stroke-width: 1; }
+.radar-self {
+  fill: rgba(74, 222, 128, .18);
+  stroke: rgba(74, 222, 128, .95);
+  stroke-width: 2.1;
+  filter: drop-shadow(0 0 8px rgba(74,222,128,.45));
+  transform-origin: 110px 110px;
+  animation: radarGrow .55s ease both;
+}
+.radar-partner {
+  fill: rgba(56, 189, 248, .14);
+  stroke: rgba(248, 250, 252, .82);
+  stroke-dasharray: 5 4;
+  stroke-width: 1.9;
+  filter: drop-shadow(0 0 7px rgba(56,189,248,.36));
+  transform-origin: 110px 110px;
+  animation: radarGrow .55s ease .08s both;
+}
+.radar-point { animation: radarPointPop .45s ease both; }
+.radar-point.partner { opacity: .85; }
+.radar-point.wood { fill: #4ADE80; filter: drop-shadow(0 0 7px rgba(74,222,128,.9)); }
+.radar-point.fire { fill: #FB7185; filter: drop-shadow(0 0 7px rgba(251,113,133,.9)); }
+.radar-point.earth { fill: #FDE047; filter: drop-shadow(0 0 7px rgba(253,224,71,.9)); }
+.radar-point.metal { fill: #F8FAFC; filter: drop-shadow(0 0 7px rgba(248,250,252,.9)); }
+.radar-point.water { fill: #38BDF8; filter: drop-shadow(0 0 7px rgba(56,189,248,.9)); }
+.five-legend { margin-top: 6px; font-size: 13px; color: #cfd3df; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin: 0 4px 0 8px; }
+.dot.self { background: rgba(74,222,128,.95); }
+.dot.partner { background: rgba(248,250,252,.92); }
 .five-line { margin-top: 6px; }
+@keyframes radarGrow {
+  from { transform: scale(.2); opacity: .2; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes radarPointPop {
+  from { transform: scale(.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 .lucky-guide-card { border: 1px solid var(--border); }
 .lucky-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
 .lucky-item { border: 1px solid var(--border); border-radius: 14px; padding: 10px; background: rgba(255,255,255,.08); }

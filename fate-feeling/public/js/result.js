@@ -166,13 +166,21 @@ function renderTimelineCard(data, concern = '일반 궁합') {
   });
 }
 
-function radarPoints(values, r = 86, cx = 110, cy = 110) {
+function radarCoords(values, r = 86, cx = 110, cy = 110) {
   const angles = [-90, -18, 54, 126, 198];
   return values.map((v, i) => {
     const rr = (Math.max(0, Math.min(100, v)) / 100) * r;
     const rad = (angles[i] * Math.PI) / 180;
-    return `${(cx + rr * Math.cos(rad)).toFixed(1)},${(cy + rr * Math.sin(rad)).toFixed(1)}`;
-  }).join(' ');
+    return {
+      keyIndex: i,
+      x: Number((cx + rr * Math.cos(rad)).toFixed(1)),
+      y: Number((cy + rr * Math.sin(rad)).toFixed(1))
+    };
+  });
+}
+
+function radarPoints(values, r = 86, cx = 110, cy = 110) {
+  return radarCoords(values, r, cx, cy).map((p) => `${p.x},${p.y}`).join(' ');
 }
 
 function renderFiveElements(answerById, userName, partnerName) {
@@ -188,7 +196,11 @@ function renderFiveElements(answerById, userName, partnerName) {
   const harmony = Math.round(100 - (self.reduce((acc, v, i) => acc + Math.abs(v - partner[i]), 0) / 5));
   const oneLine = harmony >= 80 ? '서로의 기운이 상생하며 안정감을 높여주는 조화야.' : harmony >= 60 ? '다름이 있지만 대화를 통해 충분히 맞춰갈 수 있는 궁합이야.' : '기운의 충돌이 있어 속도보다 배려가 우선이야.';
 
-  fiveElementsBox.innerHTML = `<h3>✨ 두 사람의 오행 조화</h3>
+  const selfPoints = radarCoords(self);
+  const partnerPoints = radarCoords(partner);
+  const pointClass = ['wood', 'fire', 'earth', 'metal', 'water'];
+
+  fiveElementsBox.innerHTML = `<h3>✨ 오행 조화 에너지</h3>
     <div class="five-wrap">
       <svg viewBox="0 0 220 220" class="five-radar" aria-hidden="true">
         <polygon points="${radarPoints([100,100,100,100,100])}" class="radar-grid" />
@@ -196,10 +208,13 @@ function renderFiveElements(answerById, userName, partnerName) {
         <polygon points="${radarPoints([50,50,50,50,50])}" class="radar-grid" />
         <polygon points="${radarPoints(self)}" class="radar-self" />
         <polygon points="${radarPoints(partner)}" class="radar-partner" />
+        ${selfPoints.map((p, i) => `<circle cx="${p.x}" cy="${p.y}" r="4.2" class="radar-point self ${pointClass[i]}"></circle>`).join('')}
+        ${partnerPoints.map((p, i) => `<circle cx="${p.x}" cy="${p.y}" r="3.4" class="radar-point partner ${pointClass[i]}"></circle>`).join('')}
       </svg>
-      <div class="five-legend"><span class="dot self"></span>${userName} · <span class="dot partner"></span>${partnerName || '상대'}</div>
+      <div class="five-legend"><span class="dot self"></span>● ${userName} · <span class="dot partner"></span>■ ${partnerName || '상대'}</div>
     </div>
     <p class="small">🌳목 · 🔥화 · 🟨토 · ⚪금 · 🌊수</p>
+    <p class="small">해석 가이드: 실선(나) · 점선/반투명(상대)으로 두 사람의 에너지 겹침을 보여줘.</p>
     <p class="five-line"><strong>${oneLine}</strong> (조화도 ${harmony}점)</p>`;
 
   return { keys, self, partner, harmony };
