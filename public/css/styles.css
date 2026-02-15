@@ -2553,11 +2553,11 @@ button.scan-icon:hover {
   font-size: 12px;
 }
 .metric-block {
-  margin-top: 8px;
-  padding: 8px 10px;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px;
-  background: rgba(255,255,255,.03);
+  margin-top: 10px;
+  padding: 10px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 .metric-block strong {
   display: block;
@@ -2566,12 +2566,15 @@ button.scan-icon:hover {
   color: #f1f3f8;
 }
 .metric-detail-btn {
-  margin-top: 10px;
-  min-height: 36px;
-  padding: 8px 14px;
+  margin-top: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 14px;
   font-size: 13px;
   border: 1px solid rgba(255,255,255,.22);
   background: rgba(255,255,255,.08);
+  display: flex;
+  justify-content: center;
 }
 .metric-accordion {
   max-height: 0;
@@ -2754,9 +2757,45 @@ button.scan-icon:hover {
   cursor: help;
 }
 .gauge-detail.low { border-color: rgba(255, 183, 77, .45); box-shadow: 0 0 0 1px rgba(255,183,77,.15), 0 12px 28px rgba(0,0,0,.34); }
-.gauge-detail.low .gauge-ring-progress { stroke: #FFB74D !important; filter: drop-shadow(0 0 10px rgba(255,183,77,.45)); }
+.gauge-detail.low .gauge-ring-progress { stroke: #FF8A65 !important; filter: drop-shadow(0 0 10px rgba(255,138,101,.45)); }
+.gauge-detail.mid .gauge-ring-progress { stroke: #F6C45B !important; filter: drop-shadow(0 0 8px rgba(246,196,91,.35)); }
 .gauge-detail.high { border-color: rgba(129, 199, 132, .5); box-shadow: 0 0 0 1px rgba(129,199,132,.2), 0 0 22px rgba(129,199,132,.2), 0 12px 28px rgba(0,0,0,.34); }
 .gauge-detail.high .gauge-ring-progress { stroke: #81C784 !important; filter: drop-shadow(0 0 12px rgba(129,199,132,.55)); }
+.gauge-status {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(19,18,33,.86);
+  color: #e9edf9;
+}
+.gauge-status.low { color: #ffba98; }
+.gauge-status.mid { color: #f6d682; }
+.gauge-status.high { color: #a9e9ba; }
+.gauge-side-clue {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.03);
+}
+.energy-chip {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,.14);
+  margin-bottom: 5px;
+}
+.energy-chip.low { color: #ffba98; border-color: rgba(255,138,101,.35); }
+.energy-chip.mid { color: #f6d682; border-color: rgba(246,196,91,.35); }
+.energy-chip.high { color: #a9e9ba; border-color: rgba(129,199,132,.35); }
+.metric-inline-cause { opacity: .92; }
 @media (max-width: 640px) {
   .gauge-detail .gauge-layout { grid-template-columns: 1fr; }
   .gauge-detail .gauge-wrap { margin-inline: auto; }

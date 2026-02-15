@@ -883,8 +883,16 @@ if (!saved) {
     };
 
     const metricState = (value) => (value < 50 ? 'low' : value >= 80 ? 'high' : 'mid');
+    const metricStatusMeta = (value) => {
+      if (value < 50) return { icon: '⚠️', label: '주의', hint: '충(沖) 기운 우세', key: 'low' };
+      if (value >= 80) return { icon: '✨', label: '안정', hint: '합(合) 기운 우세', key: 'high' };
+      return { icon: '🌓', label: '균형 조정', hint: '합·충 혼재 구간', key: 'mid' };
+    };
+    const cleanCause = (text = '') => String(text).replace('사주적 근거:', '').trim();
     const stabilityDetail = getMetricDetail(firstGauge, 'stability');
     const reactionDetail = getMetricDetail(secondGauge, 'reaction');
+    const stabilityMeta = metricStatusMeta(firstGauge);
+    const reactionMeta = metricStatusMeta(secondGauge);
 
     coreMetricsBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">2</span> 상세 분석' : '핵심 운명 지표'}</h3>
       <div class="core-metric-grid wizard-dashboard detail-metric-grid">
@@ -897,8 +905,9 @@ if (!saved) {
                 <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
+              <span class="gauge-status ${stabilityMeta.key}">${stabilityMeta.icon} ${stabilityMeta.label}</span>
             </div>
-            <div class="metric-copy"><p class="typing-target" data-fulltext="${stabilityDetail.summary}">${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="stability">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="stability" data-open="0">${renderDeepAccordion('stability', firstGauge, band)}</div></div>
+            <div class="metric-copy"><div class="gauge-side-clue"><span class="energy-chip ${stabilityMeta.key}">기운 상태: ${stabilityMeta.label}</span><p class="small">${stabilityMeta.hint}</p><p class="small metric-inline-cause">${cleanCause(stabilityDetail.cause)}</p></div><p class="typing-target" data-fulltext="${stabilityDetail.summary}">${stabilityDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceStability">${stabilityDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${stabilityDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="stability">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="stability" data-open="0">${renderDeepAccordion('stability', firstGauge, band)}</div></div>
           </div>
         </article>
         <article class="gauge-card gauge-detail ${metricState(secondGauge)}" data-target="${secondGauge}">
@@ -910,8 +919,9 @@ if (!saved) {
                 <circle class="gauge-ring-progress" cx="60" cy="60" r="52" />
               </svg>
               <strong class="gauge-value number-metric">0%</strong>
+              <span class="gauge-status ${reactionMeta.key}">${reactionMeta.icon} ${reactionMeta.label}</span>
             </div>
-            <div class="metric-copy"><p class="typing-target" data-fulltext="${reactionDetail.summary}">${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="reaction">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="reaction" data-open="0">${renderDeepAccordion('reaction', secondGauge, band)}</div></div>
+            <div class="metric-copy"><div class="gauge-side-clue"><span class="energy-chip ${reactionMeta.key}">기운 상태: ${reactionMeta.label}</span><p class="small">${reactionMeta.hint}</p><p class="small metric-inline-cause">${cleanCause(reactionDetail.cause)}</p></div><p class="typing-target" data-fulltext="${reactionDetail.summary}">${reactionDetail.summary}</p><div class="metric-block"><strong>사주적 근거</strong><p class="small metric-evidence" id="metricEvidenceReaction">${reactionDetail.cause}</p></div><div class="metric-block"><strong>솔루션</strong><p class="small">${reactionDetail.solution}</p></div><button class="btn secondary metric-detail-btn" data-acc-toggle="reaction">🔍 사주학적 근거 더 보기</button><div class="metric-accordion" data-acc-panel="reaction" data-open="0">${renderDeepAccordion('reaction', secondGauge, band)}</div></div>
           </div>
         </article>
       </div>`;
