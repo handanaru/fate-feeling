@@ -134,7 +134,7 @@ if (!saved) {
     const data = JSON.parse(saved);
     const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
     const userName = intake.name || '당신';
-    const targetName = intake.targetName || '';
+    const targetName = intake.partnerName || intake.targetName || '';
 
     const concern = data.troubleLabel || data.troubleType || '일반 궁합';
     const weatherMap = {
@@ -156,7 +156,52 @@ if (!saved) {
 
     const totalScore = Math.max(55, Math.min(98, Math.round(((data.recoveryIndex || 66) + (data.reunionForce || 72) + (data.emotionTemp || 64)) / 3)));
     const summaryTags = (buildYearTimelineData(concern)[2026]?.keywords || ['#변화', '#문서운', '#성과']).slice(0, 3);
-    resultBox.innerHTML = `<div class="weather-hero"><div><div class="mode-hero-badge">✦ 분석 관점 · ${modeLabel}</div><p class="mode-hero-note destiny-line hand-font">명반의 별들이 다시 연결되고 있어요.</p><h1 class="result-main-title">${userName}님의 ${concern} 기상도</h1><div class="weather-badge">${weather.icon} ${weather.label}</div><div class="fortune-score-head">당신의 올해 운세는 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+    const headerCopyByConcern = {
+      '일반 궁합': {
+        icon: '❤️',
+        title: `${userName}님${targetName ? ` & ${targetName}님` : ''}의 정밀 궁합 분석`,
+        sub: '두 분의 사주가 그리는 조화 포인트를 정밀하게 읽었어.',
+        theme: 'compat'
+      },
+      '결혼 운세': {
+        icon: '💍',
+        title: `${userName}님의 생애 결혼 운세 리포트`,
+        sub: '함께 걷게 될 미래와 결혼 타이밍을 사주 흐름으로 정리했어.',
+        theme: 'marriage'
+      },
+      '금전/재산': {
+        icon: '💰',
+        title: `${userName}님의 2026 재물 흐름 분석`,
+        sub: '타고난 재복과 올해의 자금 기회를 총정리했어.',
+        theme: 'money'
+      },
+      '취업/직장': {
+        icon: '💼',
+        title: `${userName}님의 커리어 성공 리포트`,
+        sub: '이직·승진·문서운 타이밍을 중심으로 전략을 잡아줬어.',
+        theme: 'career'
+      },
+      '속궁합': {
+        icon: '🔞',
+        title: `${userName}님${targetName ? ` & ${targetName}님` : ''}의 은밀한 궁합 분석`,
+        sub: '두 사람만의 신체 리듬과 교감 포인트를 집중 분석했어.',
+        theme: 'adult'
+      },
+      '애정운': {
+        icon: '🌹',
+        title: `${userName}님에게 찾아올 다음 사랑의 흐름`,
+        sub: '지금 사랑이 열리는 타이밍과 감정의 전환점을 짚어봤어.',
+        theme: 'love'
+      }
+    };
+    const header = headerCopyByConcern[concern] || {
+      icon: weather.icon,
+      title: `${userName}님의 ${concern} 정밀 분석`,
+      sub: '선택한 고민을 기준으로 결과를 재구성했어.',
+      theme: 'default'
+    };
+
+    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
 
     if (shareBox) {
       shareBox.innerHTML = `<h3>결과 공유</h3><p class="small">인스타 스토리용 요약 카드를 저장해 공유해봐.</p><div class="cta-row"><button class="btn" id="saveSummaryBtn">결과 이미지 저장</button></div>`;

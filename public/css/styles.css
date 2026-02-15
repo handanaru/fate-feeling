@@ -1551,6 +1551,12 @@ select,
 .quick-share-card { border: 1px solid var(--border); }
 .fortune-score-head { margin: 10px 0 6px; font-size: 16px; }
 .fortune-score-head strong { color: var(--gold); font-size: 20px; }
+.weather-hero.hero-compat { background: linear-gradient(135deg, rgba(177,65,111,.2), rgba(93,53,170,.22)); }
+.weather-hero.hero-marriage { background: linear-gradient(135deg, rgba(207,122,156,.18), rgba(121,74,164,.22)); }
+.weather-hero.hero-money { background: linear-gradient(135deg, rgba(230,178,71,.2), rgba(78,52,130,.2)); }
+.weather-hero.hero-career { background: linear-gradient(135deg, rgba(86,131,220,.22), rgba(58,87,156,.2)); }
+.weather-hero.hero-adult { background: linear-gradient(135deg, rgba(153,48,77,.26), rgba(74,20,64,.24)); }
+.weather-hero.hero-love { background: linear-gradient(135deg, rgba(203,84,132,.24), rgba(105,59,168,.22)); }
 .fortune-score-bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,.18); overflow: hidden; margin-bottom: 8px; }
 .fortune-score-bar span { display: block; height: 100%; background: linear-gradient(90deg, #f4cd72, #e98f45); }
 .hero-chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
