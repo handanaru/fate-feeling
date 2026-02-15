@@ -264,7 +264,7 @@ function renderQuestion(index) {
   const card = document.createElement('div');
   card.className = 'question-card slide-in';
   const isSpecial = index >= 8;
-  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 카테고리: ${concernLabel()}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
+  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 고민: ${concernLabel()}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
 
   card.querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', (e) => {
@@ -333,7 +333,7 @@ function selectMode(mode, withPulse = false) {
   concernPickerButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
   document.body.classList.toggle('adult-mode', isAdultConcern(concern));
   if (analysisTitle) analysisTitle.textContent = `[${concern}] 분석 중`;
-  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 카테고리: ${concern}</button>`;
+  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>`;
   document.getElementById('openConcernPicker')?.addEventListener('click', () => {
     if (concernPickerModal) concernPickerModal.hidden = false;
   });

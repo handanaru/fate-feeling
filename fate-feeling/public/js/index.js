@@ -206,7 +206,7 @@ function applyConcern(concern) {
   if (concernSelect) concernSelect.value = concern;
   setAudience(isAdultConcern(concern) ? 'adult' : 'general');
   onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
-  if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 카테고리: ${concern}`;
+  if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 고민: ${concern}`;
 }
 
 function syncConcernSelection(concern) {
@@ -396,7 +396,7 @@ function syncConcernUI() {
   const state = getLoveState();
   if (needsLoveState(concern) && onboardingConcernStatus) {
     const stateLabel = ({ solo: '완전한 솔로', crush: '썸/짝사랑', dating: '연애 중', reunion: '이별/재회 고민' }[state] || '미선택');
-    onboardingConcernStatus.textContent = `현재 카테고리: ${concern} · 상태: ${stateLabel}`;
+    onboardingConcernStatus.textContent = `현재 고민: ${concern} · 상태: ${stateLabel}`;
   }
   syncModeUI(analysisModeSelect?.value || 'saju');
 }
