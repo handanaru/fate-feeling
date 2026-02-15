@@ -44,6 +44,7 @@ const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
 const progressStar = document.getElementById('progressStar');
 const modeHint = document.getElementById('modeHint');
+const analysisTitle = document.getElementById('analysisTitle');
 const modeButtons = [...document.querySelectorAll('.mode-btn, .scan-icon[data-mode]')];
 const liveTicker = document.getElementById('liveTicker');
 const recoveryMetric = document.getElementById('recoveryMetric');
@@ -185,7 +186,9 @@ function selectMode(mode, withPulse = false) {
     });
   }
 
-  modeHint.textContent = `${modeMeta[selectedMode].guide} · 현재 고민: ${troubleLabel(troubleType)}`;
+  const concern = troubleLabel(troubleType);
+  if (analysisTitle) analysisTitle.textContent = `[${concern}] 운세 분석 중`;
+  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <span class="concern-pill">현재 고민: ${concern}</span>`;
   startTest();
 }
 

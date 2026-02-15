@@ -1466,12 +1466,27 @@ select,
 }
 
 .live-analyzing-card { background: linear-gradient(160deg, rgba(27,17,44,.92), rgba(39,27,67,.84)); }
-.live-analyzing-card h1 { color: #fff; font-size: clamp(36px, 8.4vw, 48px); }
+.analysis-title {
+  color: #fff;
+  font-size: clamp(32px, 7.2vw, 44px);
+  line-height: 1.22;
+  margin-bottom: 12px;
+}
 #modeHint {
   font-size: 16px !important;
   line-height: 1.7;
   color: #f5ecff;
   font-weight: 700;
+}
+.concern-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(239,203,100,.18);
+  border: 1px solid rgba(239,203,100,.5);
+  color: #ffe6a7;
+  margin-left: 4px;
 }
 .question-context {
   font-size: 15px !important;
@@ -1484,11 +1499,15 @@ select,
   line-height: 1.35;
 }
 .analyzing-statusbar {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
   gap: 8px;
   margin-bottom: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.analyzing-statusbar::-webkit-scrollbar { display: none; }
 .scan-icon {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -1498,7 +1517,8 @@ select,
   font-weight: 700;
   background: rgba(255,255,255,.04);
   cursor: pointer;
-  width: 100%;
+  min-width: 96px;
+  flex: 0 0 auto;
 }
 button.scan-icon,
 button.scan-icon:hover {
@@ -1625,7 +1645,6 @@ button.scan-icon:hover {
 }
 
 @media (max-width: 640px) {
-  .analyzing-statusbar { grid-template-columns: repeat(2, 1fr); }
   .weather-hero { grid-template-columns: 1fr; }
 }
 
