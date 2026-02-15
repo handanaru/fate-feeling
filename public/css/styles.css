@@ -98,7 +98,30 @@ header {
   display: flex;
   gap: 8px;
   align-items: center;
-  flex-wrap: wrap;
+}
+.nav-mini-actions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.icon-btn {
+  min-height: 38px;
+  min-width: 38px;
+  padding: 8px 10px;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+}
+.icon-btn.outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.theme-btn {
+  font-size: 12px;
+  min-height: 36px;
+  padding: 8px 12px;
 }
 
 .brand {
@@ -1660,6 +1683,9 @@ button.scan-icon:hover {
   .question-context { font-size: 13px !important; }
   .question-card h3 { font-size: clamp(18px, 5.2vw, 24px); line-height: 1.42; }
   .concern-pill { margin-left: 0; margin-top: 6px; }
+  .header-actions { gap: 6px; }
+  .icon-btn { min-height: 34px; min-width: 34px; font-size: 16px; }
+  .theme-btn { font-size: 11px; min-height: 34px; padding: 7px 10px; }
 }
 
 /* Phase4 polish */

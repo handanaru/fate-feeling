@@ -11,9 +11,11 @@
     <header>
       <div class="brand">Fate & Feeling</div>
       <div class="header-actions">
-        <button class="btn secondary" type="button" onclick="history.back()">뒤로가기</button>
-        <a class="btn secondary" href="/">홈</a>
-        <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+        <div class="nav-mini-actions">
+          <button class="btn secondary icon-btn" id="backBtn" type="button" aria-label="뒤로가기">←</button>
+          <a class="btn secondary icon-btn outline" id="homeBtn" href="/" aria-label="홈">⌂</a>
+        </div>
+        <button class="btn secondary theme-btn" onclick="toggleTheme()">라이트/다크</button>
       </div>
     </header>
 
@@ -64,6 +66,6 @@
   </div>
 
   <script src="/js/common.js"></script>
-  <script src="/js/test.js?v=focusui2"></script>
+  <script src="/js/test.js?v=focusui3"></script>
 </body>
 </html>

@@ -50,6 +50,8 @@ const liveTicker = document.getElementById('liveTicker');
 const recoveryMetric = document.getElementById('recoveryMetric');
 const pullMetric = document.getElementById('pullMetric');
 const scanIcons = [...document.querySelectorAll('.scan-icon')];
+const backBtn = document.getElementById('backBtn');
+const homeBtn = document.getElementById('homeBtn');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
 const concernLabelDisplay = intake.concern || '재회';
@@ -191,6 +193,22 @@ function selectMode(mode, withPulse = false) {
   modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <span class="concern-pill">현재 고민: ${concern}</span>`;
   startTest();
 }
+
+function confirmLeaveIfNeeded() {
+  const hasProgress = answers.some((v) => v !== null);
+  if (!hasProgress) return true;
+  return window.confirm('지금 나가면 분석 내용이 저장되지 않아. 정말 나갈까?');
+}
+
+backBtn?.addEventListener('click', () => {
+  if (!confirmLeaveIfNeeded()) return;
+  history.back();
+});
+homeBtn?.addEventListener('click', (e) => {
+  if (!confirmLeaveIfNeeded()) {
+    e.preventDefault();
+  }
+});
 
 modeButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
