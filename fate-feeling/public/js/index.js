@@ -235,6 +235,15 @@ function openOnboardingIfNeeded() {
   if (!firstVisitModal) return;
   const hide = localStorage.getItem('ff-hide-onboarding') === '1';
   if (hide) return;
+
+  // 최초 노출은 항상 일반 버전으로 시작
+  setAudience('general');
+  if (concernSelect && isAdultConcern(concernSelect.value)) {
+    concernSelect.value = '일반 궁합';
+    applyConcern('일반 궁합');
+    syncConcernUI();
+  }
+
   setTimeout(() => { firstVisitModal.hidden = false; }, 320);
 }
 
