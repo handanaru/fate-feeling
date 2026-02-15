@@ -21,7 +21,9 @@ const modeCard = document.getElementById('modeCard');
 const modeCardTitle = document.getElementById('modeCardTitle');
 const modeCardIcon = document.getElementById('modeCardIcon');
 const modeCardBg = document.getElementById('modeCardBg');
-const backBtnLanding = document.getElementById('backBtnLanding');
+const myPageBtn = document.getElementById('myPageBtn');
+const heroStartBtn = document.getElementById('heroStartBtn');
+const adultQuickBtn = document.getElementById('adultQuickBtn');
 const adultGateModal = document.getElementById('adultGateModal');
 const adultGateConfirm = document.getElementById('adultGateConfirm');
 const adultGateCancel = document.getElementById('adultGateCancel');
@@ -501,9 +503,16 @@ loveStateModal?.addEventListener('click', (e) => {
   if (e.target === loveStateModal) loveStateCancel?.click();
 });
 
-backBtnLanding?.addEventListener('click', () => {
-  if (window.history.length > 1) history.back();
-  else location.href = '/';
+myPageBtn?.addEventListener('click', () => {
+  location.href = '/result.html';
+});
+heroStartBtn?.addEventListener('click', () => {
+  document.getElementById('firstImpact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+adultQuickBtn?.addEventListener('click', () => {
+  syncConcernSelection('속궁합');
+  syncConcernUI();
+  if (firstVisitModal) firstVisitModal.hidden = false;
 });
 
 setAudience('general');

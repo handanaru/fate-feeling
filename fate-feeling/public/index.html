@@ -11,10 +11,16 @@
     <header>
       <div class="brand">Fate & Feeling</div>
       <div class="header-actions">
-        <button class="btn secondary icon-btn" id="backBtnLanding" type="button" aria-label="뒤로가기">←</button>
-        <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+        <button class="btn secondary icon-btn" id="myPageBtn" type="button" aria-label="내 운세">👤</button>
       </div>
     </header>
+
+    <section class="card home-hero-banner" id="homeHeroBanner">
+      <p class="small">당신을 위한 오늘의 운세</p>
+      <h2>🔥 2026 병오년, 너의 시대가 열렸어</h2>
+      <p>정체된 흐름을 깨고, 재물·직장·애정의 변곡점을 잡아줘.</p>
+      <button class="btn" type="button" id="heroStartBtn">지금 바로 분석하기</button>
+    </section>
 
     <section class="card trust-counter-card">
       <p id="trustCounterText">지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong><span id="trustCounterTail">명이 결혼/궁합 흐름을 확인했습니다.</span></p>
@@ -112,6 +118,12 @@
           <option value="키스 궁합">[19금] 키스 궁합</option>
         </select>
 
+        <div class="adult-entry-card" id="adultEntryCard">
+          <strong>🔞 오직 성인만을 위한 시크릿 분석</strong>
+          <p class="small">속궁합/키스궁합은 성인 인증 후 입장 가능.</p>
+          <button type="button" class="btn secondary" id="adultQuickBtn">성인 전용 분석 열기</button>
+        </div>
+
         <label for="analysisMode" class="small">분석 관점 선택</label>
         <select id="analysisMode" required>
           <option value="ziwei">자미두수</option>
@@ -189,7 +201,13 @@
     </div>
   </div>
 
+  <nav class="home-bottom-nav" aria-label="하단 탐색">
+    <a href="/">🏠 홈</a>
+    <a href="/experts.html">🔮 상담사</a>
+    <a href="/result.html">👤 내운세</a>
+  </nav>
+
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow21"></script>
+  <script src="/js/index.js?v=modeflow22"></script>
 </body>
 </html>
