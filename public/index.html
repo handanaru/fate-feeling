@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The First Impact | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=onboard6" />
+  <link rel="stylesheet" href="/css/styles.css?v=onboard7" />
 </head>
 <body>
   <div class="container first-impact-page">
@@ -80,6 +80,13 @@
     <div class="modal-card onboarding-modal">
       <h3>어떤 관점으로 분석해볼까?</h3>
       <p class="small">사주 · 타로 · 자미두수 · 점성술 · MBTI 전부 지원해.</p>
+      <div class="onboarding-chips" id="onboardingConcernButtons">
+        <button type="button" data-concern="재회" class="active">💞 재회</button>
+        <button type="button" data-concern="짝사랑/썸">🌹 짝사랑/썸</button>
+        <button type="button" data-concern="취업/금전">💼 취업/금전</button>
+        <button type="button" data-concern="MBTI">🧠 MBTI</button>
+      </div>
+      <p class="small" id="onboardingConcernStatus">현재 고민: 재회</p>
       <div class="onboarding-chips" id="onboardingModeButtons">
         <button type="button" data-mode="saju">☯ 사주</button>
         <button type="button" data-mode="tarot">🃏 타로</button>
@@ -87,7 +94,7 @@
         <button type="button" data-mode="astro">◎ 점성술</button>
         <button type="button" data-mode="mbti">◆ MBTI</button>
       </div>
-      <p class="small" id="onboardingModeStatus">현재 선택: 자미두수</p>
+      <p class="small" id="onboardingModeStatus">현재 관점: 자미두수</p>
       <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
       <div class="cta-row">
         <button class="btn secondary" type="button" id="onboardingPreviewBtn">관점 미리보기</button>
@@ -97,6 +104,6 @@
   </div>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow7"></script>
+  <script src="/js/index.js?v=modeflow8"></script>
 </body>
 </html>

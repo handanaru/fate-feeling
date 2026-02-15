@@ -6,6 +6,8 @@ const impactCopy = document.getElementById('impactCopy');
 const concernSelect = document.getElementById('concern');
 const nameGuideLabel = document.getElementById('nameGuideLabel');
 const startSubmitBtn = document.getElementById('startSubmitBtn');
+const onboardingConcernButtons = [...document.querySelectorAll('#onboardingConcernButtons [data-concern]')];
+const onboardingConcernStatus = document.getElementById('onboardingConcernStatus');
 const firstVisitModal = document.getElementById('firstVisitModal');
 const hideOnboardingForever = document.getElementById('hideOnboardingForever');
 const onboardingStartBtn = document.getElementById('onboardingStartBtn');
@@ -71,6 +73,13 @@ const concernCopyMap = {
 function concernMeta() {
   const key = concernSelect?.value || '재회';
   return concernCopyMap[key] || concernCopyMap['재회'];
+}
+
+function syncConcernSelection(concern) {
+  if (!concern) return;
+  if (concernSelect) concernSelect.value = concern;
+  onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
+  if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 고민: ${concern}`;
 }
 
 let counterAnimFrame = null;
@@ -178,7 +187,7 @@ function syncModeUI(mode) {
   if (analysisModeSelect) analysisModeSelect.value = mode;
   onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
   const label = modeLabel(mode);
-  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${label}`;
+  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 관점: ${label}`;
 
   const meta = concernMeta();
   if (onboardingStartBtn) onboardingStartBtn.textContent = `${label}로 ${meta.ctaGoal} 확인하기`;
@@ -205,11 +214,18 @@ function syncConcernUI() {
   if (trustCounterTail) softSwapText(trustCounterTail, meta.counterTail);
   softSwapText(impactCopy, meta.headline);
   softSwapText(nameGuideLabel, meta.nameGuide);
+  syncConcernSelection(concernSelect?.value || '재회');
   syncModeUI(analysisModeSelect?.value || 'ziwei');
 }
 
 onboardingModeButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
+});
+onboardingConcernButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    syncConcernSelection(btn.dataset.concern);
+    syncConcernUI();
+  });
 });
 analysisModeSelect?.addEventListener('change', () => syncModeUI(analysisModeSelect.value));
 concernSelect?.addEventListener('change', syncConcernUI);
