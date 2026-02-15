@@ -1,5 +1,6 @@
 const resultBox = document.getElementById('resultBox');
 const coreMetricsBox = document.getElementById('coreMetricsBox');
+const fiveElementsBox = document.getElementById('fiveElementsBox');
 const shareBox = document.getElementById('shareBox');
 const gradeBox = document.getElementById('gradeBox');
 const socialShareBox = document.getElementById('socialShareBox');
@@ -129,6 +130,42 @@ function renderTimelineCard(data, concern = '일반 궁합') {
   });
 }
 
+function radarPoints(values, r = 86, cx = 110, cy = 110) {
+  const angles = [-90, -18, 54, 126, 198];
+  return values.map((v, i) => {
+    const rr = (Math.max(0, Math.min(100, v)) / 100) * r;
+    const rad = (angles[i] * Math.PI) / 180;
+    return `${(cx + rr * Math.cos(rad)).toFixed(1)},${(cy + rr * Math.sin(rad)).toFixed(1)}`;
+  }).join(' ');
+}
+
+function renderFiveElements(answerById, userName, partnerName) {
+  if (!fiveElementsBox) return;
+  const wood = ((answerById.Q1 || 3) + (answerById.Q6 || 3) + (answerById.Q11 || 3)) * 6;
+  const fire = ((answerById.Q2 || 3) + (answerById.Q7 || 3) + (answerById.Q12 || 3)) * 6;
+  const earth = ((answerById.Q3 || 3) + (answerById.Q8 || 3)) * 9;
+  const metal = ((answerById.Q4 || 3) + (answerById.Q9 || 3)) * 9;
+  const water = ((answerById.Q5 || 3) + (answerById.Q10 || 3)) * 9;
+  const self = [wood, fire, earth, metal, water].map((v) => Math.max(28, Math.min(96, Math.round(v))));
+  const partner = self.map((v, i) => Math.max(24, Math.min(94, Math.round(v - 8 + ((i % 2 === 0) ? 7 : -5)))));
+  const harmony = Math.round(100 - (self.reduce((acc, v, i) => acc + Math.abs(v - partner[i]), 0) / 5));
+  const oneLine = harmony >= 80 ? '서로의 기운이 상생하며 안정감을 높여주는 조화야.' : harmony >= 60 ? '다름이 있지만 대화를 통해 충분히 맞춰갈 수 있는 궁합이야.' : '기운의 충돌이 있어 속도보다 배려가 우선이야.';
+
+  fiveElementsBox.innerHTML = `<h3>✨ 두 사람의 오행 조화</h3>
+    <div class="five-wrap">
+      <svg viewBox="0 0 220 220" class="five-radar" aria-hidden="true">
+        <polygon points="${radarPoints([100,100,100,100,100])}" class="radar-grid" />
+        <polygon points="${radarPoints([75,75,75,75,75])}" class="radar-grid" />
+        <polygon points="${radarPoints([50,50,50,50,50])}" class="radar-grid" />
+        <polygon points="${radarPoints(self)}" class="radar-self" />
+        <polygon points="${radarPoints(partner)}" class="radar-partner" />
+      </svg>
+      <div class="five-legend"><span class="dot self"></span>${userName} · <span class="dot partner"></span>${partnerName || '상대'}</div>
+    </div>
+    <p class="small">🌳목 · 🔥화 · 🟨토 · ⚪금 · 🌊수</p>
+    <p class="five-line"><strong>${oneLine}</strong> (조화도 ${harmony}점)</p>`;
+}
+
 if (!saved) {
   location.href = '/test.html';
 } else {
@@ -205,13 +242,22 @@ if (!saved) {
 
     resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
 
-    const gradeMeta = totalScore >= 85
-      ? { grade: 'A', label: '거침없는 도약의 시기', brief: '하늘의 기운이 당신을 돕고 있습니다. 무엇을 시작해도 좋은 결실을 맺을 운세입니다.', detail: '그동안 준비해온 일들이 비로소 빛을 발하는 시기입니다. 막혔던 금전 흐름이 뚫리고, 귀인의 도움으로 예상치 못한 성과를 거둘 수 있습니다. 스스로를 믿고 과감하게 추진하세요.', tip: '오는 운을 겸손하게 받아들이되, 기회가 왔을 때 망설이지 말고 붙잡으세요.', color: '#f4cd72' }
-      : totalScore >= 60
-        ? { grade: 'B', label: '안정과 성장의 시기', brief: '평탄하고 안정적인 흐름 속에 있습니다. 내실을 다지며 한 단계 올라설 준비를 하세요.', detail: '큰 굴곡 없이 계획한 대로 일이 진행되는 시기입니다. 당장 폭발적인 성장은 아니더라도 꾸준한 노력이 미래의 자산이 됩니다.', tip: '급하게 서두르기보다 현재 리듬을 유지하며 작은 성취를 쌓아가세요.', color: '#c4c6cf' }
-        : totalScore >= 40
-          ? { grade: 'C', label: '인내와 관리가 필요한 시기', brief: '주변 환경이 다소 불투명할 수 있습니다. 무리한 확장보다는 지키는 전략이 필요합니다.', detail: '에너지가 잠시 분산되는 구간입니다. 새로운 투자나 큰 변화보다 현재 상태 점검과 실수 최소화가 우선입니다.', tip: '중요한 결정은 잠시 유예하고, 심신을 먼저 회복해 에너지를 충전하세요.', color: '#d28c52' }
-          : { grade: 'D', label: '변화를 위한 정비의 시기', brief: '거센 비바람을 피해 잠시 쉬어가야 할 때입니다. 비운 뒤에야 새로운 것이 채워집니다.', detail: '예상치 못한 변수가 생길 수 있어 각별한 주의가 필요합니다. 억지 돌파보다 점검·정비가 더 큰 행운으로 이어집니다.', tip: '오늘의 시련은 더 큰 행운을 맞기 위한 액땜입니다. 마음을 비우고 다음 기회를 준비하세요.', color: '#8b92a8' };
+    const compatGradeMap = {
+      A: { grade: 'A', label: '천생연분: 찰떡궁합', brief: '서로의 부족함을 완벽히 채워주는, 하늘이 맺어준 인연입니다.', detail: '두 분은 오행과 성향이 조화롭고 함께 있을 때 운이 상승하는 결합입니다. 어려운 시기도 서로를 믿고 지혜롭게 넘어갈 수 있어.', tip: '서로에 대한 감사를 잊지 않으면 더할 나위 없는 축복받은 관계야.', color: '#f4cd72' },
+      B: { grade: 'B', label: '금슬상화: 좋은 만남', brief: '서로 존중하며 함께 성장할 수 있는 안정적이고 따뜻한 관계입니다.', detail: '완벽하진 않아도 서로에게 긍정적인 자극이 되는 궁합이야. 의견 차이는 대화로 충분히 조율 가능하고 시간이 지날수록 신뢰가 깊어져.', tip: '사소한 단점보다 함께 만든 좋은 기억에 더 집중해봐.', color: '#c4c6cf' },
+      C: { grade: 'C', label: '상생노력: 주의가 필요한 만남', brief: '서로의 다름을 인정하는 과정이 필요합니다. 인내심이 관계의 핵심입니다.', detail: '성격·가치관 충돌이 잦을 수 있어. 한쪽 기운이 강해 오해가 쌓일 가능성이 있으니 꾸준한 배려와 노력이 필요해.', tip: '내 방식을 고집하기보다 상대 입장에서 한 번 더 생각하는 유연함이 핵심이야.', color: '#d28c52' },
+      D: { grade: 'D', label: '풍파주의: 변화와 성찰', brief: '서로에게 상처를 주기 쉬운 시기입니다. 적절한 거리두기와 성찰이 필요합니다.', detail: '오행 충돌이 강해 감정 소모가 커질 수 있는 구간이야. 중요한 결정을 잠시 미루고 관계의 본질을 차분히 돌아보는 게 좋아.', tip: '지금의 갈등은 더 깊은 이해 또는 각자의 성장을 위한 진통일 수 있어.', color: '#8b92a8' }
+    };
+
+    const defaultGradeMap = {
+      A: { grade: 'A', label: '거침없는 도약의 시기', brief: '하늘의 기운이 당신을 돕고 있습니다. 무엇을 시작해도 좋은 결실을 맺을 운세입니다.', detail: '그동안 준비해온 일들이 비로소 빛을 발하는 시기입니다. 막혔던 금전 흐름이 뚫리고, 귀인의 도움으로 예상치 못한 성과를 거둘 수 있습니다. 스스로를 믿고 과감하게 추진하세요.', tip: '오는 운을 겸손하게 받아들이되, 기회가 왔을 때 망설이지 말고 붙잡으세요.', color: '#f4cd72' },
+      B: { grade: 'B', label: '안정과 성장의 시기', brief: '평탄하고 안정적인 흐름 속에 있습니다. 내실을 다지며 한 단계 올라설 준비를 하세요.', detail: '큰 굴곡 없이 계획한 대로 일이 진행되는 시기입니다. 당장 폭발적인 성장은 아니더라도 꾸준한 노력이 미래의 자산이 됩니다.', tip: '급하게 서두르기보다 현재 리듬을 유지하며 작은 성취를 쌓아가세요.', color: '#c4c6cf' },
+      C: { grade: 'C', label: '인내와 관리가 필요한 시기', brief: '주변 환경이 다소 불투명할 수 있습니다. 무리한 확장보다는 지키는 전략이 필요합니다.', detail: '에너지가 잠시 분산되는 구간입니다. 새로운 투자나 큰 변화보다 현재 상태 점검과 실수 최소화가 우선입니다.', tip: '중요한 결정은 잠시 유예하고, 심신을 먼저 회복해 에너지를 충전하세요.', color: '#d28c52' },
+      D: { grade: 'D', label: '변화를 위한 정비의 시기', brief: '거센 비바람을 피해 잠시 쉬어가야 할 때입니다. 비운 뒤에야 새로운 것이 채워집니다.', detail: '예상치 못한 변수가 생길 수 있어 각별한 주의가 필요합니다. 억지 돌파보다 점검·정비가 더 큰 행운으로 이어집니다.', tip: '오늘의 시련은 더 큰 행운을 맞기 위한 액땜입니다. 마음을 비우고 다음 기회를 준비하세요.', color: '#8b92a8' }
+    };
+
+    const band = data.gradeBand || (totalScore >= 85 ? 'A' : totalScore >= 60 ? 'B' : totalScore >= 40 ? 'C' : 'D');
+    const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
     if (gradeBox) {
       gradeBox.innerHTML = `<h3>등급 리포트</h3>
@@ -222,6 +268,9 @@ if (!saved) {
         <p class="small">${gradeMeta.detail}</p>
         <p class="grade-tip">💡 행운의 조언: ${gradeMeta.tip}</p>`;
     }
+
+    if (concern === '일반 궁합') renderFiveElements(data.answerById || {}, userName, targetName);
+    else if (fiveElementsBox) fiveElementsBox.hidden = true;
 
     if (shareBox) {
       shareBox.innerHTML = `<h3>결과 공유</h3><p class="small">인스타 스토리용 요약 카드를 저장해 공유해봐.</p><div class="cta-row"><button class="btn" id="saveSummaryBtn">결과 이미지 저장</button></div>`;

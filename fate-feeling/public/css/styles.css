@@ -1602,6 +1602,17 @@ select,
   border: 1px solid var(--border);
   background: rgba(255,255,255,.08);
 }
+.five-elements-card { border: 1px solid var(--border); }
+.five-wrap { display: grid; place-items: center; margin: 8px 0; }
+.five-radar { width: min(260px, 90%); height: auto; }
+.radar-grid { fill: none; stroke: rgba(255,255,255,.18); stroke-width: 1; }
+.radar-self { fill: rgba(246, 186, 122, .35); stroke: rgba(246,186,122,.95); stroke-width: 2; }
+.radar-partner { fill: rgba(155, 193, 255, .28); stroke: rgba(155,193,255,.95); stroke-width: 2; }
+.five-legend { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 4px 0 8px; }
+.dot.self { background: rgba(246,186,122,.95); }
+.dot.partner { background: rgba(155,193,255,.95); }
+.five-line { margin-top: 6px; }
 .kakao-share {
   width: 100%;
   background: #FEE500;
