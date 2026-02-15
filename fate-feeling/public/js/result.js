@@ -13,6 +13,7 @@ const counselorBox = document.getElementById('counselorBox');
 const goldenTimeCard = document.getElementById('goldenTimeCard');
 const mindKeywordCard = document.getElementById('mindKeywordCard');
 const lockedReportBox = document.getElementById('lockedReportBox');
+const revealCtaCard = document.getElementById('revealCtaCard');
 const overlay = document.getElementById('resultOverlay');
 const reportTitle = document.getElementById('reportTitle');
 const saved = localStorage.getItem('ff-result');
@@ -361,7 +362,7 @@ if (!saved) {
     }
 
     if (socialShareBox) {
-      socialShareBox.innerHTML = `<h3>📣 내 운세 결과를 친구에게 공유하기</h3><p class="small">이미 15,820명이 결과를 공유했어.</p><div class="cta-row"><button class="btn kakao-share" id="kakaoShareBtn">🗨 카카오톡으로 결과 보내기</button></div><div class="cta-row"><button class="btn secondary" id="saveGradeBtn">📸 이미지 저장</button><button class="btn secondary" id="copyLinkBtn">🔗 링크 복사</button></div>`;
+      socialShareBox.innerHTML = `<h3>결과 공유</h3><div class="cta-row"><button class="btn kakao-share" id="kakaoShareBtn">🗨 카카오톡으로 결과 공유하기</button></div><div class="cta-row"><button class="btn" data-open-counselor-modal>🔮 전문 상담사에게 더 묻기</button><button class="btn secondary" id="saveGradeBtn">📸 이미지 저장</button></div><div class="cta-row"><button class="btn secondary" id="copyLinkBtn">🔗 링크 복사</button></div>`;
       document.getElementById('kakaoShareBtn')?.addEventListener('click', () => {
         const text = `${userName}님의 2026년 운세 등급은 [${gradeMeta.grade}] (${totalScore}점)!\n지금 확인해봐: https://fate-feeling.vercel.app`;
         const url = `https://share.kakao.com/talk/friends/picker/link?url=${encodeURIComponent('https://fate-feeling.vercel.app')}&text=${encodeURIComponent(text)}`;
@@ -374,13 +375,16 @@ if (!saved) {
       });
     }
 
-    const reunionRate = Math.min(96, Math.max(51, data.reunionForce || 78));
-    const responseRate = Math.min(97, Math.max(48, data.recoveryIndex || 67));
+    const isCompat = concern === '일반 궁합';
+    const firstGauge = Math.min(96, Math.max(51, data.reunionForce || 78));
+    const secondGauge = Math.min(97, Math.max(48, data.recoveryIndex || 67));
+    const firstLabel = isCompat ? '관계 안정도' : '핵심 가능성';
+    const secondLabel = isCompat ? '소통 반응도' : '상대 반응도';
 
-    coreMetricsBox.innerHTML = `<h3>핵심 운명 지표</h3>
+    coreMetricsBox.innerHTML = `<h3>${isCompat ? '종합 분석' : '핵심 운명 지표'}</h3>
       <div class="core-metric-grid wizard-dashboard">
-        <article class="gauge-card" data-target="${reunionRate}">
-          <div class="gauge-head"><span class="metric-icon">✦</span><span>재회 확률</span></div>
+        <article class="gauge-card" data-target="${firstGauge}">
+          <div class="gauge-head"><span class="metric-icon">✦</span><span>${firstLabel}</span></div>
           <div class="gauge-wrap">
             <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
               <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
@@ -389,8 +393,8 @@ if (!saved) {
             <strong class="gauge-value number-metric">0%</strong>
           </div>
         </article>
-        <article class="gauge-card" data-target="${responseRate}">
-          <div class="gauge-head"><span class="metric-icon">🧭</span><span>상대 반응도</span></div>
+        <article class="gauge-card" data-target="${secondGauge}">
+          <div class="gauge-head"><span class="metric-icon">🧭</span><span>${secondLabel}</span></div>
           <div class="gauge-wrap">
             <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
               <circle class="gauge-ring-bg" cx="60" cy="60" r="52" />
@@ -399,9 +403,10 @@ if (!saved) {
             <strong class="gauge-value number-metric">0%</strong>
           </div>
         </article>
-      </div>`;
+      </div>
+      <p class="small">지표 해석: 첫 번째는 관계의 기본 안정, 두 번째는 감정 교환의 반응성을 의미해.</p>`;
 
-    bridgeBox.innerHTML = `<h3>결과 브릿지 안내 · ${modeLabel} 관점</h3><p>${targetName ? `${targetName}님과의` : ''} 현재 패턴을 빠르게 읽어주는 요약입니다. 정밀 리딩에서는 상대 성향/연락 히스토리/시간축을 함께 교차해 행동 순서를 제안합니다.</p>`;
+    bridgeBox.innerHTML = `<h3>${isCompat ? '세부 운세' : `결과 브릿지 안내 · ${modeLabel} 관점`}</h3><p>${targetName ? `${targetName}님과의` : ''} 현재 패턴을 빠르게 읽어주는 요약입니다. 정밀 리딩에서는 상대 성향/연락 히스토리/시간축을 함께 교차해 행동 순서를 제안합니다.</p>`;
 
     chartsBox.innerHTML = `<h3>${modeLabel} 명반 인포그래픽</h3><div class="reveal-ziwei"></div><div class="star-word destiny-line">핵심 별 문구: ${starWord}</div><blockquote class="authority-quote destiny-line">"인연의 시계는 멈춘 듯 보여도, 맞물릴 톱니는 결국 같은 시간을 가리킵니다."</blockquote>`;
 
@@ -409,34 +414,44 @@ if (!saved) {
 
     briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p>`;
 
-    goldenTimeCard.innerHTML = `<h3>재회 골든타임 캘린더</h3>
-      <div class="golden-calendar">
-        <div class="day-mark">${new Date().getMonth() + 1}월 12일</div>
-        <div class="day-mark">${new Date().getMonth() + 1}월 24일</div>
-      </div>
-      <p class="small">이번 달 하이라이트 2회 · ${goldenTime} ± 20분</p>`;
-
     const keywordByConcern = {
       '금전/재산': ['현금흐름', '분산', '기회포착'],
       '취업/직장': ['문서운', '평판', '이동수'],
       '사업/창업': ['검증', '확장', '파트너십'],
       '애정운': ['감정온도', '표현', '신뢰'],
-      '재회운': ['여운', '경계', '재접촉 신호']
+      '재회운': ['여운', '경계', '재접촉 신호'],
+      '일반 궁합': ['안정적', '금전상승', '배려필요']
     };
     const keywordPool = keywordByConcern[concern] || ['균형', '타이밍', '집중'];
-    mindKeywordCard.innerHTML = `<h3>운명의 한마디</h3><p class="gold-highlight-value destiny-line hand-font">${keywordPool.join(' · ')}</p><p class="small">키워드를 기준으로 첫 문장 톤을 차분하게 맞추면 성공 확률이 올라갑니다.</p>`;
-
-    lockedReportBox.innerHTML = `<h3>운명의 미완성 리포트</h3>
-      <div class="locked-grid">
-        <article class="lock-card open"><strong>공개 리포트</strong><p>첫 연락 문장 톤 추천 공개</p></article>
-        <article class="lock-card locked" data-tip="왜 중요해? 상대의 숨은 감정이 연락 타이밍을 뒤집을 수 있어요."><span class="lock-icon">🔒</span><strong>잠금 리포트</strong><p class="tease hand-font">🔒 상대방이 당신에게 연락하지 못하는 진짜 이유</p></article>
-        <article class="lock-card locked" data-tip="누가 확인했나? 같은 고민군 상위 12%만 열람한 고급 리포트입니다."><span class="lock-icon">🔒</span><strong>잠금 리포트</strong><p class="tease hand-font">🔒 그 사람이 밤마다 당신의 프로필을...</p></article>
-      </div>
-      <div class="cta-row"><a class="btn glow-btn glossy-btn" href="/experts.html">상대방 속마음 확인</a><a class="btn glow-btn glossy-btn" href="/experts.html">맞춤 전략서 확인</a></div>`;
+    mindKeywordCard.innerHTML = `<h3>${isCompat ? '궁합 키워드' : '운명의 한마디'}</h3><p class="gold-highlight-value destiny-line hand-font">${keywordPool.join(' · ')}</p><p class="small">키워드 해석: 관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</p>`;
 
     const successRate = Math.max(83, Math.min(97, Math.round(((data.recoveryIndex || 64) + (data.reunionForce || 72)) / 2)));
     const waitingMin = 8 + Math.floor(Math.random() * 22);
-    counselorBox.innerHTML = `<h3>분석 기반 추천 상담사</h3><div class="counselor-row"><div><strong>타로 레아 · 492번</strong><p class="small">${userName}님 고민 특화 · 지금 연결하면 골든타임 전략까지 확인 가능</p><div class="expert-meta"><span>재회 성공률 ${successRate}%</span><span>${waitingMin}분 내 상담 가능</span></div></div><button class="btn glow-btn" data-open-counselor-modal>상담하기</button></div>`;
+    counselorBox.innerHTML = `<h3>가이드</h3><div class="counselor-row"><div><strong>전문 해석 상담 연계</strong><p class="small">${userName}님 케이스를 기반으로 더 깊은 해석을 연결할 수 있어.</p><div class="expert-meta"><span>추천 적합도 ${successRate}%</span><span>${waitingMin}분 내 연결 가능</span></div></div><button class="btn" data-open-counselor-modal>상담 연결</button></div>`;
+
+    // Compatibility page slimming: hide stitched/reunion-like blocks
+    if (isCompat) {
+      if (lockedReportBox) lockedReportBox.hidden = true;
+      if (goldenTimeCard) goldenTimeCard.hidden = true;
+      if (revealCtaCard) revealCtaCard.hidden = true;
+    } else {
+      if (lockedReportBox) lockedReportBox.hidden = false;
+      if (goldenTimeCard) goldenTimeCard.hidden = false;
+      if (revealCtaCard) revealCtaCard.hidden = false;
+      goldenTimeCard.innerHTML = `<h3>재회 골든타임 캘린더</h3>
+        <div class="golden-calendar">
+          <div class="day-mark">${new Date().getMonth() + 1}월 12일</div>
+          <div class="day-mark">${new Date().getMonth() + 1}월 24일</div>
+        </div>
+        <p class="small">이번 달 하이라이트 2회 · ${goldenTime} ± 20분</p>`;
+      lockedReportBox.innerHTML = `<h3>운명의 미완성 리포트</h3>
+        <div class="locked-grid">
+          <article class="lock-card open"><strong>공개 리포트</strong><p>첫 연락 문장 톤 추천 공개</p></article>
+          <article class="lock-card locked" data-tip="왜 중요해? 상대의 숨은 감정이 연락 타이밍을 뒤집을 수 있어요."><span class="lock-icon">🔒</span><strong>잠금 리포트</strong><p class="tease hand-font">🔒 상대방이 당신에게 연락하지 못하는 진짜 이유</p></article>
+          <article class="lock-card locked" data-tip="누가 확인했나? 같은 고민군 상위 12%만 열람한 고급 리포트입니다."><span class="lock-icon">🔒</span><strong>잠금 리포트</strong><p class="tease hand-font">🔒 그 사람이 밤마다 당신의 프로필을...</p></article>
+        </div>
+        <div class="cta-row"><a class="btn glow-btn glossy-btn" href="/experts.html">상대방 속마음 확인</a><a class="btn glow-btn glossy-btn" href="/experts.html">맞춤 전략서 확인</a></div>`;
+    }
 
     setTimeout(() => {
       if (overlay) overlay.hidden = true;
