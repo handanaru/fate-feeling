@@ -1629,6 +1629,25 @@ select,
 .lucky-item { border: 1px solid var(--border); border-radius: 14px; padding: 10px; background: rgba(255,255,255,.08); }
 .lucky-item h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
 .lucky-color { margin-top: 8px; }
+.section-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #7a57d8, #3d5fc9);
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 0 12px rgba(122,87,216,.45);
+  vertical-align: middle;
+}
+.reveal-page h3 .section-badge { transform: translateY(-1px); }
+@media (max-width: 640px) {
+  .section-badge { width: 22px; height: 22px; font-size: 11px; margin-right: 5px; }
+}
 .compat-keyword-block {
   margin-top: 12px;
   padding-top: 10px;

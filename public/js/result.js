@@ -224,7 +224,7 @@ function renderLuckyGuide(elementPack) {
   };
   const picked = luckyMap[lacking] || luckyMap['수'];
   luckyGuideBox.hidden = false;
-  luckyGuideBox.innerHTML = `<h3>✨ 두 분을 위한 행운의 가이드</h3>
+  luckyGuideBox.innerHTML = `<h3><span class="section-badge">3</span> 행운 가이드</h3>
     <div class="lucky-grid">
       <article class="lucky-item"><h4>📍 행운의 장소</h4><strong>${picked.place}</strong><p class="small">${picked.reason}</p></article>
       <article class="lucky-item"><h4>🎁 행운의 아이템</h4><strong>${picked.item}</strong><p class="small">부족한 ${lacking} 기운을 보완해 관계의 균형을 맞춰줘.</p></article>
@@ -328,7 +328,7 @@ if (!saved) {
     const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
     if (gradeBox) {
-      gradeBox.innerHTML = `<h3>${isCompat ? '요약 리포트' : '등급 리포트'}</h3>
+      gradeBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">1</span> 요약' : '등급 리포트'}</h3>
         <div class="grade-emblem" style="--grade-color:${gradeMeta.color}">Your Grade <strong>${gradeMeta.grade}</strong></div>
         <div class="fortune-score-bar"><span style="width:${totalScore}%; background:${gradeMeta.color};"></span></div>
         <p class="grade-label"><strong>${gradeMeta.label}</strong></p>
@@ -386,7 +386,7 @@ if (!saved) {
     const firstLabel = isCompat ? '관계 안정도' : '핵심 가능성';
     const secondLabel = isCompat ? '소통 반응도' : '상대 반응도';
 
-    coreMetricsBox.innerHTML = `<h3>${isCompat ? '종합 분석' : '핵심 운명 지표'}</h3>
+    coreMetricsBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">2</span> 상세 분석' : '핵심 운명 지표'}</h3>
       <div class="core-metric-grid wizard-dashboard">
         <article class="gauge-card" data-target="${firstGauge}">
           <div class="gauge-head"><span class="metric-icon">✦</span><span>${firstLabel}</span></div>
