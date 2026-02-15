@@ -113,7 +113,9 @@ function syncModeUI(mode) {
   if (!mode) return;
   if (analysisModeSelect) analysisModeSelect.value = mode;
   onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
-  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${modeLabel(mode)}`;
+  const label = modeLabel(mode);
+  if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${label}`;
+  if (onboardingStartBtn) onboardingStartBtn.textContent = `${label}로 바로 시작하기`;
 }
 
 onboardingModeButtons.forEach((btn) => {
