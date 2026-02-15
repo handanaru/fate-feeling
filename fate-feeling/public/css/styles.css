@@ -1913,6 +1913,23 @@ select,
   line-height: 1.15;
   flex-shrink: 0;
 }
+.counselor-row .btn .btn-stack { display: none; }
+.counselor-row .btn .btn-inline { display: inline; }
+@media (max-width: 430px) {
+  .counselor-row .btn {
+    min-width: 76px;
+    padding: 9px 10px;
+    white-space: normal;
+  }
+  .counselor-row .btn .btn-inline { display: none; }
+  .counselor-row .btn .btn-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.05;
+    gap: 1px;
+  }
+}
 .expert-meta span:nth-child(2) {
   color: #f1cf74;
   border-color: rgba(241,207,116,.45);

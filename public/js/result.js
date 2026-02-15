@@ -1069,7 +1069,7 @@ if (!saved) {
 
     const successRate = Math.max(83, Math.min(97, Math.round(((data.recoveryIndex || 64) + (data.reunionForce || 72)) / 2)));
     const waitingMin = 8 + Math.floor(Math.random() * 22);
-    counselorBox.innerHTML = `<h3>가이드</h3><div class="counselor-row"><div><strong>전문 해석 상담 연계</strong><p class="small">${userName}님 케이스를 기반으로 더 깊은 해석을 연결할 수 있어.</p><div class="expert-meta"><span>추천 적합도 ${successRate}%</span><span>${waitingMin}분 내 연결 가능</span></div></div><button class="btn" data-open-counselor-modal>상담 연결</button></div>`;
+    counselorBox.innerHTML = `<h3>가이드</h3><div class="counselor-row"><div><strong>전문 해석 상담 연계</strong><p class="small">${userName}님 케이스를 기반으로 더 깊은 해석을 연결할 수 있어.</p><div class="expert-meta"><span>추천 적합도 ${successRate}%</span><span>${waitingMin}분 내 연결 가능</span></div></div><button class="btn" data-open-counselor-modal aria-label="상담 연결"><span class="btn-inline">상담 연결</span><span class="btn-stack"><span>상담</span><span>연결</span></span></button></div>`;
 
     // Compatibility page slimming: hide stitched/reunion-like blocks
     if (isCompat) {
