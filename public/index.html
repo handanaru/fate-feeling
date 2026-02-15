@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The First Impact | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=onboard10" />
+  <link rel="stylesheet" href="/css/styles.css?v=onboard11" />
 </head>
 <body>
   <div class="container first-impact-page">
@@ -141,7 +141,13 @@
         </div>
 
         <label for="analysisMode" class="small">분석 관점 선택</label>
-        <select id="analysisMode" required>
+        <div class="analysis-mode-grid" id="analysisModeGrid">
+          <button type="button" data-mode="saju" class="active">☯ 사주</button>
+          <button type="button" data-mode="astro">🪐 별자리</button>
+          <button type="button" data-mode="tarot">🃏 타로</button>
+          <button type="button" data-mode="ziwei">✦ 자미두수</button>
+        </div>
+        <select id="analysisMode" required hidden>
           <option value="ziwei">자미두수</option>
           <option value="saju" selected>사주</option>
           <option value="tarot">타로</option>
@@ -228,6 +234,6 @@
   </nav>
 
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow29"></script>
+  <script src="/js/index.js?v=modeflow30"></script>
 </body>
 </html>

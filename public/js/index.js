@@ -19,6 +19,7 @@ const onboardingStartBtn = document.getElementById('onboardingStartBtn');
 const onboardingPreviewBtn = document.getElementById('onboardingPreviewBtn');
 const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
+const analysisModeGridButtons = [...document.querySelectorAll('#analysisModeGrid [data-mode]')];
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 const modeCard = document.getElementById('modeCard');
 const modeCardTitle = document.getElementById('modeCardTitle');
@@ -441,6 +442,7 @@ function syncModeUI(mode) {
   if (!mode) return;
   if (analysisModeSelect) analysisModeSelect.value = mode;
   onboardingModeButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
+  analysisModeGridButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.mode === mode));
   const label = modeLabel(mode);
   if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 관점: ${label}`;
 
@@ -510,6 +512,9 @@ document.getElementById('partnerBirthTimeUnknown')?.addEventListener('change', (
 });
 
 onboardingModeButtons.forEach((btn) => {
+  btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
+});
+analysisModeGridButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
 });
 audienceTabButtons.forEach((tab) => {
