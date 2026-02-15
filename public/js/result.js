@@ -428,7 +428,31 @@ if (!saved) {
       '일반 궁합': ['안정적', '금전상승', '배려필요']
     };
     const keywordPool = keywordByConcern[concern] || ['균형', '타이밍', '집중'];
-    mindKeywordCard.innerHTML = `<h3>${isCompat ? '궁합 키워드' : '운명의 한마디'}</h3><p class="gold-highlight-value destiny-line hand-font">${keywordPool.join(' · ')}</p><p class="small">키워드 해석: 관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</p>`;
+    const keywordMeta = {
+      '안정적': { icon: '🏠', tone: 'good' },
+      '금전상승': { icon: '💰', tone: 'good' },
+      '배려필요': { icon: '🤝', tone: 'warn' },
+      '현금흐름': { icon: '💸', tone: 'good' },
+      '분산': { icon: '🧩', tone: 'good' },
+      '기회포착': { icon: '📈', tone: 'good' },
+      '문서운': { icon: '📄', tone: 'good' },
+      '평판': { icon: '⭐', tone: 'good' },
+      '이동수': { icon: '🧭', tone: 'warn' },
+      '검증': { icon: '🔎', tone: 'warn' },
+      '확장': { icon: '🚀', tone: 'good' },
+      '파트너십': { icon: '🤝', tone: 'good' },
+      '감정온도': { icon: '❤️', tone: 'good' },
+      '표현': { icon: '🗣️', tone: 'good' },
+      '신뢰': { icon: '🔐', tone: 'good' },
+      '여운': { icon: '🌙', tone: 'warn' },
+      '경계': { icon: '⚠️', tone: 'warn' },
+      '재접촉 신호': { icon: '📩', tone: 'good' }
+    };
+    const keywordTags = keywordPool.map((k) => {
+      const m = keywordMeta[k] || { icon: '✨', tone: 'good' };
+      return `<span class="compat-keyword-tag ${m.tone}">${m.icon} ${k}</span>`;
+    }).join('');
+    mindKeywordCard.innerHTML = `<h3>${isCompat ? '궁합 키워드' : '운명의 한마디'}</h3><div class="compat-keyword-row">${keywordTags}</div><p class="small"><em>키워드 해석: 관계 흐름을 빠르게 이해할 수 있는 핵심 신호야.</em></p>`;
 
     const successRate = Math.max(83, Math.min(97, Math.round(((data.recoveryIndex || 64) + (data.reunionForce || 72)) / 2)));
     const waitingMin = 8 + Math.floor(Math.random() * 22);
