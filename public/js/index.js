@@ -7,6 +7,10 @@ const onboardingPreviewBtn = document.getElementById('onboardingPreviewBtn');
 const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
+const modeCard = document.getElementById('modeCard');
+const modeCardTitle = document.getElementById('modeCardTitle');
+const modeCardIcon = document.getElementById('modeCardIcon');
+const modeCardBg = document.getElementById('modeCardBg');
 
 function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
@@ -105,6 +109,14 @@ function openOnboardingIfNeeded() {
   setTimeout(() => { firstVisitModal.hidden = false; }, 320);
 }
 
+const modeCardMeta = {
+  saju: { title: 'FLOW', icon: '☯' },
+  tarot: { title: 'DESTINY', icon: '✶' },
+  ziwei: { title: 'ZODIAC', icon: '✦' },
+  astro: { title: 'UNIVERSE', icon: '🪐' },
+  mbti: { title: 'TYPE', icon: '◆' }
+};
+
 function modeLabel(mode) {
   return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', mbti: 'MBTI' }[mode] || '자미두수');
 }
@@ -116,6 +128,20 @@ function syncModeUI(mode) {
   const label = modeLabel(mode);
   if (onboardingModeStatus) onboardingModeStatus.textContent = `현재 선택: ${label}`;
   if (onboardingStartBtn) onboardingStartBtn.textContent = `${label}로 바로 시작하기`;
+
+  const card = modeCardMeta[mode] || modeCardMeta.ziwei;
+  if (modeCardTitle) modeCardTitle.textContent = card.title;
+  if (modeCardIcon) modeCardIcon.textContent = card.icon;
+  if (modeCardBg) modeCardBg.textContent = card.title;
+  if (modeCard) {
+    modeCard.classList.remove('is-flipping', 'mode-glow');
+    requestAnimationFrame(() => {
+      modeCard.classList.add('is-flipping');
+      modeCard.classList.add('mode-glow');
+      setTimeout(() => modeCard.classList.remove('is-flipping'), 560);
+      setTimeout(() => modeCard.classList.remove('mode-glow'), 700);
+    });
+  }
 }
 
 onboardingModeButtons.forEach((btn) => {

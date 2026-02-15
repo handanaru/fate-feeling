@@ -1417,8 +1417,23 @@ select,
   place-items: center;
   color: #efcb64;
   animation: cardFloat 4s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
-.gold-tarot-card strong { font-size: 28px; letter-spacing: 1px; }
+.gold-tarot-card .card-mini { font-size: 12px; letter-spacing: 1.5px; z-index: 2; }
+.gold-tarot-card strong { font-size: 28px; letter-spacing: 1px; z-index: 2; }
+.gold-tarot-card .card-icon { z-index: 2; font-size: 20px; }
+.gold-tarot-card .card-bgword {
+  position: absolute;
+  inset: auto 10px 12px 10px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  opacity: .11;
+  color: #fff3cc;
+  font-weight: 800;
+}
+.gold-tarot-card.is-flipping { animation: cardFlipSwap .56s ease, cardFloat 4s ease-in-out infinite; }
+.gold-tarot-card.mode-glow { box-shadow: 0 0 0 2px rgba(239,203,100,.24), 0 18px 40px rgba(0,0,0,.45), 0 0 26px rgba(239,203,100,.38); }
 .impact-form { z-index: 1; width: min(540px, 92%); display: grid; gap: 10px; }
 .impact-form label { color: rgba(255,255,255,.9); font-weight: 600; }
 .impact-form input { background: rgba(14,8,24,.55); color: #fff; }
@@ -1570,6 +1585,11 @@ button.scan-icon:hover {
 @keyframes cardFloat {
   0%,100% { transform: translateY(0) rotate(-1deg); }
   50% { transform: translateY(-10px) rotate(1deg); }
+}
+@keyframes cardFlipSwap {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
 }
 @keyframes rippleOut { to { transform: scale(40); opacity: 0; } }
 @keyframes scanPulse {
