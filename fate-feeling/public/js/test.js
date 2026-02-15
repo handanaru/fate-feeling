@@ -252,7 +252,10 @@ function updateLiveEvidence(index = 0) {
     '키스 궁합': ['키스 케미 분석 중...', '호흡 템포 싱크 계산 중...', '감정 밀착도 측정 중...']
   };
   const tickerPool = categoryTicker[concernLabel()] || categoryTicker['일반 궁합'];
-  if (liveTicker) liveTicker.textContent = tickerPool[(solved + index) % tickerPool.length];
+  if (liveTicker) {
+    const text = tickerPool[(solved + index) % tickerPool.length];
+    liveTicker.innerHTML = `<span>${text}</span><span class="ticker-step">${Math.min(solved + 1, TOTAL_QUESTIONS)} / ${TOTAL_QUESTIONS}</span>`;
+  }
 }
 
 function likertLabel(score) { return ['전혀 그렇지 않다', '별로 그렇지 않다', '보통이다', '그런 편이다', '매우 그렇다'][score - 1]; }
