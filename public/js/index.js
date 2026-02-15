@@ -149,7 +149,7 @@ function isAdultConcern(concern = '') {
 }
 
 function needsLoveState(concern = '') {
-  return concern === '애정운' || concern === '재회운';
+  return concern === '애정운';
 }
 
 function getLoveState() {

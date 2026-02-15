@@ -203,10 +203,12 @@ function concernLabel() {
 
 function currentQuestionSet() {
   const concern = concernLabel();
-  if (concern === '애정운' || concern === '재회운') {
+  if (concern === '재회운') {
+    return loveStateQuestionMap.reunion.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
+  }
+  if (concern === '애정운') {
     const state = intake.loveState || localStorage.getItem('ff-love-state') || '';
-    const mappedState = concern === '재회운' && state === 'solo' ? 'reunion' : (state || 'solo');
-    const questions = loveStateQuestionMap[mappedState] || loveStateQuestionMap.solo;
+    const questions = loveStateQuestionMap[state || 'solo'] || loveStateQuestionMap.solo;
     return questions.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
   }
   const normalized = normalizeConcern(concern);
