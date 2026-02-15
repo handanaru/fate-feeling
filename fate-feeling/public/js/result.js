@@ -144,7 +144,7 @@ function renderTimelineCard(data, concern = '일반 궁합') {
     panel.innerHTML = `<p class="small">${y.label}</p>
       <p class="timeline-hash">${y.keywords.join(' ')}</p>
       <p><strong>${y.desc}</strong></p>
-      <div class="monthly-bars">${y.months.map((v, i) => `<div class="mbar"><span style="height:${Math.max(10, Math.round((v / max) * 100))}%"></span><em>${i + 1}월</em></div>`).join('')}</div>
+      <div class="monthly-bars">${y.months.map((v, i) => `<div class="mbar"><span style="--i:${i};height:${Math.max(10, Math.round((v / max) * 100))}%"></span><em>${i + 1}월</em></div>`).join('')}</div>
       <p class="small timeline-tip">${data.tip}</p>`;
   };
 

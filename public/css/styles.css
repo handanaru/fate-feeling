@@ -1578,8 +1578,21 @@ select,
 .timeline-hash { font-weight: 700; margin: 6px 0 8px; }
 .monthly-bars { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; align-items: end; height: 120px; margin: 10px 0 8px; }
 .monthly-bars .mbar { display: grid; gap: 4px; justify-items: center; align-content: end; }
-.monthly-bars .mbar span { width: 100%; border-radius: 8px; background: linear-gradient(180deg, rgba(242,208,122,.95), rgba(128,84,218,.95)); min-height: 10px; }
+.monthly-bars .mbar span {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(242,208,122,.95), rgba(128,84,218,.95));
+  min-height: 10px;
+  transform-origin: bottom;
+  animation: barGrow .45s ease both;
+  animation-delay: calc(var(--i, 0) * 35ms);
+}
 .monthly-bars .mbar em { font-style: normal; font-size: 10px; color: var(--muted); }
+@keyframes barGrow {
+  from { transform: scaleY(0.1); opacity: .35; }
+  to { transform: scaleY(1); opacity: 1; }
+}
 .timeline-panel.fade-in { animation: slideInX .28s ease; }
 .timeline-panel.tone-past { background: linear-gradient(165deg, rgba(85,109,163,.16), rgba(79,96,132,.08)); padding: 10px; border-radius: 14px; }
 .timeline-panel.tone-now { background: linear-gradient(165deg, rgba(238,172,82,.14), rgba(161,86,41,.08)); padding: 10px; border-radius: 14px; }
