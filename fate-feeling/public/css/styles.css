@@ -2599,10 +2599,29 @@ button.scan-icon:hover {
 #pillarsBox .small,
 #ossEngineBox .small { font-size: 13px; }
 
+.rule-map {
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,.03);
+}
+.rule-map summary { cursor: pointer; color: #d9deec; font-weight: 700; }
+.rule-map-table {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: .9fr 1.4fr 2fr;
+  gap: 6px 10px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.rule-map-table code { color: #efcb64; }
+
 @media (max-width: 640px) {
   .pillars-compare { grid-template-columns: 1fr; }
   #pillarsBox,
   #ossEngineBox { padding: 18px 14px !important; }
+  .rule-map-table { grid-template-columns: 1fr; }
 }
 .metric-info {
   display: inline-grid;
