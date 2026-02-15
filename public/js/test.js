@@ -132,9 +132,68 @@ function isAdultConcern(concern = '') {
   return concern === '속궁합' || concern === '키스 궁합';
 }
 
+const loveStateQuestionMap = {
+  solo: [
+    '새로운 인연을 만날 준비가 되어 있다고 느끼시나요?',
+    '이상형을 만났을 때 먼저 다가갈 자신이 있나요?',
+    '연애보다 현재 삶의 우선순위가 더 높다고 느끼시나요?',
+    '과거 연애 경험이 새로운 관계 시작에 영향을 주나요?',
+    '소개팅/지인 소개에 대해 개방적인 편인가요?',
+    '나를 더 매력적으로 만들기 위한 루틴을 실천 중인가요?',
+    '상대의 외적 매력보다 성향/가치관을 더 중요하게 보나요?',
+    '연락 템포가 맞지 않으면 빠르게 마음이 식는 편인가요?',
+    '관계 시작 전에도 확신이 필요하다고 느끼나요?',
+    '올해 안에 진지한 만남이 가능하다고 믿으시나요?',
+    '새로운 연애를 위해 바꾸고 싶은 내 습관이 있나요?',
+    '지금의 나에게 가장 필요한 사랑의 형태는 무엇인가요?'
+  ],
+  crush: [
+    '마음에 둔 사람과의 연락 빈도가 만족스러운 편인가요?',
+    '상대의 말/행동에서 호감 신호를 자주 포착하시나요?',
+    '상대가 먼저 다가오길 기다리는 편인가요?',
+    '관계를 진전시키기 위한 타이밍을 고민하고 있나요?',
+    '고백/표현을 준비하면서 가장 걱정되는 부분은 무엇인가요?',
+    '상대의 가치관이 나와 잘 맞는다고 느끼시나요?',
+    '경쟁 상대가 있다고 느껴 조급해지는 편인가요?',
+    '메시지 한 줄에도 의미를 크게 해석하는 편인가요?',
+    '지금 썸 관계가 연애로 발전할 가능성이 높다고 보나요?',
+    '관계 진전을 위해 내가 먼저 바꿔야 할 점이 보이나요?',
+    '상대와의 미래를 구체적으로 상상해본 적이 있나요?',
+    '지금 고백하면 흐름이 좋아질 것 같나요?'
+  ],
+  dating: [
+    '현재 연애 관계의 만족도는 높은 편인가요?',
+    '갈등이 생겼을 때 대화로 해결되는 편인가요?',
+    '서로의 생활 패턴과 속도가 잘 맞는다고 느끼시나요?',
+    '장기적인 미래(결혼/동거)에 대한 방향성이 비슷한가요?',
+    '애정 표현의 방식이 서로 잘 맞는 편인가요?',
+    '신뢰와 안정감이 관계의 핵심이라고 느끼시나요?',
+    '관계에서 반복되는 불만 포인트가 있나요?',
+    '서로의 가족/주변 관계에 대한 부담은 적은 편인가요?',
+    '경제적 가치관 차이가 갈등 요인이 되지 않나요?',
+    '지금 관계가 앞으로 더 깊어질 가능성이 높다고 보나요?',
+    '상대와의 관계에서 내가 충분히 존중받고 있나요?',
+    '지금의 연애를 오래 유지할 자신이 있나요?'
+  ],
+  reunion: [
+    '헤어진 상대와 다시 연결될 가능성이 있다고 느끼시나요?',
+    '이별 원인이 해결 가능하다고 보시나요?',
+    '다시 만난다면 이전보다 건강한 관계가 가능할까요?',
+    '연락을 먼저 시도할 타이밍을 기다리고 있나요?',
+    '상대의 현재 상황을 어느 정도 파악하고 있나요?',
+    '과거의 상처보다 재회의 기대가 더 큰 편인가요?',
+    '재회 시 가장 먼저 바꾸고 싶은 내 태도가 있나요?',
+    '주변의 반대/시선이 재회 결정에 영향을 주나요?',
+    '재회 후 장기 관계로 이어질 확신이 있나요?',
+    '지금도 상대를 정서적으로 신뢰할 수 있나요?',
+    '이별 후 성장한 내 모습이 있다고 느끼나요?',
+    '재회가 내 행복에 실제로 도움이 된다고 믿나요?'
+  ]
+};
+
 function normalizeConcern(concern = '') {
   if (categoryQuestions[concern]) return concern;
-  if (['재회운', '애정운', '커플운', '썸운'].includes(concern)) return '일반 궁합';
+  if (['커플운', '썸운'].includes(concern)) return '일반 궁합';
   return '결혼 운세';
 }
 
@@ -143,7 +202,14 @@ function concernLabel() {
 }
 
 function currentQuestionSet() {
-  const normalized = normalizeConcern(concernLabel());
+  const concern = concernLabel();
+  if (concern === '애정운' || concern === '재회운') {
+    const state = intake.loveState || localStorage.getItem('ff-love-state') || '';
+    const mappedState = concern === '재회운' && state === 'solo' ? 'reunion' : (state || 'solo');
+    const questions = loveStateQuestionMap[mappedState] || loveStateQuestionMap.solo;
+    return questions.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
+  }
+  const normalized = normalizeConcern(concern);
   const questions = categoryQuestions[normalized] || categoryQuestions['결혼 운세'];
   return questions.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
 }

@@ -23,15 +23,21 @@ const modeCardBg = document.getElementById('modeCardBg');
 const adultGateModal = document.getElementById('adultGateModal');
 const adultGateConfirm = document.getElementById('adultGateConfirm');
 const adultGateCancel = document.getElementById('adultGateCancel');
+const loveStateModal = document.getElementById('loveStateModal');
+const loveStateButtons = [...document.querySelectorAll('#loveStateButtons [data-state]')];
+const loveStateCancel = document.getElementById('loveStateCancel');
 const partnerFields = document.getElementById('partnerFields');
+const selfFields = document.getElementById('selfFields');
+const dualStepNav = document.getElementById('dualStepNav');
+const dualStepButtons = [...document.querySelectorAll('#dualStepNav [data-step]')];
 
-function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner = {}) {
+function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner = {}, gender = '기타', loveState = '') {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
   const normalizedBirthTime = birthTime || prev.birthTime || '모름(입력 안 함)';
   const payload = {
     ...prev,
     name,
-    gender: prev.gender || '기타',
+    gender: gender || prev.gender || '기타',
     birth: birth || prev.birth || '2000-01-01',
     birthTime: normalizedBirthTime,
     birthTimeUnknown: normalizedBirthTime.includes('모름'),
@@ -40,8 +46,11 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     mode: mode || prev.mode || 'ziwei',
     mbti: prev.mbti || 'INFP',
     partnerName: partner.name || prev.partnerName || '',
+    partnerGender: partner.gender || prev.partnerGender || '기타',
     partnerBirth: partner.birth || prev.partnerBirth || '',
     partnerBirthTime: partner.birthTime || prev.partnerBirthTime || '',
+    partnerBirthTimeUnknown: !!partner.birthTimeUnknown,
+    loveState: loveState || prev.loveState || '',
     agree: true
   };
   localStorage.setItem('ff-intake', JSON.stringify(payload));
@@ -132,12 +141,47 @@ function concernMeta() {
   return concernCopyMap[key] || concernCopyMap['결혼 운세'];
 }
 
+const ALWAYS_PAIR_CONCERNS = ['일반 궁합', '결혼 운세', '속궁합', '키스 궁합'];
+
 function isAdultConcern(concern = '') {
   return concern === '속궁합' || concern === '키스 궁합';
 }
 
+function needsLoveState(concern = '') {
+  return concern === '애정운' || concern === '재회운';
+}
+
+function getLoveState() {
+  return localStorage.getItem('ff-love-state') || '';
+}
+
+function requiresPartner(concern = '', state = getLoveState()) {
+  if (ALWAYS_PAIR_CONCERNS.includes(concern)) return true;
+  if (needsLoveState(concern)) return state && state !== 'solo';
+  return false;
+}
+
 function isAdultVerified() {
   return localStorage.getItem('ff-adult-verified') === '1';
+}
+
+function setDualStep(step = 'self') {
+  if (!dualStepNav) return;
+  dualStepButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.step === step));
+  if (selfFields) selfFields.hidden = step !== 'self';
+  if (partnerFields) partnerFields.hidden = step !== 'partner';
+}
+
+function updateInputLayout(concern = concernSelect?.value || '결혼 운세') {
+  const state = getLoveState();
+  const needPartner = requiresPartner(concern, state);
+  if (dualStepNav) dualStepNav.hidden = !needPartner;
+  if (!needPartner) {
+    if (selfFields) selfFields.hidden = false;
+    if (partnerFields) partnerFields.hidden = true;
+    return;
+  }
+  setDualStep('self');
 }
 
 function setAudience(audience = 'general') {
@@ -171,9 +215,14 @@ function syncConcernSelection(concern) {
     const fallback = '일반 궁합';
     if (concernSelect) concernSelect.value = fallback;
     applyConcern(fallback);
+    updateInputLayout(fallback);
     return false;
   }
+  if (needsLoveState(concern) && !getLoveState()) {
+    if (loveStateModal) loveStateModal.hidden = false;
+  }
   applyConcern(concern);
+  updateInputLayout(concern);
   return true;
 }
 
@@ -241,23 +290,33 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const birthPlace = (document.getElementById('birthPlace')?.value || '').trim();
   const concern = (document.getElementById('concern')?.value || '결혼 운세').trim();
   const mode = (document.getElementById('analysisMode')?.value || 'ziwei').trim();
+  const gender = (document.getElementById('gender')?.value || '기타').trim();
   const partnerName = (document.getElementById('partnerName')?.value || '').trim();
+  const partnerGender = (document.getElementById('partnerGender')?.value || '기타').trim();
   const partnerBirth = (document.getElementById('partnerBirth')?.value || '').trim();
   const partnerBirthTime = (document.getElementById('partnerBirthTime')?.value || '').trim();
+  const partnerBirthTimeUnknown = !!document.getElementById('partnerBirthTimeUnknown')?.checked;
+  const loveState = getLoveState();
 
   if (!name) return alert('이름을 입력해줘.');
   if (!birth) return alert('생년월일을 입력해줘.');
   if (!birthPlace) return alert('출생지를 입력해줘.');
-  if (isAdultConcern(concern)) {
+  if (needsLoveState(concern) && !loveState) {
+    if (loveStateModal) loveStateModal.hidden = false;
+    return alert('먼저 현재 연애 상태를 선택해줘.');
+  }
+  if (requiresPartner(concern, loveState)) {
     if (!partnerName) return alert('상대 이름을 입력해줘.');
     if (!partnerBirth) return alert('상대 생년월일을 입력해줘.');
   }
 
   saveIntake(name, birth, birthTime, birthPlace, concern, mode, {
     name: partnerName,
+    gender: partnerGender,
     birth: partnerBirth,
-    birthTime: partnerBirthTime
-  });
+    birthTime: partnerBirthTime,
+    birthTimeUnknown: partnerBirthTimeUnknown
+  }, gender, loveState);
   window.location.replace('/test.html');
 });
 
@@ -333,9 +392,25 @@ function syncConcernUI() {
   applyConcern(concern);
   const adult = isAdultConcern(concern);
   document.body.classList.toggle('adult-mode', adult);
-  if (partnerFields) partnerFields.hidden = !adult;
+  updateInputLayout(concern);
+  const state = getLoveState();
+  if (needsLoveState(concern) && onboardingConcernStatus) {
+    const stateLabel = ({ solo: '완전한 솔로', crush: '썸/짝사랑', dating: '연애 중', reunion: '이별/재회 고민' }[state] || '미선택');
+    onboardingConcernStatus.textContent = `현재 카테고리: ${concern} · 상태: ${stateLabel}`;
+  }
   syncModeUI(analysisModeSelect?.value || 'ziwei');
 }
+
+dualStepButtons.forEach((btn) => {
+  btn.addEventListener('click', () => setDualStep(btn.dataset.step || 'self'));
+});
+document.getElementById('partnerBirthTimeUnknown')?.addEventListener('change', (e) => {
+  const input = document.getElementById('partnerBirthTime');
+  if (!input) return;
+  input.disabled = e.target.checked;
+  if (e.target.checked) input.value = '모름';
+  else if (input.value === '모름') input.value = '';
+});
 
 onboardingModeButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncModeUI(btn.dataset.mode));
@@ -393,6 +468,23 @@ adultGateConfirm?.addEventListener('click', () => {
 });
 adultGateModal?.addEventListener('click', (e) => {
   if (e.target === adultGateModal) adultGateCancel?.click();
+});
+
+loveStateButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const state = btn.dataset.state;
+    if (!state) return;
+    localStorage.setItem('ff-love-state', state);
+    if (loveStateModal) loveStateModal.hidden = true;
+    updateInputLayout(concernSelect?.value || '애정운');
+    syncConcernUI();
+  });
+});
+loveStateCancel?.addEventListener('click', () => {
+  if (loveStateModal) loveStateModal.hidden = true;
+});
+loveStateModal?.addEventListener('click', (e) => {
+  if (e.target === loveStateModal) loveStateCancel?.click();
 });
 
 setAudience('general');

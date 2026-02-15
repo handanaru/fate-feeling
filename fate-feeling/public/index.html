@@ -31,35 +31,57 @@
       </div>
 
       <form id="firstImpactForm" class="impact-form" novalidate>
-        <label for="name" id="nameGuideLabel">당신의 이름을 입력해 사랑의 문을 여세요.</label>
-        <input id="name" placeholder="예: 지수" required />
+        <div class="dual-step-nav" id="dualStepNav" hidden>
+          <button type="button" class="active" data-step="self">내 정보 입력</button>
+          <button type="button" data-step="partner">상대 정보 입력</button>
+        </div>
 
-        <label for="birth">생년월일</label>
-        <input id="birth" type="date" required />
+        <div id="selfFields">
+          <label for="name" id="nameGuideLabel">당신의 이름을 입력해 사랑의 문을 여세요.</label>
+          <input id="name" placeholder="예: 지수" required />
 
-        <label for="birthTime">출생시간
-          <span class="field-help" tabindex="0">?
-            <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
-          </span>
-        </label>
-        <input id="birthTime" placeholder="예: 14:30 (모르면 '모름' 입력)" />
+          <label for="gender">성별</label>
+          <select id="gender">
+            <option value="여성">여성</option>
+            <option value="남성">남성</option>
+            <option value="기타">기타</option>
+          </select>
 
-        <label for="birthPlace">출생지
-          <span class="field-help" tabindex="0">?
-            <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
-          </span>
-        </label>
-        <input id="birthPlace" placeholder="예: 서울" />
+          <label for="birth">생년월일</label>
+          <input id="birth" type="date" required />
+
+          <label for="birthTime">출생시간
+            <span class="field-help" tabindex="0">?
+              <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
+            </span>
+          </label>
+          <input id="birthTime" placeholder="예: 14:30 (모르면 '모름' 입력)" />
+
+          <label for="birthPlace">출생지
+            <span class="field-help" tabindex="0">?
+              <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
+            </span>
+          </label>
+          <input id="birthPlace" placeholder="예: 서울" />
+        </div>
 
         <div id="partnerFields" hidden>
           <label for="partnerName">상대 이름</label>
           <input id="partnerName" placeholder="예: 민수" />
 
+          <label for="partnerGender">상대 성별</label>
+          <select id="partnerGender">
+            <option value="여성">여성</option>
+            <option value="남성">남성</option>
+            <option value="기타">기타</option>
+          </select>
+
           <label for="partnerBirth">상대 생년월일</label>
           <input id="partnerBirth" type="date" />
 
-          <label for="partnerBirthTime">상대 출생시간 (선택)</label>
-          <input id="partnerBirthTime" placeholder="예: 22:10 (모르면 '모름' 입력)" />
+          <label for="partnerBirthTime">상대 출생시간</label>
+          <input id="partnerBirthTime" placeholder="예: 22:10" />
+          <label class="tiny-check"><input type="checkbox" id="partnerBirthTimeUnknown" /> 상대방 태어난 시간 모름</label>
         </div>
 
         <label for="concern">카테고리 선택</label>
@@ -140,7 +162,23 @@
     </div>
   </div>
 
+  <div class="modal" id="loveStateModal" hidden>
+    <div class="modal-card onboarding-modal">
+      <h3>현재 연애 상태를 골라줘</h3>
+      <div class="onboarding-chips" id="loveStateButtons">
+        <button type="button" data-state="solo">완전한 솔로</button>
+        <button type="button" data-state="crush">썸/짝사랑 중</button>
+        <button type="button" data-state="dating">연애 중</button>
+        <button type="button" data-state="reunion">이별/재회 고민</button>
+      </div>
+      <p class="small" id="loveStateHint">솔로면 본인 정보만, 나머지는 상대 정보도 입력해줘.</p>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" id="loveStateCancel">취소</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow13"></script>
+  <script src="/js/index.js?v=modeflow14"></script>
 </body>
 </html>

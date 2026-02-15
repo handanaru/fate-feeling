@@ -785,6 +785,28 @@ input[type="date"]::-webkit-date-and-time-value {
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
   color: #fff;
 }
+.dual-step-nav {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  margin: 8px 0 6px;
+}
+.dual-step-nav button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+}
+.dual-step-nav button.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+}
 .onboarding-chips {
   display: flex;
   flex-wrap: wrap;
