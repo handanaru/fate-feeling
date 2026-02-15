@@ -1571,10 +1571,18 @@ select,
 .weather-hero.hero-career { background: linear-gradient(135deg, rgba(86,131,220,.22), rgba(58,87,156,.2)); }
 .weather-hero.hero-adult { background: linear-gradient(135deg, rgba(153,48,77,.26), rgba(74,20,64,.24)); }
 .weather-hero.hero-love { background: linear-gradient(135deg, rgba(203,84,132,.24), rgba(105,59,168,.22)); }
-.fortune-score-bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,.18); overflow: hidden; margin-bottom: 8px; }
+.fortune-score-bar { width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,.18); overflow: hidden; margin-bottom: 12px; }
 .fortune-score-bar span { display: block; height: 100%; background: linear-gradient(90deg, #f4cd72, #e98f45); }
-.hero-chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-.hero-chip { padding: 5px 9px; border-radius: 999px; border: 1px solid rgba(244,205,114,.45); background: rgba(244,205,114,.13); font-size: 12px; }
+.hero-chip-row {
+  display: flex;
+  gap: 10px;
+  row-gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.hero-chip { padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(244,205,114,.45); background: rgba(244,205,114,.13); font-size: 12px; }
 .timeline-summary { margin: 6px 0 10px; color: var(--muted); font-size: 13px; }
 .timeline-tabs { display: flex; gap: 6px; padding: 4px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,.05); margin-bottom: 10px; position: sticky; top: 8px; z-index: 4; }
 .timeline-tabs button { flex: 1; border: 0; border-radius: 999px; padding: 7px 10px; background: rgba(255,255,255,.08); color: var(--muted); cursor: pointer; font-size: 12px; opacity: .62; }
