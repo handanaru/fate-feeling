@@ -1620,27 +1620,39 @@ select,
   color: #cfd3df;
 }
 .five-elements-card { border: 1px solid var(--border); }
-.five-wrap { display: grid; place-items: center; margin: 8px 0; }
-.five-radar { width: min(260px, 90%); height: auto; }
-.radar-grid { fill: none; stroke: rgba(255,255,255,.05); stroke-width: 1; }
+.five-wrap {
+  display: grid;
+  place-items: center;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 18px;
+  background: radial-gradient(circle, #3a2b5a 0%, #1a152d 100%);
+  box-shadow: inset 0 0 28px rgba(132, 110, 196, .22), 0 12px 26px rgba(8, 8, 18, .35);
+}
+.five-radar {
+  width: min(280px, 92%);
+  height: auto;
+  animation: radarFadeIn .7s ease both;
+}
+.radar-grid { fill: none; stroke: rgba(129, 230, 217, 0.3); stroke-width: 1; }
 .radar-self {
-  fill: rgba(74, 222, 128, .18);
-  stroke: rgba(74, 222, 128, .95);
+  fill: rgba(147, 197, 253, .22);
+  stroke: rgba(147, 197, 253, .95);
   stroke-width: 2.1;
-  filter: drop-shadow(0 0 8px rgba(74,222,128,.45));
+  filter: drop-shadow(0 0 10px rgba(147,197,253,.55));
   transform-origin: 110px 110px;
-  animation: radarGrow .55s ease both;
+  animation: radarGrow .7s ease both;
 }
 .radar-partner {
-  fill: rgba(56, 189, 248, .14);
-  stroke: rgba(248, 250, 252, .82);
+  fill: rgba(244, 114, 182, .20);
+  stroke: rgba(244, 114, 182, .88);
   stroke-dasharray: 5 4;
   stroke-width: 1.9;
-  filter: drop-shadow(0 0 7px rgba(56,189,248,.36));
+  filter: drop-shadow(0 0 10px rgba(244,114,182,.45));
   transform-origin: 110px 110px;
-  animation: radarGrow .55s ease .08s both;
+  animation: radarGrow .7s ease .1s both;
 }
-.radar-point { animation: radarPointPop .45s ease both; }
+.radar-point { animation: radarPointPop .45s ease both, starPulse 2.2s ease-in-out infinite; }
 .radar-point.partner { opacity: .85; }
 .radar-point.wood { fill: #4ADE80; filter: drop-shadow(0 0 7px rgba(74,222,128,.9)); }
 .radar-point.fire { fill: #FB7185; filter: drop-shadow(0 0 7px rgba(251,113,133,.9)); }
@@ -1649,17 +1661,18 @@ select,
 .radar-point.water { fill: #38BDF8; filter: drop-shadow(0 0 7px rgba(56,189,248,.9)); }
 .radar-axis-label {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
+  font-family: var(--font-serif);
   paint-order: stroke;
   stroke: rgba(10,11,20,.88);
   stroke-width: 2.4px;
   letter-spacing: .02em;
 }
-.radar-axis-label.wood { fill: #4ADE80; }
-.radar-axis-label.fire { fill: #FB7185; }
-.radar-axis-label.earth { fill: #FDE047; }
-.radar-axis-label.metal { fill: #F8FAFC; }
-.radar-axis-label.water { fill: #38BDF8; }
+.radar-axis-label.wood,
+.radar-axis-label.fire,
+.radar-axis-label.earth,
+.radar-axis-label.metal,
+.radar-axis-label.water { fill: #f6d783; }
 .five-legend { margin-top: 6px; font-size: 13px; color: #cfd3df; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin: 0 4px 0 8px; }
 .dot.self { background: rgba(74,222,128,.95); }
@@ -1669,9 +1682,17 @@ select,
   from { transform: scale(.2); opacity: .2; }
   to { transform: scale(1); opacity: 1; }
 }
+@keyframes radarFadeIn {
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1); }
+}
 @keyframes radarPointPop {
   from { transform: scale(.4); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+@keyframes starPulse {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(255,255,255,.65)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255,255,255,.95)); }
 }
 .lucky-guide-card { border: 1px solid var(--border); }
 .lucky-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
