@@ -3165,6 +3165,54 @@ button.scan-icon:hover {
 }
 .rule-map-table strong { color: #efcb64; font-size: 12px; }
 
+.total-fortune-list {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+.fortune-acc {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  overflow: hidden;
+}
+.fortune-acc summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+}
+.fortune-acc summary::-webkit-details-marker { display: none; }
+.fortune-acc .icon { font-size: 18px; }
+.fortune-acc .txt {
+  color: #f4ebff;
+  font-weight: 700;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+.fortune-acc .arr {
+  color: #d7c7f5;
+  transition: transform .2s ease;
+}
+.fortune-acc[open] .arr { transform: rotate(180deg); }
+.fortune-body {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 10px 12px 12px;
+}
+.fortune-body strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #efcb64;
+}
+.fortune-body p {
+  margin: 0;
+  color: #d9dff1;
+  line-height: 1.72;
+}
+
 @media (max-width: 640px) {
   .pillars-compare { grid-template-columns: 1fr; }
   #pillarsBox,

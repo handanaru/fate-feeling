@@ -6,6 +6,7 @@ const shareBox = document.getElementById('shareBox');
 const gradeBox = document.getElementById('gradeBox');
 const pillarsBox = document.getElementById('pillarsBox');
 const ossEngineBox = document.getElementById('ossEngineBox');
+const totalFortuneBox = document.getElementById('totalFortuneBox');
 const socialShareBox = document.getElementById('socialShareBox');
 const bridgeBox = document.getElementById('bridgeBox');
 const chartsBox = document.getElementById('chartsBox');
@@ -19,6 +20,7 @@ const revealCtaCard = document.getElementById('revealCtaCard');
 const overlay = document.getElementById('resultOverlay');
 const reportTitle = document.getElementById('reportTitle');
 const saved = localStorage.getItem('ff-result');
+if (totalFortuneBox) totalFortuneBox.hidden = true;
 let pendingOrreryEvidence = null;
 let latestOrreryData = null;
 
@@ -200,6 +202,71 @@ function renderPillarsGrid(data, concern = '') {
     </details>`;
 }
 
+function renderTotalFortuneSection(data, concern = '', userName = '당신', targetName = '') {
+  if (!totalFortuneBox) return;
+  if (!data?.self?.pillars?.length) {
+    totalFortuneBox.hidden = true;
+    return;
+  }
+
+  const allPillars = [
+    ...(data?.self?.pillars || []),
+    ...(data?.partner?.pillars || [])
+  ];
+  const elems = allPillars.flatMap((p) => [p.stemElement, p.branchElement]).filter(Boolean);
+  const cnt = elems.reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
+  const names = { wood: '목(木)', fire: '화(火)', earth: '토(土)', metal: '금(金)', water: '수(水)' };
+  const ordered = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
+  const strongKey = ordered[0]?.[0] || 'earth';
+  const weakKey = ordered[ordered.length - 1]?.[0] || 'water';
+  const strong = names[strongKey] || '중심 기운';
+  const weak = names[weakKey] || '보완 기운';
+
+  const rows = [
+    {
+      icon: '💗',
+      title: '연애 · 관계 총운',
+      hook: `${strong} 중심의 강한 끌림, 표현 밸런스가 성패를 가른다`,
+      body: `${userName}${targetName ? `·${targetName}` : ''} 관계는 ${strong} 기운이 주도해서 초반 몰입감이 빠른 편이야. 다만 ${weak} 기운이 약한 날엔 말의 온도 차가 생길 수 있으니, 결론보다 감정 확인을 먼저 하는 게 좋아.`
+    },
+    {
+      icon: '🏠',
+      title: '가정 · 기반운',
+      hook: '독립성과 안정성의 균형이 핵심',
+      body: `${strong} 기운이 생활 리듬을 밀어주지만, 집안·기반운은 ${weak} 보완이 필요해. 중요한 결정을 급히 내리기보다 1~2주 관찰 후 확정하면 흔들림을 줄일 수 있어.`
+    },
+    {
+      icon: '🧑‍🤝‍🧑',
+      title: '대인 · 사회운',
+      hook: '겉인연은 넓고, 깊은 인연은 선별형',
+      body: `${strong} 기운 덕분에 사람을 모으는 힘은 좋아. 대신 에너지 소모가 큰 자리에서는 ${weak} 기운이 빠르게 마르기 쉬워서, 약속 밀도 조절과 회복 루틴이 필요해.`
+    },
+    {
+      icon: '💼',
+      title: '직업 · 성취운',
+      hook: '집중력 구간을 잡으면 성과 폭발형',
+      body: `${strong} 기운이 목표 추격력에 유리하게 작동해. 올해는 짧은 다중작업보다 한 번에 한 축을 깊게 파는 방식이 성취운을 크게 끌어올려.`
+    },
+    {
+      icon: '💰',
+      title: '재물 · 금전운',
+      hook: '흐름은 좋고, 지출 규칙이 수익을 지킨다',
+      body: `돈복은 들어오는 문이 열려 있지만 ${weak} 기운이 약하면 새는 돈이 생기기 쉬워. 자동이체·고정지출 상한 같은 규칙 하나만 잡아도 총운 체감이 확 좋아져.`
+    },
+    {
+      icon: '🧘',
+      title: '건강 · 생활운',
+      hook: `${weak} 보완 루틴이 전체 운의 바닥을 올린다`,
+      body: `과열 구간엔 수면·수분·호흡처럼 기본 루틴이 곧 개운법이야. ${weak} 기운 보완 색/장소를 주 2회만 실천해도 컨디션 변동폭이 줄어들어 전체총운이 안정돼.`
+    }
+  ];
+
+  totalFortuneBox.hidden = false;
+  totalFortuneBox.innerHTML = `<h3>🌠 만세력 전체총운</h3>
+    <p class="small">원국 중심 기운 <strong>${strong}</strong> · 보완 기운 <strong>${weak}</strong> 기준으로 읽은 전체 흐름이야.</p>
+    <div class="total-fortune-list">${rows.map((r, i) => `<details class="fortune-acc" ${i === 0 ? 'open' : ''}><summary><span class="icon">${r.icon}</span><span class="txt">${r.hook}</span><span class="arr">⌄</span></summary><div class="fortune-body"><strong>${r.title}</strong><p>${r.body}</p></div></details>`).join('')}</div>`;
+}
+
 function setupTypingEffect() {
   const targets = [...document.querySelectorAll('.typing-target')];
   if (!targets.length) return;
@@ -356,6 +423,7 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
     latestOrreryData = data;
     if (pillarsBox) pillarsBox.hidden = false;
     renderPillarsGrid(data, concern);
+    renderTotalFortuneSection(data, concern, intake.name || '당신', intake.partnerName || intake.targetName || '');
     applyOrreryEvidence(buildOrreryEvidence(data, concern));
     applyEnergyCompare(data);
   } catch (e) {
