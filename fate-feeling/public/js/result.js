@@ -133,6 +133,42 @@ function applyOrreryEvidence(evidence) {
   if (b) b.textContent = `${evidence.stabilityHint} (${evidence.ruleStability || '기본 균형형'}) ${evidence.reactionHint} (${evidence.ruleReaction || '기본 소통형'})`;
 }
 
+function applyEnergyCompare(data) {
+  const bars = document.querySelectorAll('[data-energy-bar]');
+  if (!bars.length) return;
+  const getEnergyCount = (pillars = []) => {
+    const counts = { wood: 0, fire: 0, earth: 0, metal: 0, water: 0 };
+    pillars.forEach((p) => {
+      counts[p.stemElement] = (counts[p.stemElement] || 0) + 1;
+      counts[p.branchElement] = (counts[p.branchElement] || 0) + 1;
+    });
+    const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+    const key = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'earth';
+    return { key, pct: Math.max(1, Math.round((counts[key] / total) * 100)) };
+  };
+  const me = getEnergyCount(data?.self?.pillars || []);
+  const partner = getEnergyCount(data?.partner?.pillars || []);
+  const harmonyText = Math.abs(me.pct - partner.pct) <= 8 ? '조화' : '보완 필요';
+
+  const map = {
+    me: me,
+    partner: partner
+  };
+  bars.forEach((el) => {
+    const who = el.getAttribute('data-energy-bar');
+    const v = map[who] || { key: 'earth', pct: 50 };
+    el.classList.remove('wood', 'fire', 'earth', 'metal', 'water');
+    el.classList.add(v.key);
+    el.style.setProperty('--w', `${v.pct}%`);
+  });
+  const mePct = document.getElementById('energyMePct');
+  const partnerPct = document.getElementById('energyPartnerPct');
+  const harmony = document.getElementById('energyHarmonyText');
+  if (mePct) mePct.textContent = `${me.pct}%`;
+  if (partnerPct) partnerPct.textContent = `${partner.pct}%`;
+  if (harmony) harmony.textContent = harmonyText;
+}
+
 function renderPillarsGrid(data, concern = '') {
   if (!pillarsBox) return;
   const cols = ['시', '일', '월', '년'];
@@ -321,6 +357,7 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
     if (pillarsBox) pillarsBox.hidden = false;
     renderPillarsGrid(data, concern);
     applyOrreryEvidence(buildOrreryEvidence(data, concern));
+    applyEnergyCompare(data);
   } catch (e) {
     if (pillarsBox) pillarsBox.hidden = true;
     ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 연결</h3><p class="small">엔진 계산에 실패했어. (${e.message || 'unknown'})</p>`;
@@ -889,22 +926,8 @@ if (!saved) {
       return { icon: '🌓', label: '균형 조정', hint: '합·충 혼재 구간', key: 'mid' };
     };
     const cleanCause = (text = '') => String(text).replace('사주적 근거:', '').trim();
-    const getEnergyCount = (pillars = []) => {
-      const counts = { wood: 0, fire: 0, earth: 0, metal: 0, water: 0 };
-      pillars.forEach((p) => {
-        counts[p.stemElement] = (counts[p.stemElement] || 0) + 1;
-        counts[p.branchElement] = (counts[p.branchElement] || 0) + 1;
-      });
-      const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
-      const key = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'earth';
-      return { key, pct: Math.round((counts[key] / total) * 100) };
-    };
     const buildEnergyCompare = () => {
-      const me = getEnergyCount(latestOrreryData?.self?.pillars || []);
-      const partner = getEnergyCount(latestOrreryData?.partner?.pillars || []);
-      const diff = Math.abs(me.pct - partner.pct);
-      const harmonyText = diff <= 8 ? '조화' : '보완 필요';
-      return `<div class="energy-compare-wrap"><div class="energy-row"><span>나(실선)</span><div class="energy-bar"><i class="${me.key} solid" style="--w:${me.pct}%"></i></div><b>${me.pct}%</b></div><div class="energy-row"><span>상대(점선)</span><div class="energy-bar"><i class="${partner.key} dashed" style="--w:${partner.pct}%"></i></div><b>${partner.pct}%</b></div><p class="small">에너지 판독: ${harmonyText}</p></div>`;
+      return `<div class="energy-compare-wrap"><div class="energy-row"><span>나(실선)</span><div class="energy-bar"><i data-energy-bar="me" class="earth solid" style="--w:50%"></i></div><b id="energyMePct">50%</b></div><div class="energy-row"><span>상대(점선)</span><div class="energy-bar"><i data-energy-bar="partner" class="earth dashed" style="--w:50%"></i></div><b id="energyPartnerPct">50%</b></div><p class="small">에너지 판독: <span id="energyHarmonyText">조화</span></p></div>`;
     };
 
     const stabilityDetail = getMetricDetail(firstGauge, 'stability');
@@ -951,6 +974,7 @@ if (!saved) {
 
     setupTypingEffect();
     setupMetricAccordion();
+    applyEnergyCompare(latestOrreryData || {});
     coreMetricsBox.querySelectorAll('.gauge-tip-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
