@@ -90,6 +90,27 @@ const concernCopyMap = {
     nameGuide: '당신의 이름을 입력해 썸운을 확인하세요.',
     ctaGoal: '썸 운'
   },
+  '금전/재산': {
+    count: 13240,
+    counterTail: '명이 재물운 흐름과 투자 타이밍을 점검했습니다.',
+    headline: '돈의 흐름과 축적 패턴, 기회 타이밍을 분석합니다.',
+    nameGuide: '당신의 이름을 입력해 재물운 분석을 시작하세요.',
+    ctaGoal: '재물 운'
+  },
+  '취업/직장': {
+    count: 12870,
+    counterTail: '명이 취업·직장 성공 가능성을 확인했습니다.',
+    headline: '합격운·이직운·조직 적응도를 종합 분석합니다.',
+    nameGuide: '당신의 이름을 입력해 커리어 운세를 확인하세요.',
+    ctaGoal: '직장 운'
+  },
+  '사업/창업': {
+    count: 9140,
+    counterTail: '명이 사업 성공 타이밍을 확인했습니다.',
+    headline: '창업 리스크와 확장 시점을 현실적으로 진단합니다.',
+    nameGuide: '당신의 이름을 입력해 사업 운세를 확인하세요.',
+    ctaGoal: '사업 운'
+  },
   '속궁합': {
     count: 9340,
     counterTail: '명이 19금 속궁합 리듬을 점검했습니다.',
