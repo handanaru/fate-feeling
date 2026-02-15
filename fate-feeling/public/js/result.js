@@ -325,7 +325,19 @@ if (!saved) {
     };
 
     const isCompat = concern === '일반 궁합';
-    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">${isCompat ? `관계 안정도 <span class="core-value">${data.reunionForce || 78}</span> · 소통 반응도 <span class="core-value">${data.recoveryIndex || 67}</span>` : `현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span>`}</p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
+    const bandPreview = data.gradeBand || (totalScore >= 85 ? 'A' : totalScore >= 60 ? 'B' : totalScore >= 40 ? 'C' : 'D');
+    const compatHeroCopy = {
+      A: '하늘이 맺어준 찰떡궁합',
+      B: '서로 성장시키는 좋은 궁합',
+      C: '배려가 핵심인 관계 흐름',
+      D: '속도 조절이 필요한 관계'
+    };
+    const heroTitle = isCompat ? `${userName} ❤️ ${targetName || '상대'}` : header.title;
+    const heroSub = isCompat ? (compatHeroCopy[bandPreview] || header.sub) : header.sub;
+    const heroStability = data.reunionForce || 78;
+    const heroReaction = data.recoveryIndex || 67;
+
+    resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title hero-name">${heroTitle}</h1><p class="mode-hero-note destiny-line hand-font">${heroSub}</p><div class="hero-grade-badge">GRADE ${bandPreview}</div><div class="fortune-score-head">종합 점수 <strong>${totalScore} / 100</strong></div><div class="fortune-score-bar hero-score-bar"><span class="hero-score-fill" style="--score:${totalScore};"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><div class="hero-mini-metrics"><div class="mini-metric"><span>⏰ 골든타임</span><strong>${goldenTime}</strong></div><div class="mini-metric"><span>🛡 안정도</span><strong>${heroStability}%</strong></div><div class="mini-metric"><span>💬 소통도</span><strong>${heroReaction}%</strong></div></div></div></div>`;
 
     const compatGradeMap = {
       A: { grade: 'A', label: '천생연분: 찰떡궁합', brief: '서로의 부족함을 완벽히 채워주는, 하늘이 맺어준 인연입니다.', detail: '두 분은 오행과 성향이 조화롭고 함께 있을 때 운이 상승하는 결합입니다. 어려운 시기도 서로를 믿고 지혜롭게 넘어갈 수 있어.', tip: '서로에 대한 감사를 잊지 않으면 더할 나위 없는 축복받은 관계야.', color: '#f4cd72' },
