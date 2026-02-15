@@ -501,6 +501,26 @@ input, textarea, select {
   transition: .2s ease;
   background: rgba(255,255,255,.5);
 }
+
+/* Live test mobile density tuning */
+.live-focus-page #testForm {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+}
+.live-focus-page .question-card {
+  margin-top: 6px;
+}
+.live-focus-page .options {
+  gap: 8px;
+  margin-top: 10px;
+}
+.live-focus-page .option {
+  padding: 10px 12px;
+  min-height: 40px;
+}
+.live-focus-page .option input {
+  transform: scale(.92);
+  margin-right: 7px;
+}
 .option.selected {
   border-color: var(--gold);
   background: color-mix(in srgb, var(--primary-soft) 80%, #fff);
@@ -1686,6 +1706,10 @@ button.scan-icon:hover {
   .header-actions { gap: 6px; }
   .icon-btn { min-height: 34px; min-width: 34px; font-size: 16px; }
   .theme-btn { font-size: 11px; min-height: 34px; padding: 7px 10px; }
+
+  .live-focus-page .live-analyzing-card { padding-top: 14px; }
+  .live-focus-page .progress-wrap { margin-top: 6px; margin-bottom: 8px; }
+  .live-focus-page .progress-label { font-size: 13px; }
 }
 
 /* Phase4 polish */
