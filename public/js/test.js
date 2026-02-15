@@ -1,32 +1,59 @@
-const commonQuestionsBase = [
-  { id: 'Q1', text: '상대방의 SNS나 프로필 메시지를 하루에도 몇 번씩 확인하게 된다.' },
-  { id: 'Q2', text: '우리 관계가 어긋난 이유를 생각하다 보면 결국 내 탓인 것만 같다.' },
-  { id: 'Q3', text: '힘들 때 누군가에게 내 감정을 털어놓기보다 혼자 삭이는 편이다.' },
-  { id: 'Q4', text: '상대방과 좋았던 기억보다 마지막의 좋지 않았던 장면이 자꾸 떠오른다.' },
-  { id: 'Q5', text: '다시 연락하고 싶지만, 거절당할까 봐 혹은 자존심 때문에 망설여진다.' },
-  { id: 'Q6', text: '일상생활 중에도 문득문득 상대방과의 추억이 떠올라 집중하기 어렵다.' },
-  { id: 'Q7', text: '우리는 서로 너무 달랐지만, 그래서 더 잘 맞을 수 있었다고 믿는다.' },
-  { id: 'Q8', text: '지금의 이 아픔이 시간이 지나면 자연스럽게 해결될 것이라고 믿기 어렵다.' }
-];
-
-const troubleSpecificQ9toQ12 = {
-  reunion: [
-    { id: 'X9', text: '상대방과 헤어진 이유가 지금 생각해보면 충분히 고칠 수 있는 문제였다고 생각한다.' },
-    { id: 'X10', text: '우리 사이에 남아있는 미해결 감정이 아직 서로를 당기고 있다고 느낀다.' },
-    { id: 'X11', text: '상대방이 나를 잊어버렸을까 봐 두려운 마음이 크다.' },
-    { id: 'X12', text: '다시 만난다면 이전과는 다른 방식으로 사랑할 준비가 되어 있다.' }
+const categoryQuestions = {
+  '결혼 운세': [
+    '결혼을 생각할 때 본인이 가장 포기할 수 없는 배우자의 조건은 무엇인가요?',
+    '본인이 생각하는 이상적인 결혼 생활의 모습은 어느 쪽에 가깝나요? (안정 vs 변화)',
+    '결혼 후 경제권 관리는 어떤 방식을 선호하시나요?',
+    '상대방의 가족 문제에 대해 본인은 얼마나 단호하게 대처할 수 있나요?',
+    '자녀 계획에 대해 본인과 상대방의 생각이 다를 경우, 어떻게 조율하고 싶으신가요?',
+    '결혼 준비 과정에서 발생하는 마찰을 맞춰가는 과정으로 보시나요?',
+    '나에게 결혼이란 인생의 필수인가요, 아니면 선택인가요?',
+    '배우자가 경제적 위기를 겪더라도 끝까지 신뢰를 유지할 자신이 있나요?',
+    '명절이나 집안 행사 등 전통적인 가족 문화에 대해 어떻게 생각하시나요?',
+    '결혼 후에도 개인적인 시간과 취미 생활이 얼마나 보장되어야 한다고 생각하시나요?',
+    '내가 꿈꾸는 결혼식의 규모나 스타일은 어떤가요?',
+    '현재 본인의 심리 상태는 결혼을 할 준비가 충분히 되었다고 느끼시나요?'
   ],
-  crush: [
-    { id: 'X9', text: '상대방의 사소한 행동 하나에 나한테 관심 있나?라는 기대를 자주 하게 된다.' },
-    { id: 'X10', text: '우리 관계는 아직 시작도 안 했지만, 이미 깊은 인연인 것처럼 느껴질 때가 있다.' },
-    { id: 'X11', text: '상대방 주변에 다른 이성이 생길까 봐 조급한 마음이 든다.' },
-    { id: 'X12', text: '그 사람에게 내가 어떤 의미(친구, 이성 등)인지 확인받고 싶은 욕구가 강하다.' }
+  '일반 궁합': [
+    '상대방과 대화할 때 소통이 잘 통한다고 느끼는 순간은 언제인가요?',
+    '두 사람의 성격 차이가 보완된다고 느끼시나요, 충돌한다고 느끼시나요?',
+    '데이트 코스를 정하거나 결정을 내릴 때, 주로 누가 주도권을 갖나요?',
+    '상대방의 사소한 습관 중에 본인을 가장 힘들게 하는 것이 있나요?',
+    '서로의 친구 관계나 사회생활에 대해 얼마나 공유하고 간섭하시나요?',
+    '화가 났을 때 본인의 감정을 표출하는 방식과 상대방의 방식이 비슷한가요?',
+    '상대방과 함께 있을 때 나의 모습이 더 긍정적으로 변한다고 느끼시나요?',
+    '두 사람 사이에 연락 빈도 문제로 갈등이 생기는 편인가요?',
+    '서운한 점이 생겼을 때 바로 말하는 편인가요, 아니면 참는 편인가요?',
+    '우리 관계에서 거짓말은 어디까지 허용될 수 있다고 생각하시나요?',
+    '상대방이 나의 꿈이나 목표를 얼마나 지지해주고 있다고 느끼시나요?',
+    '10년 뒤에도 지금 이 사람과 함께 있는 모습이 상상되시나요?'
   ],
-  timing: [
-    { id: 'X9', text: '지금 내가 연락하면 상대방이 부담을 느낄까 봐 가장 걱정된다.' },
-    { id: 'X10', text: '메시지를 보낼 때 단어 하나하나를 수십 번 고치고 고민하는 편이다.' },
-    { id: 'X11', text: '연락을 먼저 기다리기보다 내가 주도적으로 판을 흔들고 싶은 마음이 있다.' },
-    { id: 'X12', text: '지금이 아니면 영영 기회를 놓칠 것 같은 강력한 직감이 든다.' }
+  '속궁합': [
+    '상대방과의 성적 에너지가 처음 만났을 때와 비교해 어떻게 변화했나요?',
+    '관계 시 본인의 만족도만큼 상대방의 만족도를 챙기는 것이 중요하신가요?',
+    '본인이 선호하는 스킨십의 강도와 상대방의 강도가 잘 맞는 편인가요?',
+    '관계를 맺는 시간대나 장소에 대해 본인만의 선호하는 판타지가 있나요?',
+    '관계 도중 나누는 대화나 소리가 중요하다고 생각하시나요?',
+    '상대방의 특정 신체 부위나 자극에 대해 본인이 느끼는 반응이 강렬한가요?',
+    '관계가 끝난 직후의 후속 교감(애프터 케어)에 대해 만족하시나요?',
+    '새로운 체위나 도구 사용 등 변화를 주는 것에 대해 개방적이신가요?',
+    '본인의 성적 취향을 요구했을 때, 거부당할까 봐 걱정되시나요?',
+    '관계의 횟수(빈도)가 사랑의 척도라고 생각하시나요?',
+    '컨디션이 좋지 않을 때 상대방의 요구를 거절하는 것이 편안하신가요?',
+    '신체적 궁합이 맞지 않는다면, 정서적 교감만으로 관계 유지가 가능한가요?'
+  ],
+  '키스 궁합': [
+    '상대방과 키스할 때 느껴지는 향기나 체온이 본인을 기분 좋게 하나요?',
+    '키스 도중 상대방의 손 위치나 포옹 방식이 본인을 편안하게 만드나요?',
+    '본인은 짧고 가벼운 입맞춤보다 깊고 긴 키스를 더 선호하시나요?',
+    '키스의 템포(속도)를 누가 주로 리드하나요?',
+    '키스할 때 상대방의 호흡이 본인과 잘 어우러진다고 느끼시나요?',
+    '눈을 감고 키스할 때 상대방의 존재가 더 가깝게 느껴지나요?',
+    '본인의 키스는 부드러움과 강렬함 중 어디에 가깝나요?',
+    '키스 도중 상대방이 본인을 얼마나 아껴주고 있다는 느낌을 받나요?',
+    '키스만으로도 관계의 끝까지 가고 싶다는 충동을 느낀 적이 있나요?',
+    '상대방의 키스 테크닉이 본인의 기대치에 부합하시나요?',
+    '공공장소에서의 가벼운 스킨십이나 입맞춤에 대해 어떻게 생각하시나요?',
+    '키스가 끝난 후 서로 마주 보는 눈빛에서 어떤 감정을 가장 많이 느끼시나요?'
   ]
 };
 
@@ -57,37 +84,20 @@ const concernPickerButtons = [...document.querySelectorAll('#concernPickerButton
 const closeConcernPicker = document.getElementById('closeConcernPicker');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
-let concernLabelDisplay = intake.concern || '재회';
+let concernLabelDisplay = intake.concern || '결혼 운세';
 
-function normalizeTrouble(concern = '') {
-  if (concern.includes('짝사랑') || concern.includes('썸')) return 'crush';
-  if (concern.includes('연락')) return 'timing';
-  // 취업/금전, MBTI 등은 별도 질문셋 전까지 기본셋으로 처리
-  return 'reunion';
+function isAdultConcern(concern = '') {
+  return concern === '속궁합' || concern === '키스 궁합';
 }
 
-let troubleType = normalizeTrouble(concernLabelDisplay);
-const commonQuestionMapping = {
-  reunion: { Q1: '상대방의 SNS나 프로필 메시지를 하루에도 몇 번씩 확인하게 된다.', Q4: '상대방과 좋았던 기억보다 마지막의 좋지 않았던 장면이 자꾸 떠오른다.', Q5: '다시 연락하고 싶지만, 거절당할까 봐 혹은 자존심 때문에 망설여진다.', Q7: '우리는 서로 너무 달랐지만, 그래서 더 잘 맞을 수 있었다고 믿는다.' },
-  crush: { Q1: '그 사람의 SNS나 프로필 메시지를 하루에도 몇 번씩 확인하게 된다.', Q4: '좋았던 상상보다 나를 대하던 차가운 말투가 더 오래 남는다.', Q5: '먼저 다가가고 싶지만, 어색해질까 봐 혹은 자존심 때문에 망설여진다.', Q7: '우린 잘 맞을 것 같은데, 그 미묘한 거리감이 더 신경 쓰인다.' },
-  timing: { Q1: '메시지 읽음 표시나 마지막 접속 시간을 자주 확인하게 된다.', Q4: '대화가 끊겼던 마지막 순간이 반복해서 떠오른다.', Q5: '답장/선톡을 하고 싶지만, 타이밍이 아닐까 봐 망설여진다.', Q7: '우리의 텐션이 미묘하게 어긋난 채로 반복된다고 느낀다.' }
-};
-
-function buildCommonQuestions() {
-  const map = commonQuestionMapping[troubleType] || commonQuestionMapping.reunion;
-  return commonQuestionsBase.map((q) => ({ ...q, text: map[q.id] || q.text }));
+function concernLabel() {
+  return concernLabelDisplay || '결혼 운세';
 }
 
-function transformTroubleQuestionsByMode(baseQuestions, mode) {
-  const prefixes = { tarot: '카드 해석 관점에서 보면, ', saju: '사주 흐름 기준으로, ', astro: '행성/관계 배치 기준으로, ', mbti: '성향/소통 패턴 기준으로, ', ziwei: '명반(12궁) 흐름 기준으로, ' };
-  return baseQuestions.map((q) => ({ ...q, text: `${prefixes[mode] || ''}${q.text}` }));
-}
-
-function troubleLabel(type) {
-  if (concernLabelDisplay) return concernLabelDisplay;
-  if (type === 'crush') return '짝사랑/썸';
-  if (type === 'timing') return '연락 타이밍';
-  return '재회';
+function currentQuestionSet() {
+  const concern = concernLabel();
+  const questions = categoryQuestions[concern] || categoryQuestions['결혼 운세'];
+  return questions.map((text, idx) => ({ id: `Q${idx + 1}`, text }));
 }
 
 let selectedMode = null;
@@ -115,7 +125,13 @@ function updateLiveEvidence(index = 0) {
   if (recoveryMetric) recoveryMetric.textContent = String(recovery);
   if (pullMetric) pullMetric.textContent = String(pull);
   animateScan(index + solved);
-  const tickerPool = ['사주 데이터 매칭 완료...', '타로 심볼 스캔 중...', '자미두수 궁위 연산 중...', 'MBTI 소통 패턴 교차 분석 중...', '싱크로율 분석 중...'];
+  const categoryTicker = {
+    '결혼 운세': ['결혼 운 흐름 분석 중...', '배우자 조건 매칭 중...', '가족/경제 궁합 파악 중...'],
+    '일반 궁합': ['관계 소통 패턴 분석 중...', '갈등/보완 포인트 추적 중...', '궁합 싱크로율 계산 중...'],
+    '속궁합': ['성인 에너지 분석 중...', '관계 리듬 파악 중...', '속궁합 싱크로율 계산 중...'],
+    '키스 궁합': ['키스 케미 분석 중...', '호흡 템포 싱크 계산 중...', '감정 밀착도 측정 중...']
+  };
+  const tickerPool = categoryTicker[concernLabel()] || categoryTicker['일반 궁합'];
   if (liveTicker) liveTicker.textContent = tickerPool[(solved + index) % tickerPool.length];
 }
 
@@ -126,7 +142,7 @@ function renderQuestion(index) {
   const card = document.createElement('div');
   card.className = 'question-card slide-in';
   const isSpecial = index >= 8;
-  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 ${isSpecial ? `· 특화 문항 (${q.id})` : `· 공통 문항 (${q.id})`} · 고민: ${troubleLabel(troubleType)}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
+  card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 카테고리: ${concernLabel()}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
 
   card.querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', (e) => {
@@ -162,7 +178,7 @@ function updateProgress() {
 
 function startTest() {
   if (!selectedMode) return;
-  activeQuestions = [...buildCommonQuestions(), ...transformTroubleQuestionsByMode(troubleSpecificQ9toQ12[troubleType] || troubleSpecificQ9toQ12.reunion, selectedMode)];
+  activeQuestions = currentQuestionSet();
   answers = Array(activeQuestions.length).fill(null);
   currentIndex = 0;
   submitBtn.style.display = 'none';
@@ -191,10 +207,11 @@ function selectMode(mode, withPulse = false) {
     });
   }
 
-  const concern = troubleLabel(troubleType);
+  const concern = concernLabel();
   concernPickerButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
-  if (analysisTitle) analysisTitle.textContent = `[${concern}] 운세 분석 중`;
-  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 고민: ${concern}</button>`;
+  document.body.classList.toggle('adult-mode', isAdultConcern(concern));
+  if (analysisTitle) analysisTitle.textContent = `[${concern}] 분석 중`;
+  modeHint.innerHTML = `${modeMeta[selectedMode].guide} · <button type="button" class="concern-pill" id="openConcernPicker">현재 카테고리: ${concern}</button>`;
   document.getElementById('openConcernPicker')?.addEventListener('click', () => {
     if (concernPickerModal) concernPickerModal.hidden = false;
   });
@@ -227,9 +244,15 @@ concernPickerButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     const nextConcern = btn.dataset.concern;
     if (!nextConcern) return;
-    concernLabelDisplay = nextConcern;
-    troubleType = normalizeTrouble(concernLabelDisplay);
 
+    if (isAdultConcern(nextConcern) && localStorage.getItem('ff-adult-verified') !== '1') {
+      alert('19금 카테고리는 먼저 성인 인증이 필요해. 메인에서 인증 후 이용해줘.');
+      if (concernPickerModal) concernPickerModal.hidden = true;
+      location.href = '/';
+      return;
+    }
+
+    concernLabelDisplay = nextConcern;
     const intakeDraft = JSON.parse(localStorage.getItem('ff-intake') || '{}');
     intakeDraft.concern = concernLabelDisplay;
     localStorage.setItem('ff-intake', JSON.stringify(intakeDraft));
@@ -252,21 +275,20 @@ submitBtn.addEventListener('click', () => {
   const answerById = {};
   activeQuestions.forEach((q, idx) => { answerById[q.id] = answers[idx]; });
 
-  const anxiety = ['Q1', 'Q2', 'Q3', 'Q4'].reduce((sum, key) => sum + (answerById[key] || 0), 0);
-  const longing = ['Q5', 'Q6', 'Q7', 'Q8'].reduce((sum, key) => sum + (answerById[key] || 0), 0);
-  const specialIds = activeQuestions.slice(8).map((q) => q.id);
-  const lensIntensity = specialIds.reduce((sum, key) => sum + (answerById[key] || 0), 0);
-  const total = anxiety + longing + lensIntensity;
-  const recoveryIndex = Math.max(20, Math.min(98, Math.round((30 - anxiety) * 1.8 + (26 - longing) * 1.2)));
-  const reunionForce = Math.max(12, Math.min(96, Math.round((longing + lensIntensity) * 1.8)));
-  const emotionTemp = Math.max(24, Math.min(92, Math.round((anxiety * 1.9) + (longing * 1.4))));
-  let type = '균형 회복형';
-  if (total >= 47) type = '감정 과부하형';
-  else if (total >= 36) type = '확신 탐색형';
+  const partA = ['Q1', 'Q2', 'Q3', 'Q4'].reduce((sum, key) => sum + (answerById[key] || 0), 0);
+  const partB = ['Q5', 'Q6', 'Q7', 'Q8'].reduce((sum, key) => sum + (answerById[key] || 0), 0);
+  const partC = ['Q9', 'Q10', 'Q11', 'Q12'].reduce((sum, key) => sum + (answerById[key] || 0), 0);
+  const total = partA + partB + partC;
+  const recoveryIndex = Math.max(20, Math.min(98, Math.round((72 - total) * 1.4 + 28)));
+  const reunionForce = Math.max(12, Math.min(96, Math.round((partB + partC) * 1.45)));
+  const emotionTemp = Math.max(24, Math.min(92, Math.round((partA * 1.7) + (partB * 1.1))));
+  let type = '균형형';
+  if (total >= 48) type = '몰입형';
+  else if (total >= 36) type = '탐색형';
 
   localStorage.setItem('ff-result', JSON.stringify({
     mode: selectedMode, modeLabel: modeMeta[selectedMode].label, lensTitle: modeMeta[selectedMode].lensTitle,
-    troubleType, troubleLabel: troubleLabel(troubleType), answers, answerById, anxiety, longing, lensIntensity,
+    troubleType: concernLabel(), troubleLabel: concernLabel(), answers, answerById, partA, partB, partC,
     total, recoveryIndex, reunionForce, emotionTemp, type, createdAt: Date.now()
   }));
 
@@ -278,7 +300,7 @@ submitBtn.addEventListener('click', () => {
 
   if (preResultMessage) {
     const who = intake.name || '고객';
-    preResultMessage.textContent = `${who}님의 사주 명반과 타로 배열을 대조하여 융합 분석 중입니다...`;
+    preResultMessage.textContent = `${who}님의 자미두수 명반과 설문 결과를 결합 중입니다...`;
   }
 
   loader.hidden = false;
@@ -291,6 +313,11 @@ submitBtn.addEventListener('click', () => {
 
   setTimeout(() => { clearInterval(timer); location.href = '/result.html'; }, 4000);
 });
+
+if (isAdultConcern(concernLabelDisplay) && localStorage.getItem('ff-adult-verified') !== '1') {
+  alert('19금 카테고리는 성인 인증 후 이용 가능해. 메인으로 이동할게.');
+  location.href = '/';
+}
 
 const initialMode = modeMeta[intake.mode] ? intake.mode : 'ziwei';
 selectMode(initialMode, false);

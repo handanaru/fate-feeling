@@ -20,7 +20,7 @@
     </header>
 
     <section class="card live-analyzing-card">
-      <h2 class="analysis-title" id="analysisTitle">[재회] 운세 분석 중</h2>
+      <h2 class="analysis-title" id="analysisTitle">[결혼 운세] 분석 중</h2>
 
       <div class="analyzing-statusbar" id="analyzingStatusbar" aria-label="분석 상태">
         <button type="button" class="scan-icon active" data-mode="saju" data-scan="saju">☯<span>사주</span></button>
@@ -41,7 +41,7 @@
       <form id="testForm"></form>
       <div class="live-metric-grid" id="liveMetricGrid">
         <div class="live-metric"><span class="small">회복 지수</span><strong id="recoveryMetric">0</strong></div>
-        <div class="live-metric"><span class="small">재회 인력</span><strong id="pullMetric">0</strong></div>
+        <div class="live-metric"><span class="small">궁합 인력</span><strong id="pullMetric">0</strong></div>
       </div>
       <div class="live-ticker" id="liveTicker">사주 데이터 매칭 완료...</div>
       <button id="submitBtn" class="btn" style="display:none; margin-top:12px;">결과 보기</button>
@@ -50,13 +50,13 @@
 
   <div class="modal" id="concernPickerModal" hidden>
     <div class="modal-card">
-      <h3>현재 고민 변경</h3>
+      <h3>현재 카테고리 변경</h3>
       <p class="small">고민을 바꾸면 문항이 처음부터 다시 시작돼.</p>
       <div class="onboarding-chips" id="concernPickerButtons">
-        <button type="button" data-concern="재회">💞 재회</button>
-        <button type="button" data-concern="짝사랑/썸">🌹 짝사랑/썸</button>
-        <button type="button" data-concern="취업/금전">💼 취업/금전</button>
-        <button type="button" data-concern="MBTI">🧠 MBTI</button>
+        <button type="button" data-concern="결혼 운세">💍 결혼 운세</button>
+        <button type="button" data-concern="일반 궁합">💞 일반 궁합</button>
+        <button type="button" data-concern="속궁합">🔞 속궁합</button>
+        <button type="button" data-concern="키스 궁합">💋 키스 궁합</button>
       </div>
       <div class="cta-row">
         <button class="btn secondary" type="button" id="closeConcernPicker">닫기</button>
@@ -76,12 +76,12 @@
       <p class="small pre-result-message" id="preResultMessage">고객님의 사주 원국과 현재 별자리의 궤도를 대조하고 있습니다...</p>
       <div class="result-summary-grid pre-result-metrics">
         <div class="metric-chip"><span class="small">궁위 안정도</span><strong id="loaderMetricA">42</strong></div>
-        <div class="metric-chip"><span class="small">재회 확률선</span><strong id="loaderMetricB">57</strong></div>
+        <div class="metric-chip"><span class="small">궁합 확률선</span><strong id="loaderMetricB">57</strong></div>
       </div>
     </div>
   </div>
 
   <script src="/js/common.js"></script>
-  <script src="/js/test.js?v=focusui4"></script>
+  <script src="/js/test.js?v=focusui5"></script>
 </body>
 </html>

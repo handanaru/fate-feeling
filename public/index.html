@@ -14,7 +14,7 @@
     </header>
 
     <section class="card trust-counter-card">
-      <p id="trustCounterText">지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong><span id="trustCounterTail">명이 이별 후 재회 타이밍을 확인했습니다.</span></p>
+      <p id="trustCounterText">지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong><span id="trustCounterTail">명이 결혼/궁합 흐름을 확인했습니다.</span></p>
     </section>
 
     <section class="card first-impact" id="firstImpact">
@@ -51,15 +51,12 @@
         </label>
         <input id="birthPlace" placeholder="예: 서울" />
 
-        <label for="concern">고민 선택</label>
+        <label for="concern">카테고리 선택</label>
         <select id="concern" required>
-          <option value="재회">재회</option>
-          <option value="짝사랑/썸">짝사랑/썸</option>
-          <option value="취업/금전">취업/금전</option>
-          <option value="MBTI">MBTI</option>
-          <option value="연락 타이밍">연락 타이밍</option>
-          <option value="속마음">속마음</option>
-          <option value="애정">애정</option>
+          <option value="결혼 운세">결혼 운세</option>
+          <option value="일반 궁합">일반 궁합</option>
+          <option value="속궁합">[19금] 속궁합</option>
+          <option value="키스 궁합">[19금] 키스 궁합</option>
         </select>
 
         <label for="analysisMode">분석 관점 선택</label>
@@ -71,7 +68,7 @@
           <option value="mbti">MBTI</option>
         </select>
 
-        <button class="btn impact-cta" id="startSubmitBtn" type="submit">자미두수로 재회 운 확인하기</button>
+        <button class="btn impact-cta" id="startSubmitBtn" type="submit">자미두수로 결혼 운 확인하기</button>
       </form>
     </section>
   </div>
@@ -81,12 +78,12 @@
       <h3>어떤 관점으로 분석해볼까?</h3>
       <p class="small">사주 · 타로 · 자미두수 · 점성술 · MBTI 전부 지원해.</p>
       <div class="onboarding-chips" id="onboardingConcernButtons">
-        <button type="button" data-concern="재회" class="active">💞 재회</button>
-        <button type="button" data-concern="짝사랑/썸">🌹 짝사랑/썸</button>
-        <button type="button" data-concern="취업/금전">💼 취업/금전</button>
-        <button type="button" data-concern="MBTI">🧠 MBTI</button>
+        <button type="button" data-concern="결혼 운세" class="active">💍 결혼 운세</button>
+        <button type="button" data-concern="일반 궁합">💞 일반 궁합</button>
+        <button type="button" data-concern="속궁합">🔞 속궁합</button>
+        <button type="button" data-concern="키스 궁합">💋 키스 궁합</button>
       </div>
-      <p class="small" id="onboardingConcernStatus">현재 고민: 재회</p>
+      <p class="small" id="onboardingConcernStatus">현재 카테고리: 결혼 운세</p>
       <div class="onboarding-chips" id="onboardingModeButtons">
         <button type="button" data-mode="saju">☯ 사주</button>
         <button type="button" data-mode="tarot">🃏 타로</button>
@@ -103,7 +100,18 @@
     </div>
   </div>
 
+  <div class="modal" id="adultGateModal" hidden>
+    <div class="modal-card onboarding-modal">
+      <h3>성인 인증이 필요해</h3>
+      <p class="small">[19금] 카테고리는 만 19세 이상만 이용할 수 있어.</p>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" id="adultGateCancel">취소</button>
+        <button class="btn" type="button" id="adultGateConfirm">만 19세 이상입니다</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow8"></script>
+  <script src="/js/index.js?v=modeflow9"></script>
 </body>
 </html>

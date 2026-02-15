@@ -1543,6 +1543,18 @@ select,
   font-size: inherit;
   line-height: 1.2;
 }
+
+body.adult-mode .live-analyzing-card {
+  background: linear-gradient(165deg, rgba(56, 17, 74, .94), rgba(81, 18, 39, .9));
+  border-color: rgba(245, 98, 157, .45);
+}
+body.adult-mode .question-card {
+  background: linear-gradient(165deg, rgba(49, 15, 67, .75), rgba(93, 17, 45, .6));
+  border-color: rgba(232, 122, 170, .45);
+}
+body.adult-mode .option {
+  border-color: rgba(232, 122, 170, .32);
+}
 .question-context {
   font-size: 15px !important;
   line-height: 1.55;

@@ -19,6 +19,9 @@ const modeCard = document.getElementById('modeCard');
 const modeCardTitle = document.getElementById('modeCardTitle');
 const modeCardIcon = document.getElementById('modeCardIcon');
 const modeCardBg = document.getElementById('modeCardBg');
+const adultGateModal = document.getElementById('adultGateModal');
+const adultGateConfirm = document.getElementById('adultGateConfirm');
+const adultGateCancel = document.getElementById('adultGateCancel');
 
 function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
@@ -31,7 +34,7 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
     birthTime: normalizedBirthTime,
     birthTimeUnknown: normalizedBirthTime.includes('모름'),
     birthPlace: birthPlace || prev.birthPlace || '서울',
-    concern: concern || prev.concern || '재회',
+    concern: concern || prev.concern || '결혼 운세',
     mode: mode || prev.mode || 'ziwei',
     mbti: prev.mbti || 'INFP',
     agree: true
@@ -40,46 +43,69 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode) {
 }
 
 const concernCopyMap = {
-  '재회': {
-    count: 12405,
-    counterTail: '명이 이별 후 재회 타이밍을 확인했습니다.',
-    headline: "어긋난 인연에도 다시 만날 '때'는 반드시 있습니다.",
-    nameGuide: '당신의 이름을 입력해 사랑의 문을 여세요.',
-    ctaGoal: '재회 운'
+  '결혼 운세': {
+    count: 11240,
+    counterTail: '명이 결혼 운세와 배우자 흐름을 확인했습니다.',
+    headline: "결혼의 타이밍과 현실 궁합을 함께 짚어드립니다.",
+    nameGuide: '당신의 이름을 입력해 결혼 운세의 문을 여세요.',
+    ctaGoal: '결혼 운'
   },
-  '짝사랑/썸': {
-    count: 8920,
-    counterTail: '명이 고백 성공 확률을 확인했습니다.',
-    headline: "닿지 않는 마음이 '진심'으로 전해지는 찰나를 포착하세요.",
-    nameGuide: '당신의 이름을 입력해 사랑의 문을 여세요.',
-    ctaGoal: '짝사랑 운'
+  '일반 궁합': {
+    count: 15820,
+    counterTail: '명이 관계 궁합 리포트를 확인했습니다.',
+    headline: "두 사람의 소통 패턴과 충돌 포인트를 정확히 분석합니다.",
+    nameGuide: '당신의 이름을 입력해 궁합 분석을 시작하세요.',
+    ctaGoal: '궁합'
   },
-  '취업/금전': {
-    count: 15340,
-    counterTail: '명이 대박 운 흐름을 확인했습니다.',
-    headline: "막혔던 운의 흐름이 터지는 '결정적 순간'을 짚어드립니다.",
-    nameGuide: '당신의 이름을 입력해 성공의 문을 여세요.',
-    ctaGoal: '성공 운'
+  '속궁합': {
+    count: 9340,
+    counterTail: '명이 19금 속궁합 리듬을 점검했습니다.',
+    headline: "성인 전용 분석으로 관계의 밀도와 리듬을 해석합니다.",
+    nameGuide: '당신의 이름을 입력해 성인 궁합 분석을 시작하세요.',
+    ctaGoal: '속궁합'
   },
-  MBTI: {
-    count: 10480,
-    counterTail: '명이 성향 기반 관계 해석을 확인했습니다.',
-    headline: "데이터가 말해주는 당신의 '진짜 모습'을 마주해 보세요.",
-    nameGuide: '당신의 이름을 입력해 성향 분석의 문을 여세요.',
-    ctaGoal: '성향'
+  '키스 궁합': {
+    count: 8740,
+    counterTail: '명이 19금 키스 케미 흐름을 확인했습니다.',
+    headline: "미묘한 호흡과 텐션을 바탕으로 키스 케미를 진단합니다.",
+    nameGuide: '당신의 이름을 입력해 키스 궁합 분석을 시작하세요.',
+    ctaGoal: '키스 궁합'
   }
 };
 
 function concernMeta() {
-  const key = concernSelect?.value || '재회';
-  return concernCopyMap[key] || concernCopyMap['재회'];
+  const key = concernSelect?.value || '결혼 운세';
+  return concernCopyMap[key] || concernCopyMap['결혼 운세'];
+}
+
+function isAdultConcern(concern = '') {
+  return concern === '속궁합' || concern === '키스 궁합';
+}
+
+function isAdultVerified() {
+  return localStorage.getItem('ff-adult-verified') === '1';
+}
+
+let pendingConcern = null;
+function openAdultGate(nextConcern) {
+  pendingConcern = nextConcern;
+  if (adultGateModal) adultGateModal.hidden = false;
+}
+
+function applyConcern(concern) {
+  if (!concern) return;
+  if (concernSelect) concernSelect.value = concern;
+  onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
+  if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 카테고리: ${concern}`;
 }
 
 function syncConcernSelection(concern) {
   if (!concern) return;
-  if (concernSelect) concernSelect.value = concern;
-  onboardingConcernButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.concern === concern));
-  if (onboardingConcernStatus) onboardingConcernStatus.textContent = `현재 고민: ${concern}`;
+  if (isAdultConcern(concern) && !isAdultVerified()) {
+    openAdultGate(concern);
+    return;
+  }
+  applyConcern(concern);
 }
 
 let counterAnimFrame = null;
@@ -144,7 +170,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const birth = (document.getElementById('birth')?.value || '').trim();
   const birthTime = (document.getElementById('birthTime')?.value || '').trim();
   const birthPlace = (document.getElementById('birthPlace')?.value || '').trim();
-  const concern = (document.getElementById('concern')?.value || '재회').trim();
+  const concern = (document.getElementById('concern')?.value || '결혼 운세').trim();
   const mode = (document.getElementById('analysisMode')?.value || 'ziwei').trim();
 
   if (!name) return alert('이름을 입력해줘.');
@@ -209,12 +235,14 @@ function syncModeUI(mode) {
 }
 
 function syncConcernUI() {
-  const meta = concernMeta();
+  const concern = concernSelect?.value || '결혼 운세';
+  const meta = concernCopyMap[concern] || concernCopyMap['결혼 운세'];
   animateTrustCounter(meta.count);
   if (trustCounterTail) softSwapText(trustCounterTail, meta.counterTail);
   softSwapText(impactCopy, meta.headline);
   softSwapText(nameGuideLabel, meta.nameGuide);
-  syncConcernSelection(concernSelect?.value || '재회');
+  applyConcern(concern);
+  document.body.classList.toggle('adult-mode', isAdultConcern(concern));
   syncModeUI(analysisModeSelect?.value || 'ziwei');
 }
 
@@ -228,7 +256,10 @@ onboardingConcernButtons.forEach((btn) => {
   });
 });
 analysisModeSelect?.addEventListener('change', () => syncModeUI(analysisModeSelect.value));
-concernSelect?.addEventListener('change', syncConcernUI);
+concernSelect?.addEventListener('change', () => {
+  syncConcernSelection(concernSelect.value);
+  syncConcernUI();
+});
 if (analysisModeSelect?.value) syncModeUI(analysisModeSelect.value);
 
 onboardingStartBtn?.addEventListener('click', closeOnboarding);
@@ -240,5 +271,23 @@ firstVisitModal?.addEventListener('click', (e) => {
   if (e.target === firstVisitModal) closeOnboarding();
 });
 
+adultGateCancel?.addEventListener('click', () => {
+  pendingConcern = null;
+  if (adultGateModal) adultGateModal.hidden = true;
+  if (concernSelect && isAdultConcern(concernSelect.value)) concernSelect.value = '일반 궁합';
+  syncConcernUI();
+});
+adultGateConfirm?.addEventListener('click', () => {
+  localStorage.setItem('ff-adult-verified', '1');
+  if (pendingConcern && concernSelect) concernSelect.value = pendingConcern;
+  if (adultGateModal) adultGateModal.hidden = true;
+  pendingConcern = null;
+  syncConcernUI();
+});
+adultGateModal?.addEventListener('click', (e) => {
+  if (e.target === adultGateModal) adultGateCancel?.click();
+});
+
+syncConcernSelection(concernSelect?.value || '결혼 운세');
 syncConcernUI();
 openOnboardingIfNeeded();
