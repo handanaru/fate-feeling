@@ -115,14 +115,16 @@ const modeHint = document.getElementById('modeHint');
 const analysisTitle = document.getElementById('analysisTitle');
 const modeButtons = [...document.querySelectorAll('.mode-btn, .scan-icon[data-mode]')];
 const liveTicker = document.getElementById('liveTicker');
-const recoveryMetric = document.getElementById('recoveryMetric');
-const pullMetric = document.getElementById('pullMetric');
 const scanIcons = [...document.querySelectorAll('.scan-icon')];
 const backBtn = document.getElementById('backBtn');
 const homeBtn = document.getElementById('homeBtn');
 const concernPickerModal = document.getElementById('concernPickerModal');
 const concernPickerButtons = [...document.querySelectorAll('#concernPickerButtons [data-concern]')];
 const closeConcernPicker = document.getElementById('closeConcernPicker');
+const questionBackBtn = document.getElementById('questionBackBtn');
+const resultReadyModal = document.getElementById('resultReadyModal');
+const closeResultReadyModal = document.getElementById('closeResultReadyModal');
+const goResultNowBtn = document.getElementById('goResultNowBtn');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
 const userName = intake.name || '나';
@@ -235,12 +237,6 @@ function animateScan(index = 0) {
 function updateLiveEvidence(index = 0) {
   const solvedAnswers = answers.filter((v) => v !== null);
   const solved = solvedAnswers.length;
-  const sum = solvedAnswers.reduce((acc, v) => acc + v, 0);
-  const avg = solved ? sum / solved : 0;
-  const recovery = Math.max(22, Math.min(96, Math.round((6 - avg) * 16 + solved * 2.2)));
-  const pull = Math.max(18, Math.min(95, Math.round(avg * 14 + solved * 1.8)));
-  if (recoveryMetric) recoveryMetric.textContent = String(recovery);
-  if (pullMetric) pullMetric.textContent = String(pull);
   animateScan(index + solved);
   const categoryTicker = {
     '결혼 운세': ['결혼 운 흐름 분석 중...', '배우자 조건 매칭 중...', '가족/경제 궁합 파악 중...'],
@@ -304,6 +300,15 @@ function renderQuestion(index) {
   const compatStep = index < 4 ? 'Step 1: 소통 및 가치관' : index < 8 ? 'Step 2: 신뢰와 생활' : 'Step 3: 장기 안정성';
   card.innerHTML = `<div class="small question-context">${modeMeta[selectedMode].label} 관점 설문 · 문항 (${q.id}) · 고민: ${concernLabel()}${isCompat ? ` · ${compatStep}` : ''}</div><h3>${index + 1}. ${q.text}</h3><div class="options">${[1, 2, 3, 4, 5].map((score) => `<label class="option" data-score="${score}"><input type="radio" name="q" value="${score}" />${score}점 · ${likertLabel(score)}</label>`).join('')}</div>`;
 
+  const existing = answers[index];
+  if (existing) {
+    const selectedInput = card.querySelector(`input[value="${existing}"]`);
+    if (selectedInput) {
+      selectedInput.checked = true;
+      selectedInput.closest('.option')?.classList.add('selected');
+    }
+  }
+
   card.querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', (e) => {
       if (transitionLock) return;
@@ -317,11 +322,17 @@ function renderQuestion(index) {
         card.classList.add('slide-out');
         setTimeout(() => { currentIndex += 1; form.innerHTML = ''; renderQuestion(currentIndex); transitionLock = false; }, 500);
       } else {
-        submitBtn.style.display = 'inline-block';
+        submitBtn.style.display = 'none';
+        if (resultReadyModal) resultReadyModal.hidden = false;
         transitionLock = false;
       }
     });
   });
+
+  if (questionBackBtn) {
+    questionBackBtn.disabled = index === 0;
+    questionBackBtn.style.opacity = index === 0 ? '.45' : '1';
+  }
 
   form.appendChild(card);
 }
@@ -430,7 +441,25 @@ modeButtons.forEach((btn) => {
   });
 });
 
+questionBackBtn?.addEventListener('click', () => {
+  if (transitionLock || currentIndex <= 0) return;
+  currentIndex -= 1;
+  form.innerHTML = '';
+  renderQuestion(currentIndex);
+});
+
+closeResultReadyModal?.addEventListener('click', () => {
+  if (resultReadyModal) resultReadyModal.hidden = true;
+});
+resultReadyModal?.addEventListener('click', (e) => {
+  if (e.target === resultReadyModal) resultReadyModal.hidden = true;
+});
+goResultNowBtn?.addEventListener('click', () => {
+  submitBtn.click();
+});
+
 submitBtn.addEventListener('click', () => {
+  if (resultReadyModal) resultReadyModal.hidden = true;
   if (!selectedMode) return alert('먼저 테스트 관점을 선택해줘.');
   if (answers.some((v) => v === null)) return alert('모든 문항을 선택해줘.');
 

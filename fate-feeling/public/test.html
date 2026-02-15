@@ -38,9 +38,8 @@
         </div>
       </div>
       <form id="testForm"></form>
-      <div class="live-metric-grid" id="liveMetricGrid">
-        <div class="live-metric"><span class="small">회복 지수</span><strong id="recoveryMetric">0</strong></div>
-        <div class="live-metric"><span class="small">궁합 인력</span><strong id="pullMetric">0</strong></div>
+      <div class="question-nav-row">
+        <button id="questionBackBtn" class="btn secondary" type="button">이전 질문</button>
       </div>
       <div class="live-ticker" id="liveTicker">사주 데이터 매칭 완료...</div>
       <button id="submitBtn" class="btn" style="display:none; margin-top:12px;">결과 보기</button>
@@ -70,6 +69,17 @@
     </div>
   </div>
 
+  <div class="modal" id="resultReadyModal" hidden>
+    <div class="modal-card">
+      <h3>분석 완료</h3>
+      <p class="small">마지막 문항까지 모두 반영했어. 결과 리포트로 이동할까?</p>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" id="closeResultReadyModal">잠깐만</button>
+        <button class="btn" type="button" id="goResultNowBtn">결과 보기</button>
+      </div>
+    </div>
+  </div>
+
   <div id="preResultLoader" class="result-overlay" hidden>
     <div class="overlay-card pre-result-card">
       <div class="pre-result-orbit" aria-hidden="true">
@@ -88,6 +98,6 @@
   </div>
 
   <script src="/js/common.js"></script>
-  <script src="/js/test.js?v=focusui13"></script>
+  <script src="/js/test.js?v=focusui14"></script>
 </body>
 </html>

@@ -538,6 +538,8 @@ input[type="date"]::-webkit-date-and-time-value {
 .live-focus-page .option[data-score="4"] { background: color-mix(in srgb, #8d4fd0 30%, transparent); }
 .live-focus-page .option[data-score="5"] { background: color-mix(in srgb, #9a43df 36%, transparent); }
 .live-focus-page .option.selected { box-shadow: 0 0 0 2px rgba(255, 219, 133, .45), 0 6px 16px rgba(156, 86, 225, .22); }
+.question-nav-row { display: flex; justify-content: flex-start; margin-top: 10px; }
+.question-nav-row .btn { min-height: 36px; padding: 8px 12px; }
 .option.selected {
   border-color: var(--gold);
   background: color-mix(in srgb, var(--primary-soft) 80%, #fff);
