@@ -1577,6 +1577,32 @@ select,
 .timeline-panel.tone-now { background: linear-gradient(165deg, rgba(238,172,82,.14), rgba(161,86,41,.08)); padding: 10px; border-radius: 14px; }
 .timeline-panel.tone-future { background: linear-gradient(165deg, rgba(96,164,124,.14), rgba(52,101,87,.08)); padding: 10px; border-radius: 14px; }
 .timeline-tip { margin-top: 6px; }
+.grade-card, .social-share-card { border: 1px solid var(--border); }
+.grade-emblem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--grade-color) 65%, #fff);
+  background: color-mix(in srgb, var(--grade-color) 20%, transparent);
+}
+.grade-emblem strong { font-size: 22px; color: var(--grade-color); }
+.grade-label { margin: 8px 0 4px; }
+.grade-tip {
+  margin-top: 8px;
+  border-radius: 12px;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.08);
+}
+.kakao-share {
+  width: 100%;
+  background: #FEE500;
+  color: #3C1E1E;
+  border: 1px solid #f2d400;
+  font-weight: 700;
+}
 @keyframes slideInX { from { opacity: .35; transform: translateX(12px);} to {opacity:1; transform: translateX(0);} }
 .radial-wrap { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 12px; }
 .radial-item { text-align: center; }

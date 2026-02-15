@@ -1,6 +1,8 @@
 const resultBox = document.getElementById('resultBox');
 const coreMetricsBox = document.getElementById('coreMetricsBox');
 const shareBox = document.getElementById('shareBox');
+const gradeBox = document.getElementById('gradeBox');
+const socialShareBox = document.getElementById('socialShareBox');
 const bridgeBox = document.getElementById('bridgeBox');
 const chartsBox = document.getElementById('chartsBox');
 const timelineBox = document.getElementById('timelineBox');
@@ -203,6 +205,24 @@ if (!saved) {
 
     resultBox.innerHTML = `<div class="weather-hero hero-${header.theme}"><div><div class="mode-hero-badge">${header.icon} ${modeLabel} 정밀 리포트</div><h1 class="result-main-title">${header.title}</h1><p class="mode-hero-note destiny-line hand-font">${header.sub}</p><div class="fortune-score-head">종합 점수 <strong>${totalScore}점</strong></div><div class="fortune-score-bar"><span style="width:${totalScore}%;"></span></div><div class="hero-chip-row">${summaryTags.map((tag) => `<span class="hero-chip">${tag}</span>`).join('')}</div><p class="small">현재 감정 온도 <span class="core-value">${data.emotionTemp || 64}°</span> · 운세 인력 <span class="core-value">${data.reunionForce || 78}</span></p></div><div><div class="small">골든타임</div><div class="golden-time-pill">⏰ <span class="golden-time">${goldenTime}</span></div></div></div>`;
 
+    const gradeMeta = totalScore >= 85
+      ? { grade: 'A', label: '거침없는 도약의 시기', brief: '하늘의 기운이 당신을 돕고 있습니다. 무엇을 시작해도 좋은 결실을 맺을 운세입니다.', detail: '그동안 준비해온 일들이 비로소 빛을 발하는 시기입니다. 막혔던 금전 흐름이 뚫리고, 귀인의 도움으로 예상치 못한 성과를 거둘 수 있습니다. 스스로를 믿고 과감하게 추진하세요.', tip: '오는 운을 겸손하게 받아들이되, 기회가 왔을 때 망설이지 말고 붙잡으세요.', color: '#f4cd72' }
+      : totalScore >= 60
+        ? { grade: 'B', label: '안정과 성장의 시기', brief: '평탄하고 안정적인 흐름 속에 있습니다. 내실을 다지며 한 단계 올라설 준비를 하세요.', detail: '큰 굴곡 없이 계획한 대로 일이 진행되는 시기입니다. 당장 폭발적인 성장은 아니더라도 꾸준한 노력이 미래의 자산이 됩니다.', tip: '급하게 서두르기보다 현재 리듬을 유지하며 작은 성취를 쌓아가세요.', color: '#c4c6cf' }
+        : totalScore >= 40
+          ? { grade: 'C', label: '인내와 관리가 필요한 시기', brief: '주변 환경이 다소 불투명할 수 있습니다. 무리한 확장보다는 지키는 전략이 필요합니다.', detail: '에너지가 잠시 분산되는 구간입니다. 새로운 투자나 큰 변화보다 현재 상태 점검과 실수 최소화가 우선입니다.', tip: '중요한 결정은 잠시 유예하고, 심신을 먼저 회복해 에너지를 충전하세요.', color: '#d28c52' }
+          : { grade: 'D', label: '변화를 위한 정비의 시기', brief: '거센 비바람을 피해 잠시 쉬어가야 할 때입니다. 비운 뒤에야 새로운 것이 채워집니다.', detail: '예상치 못한 변수가 생길 수 있어 각별한 주의가 필요합니다. 억지 돌파보다 점검·정비가 더 큰 행운으로 이어집니다.', tip: '오늘의 시련은 더 큰 행운을 맞기 위한 액땜입니다. 마음을 비우고 다음 기회를 준비하세요.', color: '#8b92a8' };
+
+    if (gradeBox) {
+      gradeBox.innerHTML = `<h3>등급 리포트</h3>
+        <div class="grade-emblem" style="--grade-color:${gradeMeta.color}">Your Grade <strong>${gradeMeta.grade}</strong></div>
+        <div class="fortune-score-bar"><span style="width:${totalScore}%; background:${gradeMeta.color};"></span></div>
+        <p class="grade-label"><strong>${gradeMeta.label}</strong></p>
+        <p>${gradeMeta.brief}</p>
+        <p class="small">${gradeMeta.detail}</p>
+        <p class="grade-tip">💡 행운의 조언: ${gradeMeta.tip}</p>`;
+    }
+
     if (shareBox) {
       shareBox.innerHTML = `<h3>결과 공유</h3><p class="small">인스타 스토리용 요약 카드를 저장해 공유해봐.</p><div class="cta-row"><button class="btn" id="saveSummaryBtn">결과 이미지 저장</button></div>`;
       document.getElementById('saveSummaryBtn')?.addEventListener('click', () => {
@@ -222,6 +242,20 @@ if (!saved) {
         link.download = `fate-feeling-${Date.now()}.png`;
         link.href = card.toDataURL('image/png');
         link.click();
+      });
+    }
+
+    if (socialShareBox) {
+      socialShareBox.innerHTML = `<h3>📣 내 운세 결과를 친구에게 공유하기</h3><p class="small">이미 15,820명이 결과를 공유했어.</p><div class="cta-row"><button class="btn kakao-share" id="kakaoShareBtn">🗨 카카오톡으로 결과 보내기</button></div><div class="cta-row"><button class="btn secondary" id="saveGradeBtn">📸 이미지 저장</button><button class="btn secondary" id="copyLinkBtn">🔗 링크 복사</button></div>`;
+      document.getElementById('kakaoShareBtn')?.addEventListener('click', () => {
+        const text = `${userName}님의 2026년 운세 등급은 [${gradeMeta.grade}] (${totalScore}점)!\n지금 확인해봐: https://fate-feeling.vercel.app`;
+        const url = `https://share.kakao.com/talk/friends/picker/link?url=${encodeURIComponent('https://fate-feeling.vercel.app')}&text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+      });
+      document.getElementById('saveGradeBtn')?.addEventListener('click', () => document.getElementById('saveSummaryBtn')?.click());
+      document.getElementById('copyLinkBtn')?.addEventListener('click', async () => {
+        await navigator.clipboard.writeText('https://fate-feeling.vercel.app');
+        alert('링크 복사 완료!');
       });
     }
 
