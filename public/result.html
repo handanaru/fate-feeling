@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Reveal | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce3" />
+</head>
+<body data-no-global-nav="1">
+  <div class="container reveal-page ziwei-report-page">
+    <header class="minimal-report-header">
+      <button class="btn secondary" onclick="history.back()">← 뒤로가기</button>
+      <div class="report-title-wrap">
+        <div class="brand">Fate & Feeling</div>
+        <p class="report-title" id="reportTitle">정밀 분석 리포트</p>
+      </div>
+      <button class="btn secondary menu-btn" id="resultMenuBtn" aria-label="메뉴 열기" aria-expanded="false">≡</button>
+    </header>
+
+    <aside class="result-drawer" id="resultDrawer" hidden>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+      <a class="btn secondary" href="/">홈</a>
+      <a class="btn secondary" href="/test.html">다시 테스트</a>
+      <a class="btn secondary" href="/experts.html">상담사</a>
+    </aside>
+
+    <section class="card reveal-weather" id="resultBox"></section>
+    <section class="card reveal-core-metrics" id="coreMetricsBox"></section>
+    <section class="card bridge-card" id="bridgeBox"></section>
+    <section class="card reveal-chart" id="chartsBox"></section>
+    <section class="card briefing-card" id="briefingBox"></section>
+    <section class="card gold-highlight-card" id="goldenTimeCard"></section>
+    <section class="card gold-highlight-card" id="mindKeywordCard"></section>
+    <section class="card locked-report" id="lockedReportBox"></section>
+    <section class="card reveal-counselor" id="counselorBox"></section>
+
+    <section class="card reveal-cta-card">
+      <a class="btn reveal-strong-cta" href="/experts.html">상대방이 지금 이 순간 하고 있는 생각 보러 가기</a>
+      <div class="counselor-row">
+        <div>
+          <strong>금일 추천 상담사 · 미라 492번</strong>
+          <p class="small">재회·속마음 특화 · 최근 후기 531 · 현재 상담 가능</p>
+        </div>
+        <button class="btn" data-open-counselor-modal>상담하기</button>
+      </div>
+    </section>
+
+    <div class="modal" id="counselorModal" hidden>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-counselor-modal>✕</button>
+        <h3>상담사 연결 전 안내</h3>
+        <p><strong>대표 답변 스타일</strong> 감정 공감 → 핵심 문장 정리 → 행동 타이밍 제안</p>
+        <p><strong>최근 성공 사례</strong> 연락 재개 전 톤 조절 코칭으로 2주 내 대화 복구 사례 다수</p>
+        <div class="cta-row">
+          <button class="btn secondary" type="button" data-close-counselor-modal>조금 더 보기</button>
+          <a class="btn" href="/experts.html">상담사 연결하기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultOverlay" class="result-overlay">
+    <div class="overlay-card">
+      <h3>The Reveal 준비 중...</h3>
+      <p class="small" style="color: rgba(255,255,255,.78);">명반의 별자리를 정렬하고 있어요.</p>
+      <div class="constellation-loader" aria-hidden="true">
+        <span class="node"></span><span class="node"></span><span class="node"></span><span class="node"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/result.js?v=modebadge8"></script>
+</body>
+</html>

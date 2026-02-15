@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>철학관 추천 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🍂 Fate & Feeling · 철학관</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card philosophy-hero patterned compact-card">
+      <h1>전통 기운 해석 & 전문가 추천</h1>
+      <p data-personal-header></p>
+      <p id="philosophyPersonal">테스트 결과 기반으로 맞춤 문구를 불러오는 중입니다.</p>
+      <div class="keyword-row" aria-label="추천 키워드">
+        <span class="keyword">재회 성지</span>
+        <span class="keyword">고수의 비책</span>
+        <span class="keyword">연락 기운 정리</span>
+        <span class="keyword">시기 개운법</span>
+      </div>
+      <button id="openPopupBtn" class="btn secondary" style="margin-top:10px;">내 결과 기반 고수 추천 보기</button>
+      <div class="authority-strip">권위/전통 모드 · 고수 택일 · 원국 풀이 · 구술 해석 기록</div>
+    </section>
+
+    <section class="fortune-card-section" data-card-theme="philosophy">
+      <div class="fortune-card-grid">
+        <button class="fortune-card" data-card-title="연화부적" data-interpretation="불안을 누르는 것보다 먼저 달래는 흐름이 좋아요.|오늘은 호흡과 손글씨로 마음을 가볍게 정리해보세요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>연화부적</strong>
+              <small>관계 기운 정화 · 재회 부적 상담</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="청운괘" data-interpretation="원국의 강점이 관계 복원의 실마리가 됩니다.|시점은 짧게, 메시지는 더 짧게 가져가세요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>청운괘</strong>
+              <small>사주 원국·명반 병행 리딩</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="수연첩" data-interpretation="흔들리는 날에는 루틴이 운의 바닥을 받쳐줘요.|작은 개운법을 3일만 이어도 감정 진폭이 줄어듭니다.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>수연첩</strong>
+              <small>개운법 루틴 코칭</small>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <aside class="coach-panel" aria-live="polite">
+        <h3>AI 코치</h3>
+        <div class="coach-bubbles">
+          <p class="bubble ai">부적 카드를 고르면 해석이 한 문장씩 나타나요.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="hanji-grid">
+      <article class="hanji-card">
+        <h3>연화당 선생 <span class="live-badge">실시간 대기중</span></h3>
+        <p>관계 기운 정화 · 재회 부적 상담</p>
+        <p class="small">“불안이 강한 시기일수록 먼저 기운을 다독여야 연락이 편안해집니다.”</p>
+        <div class="expert-meta"><span>실제 상담 사례 3,104건</span><span>평균 응답 3분</span></div>
+      </article>
+      <article class="hanji-card">
+        <h3>청운관 선생 <span class="live-badge">실시간 대기중</span></h3>
+        <p>사주 원국·명반 병행 리딩</p>
+        <p class="small">“원국의 장점과 약점을 같이 보며 재접촉 시점을 조율합니다.”</p>
+        <div class="expert-meta"><span>실제 상담 사례 2,217건</span><span>평균 응답 5분</span></div>
+      </article>
+      <article class="hanji-card">
+        <h3>수연 철학관 <span class="live-badge">실시간 대기중</span></h3>
+        <p>개운법 루틴 코칭</p>
+        <p class="small">“감정이 흔들리는 날을 위한 작은 실천 루틴을 함께 설계합니다.”</p>
+        <div class="expert-meta"><span>실제 상담 사례 1,876건</span><span>평균 응답 6분</span></div>
+      </article>
+    </section>
+
+    <section class="grid cards tight-grid">
+      <article class="card compact-card">
+        <h3>추천 키워드 요약</h3>
+        <p id="philosophySummary">지금은 감정 안정 + 시기 판단을 함께 보는 접근이 유리해.</p>
+      </article>
+      <article class="card compact-card">
+        <h3>빠른 이동</h3>
+        <div class="nav">
+          <a class="btn secondary" href="/test.html">테스트 다시 하기</a>
+          <a class="btn secondary" href="/experts.html">상담사 전체 보기</a>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div id="philosophyPopup" class="popup" hidden>
+    <div class="popup-card">
+      <h3>안내</h3>
+      <p>테스트에서 분석된 당신의 불안한 기운을 다스릴 고수를 추천합니다</p>
+      <button id="popupClose" class="btn" style="margin-top:8px;">확인</button>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/card-section.js"></script>
+  <script src="/js/philosophy.js"></script>
+</body>
+</html>

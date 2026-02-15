@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>타로 덱 리딩 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce2" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🃏 Fate & Feeling · 타로</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card tarot-hero patterned compact-card">
+      <h1>오늘의 카드 & 관계 카드</h1>
+      <p data-personal-header></p>
+      <p>카드덱 무드 중심으로 직관과 메시지를 빠르게 확인하세요.</p>
+      <div class="empathy-bubbles" aria-label="감정 키워드">
+        <span>"그 사람도 흔들리고 있을까"</span><span>"지금 말해도 괜찮을까"</span><span>"상처받기 싫어"</span><span>"그래도 다시 연결되고 싶어"</span>
+      </div>
+    </section>
+
+    <section class="fortune-card-section" data-card-theme="tarot">
+      <button class="btn secondary card-sfx-toggle" type="button" data-sfx-toggle>카드 SFX ON</button>
+      <div class="fortune-card-grid">
+        <button class="fortune-card" data-card-title="The Star" data-interpretation="희망은 이미 돌아오고 있어요.|조급함보다 회복의 리듬을 믿어보세요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>The Star</strong>
+              <small>희망 회복, 부드러운 재접촉 신호</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="Two of Cups" data-interpretation="관계는 속도보다 균형이 먼저예요.|한 문장으로 진심을 정리해 건네보세요.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>Two of Cups</strong>
+              <small>속도보다 호흡, 균형 있는 대화</small>
+            </span>
+          </span>
+        </button>
+        <button class="fortune-card" data-card-title="Temperance" data-interpretation="감정 온도를 70%로 맞추는 날이에요.|부드러운 톤이 관계의 문을 다시 엽니다.">
+          <span class="fortune-card-inner">
+            <span class="card-face card-back"></span>
+            <span class="card-face card-front">
+              <strong>Temperance</strong>
+              <small>감정 표현 톤 조절이 핵심</small>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <aside class="coach-panel" aria-live="polite">
+        <h3>AI 코치</h3>
+        <div class="coach-bubbles">
+          <p class="bubble ai">카드를 선택하면 해석을 한 문장씩 안내해드릴게요.</p>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/card-section.js"></script>
+</body>
+</html>

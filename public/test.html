@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Analyzing | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">Fate & Feeling</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card live-analyzing-card">
+      <h1>Live Analyzing</h1>
+
+      <div class="analyzing-statusbar" id="analyzingStatusbar" aria-label="분석 상태">
+        <button type="button" class="scan-icon active" data-mode="saju" data-scan="saju">☯<span>사주</span></button>
+        <button type="button" class="scan-icon" data-mode="tarot" data-scan="tarot">🃏<span>타로</span></button>
+        <button type="button" class="scan-icon" data-mode="astro" data-scan="astro">◎<span>점성술</span></button>
+        <button type="button" class="scan-icon" data-mode="ziwei" data-scan="ziwei">✦<span>자미두수</span></button>
+        <button type="button" class="scan-icon" data-mode="mbti" data-scan="mbti">◆<span>MBTI</span></button>
+      </div>
+      <p class="small" id="modeHint" style="margin:8px 0 6px;">첫 화면에서 고른 관점으로 자동 시작돼.</p>
+
+      <div class="progress-wrap">
+        <div class="progress-label"><span>🪄 진행 중</span><span id="progressText">0 / 12</span></div>
+        <div class="progress-star-track">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-star" id="progressStar">⭐</div>
+        </div>
+      </div>
+      <form id="testForm"></form>
+      <div class="live-metric-grid" id="liveMetricGrid">
+        <div class="live-metric"><span class="small">회복 지수</span><strong id="recoveryMetric">0</strong></div>
+        <div class="live-metric"><span class="small">재회 인력</span><strong id="pullMetric">0</strong></div>
+      </div>
+      <div class="live-ticker" id="liveTicker">사주 데이터 매칭 완료...</div>
+      <button id="submitBtn" class="btn" style="display:none; margin-top:12px;">결과 보기</button>
+    </section>
+  </div>
+
+  <div id="preResultLoader" class="result-overlay" hidden>
+    <div class="overlay-card pre-result-card">
+      <div class="pre-result-orbit" aria-hidden="true">
+        <div class="pre-result-core"></div>
+      </div>
+      <div class="ziwei-loader-sigil" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h3>운명의 궤적을 계산 중입니다...</h3>
+      <p class="small pre-result-message" id="preResultMessage">고객님의 사주 원국과 현재 별자리의 궤도를 대조하고 있습니다...</p>
+      <div class="result-summary-grid pre-result-metrics">
+        <div class="metric-chip"><span class="small">궁위 안정도</span><strong id="loaderMetricA">42</strong></div>
+        <div class="metric-chip"><span class="small">재회 확률선</span><strong id="loaderMetricB">57</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/test.js?v=modeflow1"></script>
+</body>
+</html>

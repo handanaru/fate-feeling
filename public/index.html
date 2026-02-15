@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The First Impact | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css?v=onboard3" />
+</head>
+<body>
+  <div class="container first-impact-page">
+    <header>
+      <div class="brand">Fate & Feeling</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card trust-counter-card">
+      <p>지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong>명이 재회 타이밍을 확인했습니다</p>
+    </section>
+
+    <section class="card first-impact" id="firstImpact">
+      <div class="impact-glow" aria-hidden="true"></div>
+      <p class="impact-copy">어긋난 인연에도 다시 만날 '때'는 있습니다.</p>
+
+      <div class="impact-object" aria-hidden="true">
+        <div class="gold-tarot-card">
+          <span>THE</span>
+          <strong>DESTINY</strong>
+          <span>✦</span>
+        </div>
+      </div>
+
+      <form id="firstImpactForm" class="impact-form" novalidate>
+        <label for="name">당신의 이름을 입력해 운명의 문을 여세요.</label>
+        <input id="name" placeholder="예: 지수" required />
+
+        <label for="birth">생년월일</label>
+        <input id="birth" type="date" required />
+
+        <label for="birthTime">출생시간
+          <span class="field-help" tabindex="0">?
+            <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
+          </span>
+        </label>
+        <input id="birthTime" placeholder="예: 14:30 (모르면 '모름' 입력)" />
+
+        <label for="birthPlace">출생지
+          <span class="field-help" tabindex="0">?
+            <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
+          </span>
+        </label>
+        <input id="birthPlace" placeholder="예: 서울" />
+
+        <label for="concern">고민 선택</label>
+        <select id="concern" required>
+          <option value="재회">재회</option>
+          <option value="짝사랑/썸">짝사랑/썸</option>
+          <option value="연락 타이밍">연락 타이밍</option>
+          <option value="속마음">속마음</option>
+          <option value="애정">애정</option>
+        </select>
+
+        <label for="analysisMode">분석 관점 선택</label>
+        <select id="analysisMode" required>
+          <option value="ziwei">자미두수</option>
+          <option value="saju">사주</option>
+          <option value="tarot">타로</option>
+          <option value="astro">점성술</option>
+          <option value="mbti">MBTI</option>
+        </select>
+
+        <button class="btn impact-cta" type="submit">관점 선택하고 테스트 시작하기</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal" id="firstVisitModal" hidden>
+    <div class="modal-card onboarding-modal">
+      <h3>어떤 관점으로 분석해볼까?</h3>
+      <p class="small">사주 · 타로 · 자미두수 · 점성술 · MBTI 전부 지원해.</p>
+      <div class="onboarding-chips" id="onboardingModeButtons">
+        <button type="button" data-mode="saju">☯ 사주</button>
+        <button type="button" data-mode="tarot">🃏 타로</button>
+        <button type="button" data-mode="ziwei" class="active">✦ 자미두수</button>
+        <button type="button" data-mode="astro">◎ 점성술</button>
+        <button type="button" data-mode="mbti">◆ MBTI</button>
+      </div>
+      <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
+      <div class="cta-row">
+        <button class="btn secondary" type="button" id="onboardingPreviewBtn">관점 미리보기</button>
+        <button class="btn" type="button" id="onboardingStartBtn">바로 시작하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js?v=navclean1"></script>
+  <script src="/js/index.js?v=modeflow4"></script>
+</body>
+</html>

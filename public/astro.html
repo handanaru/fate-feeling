@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>점성술 차트 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🪐 Fate & Feeling · 점성술</div>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+    </header>
+
+    <section class="card astro-hero patterned compact-card">
+      <h1>행성 흐름 인포그래픽</h1>
+      <p data-personal-header></p>
+      <p>원형 차트와 궤도 요소로 오늘의 감정/관계 흐름을 시각화합니다.</p>
+    </section>
+
+    <section class="card compact-card">
+      <div class="astro-orbit">
+        <div class="orbit ring-1"></div>
+        <div class="orbit ring-2"></div>
+        <div class="planet p1">☉</div>
+        <div class="planet p2">♀</div>
+        <div class="planet p3">☽</div>
+        <div class="center-sign">♎</div>
+      </div>
+    </section>
+
+    <section class="grid cards tight-grid">
+      <article class="card compact-card">
+        <h3>주요 별자리</h3>
+        <p class="small">천칭자리 강조: 관계의 균형 회복에 유리.</p>
+      </article>
+      <article class="card compact-card">
+        <h3>행성 키워드</h3>
+        <p class="small">금성-달 조화: 감정 표현에 따뜻함 상승.</p>
+      </article>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+</body>
+</html>
