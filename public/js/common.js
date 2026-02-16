@@ -226,10 +226,10 @@
   }
 
   function ensureTfMobileDock() {
-    if (!document.body?.classList?.contains('total-fortune-page')) return;
     if (document.querySelector('.tf-mobile-dock')) return;
 
     const path = window.location.pathname;
+    if (path.startsWith('/api/')) return;
     const isReport = path === '/fortune-reports.html' || path === '/fortune-report.html' || path === '/result.html';
     const isTotal = path === '/total-fortune.html';
     const isDaily = path === '/today-secret.html';
@@ -243,6 +243,7 @@
       <a href="/total-fortune.html" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>전체총운</b></a>
       <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>🗺️</span><b>내 보관함</b></a>
     `;
+    document.body.classList.add('has-global-dock');
     document.body.appendChild(dock);
   }
 

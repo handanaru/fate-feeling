@@ -2701,7 +2701,7 @@ body.tf-nav-open { overflow: hidden; }
     left: 10px;
     right: 10px;
     bottom: calc(8px + env(safe-area-inset-bottom));
-    z-index: 30;
+    z-index: 1300;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
@@ -2743,6 +2743,10 @@ body.tf-nav-open { overflow: hidden; }
 @keyframes tfBottomSheetIn {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  body.has-global-dock .bottom-nav { display: none !important; }
 }
 
 /* today-secret card news style */
@@ -3701,13 +3705,16 @@ body.tf-nav-open { overflow: hidden; }
 #frMetaBox { margin-bottom: 16px !important; }
 #frPillarsBox { margin-top: 0 !important; }
 
-.fr-report-gnb {
+.ff-global-gnb {
+  position: sticky;
+  top: 8px;
+  z-index: 1200;
   padding: 0 20px;
   margin-bottom: 14px;
 }
-.fr-report-gnb .report-title-wrap { justify-items: center; }
-.fr-report-gnb .brand { justify-self: center; }
-.fr-circle-btn {
+.ff-global-gnb .report-title-wrap { justify-items: center; }
+.ff-global-gnb .brand { justify-self: center; }
+.ff-circle-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -3722,7 +3729,7 @@ body.tf-nav-open { overflow: hidden; }
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 14px rgba(0,0,0,.22);
 }
-.fr-circle-btn:hover {
+.ff-circle-btn:hover {
   border-color: rgba(239,203,100,.55);
   box-shadow: 0 0 0 1px rgba(239,203,100,.25), 0 0 14px rgba(239,203,100,.24);
 }
