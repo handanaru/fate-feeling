@@ -2715,7 +2715,7 @@ body.tf-nav-open { overflow: hidden; }
     min-height: 54px;
     border-radius: 12px;
     text-decoration: none;
-    color: #d8def5;
+    color: rgba(216,222,245,.92);
     display: grid;
     place-items: center;
     gap: 3px;
@@ -2724,7 +2724,7 @@ body.tf-nav-open { overflow: hidden; }
     border: 1px solid transparent;
   }
   .tf-mobile-dock .item span {
-    font-size: 16px;
+    font-size: 15px;
     text-shadow: 0 0 8px rgba(255,255,255,.22), 0 0 12px rgba(168,128,255,.25);
   }
   .tf-mobile-dock .item.active {
@@ -3651,8 +3651,9 @@ body.tf-nav-open { overflow: hidden; }
   display: block;
   margin-top: 3px;
   font-style: normal;
-  font-size: 11px;
-  opacity: .92;
+  font-size: 12px;
+  color: #fff;
+  opacity: .98;
 }
 .fr-pillar-grid-head {
   margin: 8px 0 6px;
@@ -3660,6 +3661,23 @@ body.tf-nav-open { overflow: hidden; }
 .fr-pillar-grid-head b {
   text-align: center;
   color: #f2d68d;
+  font-size: 12px;
+}
+.fr-day-col {
+  border-color: rgba(255,215,0,.95) !important;
+  box-shadow: 0 0 10px rgba(255,215,0,.28), inset 0 0 0 1px rgba(255,215,0,.2);
+}
+.fr-pillar-note {
+  margin-top: 10px;
+  color: #e7ecff;
+}
+.fr-pillar-tooltip {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(12,12,24,.85);
+  color: #f1f5ff;
   font-size: 12px;
 }
 .fr-pillar-big {
@@ -3678,7 +3696,10 @@ body.tf-nav-open { overflow: hidden; }
   padding: 16px;
   background: linear-gradient(155deg, rgba(29,23,51,.9), rgba(18,15,35,.92));
   box-shadow: 0 0 0 1px rgba(239,203,100,.16) inset, 0 10px 24px rgba(0,0,0,.24);
+  backdrop-filter: blur(20px);
 }
+#frMetaBox { margin-bottom: 16px !important; }
+#frPillarsBox { margin-top: 0 !important; }
 .fr-hero-top {
   display: grid;
   gap: 8px;

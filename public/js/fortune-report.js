@@ -192,15 +192,16 @@ function render() {
     </div>
   </div>`;
 
-  const stemRow = p.map((x, i) => `<div class="pillar-cell ${x?.stemElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 천간</small><strong>${x?.stem || '-'}</strong><em>${x?.stemSipsin || '-'}</em></div>`).join('');
-  const branchRow = p.map((x, i) => `<div class="pillar-cell ${x?.branchElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 지지</small><strong>${x?.branch || '-'}</strong><em>${x?.unseong || '-'}</em></div>`).join('');
+  const stemRow = p.map((x, i) => `<div class="pillar-cell ${x?.stemElement || 'earth'} fr-pillar-big ${i === 1 ? 'fr-day-col' : ''}" data-tip="${labels[i]}주 천간 ${x?.stem || '-'} · 십신 ${x?.stemSipsin || '-'}"><small>${labels[i]}주 천간</small><strong>${x?.stem || '-'}</strong><em>${x?.stemSipsin || '-'}</em></div>`).join('');
+  const branchRow = p.map((x, i) => `<div class="pillar-cell ${x?.branchElement || 'earth'} fr-pillar-big ${i === 1 ? 'fr-day-col' : ''}" data-tip="${labels[i]}주 지지 ${x?.branch || '-'} · 운성 ${x?.unseong || '-'}"><small>${labels[i]}주 지지</small><strong>${x?.branch || '-'}</strong><em>${x?.unseong || '-'}</em></div>`).join('');
 
   pillarsBox.innerHTML = `<h3>🧭 만세력 원국</h3>
-  <p class="small">먼저 원국이 맞는지 확인할 수 있게 크게 보여줄게 · 시/일/월/년: ${pillarText}</p>
-  <div class="pillars-grid fr-pillar-grid-head">${labels.map((l) => `<b>${l}주</b>`).join('')}</div>
+  <p class="small">한눈에 보는 나의 기운 · 시/일/월/년: ${pillarText}</p>
+  <div class="pillars-grid fr-pillar-grid-head">${labels.map((l, i) => `<b class="${i === 1 ? 'fr-day-col' : ''}">${l}주${i === 1 ? ' ⭐' : ''}</b>`).join('')}</div>
   <div class="pillars-grid">${stemRow}</div>
   <div class="pillars-grid">${branchRow}</div>
-  <div class="fortune-tags">${p.map((x, i) => `<span>${labels[i]}주 ${x?.ganzi || '-'} · 십신 ${x?.stemSipsin || '-'} · 운성 ${x?.unseong || '-'}</span>`).join('')}</div>`;
+  <p class="small fr-pillar-note">일주 <strong>${p[1]?.ganzi || '-'}</strong>는 현재 너의 중심 기운을 가장 직접적으로 보여줘.</p>
+  <div class="fr-pillar-tooltip" id="frPillarTooltip" hidden></div>`;
 
   const { rows, strong, weak } = buildFortuneRows(p, report.name || '당신');
   const daewoon = buildDaewoonNarrative(report, p);
@@ -243,6 +244,17 @@ function render() {
   <p class="small">엔진: ${report?.data?.engine || '@orrery/core'}</p>
   <p class="small">라이선스: ${report?.data?.license || 'AGPL-3.0-only'}</p>
   <p class="small"><a href="${report?.data?.sourceUrl || 'https://github.com/rath/orrery'}" target="_blank" rel="noopener">소스 저장소 보기</a></p>`;
+
+  const tip = document.getElementById('frPillarTooltip');
+  pillarsBox.querySelectorAll('.pillar-cell[data-tip]').forEach((cell) => {
+    cell.addEventListener('click', () => {
+      if (!tip) return;
+      tip.textContent = cell.getAttribute('data-tip') || '';
+      tip.hidden = false;
+      clearTimeout(window.__frPillarTipTimer);
+      window.__frPillarTipTimer = setTimeout(() => { tip.hidden = true; }, 1800);
+    });
+  });
 }
 
 render();
