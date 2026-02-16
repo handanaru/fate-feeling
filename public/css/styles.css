@@ -3647,6 +3647,31 @@ body.tf-nav-open { overflow: hidden; }
   font-size: 18px;
   font-weight: 800;
 }
+.pillar-cell em {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 11px;
+  opacity: .92;
+}
+.fr-pillar-grid-head {
+  margin: 8px 0 6px;
+}
+.fr-pillar-grid-head b {
+  text-align: center;
+  color: #f2d68d;
+  font-size: 12px;
+}
+.fr-pillar-big {
+  padding: 12px 8px;
+}
+.fr-pillar-big strong {
+  font-size: 30px;
+  line-height: 1.1;
+}
+.fr-pillar-big small {
+  font-size: 11px;
+}
 .pillar-cell.wood { background: rgba(74,222,128,.2); color: #a6f4c5; }
 .pillar-cell.fire { background: rgba(251,113,133,.2); color: #ffc0cb; }
 .pillar-cell.earth { background: rgba(253,224,71,.2); color: #ffe894; }
@@ -3926,6 +3951,8 @@ body.tf-nav-open { overflow: hidden; }
   .tf-form-grid { grid-template-columns: 1fr; }
   .daewoon-grid { grid-template-columns: 1fr; }
   .daewoon-story-grid .daewoon-card.current { grid-column: span 1; }
+  .fr-pillar-big strong { font-size: 24px; }
+  .fr-pillar-big em { font-size: 10px; }
 }
 
 @media (max-width: 640px) {

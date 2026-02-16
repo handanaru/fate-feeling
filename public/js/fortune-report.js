@@ -157,8 +157,16 @@ function render() {
   metaBox.innerHTML = `<h3>✨ ${report.name}님의 전체총운 리포트</h3>
   <p class="small">${report.birth} ${report.birthTime} · ${report.gender} · 한국/${report.birthCity || '서울특별시'}</p>`;
 
-  pillarsBox.innerHTML = `<h3>🧭 만세력 원국</h3><p class="small">시/일/월/년: ${pillarText}</p>
-  <div class="fortune-tags">${p.map((x, i) => `<span>${['시','일','월','년'][i]}주 ${x?.ganzi || '-'} · 십신 ${x?.stemSipsin || '-'} · 운성 ${x?.unseong || '-'}</span>`).join('')}</div>`;
+  const labels = ['시', '일', '월', '년'];
+  const stemRow = p.map((x, i) => `<div class="pillar-cell ${x?.stemElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 천간</small><strong>${x?.stem || '-'}</strong><em>${x?.stemSipsin || '-'}</em></div>`).join('');
+  const branchRow = p.map((x, i) => `<div class="pillar-cell ${x?.branchElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 지지</small><strong>${x?.branch || '-'}</strong><em>${x?.unseong || '-'}</em></div>`).join('');
+
+  pillarsBox.innerHTML = `<h3>🧭 만세력 원국</h3>
+  <p class="small">먼저 원국이 맞는지 확인할 수 있게 크게 보여줄게 · 시/일/월/년: ${pillarText}</p>
+  <div class="pillars-grid fr-pillar-grid-head">${labels.map((l) => `<b>${l}주</b>`).join('')}</div>
+  <div class="pillars-grid">${stemRow}</div>
+  <div class="pillars-grid">${branchRow}</div>
+  <div class="fortune-tags">${p.map((x, i) => `<span>${labels[i]}주 ${x?.ganzi || '-'} · 십신 ${x?.stemSipsin || '-'} · 운성 ${x?.unseong || '-'}</span>`).join('')}</div>`;
 
   const { rows, strong, weak } = buildFortuneRows(p, report.name || '당신');
   const daewoon = buildDaewoonNarrative(report, p);
