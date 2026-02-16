@@ -4807,3 +4807,35 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     font-size: 13px !important;
   }
 }
+
+/* AI 페이지 모바일 폰트/헤더 밀림 보정 */
+.ai-page .ff-global-gnb .brand {
+  font-size: clamp(28px, 6.2vw, 38px);
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .ai-page .ff-global-gnb {
+    padding: 0 12px;
+  }
+  .ai-page .ff-global-gnb .brand {
+    font-size: 32px;
+    letter-spacing: .01em;
+  }
+  .consult-status-card h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .consult-status-card p {
+    font-size: 15px;
+    line-height: 1.62;
+    word-break: keep-all;
+  }
+  .consult-status-row {
+    gap: 6px;
+  }
+  .consult-status-row .status-chip {
+    font-size: 12px !important;
+    padding: 6px 9px;
+  }
+}
