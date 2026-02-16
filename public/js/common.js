@@ -275,6 +275,71 @@
     window.addEventListener('resize', onScroll);
   }
 
+  function ensureExpertWaitlist() {
+    if (document.getElementById('expertWaitlistModal')) return;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'expertWaitlistModal';
+    modal.hidden = true;
+    modal.innerHTML = `
+      <div class="modal-card onboarding-modal expert-waitlist-modal">
+        <h3>👩‍⚕️ 전문가 상담 오픈 알림</h3>
+        <p class="small">오픈되면 가장 먼저 알려줄게. 연락처를 남겨줘.</p>
+        <label for="expertWaitlistName">이름(선택)</label>
+        <input id="expertWaitlistName" placeholder="예: 주원" />
+        <label for="expertWaitlistContact">연락처</label>
+        <input id="expertWaitlistContact" placeholder="예: 텔레그램 @id 또는 010-0000-0000" />
+        <div class="cta-row">
+          <button class="btn secondary" type="button" data-waitlist-cancel>닫기</button>
+          <button class="btn" type="button" data-waitlist-submit>신청하기</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    const openModal = () => {
+      modal.hidden = false;
+      setTimeout(() => document.getElementById('expertWaitlistContact')?.focus(), 20);
+    };
+    const closeModal = () => { modal.hidden = true; };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest('[data-expert-waitlist]')) {
+        openModal();
+        return;
+      }
+      if (target.matches('[data-waitlist-cancel]') || target === modal) {
+        closeModal();
+        return;
+      }
+      if (target.matches('[data-waitlist-submit]')) {
+        const name = (document.getElementById('expertWaitlistName')?.value || '').trim();
+        const contact = (document.getElementById('expertWaitlistContact')?.value || '').trim();
+        if (!contact) {
+          window.ffToast?.('연락처를 입력해줘 🙏');
+          return;
+        }
+        try {
+          const key = 'ff-expert-waitlist';
+          const prev = JSON.parse(localStorage.getItem(key) || '[]');
+          prev.push({ name, contact, createdAt: Date.now() });
+          localStorage.setItem(key, JSON.stringify(prev));
+        } catch (err) {
+          console.error(err);
+        }
+        closeModal();
+        window.ffToast?.('신청 완료! 오픈되면 바로 알려줄게 ✨');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+  }
+
   function init() {
     ensurePhaseStyles();
     attachStarfield();
@@ -283,6 +348,7 @@
     initConcernTone();
     ensureCoachFab();
     ensureTfMobileDock();
+    ensureExpertWaitlist();
     initCardParallax();
   }
 

@@ -2940,9 +2940,17 @@ body.tf-nav-open { overflow: hidden; }
   padding: 6px 10px;
   font-size: 12px;
 }
+button.status-chip {
+  appearance: none;
+  color: #e6edff;
+}
 .status-chip.on {
   border-color: rgba(122,243,175,.42);
   color: #d8ffe8;
+}
+.expert-waitlist-modal input {
+  width: 100%;
+  margin: 6px 0 10px;
 }
 @keyframes dailyCardIn {
   from { opacity: 0; transform: translateY(14px) scale(.97) rotateX(9deg); }
