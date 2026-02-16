@@ -346,17 +346,45 @@
         </div>
       `;
       document.body.appendChild(modal);
+
+      const close = () => {
+        modal.hidden = true;
+        document.body.classList.remove('ff-quick-menu-open');
+      };
+
+      const closeBtn = modal.querySelector('[data-close]');
+      closeBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+      });
+      closeBtn?.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+      }, { passive: false });
+
+      modal.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => close());
+      });
+
       modal.addEventListener('click', (e) => {
         const t = e.target;
         if (!(t instanceof Element)) return;
-        if (t === modal || t.matches('[data-close]')) modal.hidden = true;
+        if (t === modal) close();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.hidden) close();
       });
     }
 
     triggers.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         modal.hidden = false;
+        document.body.classList.add('ff-quick-menu-open');
       });
     });
   }
