@@ -189,9 +189,18 @@ async function saveCardImage() {
   try {
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     const canvas = await window.html2canvas(cardEl, {
-      backgroundColor: null,
-      scale: Math.min(3, window.devicePixelRatio || 2),
-      useCORS: true
+      backgroundColor: '#1a1530',
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      onclone: (doc) => {
+        const clonedCard = doc.getElementById('dailySecretCard');
+        if (clonedCard) clonedCard.classList.add('capture-safe');
+        const clonedPath = doc.getElementById('destinyWavePath');
+        if (clonedPath) clonedPath.style.filter = 'none';
+        const tooltip = doc.getElementById('destinyWaveTooltip');
+        if (tooltip) tooltip.hidden = true;
+      }
     });
 
     const date = new Date();

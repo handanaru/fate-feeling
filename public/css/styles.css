@@ -2779,6 +2779,13 @@ body.tf-nav-open { overflow: hidden; }
 .daily-secret-card.capture-safe .daily-symbol {
   box-shadow: 0 0 0 8px rgba(255,255,255,.03), 0 0 14px rgba(244,210,122,.26);
 }
+.daily-secret-card.capture-safe #destinyWavePath {
+  filter: none !important;
+}
+.daily-secret-card.capture-safe #destinyWaveSvg,
+.daily-secret-card.capture-safe #destinyWaveSvg * {
+  filter: none !important;
+}
 .daily-head .date {
   margin: 0 0 6px;
   font-size: 12px;
