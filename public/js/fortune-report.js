@@ -220,9 +220,18 @@ function render() {
     <div class="total-fortune-list">${rows.map((r, i) => `<details class="fortune-acc" ${i === 0 ? 'open' : ''}><summary><span class="icon">${r.icon}</span><span class="txt">${r.summary}</span><span class="arr">⌄</span></summary><div class="fortune-body"><strong>${r.title}</strong><p>${r.body}</p><p>${r.guide}</p><div class="fortune-tags">${r.tags.map((t) => `<span>${t}</span>`).join('')}</div></div></details>`).join('')}</div>
 
     <h3 style="margin-top:18px;">🧭 연령별 대운 타임라인</h3>
-    <p class="small">현재 ${daewoon.age}세 기준 · 지금 서 있는 대운을 가장 크게 보여줘.</p>
+    <p class="small">과거 흐름 복기 → 현재 집중 → 미래 준비 순서로 읽어봐. (현재 ${daewoon.age}세 기준)</p>
 
-    <article class="daewoon-card current daewoon-main" style="margin-top:10px;">
+    <details class="daewoon-stage-card past-collapse" open style="margin-top:10px;">
+      <summary>◀ 과거 운 보기 · ${daewoon.past.label}</summary>
+      <article class="daewoon-card past">
+        <p>${daewoon.past.text}</p>
+        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.past.tip}</p>
+        <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.past.yearly}</details>
+      </article>
+    </details>
+
+    <article class="daewoon-card current daewoon-main" style="margin-top:12px;">
       <small>🔥 지금 당신의 대운 (최우선)</small>
       <strong>${daewoon.current.label}</strong>
       <p>${daewoon.current.text}</p>
@@ -230,24 +239,13 @@ function render() {
       <details class="daewoon-detail" open><summary>현재 나이부터 흐름 보기</summary>${daewoon.current.yearly}</details>
     </article>
 
-    <div class="daewoon-stage-scroll" aria-label="과거/미래 대운">
-      <details class="daewoon-stage-card past-collapse">
-        <summary>◀ 과거 운 보기 · ${daewoon.past.label}</summary>
-        <article class="daewoon-card past">
-          <p>${daewoon.past.text}</p>
-          <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.past.tip}</p>
-          <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.past.yearly}</details>
-        </article>
-      </details>
-
-      <article class="daewoon-card future daewoon-sub">
-        <small>🔜 다가올 대운</small>
-        <strong>${daewoon.future.label}</strong>
-        <p>${daewoon.future.text}</p>
-        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.future.tip}</p>
-        <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.future.yearly}</details>
-      </article>
-    </div>`;
+    <article class="daewoon-card future daewoon-sub" style="margin-top:12px;">
+      <small>🔜 다가올 대운</small>
+      <strong>${daewoon.future.label}</strong>
+      <p>${daewoon.future.text}</p>
+      <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.future.tip}</p>
+      <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.future.yearly}</details>
+    </article>`;
 
   engineBox.innerHTML = `<h3>🧮 엔진 정보</h3>
   <p class="small">엔진: ${report?.data?.engine || '@orrery/core'}</p>
