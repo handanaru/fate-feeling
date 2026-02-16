@@ -639,7 +639,7 @@ loveStateModal?.addEventListener('click', (e) => {
 });
 
 myPageBtn?.addEventListener('click', () => {
-  location.href = '/result.html';
+  location.href = '/fortune-reports.html';
 });
 // hero CTA removed: entry header is now informational only.
 adultQuickBtn?.addEventListener('click', () => {
