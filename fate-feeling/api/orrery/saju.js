@@ -18,13 +18,27 @@ function parseBirth(birth = '2000-01-01') {
 
 function parseTime(time = '') {
   const value = String(time || '').trim();
-  if (!value || value.includes('모름')) return { hour: 12, minute: 0, unknownTime: true };
-  const [h, m] = value.split(':').map((v) => Number(v));
-  return {
-    hour: Number.isFinite(h) ? h : 12,
-    minute: Number.isFinite(m) ? m : 0,
-    unknownTime: false
-  };
+  if (!value || /모름|미상|unknown|unk/i.test(value)) return { hour: 12, minute: 0, unknownTime: true };
+
+  // 1235, 12:35, 12 형태 모두 허용
+  let h = 12;
+  let m = 0;
+  if (/^\d{4}$/.test(value)) {
+    h = Number(value.slice(0, 2));
+    m = Number(value.slice(2, 4));
+  } else if (/^\d{1,2}:\d{1,2}$/.test(value)) {
+    const [hh, mm] = value.split(':').map((v) => Number(v));
+    h = hh;
+    m = mm;
+  } else if (/^\d{1,2}$/.test(value)) {
+    h = Number(value);
+    m = 0;
+  }
+
+  if (!Number.isFinite(h) || h < 0 || h > 23) h = 12;
+  if (!Number.isFinite(m) || m < 0 || m > 59) m = 0;
+
+  return { hour: h, minute: m, unknownTime: false };
 }
 
 function mapGender(gender = '') {

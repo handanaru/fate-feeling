@@ -388,10 +388,11 @@ async function runAnalysis(payload) {
   if (tfAnalyzeState) tfAnalyzeState.innerHTML = '<p class="small">원국 계산 중... 완료되면 리포트 목록으로 이동해.</p>';
   const failSafe = setTimeout(() => hideLoading(), 9000);
   try {
-    const norm = normalizeByKoreaStandardTime(payload.birth, payload.birthTime || '12:00');
+    const birthParsed = parseBirth(payload.birth || '2000-01-01');
     const self = {
-      birth: `${norm.year}-${String(norm.month).padStart(2, '0')}-${String(norm.day).padStart(2, '0')}`,
-      birthTime: `${String(norm.hour).padStart(2, '0')}:${String(norm.minute).padStart(2, '0')}`,
+      birth: `${birthParsed.year}-${String(birthParsed.month).padStart(2, '0')}-${String(birthParsed.day).padStart(2, '0')}`,
+      // 만세력 불일치 방지: 사용자가 입력한 시간을 그대로 엔진에 전달
+      birthTime: (payload.birthTime || '').trim(),
       gender: payload.gender || '기타',
       birthCity: payload.birthCity || '서울특별시'
     };
