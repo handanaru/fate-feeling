@@ -3845,6 +3845,34 @@ button.status-chip {
 #frMetaBox { margin-bottom: 16px !important; }
 #frPillarsBox { margin-top: 0 !important; }
 
+/* Final report alignment polish */
+.ziwei-report-page {
+  --report-max: 500px;
+}
+.ziwei-report-page > .card,
+.ziwei-report-page > section.card {
+  width: min(var(--report-max), 100%);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+.ziwei-report-page > section.card + section.card {
+  margin-top: 16px;
+}
+#frMetaBox,
+#frPillarsBox,
+#frTotalBox,
+#frEngineBox {
+  padding: 20px !important;
+  box-sizing: border-box;
+}
+#frPillarsBox .pillars-grid,
+#frTotalBox .total-fortune-list,
+#frTotalBox .daewoon-stage-scroll {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .ff-global-gnb {
   position: sticky;
   top: 8px;
@@ -3980,6 +4008,14 @@ button.status-chip {
 #ossEngineBox {
   padding: 22px 18px !important;
   margin-bottom: 18px !important;
+}
+#frEngineBox {
+  text-align: center;
+}
+#frEngineBox .small {
+  font-size: 10px;
+  line-height: 1.5;
+  opacity: .78;
 }
 #pillarsBox h3,
 #ossEngineBox h3 { font-size: 20px; }
@@ -4144,10 +4180,11 @@ button.status-chip {
   gap: 8px;
 }
 .fortune-acc {
-  border: 1px solid rgba(255,255,255,.14);
+  border: 1px solid rgba(120,132,164,.28);
   border-radius: 12px;
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.035);
   overflow: hidden;
+  box-sizing: border-box;
 }
 .fortune-acc summary {
   list-style: none;
@@ -4173,7 +4210,7 @@ button.status-chip {
 .fortune-acc[open] .arr { transform: rotate(180deg); }
 .fortune-body {
   border-top: 1px solid rgba(255,255,255,.08);
-  padding: 10px 12px 12px;
+  padding: 20px;
 }
 .fortune-body strong {
   display: block;
@@ -4208,7 +4245,7 @@ button.status-chip {
 .daewoon-card {
   border: 1px solid rgba(255,255,255,.14);
   border-radius: 12px;
-  padding: 10px;
+  padding: 20px;
   background: rgba(255,255,255,.04);
 }
 .daewoon-card small { display: block; font-size: 11px; color: #c9d2e7; }
