@@ -4,33 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>만세력 전체총운 | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=fontforce37" />
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce41" />
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">Fate & Feeling</div>
-      <div class="header-actions">
-        <a class="btn secondary icon-btn outline" href="/" aria-label="홈">⌂</a>
+<body data-no-global-nav="1" class="total-fortune-page">
+  <div class="container reveal-page ziwei-report-page">
+    <header class="minimal-report-header">
+      <button class="btn secondary" onclick="history.back()">← 뒤로가기</button>
+      <div class="report-title-wrap">
+        <div class="brand">Fate & Feeling</div>
+        <p class="report-title">만세력 전체총운</p>
       </div>
+      <button class="btn secondary menu-btn" id="tfMenuBtn" aria-label="메뉴 열기" aria-expanded="false">≡</button>
     </header>
 
-    <section class="card reveal-weather">
-      <h2>🌠 만세력 전체총운</h2>
-      <p class="small" id="tfIntro">저장된 사주 정보를 기준으로 전체 흐름을 읽어올게.</p>
+    <aside class="result-drawer" id="tfDrawer" hidden>
+      <button class="btn secondary" onclick="toggleTheme()">라이트/다크</button>
+      <a class="btn secondary" href="/">홈</a>
+      <a class="btn secondary" href="/total-fortune.html">전체총운</a>
+      <a class="btn secondary" href="/result.html">결과리포트</a>
+      <a class="btn secondary" href="/test.html">설문</a>
+    </aside>
+
+    <section class="card reveal-weather total-fortune-hero-head">
+      <h2>✨ 만세력 전체총운</h2>
+      <p class="small">당신의 천명을 정교하게 분석할게. 먼저 내 정보를 입력해줘.</p>
     </section>
 
+    <section class="card briefing-card" id="tfInputBox"></section>
+    <section class="card briefing-card" id="tfConfirmBox" hidden></section>
     <section class="card" id="tfPillarsBox"></section>
     <section class="card" id="tfTotalBox"></section>
+    <section class="card" id="tfDaewoonBox"></section>
+    <section class="card" id="tfEngineBox"></section>
   </div>
 
-  <nav class="home-bottom-nav" aria-label="하단 탐색">
-    <a href="/">🏠 홈</a>
-    <a href="/experts.html">🔮 상담사</a>
-    <a href="/result.html">👤 내운세</a>
-    <a href="/total-fortune.html">🌠 전체총운</a>
-  </nav>
+  <div id="tfLoadingOverlay" class="tf-loading-overlay" hidden>
+    <div class="tf-loading-card">
+      <h3>운명의 조각 연산 중...</h3>
+      <div class="tf-pillar-grid" id="tfPillarGrid" aria-hidden="true">
+        <div class="cell" data-cell="stem-0"><small>시</small><strong>·</strong></div>
+        <div class="cell" data-cell="stem-1"><small>일</small><strong>·</strong></div>
+        <div class="cell" data-cell="stem-2"><small>월</small><strong>·</strong></div>
+        <div class="cell" data-cell="stem-3"><small>년</small><strong>·</strong></div>
+        <div class="cell" data-cell="branch-0"><small>시</small><strong>·</strong></div>
+        <div class="cell" data-cell="branch-1"><small>일</small><strong>·</strong></div>
+        <div class="cell" data-cell="branch-2"><small>월</small><strong>·</strong></div>
+        <div class="cell" data-cell="branch-3"><small>년</small><strong>·</strong></div>
+      </div>
+      <p class="small" id="tfLoadingText">당신이 태어난 해의 기운을 불러오고 있습니다.</p>
+      <p class="small" id="tfLoadingMeta">핵심 오행 성향 계산 중...</p>
+    </div>
+  </div>
 
-  <script src="/js/total-fortune.js?v=total1"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/total-fortune.js?v=total14"></script>
 </body>
 </html>
