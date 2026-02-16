@@ -2972,6 +2972,39 @@ button.status-chip {
   appearance: none;
   color: #e6edff;
 }
+.ff-quick-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,8,18,.62);
+  z-index: 1600;
+  display: grid;
+  place-items: end center;
+  padding: 14px;
+}
+.ff-quick-menu-sheet {
+  width: min(520px, 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: linear-gradient(160deg, rgba(31,22,56,.96), rgba(23,17,38,.96));
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+.ff-quick-menu-sheet h4 {
+  margin: 2px 4px 6px;
+  font-size: 13px;
+  color: #e9d49f;
+}
+.ff-quick-menu-sheet a {
+  display: block;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #e9efff;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+}
+.ff-quick-menu-sheet .btn { margin-top: 4px; }
 .status-chip.on {
   border-color: rgba(122,243,175,.42);
   color: #d8ffe8;

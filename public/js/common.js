@@ -341,6 +341,43 @@
     });
   }
 
+  function ensureQuickMenu() {
+    const triggers = [...document.querySelectorAll('.ff-menu-trigger')];
+    if (!triggers.length) return;
+
+    let modal = document.getElementById('ffQuickMenu');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'ffQuickMenu';
+      modal.className = 'ff-quick-menu';
+      modal.hidden = true;
+      modal.innerHTML = `
+        <div class="ff-quick-menu-sheet">
+          <h4>빠른 이동</h4>
+          <a href="/">🏠 홈</a>
+          <a href="/today-secret.html">☀️ 오늘의 비책</a>
+          <a href="/total-fortune.html">🔮 전체총운</a>
+          <a href="/fortune-reports.html">🗺️ 내 보관함</a>
+          <a href="/ai.html">🤖 AI 상담</a>
+          <button type="button" class="btn secondary" data-close>닫기</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e) => {
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        if (t === modal || t.matches('[data-close]')) modal.hidden = true;
+      });
+    }
+
+    triggers.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.hidden = false;
+      });
+    });
+  }
+
   function init() {
     ensurePhaseStyles();
     attachStarfield();
@@ -350,6 +387,7 @@
     ensureCoachFab();
     ensureTfMobileDock();
     ensureExpertWaitlist();
+    ensureQuickMenu();
     initCardParallax();
   }
 
