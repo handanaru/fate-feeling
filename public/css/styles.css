@@ -2909,6 +2909,41 @@ body.tf-nav-open { overflow: hidden; }
   text-align: center;
   justify-content: center;
 }
+.consult-hub-card h3,
+.consult-status-card h1 {
+  margin: 0 0 8px;
+}
+.consult-hub-actions {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+.consult-hub-actions .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+.btn.is-coming,
+.status-chip.off {
+  opacity: .72;
+}
+.consult-status-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.status-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.05);
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.status-chip.on {
+  border-color: rgba(122,243,175,.42);
+  color: #d8ffe8;
+}
 @keyframes dailyCardIn {
   from { opacity: 0; transform: translateY(14px) scale(.97) rotateX(9deg); }
   to { opacity: 1; transform: translateY(0) scale(1) rotateX(0); }
