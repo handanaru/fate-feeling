@@ -209,6 +209,21 @@
     document.body.appendChild(fab);
   }
 
+
+  function getTotalMenuHref() {
+    try {
+      const reports = JSON.parse(localStorage.getItem('ff-total-fortune-reports') || '[]');
+      const activeId = localStorage.getItem('ff-total-fortune-active-report-id');
+      if (activeId && reports.some((r) => r && r.id === activeId)) {
+        return `/fortune-report.html?id=${encodeURIComponent(activeId)}`;
+      }
+      if (reports.length && reports[0]?.id) {
+        return `/fortune-report.html?id=${encodeURIComponent(reports[0].id)}`;
+      }
+    } catch (e) {}
+    return '/total-fortune.html';
+  }
+
   function ensureTfMobileDock() {
     if (document.querySelector('.tf-mobile-dock')) return;
 
@@ -216,6 +231,7 @@
     if (path.startsWith('/api/')) return;
     const isReport = path === '/fortune-reports.html' || path === '/fortune-report.html' || path === '/result.html';
     const isTotal = path === '/total-fortune.html';
+    const totalHref = getTotalMenuHref();
     const isDaily = path === '/today-secret.html';
 
     const dock = document.createElement('nav');
@@ -226,7 +242,7 @@
       <a href="/" class="item ${path === '/' ? 'active' : ''}"><span>🏠</span><b>홈</b></a>
       <a href="/today-secret.html" class="item ${isDaily ? 'active' : ''}"><span>☀️</span><b>비책</b></a>
       <a href="/ai.html" class="item ${isAi ? 'active' : ''}"><span>🤖</span><b>상담</b></a>
-      <a href="/total-fortune.html" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>총운</b></a>
+      <a href="${totalHref}" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>총운</b></a>
       <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>🗂️</span><b>보관함</b></a>
     `;
     document.body.classList.add('has-global-dock');
@@ -339,7 +355,7 @@
           <h4>빠른 이동</h4>
           <a href="/">🏠 홈</a>
           <a href="/today-secret.html">☀️ 오늘의 비책</a>
-          <a href="/total-fortune.html">🔮 전체총운</a>
+          <a href="${getTotalMenuHref()}">🔮 전체총운</a>
           <a href="/fortune-reports.html">🗺️ 내 보관함</a>
           <a href="/ai.html">🤖 AI 상담</a>
           <button type="button" class="btn secondary" data-close>닫기</button>
