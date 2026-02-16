@@ -179,6 +179,39 @@ function render() {
   renderWave(theme, daily);
 }
 
+function ensureSavePreviewModal() {
+  let modal = document.getElementById('savePreviewModal');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.id = 'savePreviewModal';
+  modal.className = 'save-preview-modal';
+  modal.hidden = true;
+  modal.innerHTML = `
+    <div class="save-preview-sheet">
+      <p>자동 다운로드가 안 되면 아래 이미지를 길게 눌러 저장해줘.</p>
+      <img id="savePreviewImg" alt="저장용 카드 미리보기" />
+      <div class="cta-row">
+        <button type="button" class="btn secondary" data-close>닫기</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (e) => {
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    if (t === modal || t.matches('[data-close]')) modal.hidden = true;
+  });
+  return modal;
+}
+
+function showSavePreview(dataUrl) {
+  const modal = ensureSavePreviewModal();
+  const img = document.getElementById('savePreviewImg');
+  if (img) img.src = dataUrl;
+  modal.hidden = false;
+}
+
 async function saveCardImage() {
   if (!window.html2canvas || !cardEl) {
     window.ffToast?.('이미지 저장 기능을 준비 중이야.');
@@ -206,17 +239,17 @@ async function saveCardImage() {
     const date = new Date();
     const stamp = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
     const filename = `today-secret-${stamp}.png`;
+    const dataUrl = canvas.toDataURL('image/png');
 
-    // 일반 다운로드(공유 시트 강제 사용 안 함)
     const link = document.createElement('a');
     link.download = filename;
-    link.href = canvas.toDataURL('image/png');
+    link.href = dataUrl;
     document.body.appendChild(link);
     link.click();
     link.remove();
 
-    // iOS/인앱 일부 환경은 download 속성이 무시될 수 있어 사용자 안내만 제공
-    window.ffToast?.('이미지를 다운로드했어. 안 보이면 파일 앱 > 다운로드를 확인해줘 ✨');
+    showSavePreview(dataUrl);
+    window.ffToast?.('다운로드 시도했어. 안 되면 아래 미리보기 이미지를 길게 눌러 저장해줘 ✨');
   } catch (e) {
     console.error(e);
     window.ffToast?.('이미지 저장에 실패했어. 한 번 더 시도해줘.');
