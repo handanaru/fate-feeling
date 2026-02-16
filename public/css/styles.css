@@ -3672,6 +3672,70 @@ body.tf-nav-open { overflow: hidden; }
 .fr-pillar-big small {
   font-size: 11px;
 }
+.fr-hero-card {
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 16px;
+  background: linear-gradient(155deg, rgba(29,23,51,.9), rgba(18,15,35,.92));
+  box-shadow: 0 0 0 1px rgba(239,203,100,.16) inset, 0 10px 24px rgba(0,0,0,.24);
+}
+.fr-hero-top {
+  display: grid;
+  gap: 8px;
+}
+.fr-hero-top h3 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.3;
+  color: #f4f6ff;
+  font-family: var(--font-serif);
+}
+.fr-elem-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.06);
+  color: #efe3b7;
+  font-size: 12px;
+  font-weight: 700;
+}
+.fr-meta-chips {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fr-meta-chips span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  color: #dee5fb;
+  font-size: 12px;
+}
+.fr-seal-mini {
+  margin-top: 12px;
+  display: inline-grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(239,203,100,.3);
+  background: rgba(239,203,100,.06);
+}
+.fr-seal-mini p {
+  margin: 0;
+  letter-spacing: .22em;
+  color: #f0dca3;
+  font-family: var(--font-number);
+  font-size: 13px;
+}
+.fr-hero-fire { box-shadow: 0 0 0 1px rgba(255,146,102,.2) inset, 0 0 20px rgba(255,120,86,.16); }
+.fr-hero-water { box-shadow: 0 0 0 1px rgba(121,200,255,.2) inset, 0 0 20px rgba(121,200,255,.16); }
+.fr-hero-wood { box-shadow: 0 0 0 1px rgba(114,241,184,.2) inset, 0 0 20px rgba(114,241,184,.16); }
+.fr-hero-metal { box-shadow: 0 0 0 1px rgba(219,233,255,.2) inset, 0 0 20px rgba(219,233,255,.16); }
+.fr-hero-earth { box-shadow: 0 0 0 1px rgba(244,210,122,.24) inset, 0 0 20px rgba(244,210,122,.16); }
 .pillar-cell.wood { background: rgba(74,222,128,.2); color: #a6f4c5; }
 .pillar-cell.fire { background: rgba(251,113,133,.2); color: #ffc0cb; }
 .pillar-cell.earth { background: rgba(253,224,71,.2); color: #ffe894; }
@@ -3990,6 +4054,9 @@ body.tf-nav-open { overflow: hidden; }
   .daewoon-stage-scroll > * { width: 100%; }
   .fr-pillar-big strong { font-size: 24px; }
   .fr-pillar-big em { font-size: 10px; }
+  .fr-hero-top h3 { font-size: 23px; }
+  .fr-meta-chips span { font-size: 11px; }
+  .fr-seal-mini p { font-size: 12px; }
 }
 
 @media (max-width: 640px) {

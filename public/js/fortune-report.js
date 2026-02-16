@@ -165,10 +165,33 @@ function render() {
   const p = report?.data?.self?.pillars || [];
   const pillarText = p.length ? `${p[0]?.stem || '-'}${p[0]?.branch || '-'} / ${p[1]?.stem || '-'}${p[1]?.branch || '-'} / ${p[2]?.stem || '-'}${p[2]?.branch || '-'} / ${p[3]?.stem || '-'}${p[3]?.branch || '-'}` : '-';
 
-  metaBox.innerHTML = `<h3>✨ ${report.name}님의 전체총운 리포트</h3>
-  <p class="small">${report.birth} ${report.birthTime} · ${report.gender} · 한국/${report.birthCity || '서울특별시'}</p>`;
-
   const labels = ['시', '일', '월', '년'];
+  const elemCount = p.flatMap((x) => [x?.stemElement, x?.branchElement]).filter(Boolean)
+    .reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
+  const mainElem = Object.entries(elemCount).sort((a, b) => b[1] - a[1])[0]?.[0] || 'earth';
+  const elemIcon = { wood: '🌿', fire: '🔥', earth: '⛰️', metal: '⚔️', water: '🌊' }[mainElem] || '✨';
+  const birthRaw = String(report.birth || '');
+  const birthFmt = /^\d{8}$/.test(birthRaw) ? `${birthRaw.slice(0,4)}.${birthRaw.slice(4,6)}.${birthRaw.slice(6,8)}` : birthRaw.replace(/-/g, '.');
+  const stems = p.map((x) => x?.stem || '·').join(' ');
+  const branches = p.map((x) => x?.branch || '·').join(' ');
+
+  metaBox.innerHTML = `<div class="fr-hero-card fr-hero-${mainElem}">
+    <div class="fr-hero-top">
+      <span class="fr-elem-badge">${elemIcon} 핵심 ${mainElem}</span>
+      <h3>${report.name}님의 전체총운 리포트</h3>
+    </div>
+    <div class="fr-meta-chips">
+      <span>${birthFmt || '-'}</span>
+      <span>${report.gender || '-'}</span>
+      <span>${report.birthCity || '서울특별시'}</span>
+      <span>${report.birthTime || '-'}</span>
+    </div>
+    <div class="fr-seal-mini">
+      <p>${stems}</p>
+      <p>${branches}</p>
+    </div>
+  </div>`;
+
   const stemRow = p.map((x, i) => `<div class="pillar-cell ${x?.stemElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 천간</small><strong>${x?.stem || '-'}</strong><em>${x?.stemSipsin || '-'}</em></div>`).join('');
   const branchRow = p.map((x, i) => `<div class="pillar-cell ${x?.branchElement || 'earth'} fr-pillar-big"><small>${labels[i]}주 지지</small><strong>${x?.branch || '-'}</strong><em>${x?.unseong || '-'}</em></div>`).join('');
 
