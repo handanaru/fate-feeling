@@ -3643,6 +3643,21 @@ body.tf-nav-open { overflow: hidden; }
   font-size: 18px;
   font-weight: 800;
 }
+.pillars-result .pillar-cell {
+  min-height: 94px;
+  padding: 10px 8px 8px;
+}
+.pillars-result .pillar-cell strong {
+  font-size: 34px;
+  line-height: 1.08;
+}
+.pillars-result .pillar-cell em {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 13px;
+  color: rgba(255,255,255,.95);
+}
 .pillar-cell em {
   display: block;
   margin-top: 3px;
@@ -4157,6 +4172,9 @@ body.tf-nav-open { overflow: hidden; }
   .pillars-compare { grid-template-columns: 1fr; }
   #pillarsBox,
   #ossEngineBox { padding: 18px 14px !important; }
+  .pillars-result .pillar-cell { min-height: 86px; }
+  .pillars-result .pillar-cell strong { font-size: 28px; }
+  .pillars-result .pillar-cell em { font-size: 12px; }
   .rule-map-table { grid-template-columns: 1fr; }
   .luck-scroll {
     grid-auto-flow: row;
