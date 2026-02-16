@@ -177,9 +177,23 @@ function renderPillarsGrid(data, concern = '') {
   const toneMap = { wood: 'wood', fire: 'fire', earth: 'earth', metal: 'metal', water: 'water' };
   const renderPerson = (title, pillars = []) => {
     const safe = pillars.slice(0, 4);
-    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong><em>${p.stemSipsin || '-'}</em></div>`).join('');
-    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong><em>${p.unseong || p.branchSipsin || '-'}</em></div>`).join('');
-    return `<article class="pillars-person pillars-result"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div></article>`;
+    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong><em>${p.stemSipsin || '-'}</em></div>`).join('');
+    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong><em>${p.unseong || p.branchSipsin || '-'}</em></div>`).join('');
+
+    const head = cols.map((c, i) => `<th class="${i === 1 ? 'col-day' : ''}">${c}${i === 1 ? '⭐' : ''}</th>`).join('');
+    const rowStem = safe.map((p, i) => `<td class="${i === 1 ? 'col-day' : ''}"><strong>${p?.stem || '-'}</strong></td>`).join('');
+    const rowStemSip = safe.map((p, i) => `<td class="${i === 1 ? 'col-day' : ''}">${p?.stemSipsin || '-'}</td>`).join('');
+    const rowBranch = safe.map((p, i) => `<td class="${i === 1 ? 'col-day' : ''}"><strong>${p?.branch || '-'}</strong></td>`).join('');
+    const rowUnseong = safe.map((p, i) => `<td class="${i === 1 ? 'col-day' : ''}">${p?.unseong || '-'}</td>`).join('');
+
+    return `<article class="pillars-person pillars-result"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div>
+      <div class="manse-table-wrap"><table class="manse-table"><thead><tr><th>구분</th>${head}</tr></thead><tbody>
+      <tr><th>천간</th>${rowStem}</tr>
+      <tr><th>십신</th>${rowStemSip}</tr>
+      <tr><th>지지</th>${rowBranch}</tr>
+      <tr><th>운성</th>${rowUnseong}</tr>
+      </tbody></table></div>
+    </article>`;
   };
 
   const ruleMapRows = [
@@ -191,11 +205,12 @@ function renderPillarsGrid(data, concern = '') {
   ];
 
   pillarsBox.innerHTML = `<h3>✨ 두 분의 타고난 기운 (사주 원국)</h3>
+    <p class="small">먼저 표로 원국 검증 → 아래 해설 순서로 보면 제일 정확해.</p>
     <div class="pillars-compare">
       ${renderPerson('나', data?.self?.pillars || [])}
       ${(concern === '일반 궁합' && data?.partner?.pillars?.length) ? renderPerson('상대방', data.partner.pillars) : ''}
     </div>
-    <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루) · 칸 터치해서 먼저 원국부터 검증해줘.</p>
+    <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루)</p>
     <details class="rule-map">
       <summary>📘 해석 기준 보기</summary>
       <div class="rule-map-table">${ruleMapRows.map((r) => `<div><strong>${r[0]}</strong></div><div>${r[1]}</div><div>${r[2]}</div>`).join('')}</div>
