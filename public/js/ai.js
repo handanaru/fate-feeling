@@ -17,8 +17,14 @@ function addBubble(text, role = 'ai', extraClass = '') {
       const previewEl = bubble.querySelector('.bubble-preview');
       const moreBtn = bubble.querySelector('.bubble-more');
       let expanded = false;
-      const render = () => { previewEl.textContent = expanded ? plain : `${preview}…`; moreBtn.textContent = expanded ? '접기' : '더보기'; };
-      moreBtn.addEventListener('click', () => { expanded = !expanded; render(); });
+      const render = () => {
+        previewEl.textContent = expanded ? plain : `${preview}…`;
+        moreBtn.textContent = expanded ? '접기' : '더보기';
+      };
+      moreBtn.addEventListener('click', () => {
+        expanded = !expanded;
+        render();
+      });
       render();
     } else {
       bubble.textContent = plain;
@@ -31,14 +37,39 @@ function addBubble(text, role = 'ai', extraClass = '') {
   return bubble;
 }
 
+function classifyCounselStyle(goal) {
+  const text = String(goal || '').toLowerCase();
+  if (!text) return 'care';
+  if (/해결|전략|현실|팩폭|명쾌|결론/.test(text)) return 'solution';
+  if (/분석|심리|패턴|원인/.test(text)) return 'analysis';
+  if (/위로|공감|다정|따뜻/.test(text)) return 'care';
+  return 'care';
+}
+
 function buildAdvice(situation, goal) {
-  const cleanSituation = situation.slice(0, 40);
-  const goalLine = goal ? `목표로 적어주신 "${goal.slice(0, 26)}"를 기준으로 ` : '';
-  return [
-    `지금 "${cleanSituation}" 같은 상황이면 마음이 크게 흔들리는 게 자연스러워요. 먼저 스스로를 탓하지 않아도 괜찮아요.`,
-    `${goalLine}오늘은 "보내기 전 10분 멈춤"을 실험해보세요. 감정이 올라올 때 바로 결론 내리기보다, 짧게 메모하고 숨을 고르는 방식이 도움이 됩니다.`,
-    '📌 실행 가이드\n• 지금 감정 3단어 적기\n• 전달하고 싶은 핵심 문장 1개만 남기기\n• 내일 같은 시간에 다시 읽고 수정하기'
-  ].join('<br/><br/>');
+  const cleanSituation = situation.slice(0, 56);
+  const style = classifyCounselStyle(goal);
+
+  const empathy = `지금 "${cleanSituation}" 때문에 마음이 흔들리는 건 너무 자연스러워. 네 감정이 과한 게 아니라, 그만큼 이 관계가 중요하다는 뜻이야.`;
+  const reflection = '내가 이해한 핵심은 "상대의 신호가 애매해서 내가 더 불안해진 상태"에 가깝다는 거야. 맞는지 먼저 확인하고 싶어.';
+
+  const askCare = '지금 제일 힘든 지점이 ① 기다림 ② 자책 ③ 확신 없음 중 어디에 가장 가까워? 한 가지만 골라줘.';
+  const askAnalysis = '반복되는 패턴을 보려면 최근 비슷했던 장면 1개만 더 알려줘. (언제/무슨 말/네가 느낀 감정)';
+  const askSolutionGate = '실행 전략이 필요하면 바로 줄 수 있어. 원하면 "해결 전략 줘"라고 말해줘. 우선은 네 마음부터 안전하게 정리해보자.';
+
+  const lines = [empathy, reflection];
+
+  if (style === 'analysis') {
+    lines.push(askAnalysis);
+  } else if (style === 'solution') {
+    lines.push('좋아, 현실적인 방향을 원한다는 걸 반영해서 짧게 제안할게. 다만 결론을 서두르기보다 감정 정리 후 행동하는 순서로 갈게.');
+    lines.push('📌 오늘의 실행 가이드\n• 감정 3단어 기록하기\n• 보내고 싶은 말 1문장으로 줄이기\n• 10분 뒤 다시 읽고 톤 조정하기');
+  } else {
+    lines.push(askCare);
+    lines.push(askSolutionGate);
+  }
+
+  return lines.join('<br/><br/>');
 }
 
 function randomDelay(ch) {
@@ -90,4 +121,6 @@ goalInput.addEventListener('input', () => {
 });
 
 sendBtn.addEventListener('click', sendMessage);
-situationInput.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') sendMessage(); });
+situationInput.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') sendMessage();
+});
