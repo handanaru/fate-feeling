@@ -3981,7 +3981,13 @@ body.tf-nav-open { overflow: hidden; }
   .daewoon-grid { grid-template-columns: 1fr; }
   .daewoon-story-grid .daewoon-card.current { grid-column: span 1; }
   .daewoon-main { min-height: 56vh; }
-  .daewoon-stage-scroll { grid-auto-columns: minmax(92%, 1fr); }
+  .daewoon-stage-scroll {
+    grid-auto-flow: row;
+    grid-auto-columns: 1fr;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .daewoon-stage-scroll > * { width: 100%; }
   .fr-pillar-big strong { font-size: 24px; }
   .fr-pillar-big em { font-size: 10px; }
 }

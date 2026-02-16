@@ -13,7 +13,15 @@ function getReport() {
 }
 
 function parseBirth(birth = '') {
-  const [y, m, d] = String(birth).split('-').map(Number);
+  const raw = String(birth || '').trim();
+  if (/^\d{8}$/.test(raw)) {
+    return {
+      year: Number(raw.slice(0, 4)) || 2000,
+      month: Number(raw.slice(4, 6)) || 1,
+      day: Number(raw.slice(6, 8)) || 1
+    };
+  }
+  const [y, m, d] = raw.split('-').map(Number);
   return { year: y || 2000, month: m || 1, day: d || 1 };
 }
 
