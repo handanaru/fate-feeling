@@ -94,6 +94,11 @@ function renderWave(theme, daily) {
   const wave = daily.wave || { love: 80, money: 80, energy: 80, tip: '균형 파동' };
   const totalScore = Math.round((wave.love + wave.money + wave.energy) / 3);
   if (scoreTextEl) scoreTextEl.textContent = `운명 지수 ${totalScore}%`;
+  try {
+    const now = new Date();
+    const key = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+    localStorage.setItem('ff-today-secret-score', JSON.stringify({ key, score: totalScore, updatedAt: Date.now() }));
+  } catch (_) {}
   if (waveTipEl) waveTipEl.textContent = wave.tip;
 
   const baseValues = [wave.love, wave.money, wave.energy, Math.round((wave.love + wave.energy) / 2)];

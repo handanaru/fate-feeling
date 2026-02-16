@@ -240,13 +240,34 @@
     const isAi = path === '/ai.html';
     dock.innerHTML = `
       <a href="/" class="item ${path === '/' ? 'active' : ''}"><span>🏠</span><b>홈</b></a>
-      <a href="/today-secret.html" class="item ${isDaily ? 'active' : ''}"><span>☀️</span><b>비책</b></a>
+      <a href="/today-secret.html" class="item ${isDaily ? 'active' : ''}" data-dock-bichaek><span>☀️</span><b>비책</b></a>
       <a href="/ai.html" class="item ${isAi ? 'active' : ''}"><span>🤖</span><b>상담</b></a>
       <a href="${totalHref}" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>총운</b></a>
       <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>🗂️</span><b>보관함</b></a>
     `;
     document.body.classList.add('has-global-dock');
     document.body.appendChild(dock);
+
+    try {
+      const raw = JSON.parse(localStorage.getItem('ff-today-secret-score') || '{}');
+      const now = new Date();
+      const key = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+      const bichaek = dock.querySelector('[data-dock-bichaek]');
+      const score = Number(raw?.score || 0);
+      if (bichaek && raw?.key === key && score >= 90) {
+        bichaek.classList.add('special-glow');
+        bichaek.addEventListener('click', (e) => {
+          const rect = bichaek.getBoundingClientRect();
+          const boom = document.createElement('span');
+          boom.className = 'dock-boom';
+          boom.style.left = `${rect.left + rect.width / 2}px`;
+          boom.style.top = `${rect.top + rect.height / 2}px`;
+          document.body.appendChild(boom);
+          setTimeout(() => boom.remove(), 520);
+        }, { passive: true });
+      }
+    } catch (_) {}
+
   }
 
   function ensurePhaseStyles() {
