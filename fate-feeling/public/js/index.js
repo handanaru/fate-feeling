@@ -16,7 +16,6 @@ const audienceTabButtons = [...document.querySelectorAll('#audienceTabs [data-au
 const firstVisitModal = document.getElementById('firstVisitModal');
 const hideOnboardingForever = document.getElementById('hideOnboardingForever');
 const onboardingStartBtn = document.getElementById('onboardingStartBtn');
-const onboardingPreviewBtn = document.getElementById('onboardingPreviewBtn');
 const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
 const analysisModeGridButtons = [...document.querySelectorAll('#analysisModeGrid [data-mode]')];
@@ -360,6 +359,51 @@ function bindFlowReactiveInput() {
   });
 }
 
+function formatBirthInput(raw = '') {
+  const digits = String(raw || '').replace(/\D/g, '').slice(0, 8);
+  if (digits.length <= 4) return digits;
+  if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+  return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+}
+
+function formatTimeInput(raw = '') {
+  const value = String(raw || '').trim();
+  if (value.includes('모름')) return '모름';
+  const digits = value.replace(/\D/g, '').slice(0, 4);
+  if (digits.length <= 2) return digits;
+  let hh = Number(digits.slice(0, 2));
+  let mm = Number(digits.slice(2, 4) || '0');
+  if (!Number.isFinite(hh)) hh = 0;
+  if (!Number.isFinite(mm)) mm = 0;
+  hh = Math.max(0, Math.min(23, hh));
+  mm = Math.max(0, Math.min(59, mm));
+  return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+}
+
+function bindBirthTimeAutoFormat() {
+  const birthEl = document.getElementById('birth');
+  const partnerBirthEl = document.getElementById('partnerBirth');
+  const birthTimeEl = document.getElementById('birthTime');
+  const partnerBirthTimeEl = document.getElementById('partnerBirthTime');
+
+  const bind = (el, formatter) => {
+    if (!el) return;
+    el.addEventListener('input', () => {
+      const caretEnd = el.selectionStart === el.value.length;
+      el.value = formatter(el.value);
+      if (caretEnd) el.setSelectionRange(el.value.length, el.value.length);
+    });
+    el.addEventListener('blur', () => {
+      el.value = formatter(el.value);
+    });
+  };
+
+  bind(birthEl, formatBirthInput);
+  bind(partnerBirthEl, formatBirthInput);
+  bind(birthTimeEl, formatTimeInput);
+  bind(partnerBirthTimeEl, formatTimeInput);
+}
+
 let sparkThrottle = 0;
 window.addEventListener('mousemove', (e) => {
   const now = Date.now();
@@ -596,10 +640,6 @@ concernSelect?.addEventListener('change', () => {
 if (analysisModeSelect?.value) syncModeUI(analysisModeSelect.value);
 
 onboardingStartBtn?.addEventListener('click', closeOnboarding);
-onboardingPreviewBtn?.addEventListener('click', () => {
-  closeOnboarding();
-  window.location.href = '/test.html';
-});
 firstVisitModal?.addEventListener('click', (e) => {
   if (e.target === firstVisitModal) closeOnboarding();
 });
@@ -655,6 +695,7 @@ onboardingTotalFortuneBtn?.addEventListener('click', () => {
 
 setAudience('general');
 bindFlowReactiveInput();
+bindBirthTimeAutoFormat();
 syncConcernSelection(concernSelect?.value || '일반 궁합');
 syncConcernUI();
 openOnboardingIfNeeded();

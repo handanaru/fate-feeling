@@ -69,14 +69,14 @@
           </select>
 
           <label for="birth">생년월일</label>
-          <input id="birth" type="text" inputmode="numeric" placeholder="예: 19980721" required />
+          <input id="birth" type="text" inputmode="numeric" placeholder="예: 1997-11-11" required />
 
           <label for="birthTime">출생시간
             <span class="field-help" tabindex="0">?
               <span class="tooltip">정확한 자미두수 명반 배치를 위해 필요합니다</span>
             </span>
           </label>
-          <input id="birthTime" placeholder="예: 14:30 (모르면 '모름' 입력)" />
+          <input id="birthTime" inputmode="numeric" placeholder="예: 14:30 (모르면 '모름' 입력)" />
 
           <label for="birthPlace">출생지
             <span class="field-help" tabindex="0">?
@@ -98,10 +98,10 @@
           </select>
 
           <label for="partnerBirth">상대 생년월일</label>
-          <input id="partnerBirth" type="text" inputmode="numeric" placeholder="예: 19971103" />
+          <input id="partnerBirth" type="text" inputmode="numeric" placeholder="예: 1997-11-03" />
 
           <label for="partnerBirthTime">상대 출생시간</label>
-          <input id="partnerBirthTime" placeholder="예: 22:10" />
+          <input id="partnerBirthTime" inputmode="numeric" placeholder="예: 22:10" />
           <label class="tiny-check"><input type="checkbox" id="partnerBirthTimeUnknown" /> 상대방 태어난 시간 모름</label>
 
           <label for="partnerBirthPlace">상대 출생지</label>
@@ -213,7 +213,6 @@
       <p class="small" id="onboardingModeStatus">현재 관점: 사주</p>
       <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
       <div class="cta-row">
-        <button class="btn secondary" type="button" id="onboardingPreviewBtn">관점 미리보기</button>
         <button class="btn" type="button" id="onboardingStartBtn">바로 시작하기</button>
       </div>
     </div>
@@ -253,6 +252,6 @@
   </nav>
 
   <script src="/js/common.js?v=navclean3"></script>
-  <script src="/js/index.js?v=modeflow37"></script>
+  <script src="/js/index.js?v=modeflow38"></script>
 </body>
 </html>
