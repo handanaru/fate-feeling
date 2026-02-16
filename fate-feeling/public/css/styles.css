@@ -581,6 +581,10 @@ input[type="date"]::-webkit-date-and-time-value {
   border: 1px solid var(--border);
   animation: liftIn .3s ease;
 }
+.ai-intake-card .chat-panel .bubble {
+  font-size: 16px;
+  line-height: 1.65;
+}
 .bubble.user { align-self: flex-end; background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; }
 .bubble.ai { align-self: flex-start; background: rgba(255,255,255,.5); }
 [data-theme='dark'] .bubble.ai { background: rgba(23, 13, 38, .7); }
@@ -4745,4 +4749,27 @@ body::after {
 @keyframes dockBoom {
   from { transform: scale(1); opacity: .95; }
   to { transform: scale(9); opacity: 0; }
+}
+
+/* AI 상담 모바일 타이포 다운스케일 */
+@media (max-width: 640px) {
+  .ai-intake-card .chat-panel {
+    min-height: 220px;
+    max-height: 38vh;
+    gap: 10px;
+  }
+  .ai-intake-card .chat-panel .bubble {
+    font-size: 14px;
+    line-height: 1.58;
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+  .ai-intake-card label {
+    font-size: 14px;
+  }
+  .ai-intake-card #situation,
+  .ai-intake-card #goal {
+    font-size: 14px;
+    line-height: 1.5;
+  }
 }
