@@ -103,7 +103,9 @@ const modeMeta = {
   saju: { label: '사주', guide: '당신의 사주 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '기운 흐름 분석' },
   tarot: { label: '타로', guide: '당신의 타로 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '현재 카드 해석' },
   astro: { label: '점성술', guide: '당신의 점성술 흐름을 분석하기 위한 문항입니다. 현재 마음이 가는 대로 선택해 주세요.', lensTitle: '행성 에너지 흐름' },
-  ziwei: { label: '자미두수', guide: '당신의 자미두수 명반 흐름을 보기 위한 문항입니다. 내면의 기운 변화를 중심으로 선택해 주세요.', lensTitle: '12궁 명반 해석' }
+  ziwei: { label: '자미두수', guide: '당신의 자미두수 명반 흐름을 보기 위한 문항입니다. 내면의 기운 변화를 중심으로 선택해 주세요.', lensTitle: '12궁 명반 해석' },
+  vedic: { label: '인도관점', guide: '인도 전통 점성 관점으로 흐름을 읽기 위한 문항입니다. 업(karma)과 주기 변화를 중심으로 선택해 주세요.', lensTitle: '베딕 주기 해석' },
+  japan: { label: '일본관점', guide: '일본식 운세 관점으로 리듬을 보기 위한 문항입니다. 일상 리듬과 관계 온도를 중심으로 선택해 주세요.', lensTitle: '일본식 흐름 해석' }
 };
 
 const form = document.getElementById('testForm');

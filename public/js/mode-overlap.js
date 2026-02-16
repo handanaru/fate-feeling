@@ -2,7 +2,7 @@ const summaryEl = document.getElementById('overlapSummary');
 const signalsEl = document.getElementById('overlapSignals');
 const modesEl = document.getElementById('overlapModes');
 
-const labels = { saju: '사주', tarot: '타로', ziwei: '자미두수' };
+const labels = { saju: '사주', tarot: '타로', ziwei: '자미두수', vedic: '인도관점', japan: '일본관점' };
 
 function loadSnapshots() {
   try { return JSON.parse(localStorage.getItem('ff-mode-snapshots') || '{}'); } catch (_) { return {}; }
@@ -26,7 +26,7 @@ function buildSignalSet(row = {}) {
 
 function render() {
   const all = loadSnapshots();
-  const picked = ['saju', 'tarot', 'ziwei']
+  const picked = ['saju', 'tarot', 'ziwei', 'vedic', 'japan']
     .map((k) => all[k])
     .filter(Boolean);
 

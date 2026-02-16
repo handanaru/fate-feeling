@@ -149,12 +149,16 @@
           <button type="button" data-mode="astro">🪐 별자리</button>
           <button type="button" data-mode="tarot">🃏 타로</button>
           <button type="button" data-mode="ziwei">✦ 자미두수</button>
+          <button type="button" data-mode="vedic">🇮🇳 인도관점</button>
+          <button type="button" data-mode="japan">🇯🇵 일본관점</button>
         </div>
         <select id="analysisMode" required hidden>
           <option value="ziwei">자미두수</option>
           <option value="saju" selected>사주</option>
           <option value="tarot">타로</option>
           <option value="astro">점성술</option>
+          <option value="vedic">인도관점</option>
+          <option value="japan">일본관점</option>
         </select>
 
         <button class="btn impact-cta" id="startSubmitBtn" type="submit">사주로 궁합 확인하기</button>
@@ -209,6 +213,8 @@
         <button type="button" data-mode="tarot">🃏 타로</button>
         <button type="button" data-mode="ziwei">✦ 자미두수</button>
         <button type="button" data-mode="astro">◎ 점성술</button>
+        <button type="button" data-mode="vedic">🇮🇳 인도관점</button>
+        <button type="button" data-mode="japan">🇯🇵 일본관점</button>
       </div>
       <p class="small" id="onboardingModeStatus">현재 관점: 사주</p>
       <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
@@ -252,6 +258,6 @@
   </nav>
 
   <script src="/js/common.js?v=navclean13"></script>
-  <script src="/js/index.js?v=modeflow38"></script>
+  <script src="/js/index.js?v=modeflow39"></script>
 </body>
 </html>

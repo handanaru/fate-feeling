@@ -513,11 +513,13 @@ const modeCardMeta = {
   saju: { title: 'FLOW', icon: '☯' },
   tarot: { title: 'DESTINY', icon: '✶' },
   ziwei: { title: 'ZODIAC', icon: '✦' },
-  astro: { title: 'UNIVERSE', icon: '🪐' }
+  astro: { title: 'UNIVERSE', icon: '🪐' },
+  vedic: { title: 'VEDIC', icon: '🇮🇳' },
+  japan: { title: 'WAFU', icon: '🇯🇵' }
 };
 
 function modeLabel(mode) {
-  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술' }[mode] || '자미두수');
+  return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', vedic: '인도관점', japan: '일본관점' }[mode] || '자미두수');
 }
 
 function syncModeUI(mode) {
