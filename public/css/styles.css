@@ -2707,7 +2707,7 @@ body.tf-nav-open { overflow: hidden; }
     min-height: 54px;
     border-radius: 12px;
     text-decoration: none;
-    color: rgba(216,222,245,.92);
+    color: rgba(216,222,245,.96);
     display: grid;
     place-items: center;
     gap: 3px;
@@ -2721,9 +2721,9 @@ body.tf-nav-open { overflow: hidden; }
   }
   .tf-mobile-dock .item.active {
     color: #f7d686;
-    border-color: rgba(243,211,122,.56);
-    background: linear-gradient(145deg, rgba(243,211,122,.16), rgba(245,144,64,.14));
-    box-shadow: 0 0 12px rgba(243,211,122,.25);
+    border-color: rgba(243,211,122,.46);
+    background: linear-gradient(145deg, rgba(243,211,122,.12), rgba(245,144,64,.10));
+    box-shadow: 0 0 8px rgba(243,211,122,.18);
   }
   .tf-mobile-dock .item.active span,
   .tf-mobile-dock .item.active b {
@@ -3762,6 +3762,7 @@ body.tf-nav-open { overflow: hidden; }
   color: #dee5fb;
   font-size: 12px;
 }
+.fr-meta-chips span:nth-child(n+3) { opacity: .86; }
 .fr-seal-mini {
   margin-top: 12px;
   display: inline-grid;
@@ -3811,7 +3812,7 @@ body.tf-nav-open { overflow: hidden; }
   height: 8px;
   border-radius: 50%;
   background: var(--progress-end, #FFD700);
-  box-shadow: 0 0 8px var(--progress-end, #FFD700);
+  box-shadow: 0 0 6px var(--progress-end, #FFD700);
 }
 @keyframes frProgressFill {
   from { width: 0%; }
@@ -4130,7 +4131,7 @@ body.tf-nav-open { overflow: hidden; }
   .tf-form-grid { grid-template-columns: 1fr; }
   .daewoon-grid { grid-template-columns: 1fr; }
   .daewoon-story-grid .daewoon-card.current { grid-column: span 1; }
-  .daewoon-main { min-height: 56vh; }
+  .daewoon-main { min-height: auto; }
   .daewoon-stage-scroll {
     grid-auto-flow: row;
     grid-auto-columns: 1fr;
@@ -4140,10 +4141,16 @@ body.tf-nav-open { overflow: hidden; }
   .daewoon-stage-scroll > * { width: 100%; }
   .fr-pillar-big strong { font-size: 24px; }
   .fr-pillar-big em { font-size: 10px; }
-  .fr-hero-top h3 { font-size: 23px; }
+  .fr-hero-card { padding: 14px; }
+  .fr-hero-top h3 { font-size: 22px; line-height: 1.35; }
+  .fr-meta-chips { gap: 6px; }
   .fr-meta-chips span { font-size: 11px; }
-  .fr-seal-mini p { font-size: 12px; }
+  .fr-meta-chips span:nth-child(n+3) { display: none; }
+  .fr-seal-mini { margin-top: 10px; }
+  .fr-seal-mini p { font-size: 12px; letter-spacing: .18em; }
   .fr-progress-meta { font-size: 9px; }
+  .fortune-body p { font-size: 14px; line-height: 1.72; }
+  .card { margin-bottom: 10px; }
 }
 
 @media (max-width: 640px) {
