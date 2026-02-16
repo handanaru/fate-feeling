@@ -11,38 +11,682 @@
   "cases": [
     {
       "id": "CASE-01",
-      "input": { "birth": "1988-08-15", "birthTime": "14:30", "gender": "남성", "calendar": "solar" },
-      "tags": ["standard", "male", "1980s"],
-      "expected": { "lifePalace": "", "bodyPalace": "", "mainStars": [], "siHwa": [], "daewoon": { "startAge": null, "direction": "" } },
-      "notes": "표준군"
+      "input": {
+        "birth": "1988-08-15",
+        "birthTime": "14:30",
+        "gender": "남성",
+        "calendar": "solar"
+      },
+      "tags": [
+        "standard",
+        "male",
+        "1980s"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "표준군",
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      }
     },
     {
       "id": "CASE-02",
-      "input": { "birth": "1984-06-15", "birthTime": "10:00", "gender": "여성", "calendar": "lunar", "leapMonth": true },
-      "tags": ["leap-month", "split-rule"],
-      "expected": { "lifePalace": "", "bodyPalace": "", "mainStars": [], "siHwa": [], "daewoon": { "startAge": null, "direction": "" } },
-      "notes": "윤달 후반기 검증"
+      "input": {
+        "birth": "1984-06-15",
+        "birthTime": "10:00",
+        "gender": "여성",
+        "calendar": "lunar",
+        "leapMonth": true
+      },
+      "tags": [
+        "leap-month",
+        "split-rule"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "윤달 후반기 검증",
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      }
     },
     {
       "id": "CASE-03",
-      "input": { "birth": "1991-12-05", "birthTime": "23:45", "gender": "남성", "calendar": "solar" },
-      "tags": ["zishi-boundary"],
-      "expected": { "lifePalace": "", "bodyPalace": "", "mainStars": [], "siHwa": [], "daewoon": { "startAge": null, "direction": "" } },
-      "notes": "야자시/조자시 경계"
+      "input": {
+        "birth": "1991-12-05",
+        "birthTime": "23:45",
+        "gender": "남성",
+        "calendar": "solar"
+      },
+      "tags": [
+        "zishi-boundary"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "야자시/조자시 경계",
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      }
     },
     {
       "id": "CASE-04",
-      "input": { "birth": "1987-05-10", "birthTime": "09:00", "gender": "여성", "calendar": "solar" },
-      "tags": ["dst-period"],
-      "expected": { "lifePalace": "", "bodyPalace": "", "mainStars": [], "siHwa": [], "daewoon": { "startAge": null, "direction": "" } },
-      "notes": "서머타임 기간 검증"
+      "input": {
+        "birth": "1987-05-10",
+        "birthTime": "09:00",
+        "gender": "여성",
+        "calendar": "solar"
+      },
+      "tags": [
+        "dst-period"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "서머타임 기간 검증",
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      }
     },
     {
       "id": "CASE-05",
-      "input": { "birth": "1970-02-04", "birthTime": "05:00", "gender": "남성", "calendar": "solar" },
-      "tags": ["season-boundary"],
-      "expected": { "lifePalace": "", "bodyPalace": "", "mainStars": [], "siHwa": [], "daewoon": { "startAge": null, "direction": "" } },
-      "notes": "절기 경계"
+      "input": {
+        "birth": "1970-02-04",
+        "birthTime": "05:00",
+        "gender": "남성",
+        "calendar": "solar"
+      },
+      "tags": [
+        "season-boundary"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "절기 경계",
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      }
+    },
+    {
+      "id": "CASE-06",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-07",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-08",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-09",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-10",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-11",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-12",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-13",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-14",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-15",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-16",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-17",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-18",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-19",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
+    },
+    {
+      "id": "CASE-20",
+      "input": {
+        "birth": "",
+        "birthTime": "",
+        "gender": "",
+        "calendar": "solar",
+        "leapMonth": false
+      },
+      "tags": [
+        "pending"
+      ],
+      "expected": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "actual": {
+        "lifePalace": "",
+        "bodyPalace": "",
+        "mainStars": [],
+        "siHwa": [],
+        "daewoon": {
+          "startAge": null,
+          "direction": ""
+        }
+      },
+      "notes": "정답셋/엔진값 입력 대기"
     }
   ]
 }
