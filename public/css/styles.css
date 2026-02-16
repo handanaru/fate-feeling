@@ -2471,44 +2471,122 @@ button.scan-icon:hover {
 }
 .result-drawer[hidden] { display: none; }
 
-/* total-fortune: cleaner compact menu */
+/* total-fortune: immersive journey navigation */
 .total-fortune-page .minimal-report-header .menu-btn {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
 }
-.total-fortune-page .result-drawer {
-  position: absolute;
-  top: calc(100% + 8px);
+.total-fortune-page .minimal-report-header .menu-btn.active {
+  color: #f3d47a;
+  border-color: rgba(243,212,122,.58);
+  box-shadow: 0 0 0 1px rgba(243,212,122,.3), 0 0 16px rgba(243,212,122,.35);
+}
+.tf-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(168,128,255,.28) 0%, rgba(20,14,40,.82) 55%),
+    linear-gradient(145deg, rgba(16,12,31,.66), rgba(8,8,18,.74));
+  backdrop-filter: blur(20px);
+  animation: tfBackdropIn .26s ease both;
+}
+.total-fortune-page .tf-journey-drawer {
+  position: fixed;
+  top: 0;
   right: 0;
-  width: 168px;
+  width: min(86vw, 380px);
+  height: 100dvh;
   margin: 0;
-  padding: 10px;
-  gap: 7px;
-  z-index: 40;
+  padding: 18px 16px 16px;
+  z-index: 9997;
   justify-items: stretch;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.15);
-  background: linear-gradient(165deg, rgba(28,21,52,.95), rgba(19,14,37,.95));
-  box-shadow: 0 12px 24px rgba(0,0,0,.35), 0 0 0 1px rgba(239,203,100,.12) inset;
+  border-left: 1px solid rgba(255,255,255,.18);
+  border-radius: 0;
+  background:
+    radial-gradient(120% 120% at 90% 0%, rgba(239,203,100,.16), rgba(239,203,100,0) 45%),
+    linear-gradient(170deg, rgba(30,22,55,.94), rgba(17,13,34,.96));
+  box-shadow: -16px 0 30px rgba(0,0,0,.35), 0 0 0 1px rgba(239,203,100,.14) inset;
+  overflow-y: auto;
+  animation: tfDrawerIn .28s ease both;
 }
-.total-fortune-page .result-drawer .btn {
-  width: 100%;
-  min-height: 36px;
-  justify-content: center;
+.tf-drawer-close {
+  justify-self: end;
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
-  padding: 8px 10px;
-  font-size: 13px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: none;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: #edf1ff;
 }
-.total-fortune-page .result-drawer .btn:hover {
-  border-color: rgba(239,203,100,.45);
-  background: rgba(239,203,100,.08);
+.tf-drawer-profile {
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.04);
+}
+.tf-seal {
+  margin-top: 8px;
+  font-family: var(--font-number);
+  letter-spacing: .12em;
+  font-size: 12px;
+  color: #f1d995;
+}
+.tf-menu-group {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+.tf-menu-group.setting { margin-top: 16px; }
+.tf-menu-item {
+  width: 100%;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: #edf1ff;
+  font-weight: 650;
+  font-size: 15px;
+}
+.tf-menu-item .ic {
+  width: 18px;
+  text-align: center;
+  opacity: .95;
+}
+.tf-menu-item.sub,
+.tf-menu-item.setting {
+  font-size: 13px;
+  color: #d6ddf4;
+  min-height: 40px;
+}
+.tf-menu-item.active {
+  color: #f4cc67;
+  border-color: rgba(244,204,103,.52);
+  text-shadow: 0 0 10px rgba(244,204,103,.45);
+  box-shadow: inset 2px 0 0 rgba(244,204,103,.9), 0 0 16px rgba(244,204,103,.2);
+}
+.tf-menu-item:hover {
+  border-color: rgba(255,255,255,.3);
+  background: rgba(255,255,255,.08);
+}
+body.tf-nav-open { overflow: hidden; }
+@keyframes tfDrawerIn {
+  from { opacity: .25; transform: translateX(22px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes tfBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .mode-hero-badge {
   display: inline-flex;
