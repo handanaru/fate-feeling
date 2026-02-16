@@ -444,6 +444,7 @@
     let ctx = null;
     let master = null;
     let nodes = [];
+    let rhythmTimer = null;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -453,6 +454,10 @@
     }
 
     function stopAmbient() {
+      if (rhythmTimer) {
+        clearInterval(rhythmTimer);
+        rhythmTimer = null;
+      }
       nodes.forEach((n) => {
         try { n.stop?.(); } catch (_) {}
         try { n.disconnect?.(); } catch (_) {}
@@ -477,19 +482,21 @@
 
       stopAmbient();
       master = ctx.createGain();
-      master.gain.value = 0.02;
+      master.gain.value = 0.024;
       master.connect(ctx.destination);
 
-      const freqs = [174.61, 220, 261.63];
-      freqs.forEach((f, i) => {
+      // 신비로운 배경 패드 (잔향감 있는 저강도 드론)
+      const padFreqs = [130.81, 174.61, 220.0];
+      padFreqs.forEach((f, i) => {
         const osc = ctx.createOscillator();
         const g = ctx.createGain();
         const filter = ctx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.value = 900 + i * 220;
+        filter.frequency.value = 760 + i * 180;
+        filter.Q.value = 0.9;
         osc.type = i === 0 ? 'sine' : 'triangle';
         osc.frequency.value = f;
-        g.gain.value = i === 0 ? 0.45 : 0.23;
+        g.gain.value = i === 0 ? 0.26 : 0.16;
         osc.connect(filter);
         filter.connect(g);
         g.connect(master);
@@ -501,13 +508,47 @@
         const lfo = ctx.createOscillator();
         const lfoGain = ctx.createGain();
         lfo.type = 'sine';
-        lfo.frequency.value = 0.08;
-        lfoGain.gain.value = 0.008;
+        lfo.frequency.value = 0.11;
+        lfoGain.gain.value = 0.01;
         lfo.connect(lfoGain);
         lfoGain.connect(master.gain);
         lfo.start();
         nodes.push(lfo, lfoGain);
       }
+
+      // 통통거리는 벨 플럭 (2박 + 변주)
+      const motif = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46];
+      let step = 0;
+      const triggerPluck = () => {
+        if (!ctx || !master) return;
+        const now = ctx.currentTime;
+        const freq = motif[step % motif.length];
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 280;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.03, now + 0.08);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.034, now + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+
+        osc.connect(hp);
+        hp.connect(gain);
+        gain.connect(master);
+
+        osc.start(now);
+        osc.stop(now + 0.32);
+        nodes.push(osc, gain, hp);
+        step += 1;
+      };
+
+      triggerPluck();
+      rhythmTimer = setInterval(triggerPluck, 420);
     }
 
     async function applyState() {
