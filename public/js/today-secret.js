@@ -191,16 +191,24 @@ function ensureSavePreviewModal() {
       <p>자동 다운로드가 안 되면 아래 이미지를 길게 눌러 저장해줘.</p>
       <img id="savePreviewImg" alt="저장용 카드 미리보기" />
       <div class="cta-row">
-        <button type="button" class="btn secondary" data-close>닫기</button>
+        <button type="button" class="btn secondary" id="savePreviewCloseBtn" data-close>닫기</button>
       </div>
     </div>
   `;
   document.body.appendChild(modal);
 
+  const close = () => { modal.hidden = true; };
+  const closeBtn = modal.querySelector('#savePreviewCloseBtn');
+  closeBtn?.addEventListener('click', close);
+
   modal.addEventListener('click', (e) => {
     const t = e.target;
     if (!(t instanceof Element)) return;
-    if (t === modal || t.matches('[data-close]')) modal.hidden = true;
+    if (t === modal || t.closest('[data-close]')) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) close();
   });
   return modal;
 }
