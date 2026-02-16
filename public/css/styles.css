@@ -2788,6 +2788,72 @@ body.tf-nav-open { overflow: hidden; }
   border: 1px solid rgba(255,255,255,.2);
   box-shadow: 0 0 0 8px rgba(255,255,255,.03), 0 0 18px color-mix(in srgb, var(--daily-glow) 42%, transparent);
 }
+.destiny-wave-box {
+  margin: 14px 0 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.04);
+  position: relative;
+}
+.wave-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.wave-head strong { color: #f5e7b1; font-size: 13px; }
+.wave-head span { color: #e4ecff; font-size: 12px; }
+#destinyWaveSvg {
+  width: 100%;
+  height: 110px;
+}
+#destinyWavePath {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wave-stats {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.wave-stats span {
+  text-align: center;
+  font-size: 12px;
+  color: #e7edff;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  padding: 5px 6px;
+}
+.wave-tip {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #d4dff9;
+}
+.wave-tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  max-width: 220px;
+  padding: 6px 9px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(12,12,26,.92);
+  color: #f2f5ff;
+  font-size: 11px;
+  line-height: 1.45;
+  z-index: 2;
+}
+.wave-peak-star { animation: wavePeakPulse 1.2s ease-in-out infinite; }
+@keyframes wavePeakPulse {
+  0%, 100% { opacity: .55; transform: scale(.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
 .daily-copy {
   margin: 0;
   color: #edf2ff;
