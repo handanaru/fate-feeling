@@ -135,9 +135,9 @@ function buildDaewoonNarrative(report, pillars = []) {
   const futureText = `다가올 ${future.label} 구간은 결실과 안정의 밀도를 높이는 흐름이야. 현재에 만든 인맥·평판·전문성이 구조화되면서 장기 계약, 자산 배분, 라이프 밸런스 재설계 이슈가 커져. 지금부터 기준을 정리해두면 다음 구간에서 시행착오를 크게 줄일 수 있어.`;
 
   const birthYear = parseBirth(report.birth || '').year || 2000;
-  const yearlyLines = (range) => {
+  const yearlyLines = (range, fromAge = range.start) => {
     const lines = [];
-    for (let y = range.start; y <= range.end; y += 1) {
+    for (let y = Math.max(range.start, fromAge); y <= range.end; y += 1) {
       const year = birthYear + y - 1;
       const tone = y % 3 === 0 ? '확장' : y % 3 === 1 ? '정비' : '결실';
       const phase = y === range.end ? ' [!] 교운기' : '';
@@ -149,7 +149,7 @@ function buildDaewoonNarrative(report, pillars = []) {
   return {
     age,
     past: { ...past, text: pastText, tip: '#기반정리 #패턴복기 #실수자산화', yearly: yearlyLines(past) },
-    current: { ...current, text: currentText, tip: hasPyeonjae ? '#사업확장 #큰재물흐름 #리스크관리' : '#문서화 #평판관리 #체력관리', yearly: yearlyLines(current) },
+    current: { ...current, text: currentText, tip: hasPyeonjae ? '#사업확장 #큰재물흐름 #리스크관리' : '#문서화 #평판관리 #체력관리', yearly: yearlyLines(current, age) },
     future: { ...future, text: futureText, tip: '#결실관리 #자산배분 #관계정비', yearly: yearlyLines(future) }
   };
 }
@@ -194,7 +194,7 @@ function render() {
       <strong>${daewoon.current.label}</strong>
       <p>${daewoon.current.text}</p>
       <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.current.tip}</p>
-      <details class="daewoon-detail" open><summary>내년부터 10년 흐름 보기</summary>${daewoon.current.yearly}</details>
+      <details class="daewoon-detail" open><summary>현재 나이부터 흐름 보기</summary>${daewoon.current.yearly}</details>
     </article>
 
     <div class="daewoon-stage-scroll" aria-label="과거/미래 대운">
