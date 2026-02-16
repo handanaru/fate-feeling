@@ -225,6 +225,27 @@
     document.body.appendChild(fab);
   }
 
+  function ensureTfMobileDock() {
+    if (!document.body?.classList?.contains('total-fortune-page')) return;
+    if (document.querySelector('.tf-mobile-dock')) return;
+
+    const path = window.location.pathname;
+    const isReport = path === '/fortune-reports.html' || path === '/fortune-report.html' || path === '/result.html';
+    const isTotal = path === '/total-fortune.html';
+    const isTest = path === '/test.html';
+
+    const dock = document.createElement('nav');
+    dock.className = 'tf-mobile-dock';
+    dock.setAttribute('aria-label', '모바일 빠른 이동');
+    dock.innerHTML = `
+      <a href="/" class="item ${path === '/' ? 'active' : ''}"><span>🏠</span><b>홈</b></a>
+      <a href="/total-fortune.html" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>전체총운</b></a>
+      <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>📜</span><b>리포트</b></a>
+      <a href="/test.html" class="item ${isTest ? 'active' : ''}"><span>📝</span><b>설문</b></a>
+    `;
+    document.body.appendChild(dock);
+  }
+
   function ensurePhaseStyles() {
     if (document.querySelector('link[data-phase3]')) return;
     const link = document.createElement('link');
@@ -258,6 +279,7 @@
     attachGlobalNav();
     initConcernTone();
     ensureCoachFab();
+    ensureTfMobileDock();
     initCardParallax();
   }
 
