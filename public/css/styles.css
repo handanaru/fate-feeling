@@ -2760,6 +2760,17 @@ body.tf-nav-open { overflow: hidden; }
   animation: dailyCardIn .5s ease both;
   transform-origin: center bottom;
 }
+/* html2canvas 호환용: color-mix 제거 */
+.daily-secret-card.capture-safe {
+  border-color: rgba(255,255,255,.22);
+  background:
+    radial-gradient(120% 120% at 80% 10%, rgba(244,210,122,.18), transparent 50%),
+    linear-gradient(165deg, rgba(31,22,56,.9), rgba(22,17,39,.95));
+  box-shadow: 0 0 20px rgba(244,210,122,.22), 0 0 0 1px rgba(255,255,255,.08) inset;
+}
+.daily-secret-card.capture-safe .daily-symbol {
+  box-shadow: 0 0 0 8px rgba(255,255,255,.03), 0 0 14px rgba(244,210,122,.26);
+}
 .daily-head .date {
   margin: 0 0 6px;
   font-size: 12px;

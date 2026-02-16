@@ -185,6 +185,7 @@ async function saveCardImage() {
     return;
   }
 
+  cardEl.classList.add('capture-safe');
   try {
     const canvas = await window.html2canvas(cardEl, {
       backgroundColor: null,
@@ -234,6 +235,8 @@ async function saveCardImage() {
   } catch (e) {
     console.error(e);
     window.ffToast?.('이미지 저장에 실패했어. 한 번 더 시도해줘.');
+  } finally {
+    cardEl.classList.remove('capture-safe');
   }
 }
 
