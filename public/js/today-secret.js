@@ -187,6 +187,7 @@ async function saveCardImage() {
 
   cardEl.classList.add('capture-safe');
   try {
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     const canvas = await window.html2canvas(cardEl, {
       backgroundColor: null,
       scale: Math.min(3, window.devicePixelRatio || 2),
