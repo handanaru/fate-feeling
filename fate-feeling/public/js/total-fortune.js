@@ -408,6 +408,17 @@ async function runAnalysis(payload) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ self, concern: intakeDraft.concern || '일반 궁합' })
     });
+
+    const contentType = res.headers.get('content-type') || '';
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`API 오류(${res.status}): ${text?.slice(0, 120) || 'unknown'}`);
+    }
+    if (!contentType.includes('application/json')) {
+      const text = await res.text();
+      throw new Error(`API 응답 형식 오류: ${text?.slice(0, 120) || 'not-json'}`);
+    }
+
     const data = await res.json();
     if (!data?.ok) throw new Error(data?.error || '분석 실패');
 
