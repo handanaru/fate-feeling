@@ -2981,6 +2981,9 @@ button.status-chip {
   place-items: end center;
   padding: 14px;
 }
+.ff-quick-menu[hidden] {
+  display: none !important;
+}
 .ff-quick-menu-sheet {
   width: min(520px, 100%);
   border-radius: 16px;
