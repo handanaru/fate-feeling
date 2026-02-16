@@ -83,16 +83,16 @@ function buildFortuneRows(pillars = [], userName = '당신') {
   return { rows, strong, weak };
 }
 
-function buildDaewoon(report, pillars = []) {
-  const birthYear = parseBirth(report.birth || '').year || 2000;
-  const nowYear = new Date().getFullYear();
-  const age = Math.max(1, nowYear - birthYear + 1);
+function calcKoreanAge(birth = '') {
+  const b = parseBirth(birth);
+  const now = new Date();
+  return Math.max(1, now.getFullYear() - b.year + 1);
+}
+
+function buildDaewoonNarrative(report, pillars = []) {
+  const age = calcKoreanAge(report.birth || '');
   const decadeStartAge = 2;
   const idx = Math.max(0, Math.floor((age - decadeStartAge) / 10));
-  const curStartAge = decadeStartAge + idx * 10;
-  const curEndAge = curStartAge + 9;
-  const nextStartAge = curStartAge + 10;
-  const nextEndAge = nextStartAge + 9;
 
   const elems = pillars.flatMap((p) => [p.stemElement, p.branchElement]).filter(Boolean);
   const cnt = elems.reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
@@ -101,13 +101,45 @@ function buildDaewoon(report, pillars = []) {
   const strongKey = ordered[0]?.[0] || 'earth';
   const weakKey = ordered[ordered.length - 1]?.[0] || 'water';
 
+  const unseong = pillars.map((p) => p.unseong).filter(Boolean);
+  const sipsin = pillars.map((p) => p.stemSipsin).filter(Boolean);
+  const hasEmperor = unseong.some((u) => ['帝旺', '건록', '建祿', '乾祿'].includes(String(u)));
+  const hasPyeonjae = sipsin.some((s) => String(s).includes('偏財'));
+  const hasGwan = sipsin.some((s) => String(s).includes('官'));
+
+  const makeRange = (i) => {
+    const start = decadeStartAge + i * 10;
+    const end = start + 9;
+    return { start, end, label: `${start}세 ~ ${end}세` };
+  };
+
+  const past = makeRange(Math.max(0, idx - 1));
+  const current = makeRange(idx);
+  const future = makeRange(idx + 1);
+
+  const coreTheme = hasEmperor ? '제왕(帝王) 흐름의 독립성과 리더십' : `${names[strongKey]} 기운 기반의 누적 성장`;
+  const moneyTheme = hasPyeonjae ? '편재(偏財) 신호가 살아 있어 큰 거래·사업 확장 기회' : '재성 흐름은 보수적 누적이 유리한 구조';
+  const roleTheme = hasGwan ? '관성 축이 강해 평판·직책·조직 책임이 중요' : '자기 페이스를 지키는 독립형 전략이 유효';
+
+  const currentText = `${age}세인 지금은 인생 서사에서 가장 중요한 전개 구간이야. ${coreTheme}이 본격적으로 올라오고, ${roleTheme}이 동시에 작동하면서 사회적 위치를 재정의하게 돼. 특히 ${moneyTheme}이 겹치면 단순 월급 흐름보다 프로젝트·사업·파트너십에서 큰 판이 열릴 수 있어. 다만 ${names[weakKey]} 보완이 약하면 속도만 앞서고 체력·관계 균형이 흔들릴 수 있으니, 문서화·계약 검토·휴식 리듬을 같이 잡는 게 필수야.`;
+
+  const pastText = `지나온 ${past.label} 구간은 기반을 세우는 시기였어. 지금의 선택 기준과 관계 패턴이 이때 만들어졌고, 특히 실패/성공의 반복에서 너만의 의사결정 프레임이 완성됐을 가능성이 커. 이 시기 경험을 버리지 말고 자산화하면 현재 대운의 성과 속도가 확실히 올라가.`;
+  const futureText = `다가올 ${future.label} 구간은 결실과 안정의 밀도를 높이는 흐름이야. 현재에 만든 인맥·평판·전문성이 구조화되면서 장기 계약, 자산 배분, 라이프 밸런스 재설계 이슈가 커져. 지금부터 기준을 정리해두면 다음 구간에서 시행착오를 크게 줄일 수 있어.`;
+
+  const yearlyLines = (range) => {
+    const lines = [];
+    for (let y = range.start; y <= range.end; y += 1) {
+      const tone = y % 3 === 0 ? '확장' : y % 3 === 1 ? '정비' : '결실';
+      lines.push(`<li><strong>${y}세</strong> · ${tone} 흐름: ${tone === '확장' ? '새 제안과 이동 운이 강함' : tone === '정비' ? '관계·건강 루틴 정리 우선' : '성과 회수와 자산화 집중'}</li>`);
+    }
+    return `<ul class="daewoon-yearly">${lines.join('')}</ul>`;
+  };
+
   return {
     age,
-    curRange: `${curStartAge}세 ~ ${curEndAge}세`,
-    nextRange: `${nextStartAge}세 ~ ${nextEndAge}세`,
-    current: `${age}세 기준 현재 10년 흐름은 ${names[strongKey]} 기운 중심이야. 주도권과 리듬 관리가 핵심이야.`,
-    next: `다음 10년은 ${names[weakKey]} 보완이 성패를 가를 가능성이 커. 속도보다 균형 관리가 중요해.`,
-    prep: `지금부터 12개월은 문서화·건강 리듬·관계 에너지 분배 3가지를 고정해.`
+    past: { ...past, text: pastText, tip: '#기반정리 #패턴복기 #실수자산화', yearly: yearlyLines(past) },
+    current: { ...current, text: currentText, tip: hasPyeonjae ? '#사업확장 #큰재물흐름 #리스크관리' : '#문서화 #평판관리 #체력관리', yearly: yearlyLines(current) },
+    future: { ...future, text: futureText, tip: '#결실관리 #자산배분 #관계정비', yearly: yearlyLines(future) }
   };
 }
 
@@ -129,15 +161,36 @@ function render() {
   <div class="fortune-tags">${p.map((x, i) => `<span>${['시','일','월','년'][i]}주 ${x?.ganzi || '-'} · 십신 ${x?.stemSipsin || '-'} · 운성 ${x?.unseong || '-'}</span>`).join('')}</div>`;
 
   const { rows, strong, weak } = buildFortuneRows(p, report.name || '당신');
-  const daewoon = buildDaewoon(report, p);
+  const daewoon = buildDaewoonNarrative(report, p);
 
   totalBox.innerHTML = `<h3>🌠 전체총운 해설</h3>
     <p class="small">중심 기운 <strong>${strong}</strong> · 보완 기운 <strong>${weak}</strong></p>
     <div class="total-fortune-list">${rows.map((r, i) => `<details class="fortune-acc" ${i === 0 ? 'open' : ''}><summary><span class="icon">${r.icon}</span><span class="txt">${r.summary}</span><span class="arr">⌄</span></summary><div class="fortune-body"><strong>${r.title}</strong><p>${r.body}</p><p>${r.guide}</p><div class="fortune-tags">${r.tags.map((t) => `<span>${t}</span>`).join('')}</div></div></details>`).join('')}</div>
-    <div class="daewoon-grid" style="margin-top:14px;">
-      <article class="daewoon-card current"><small>현재 대운</small><strong>${daewoon.curRange}</strong><p>${daewoon.current}</p></article>
-      <article class="daewoon-card next"><small>다음 대운</small><strong>${daewoon.nextRange}</strong><p>${daewoon.next}</p></article>
-      <article class="daewoon-card prep"><small>미리 준비</small><strong>현재 ${daewoon.age}세</strong><p>${daewoon.prep}</p></article>
+
+    <h3 style="margin-top:18px;">🧭 연령별 대운 타임라인</h3>
+    <p class="small">현재 ${daewoon.age}세 기준 · 현재 대운을 최상단으로 강조했어.</p>
+    <div class="daewoon-grid daewoon-story-grid" style="margin-top:10px;">
+      <article class="daewoon-card current">
+        <small>🔥 현재 대운 (최우선)</small>
+        <strong>${daewoon.current.label}</strong>
+        <p>${daewoon.current.text}</p>
+        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.current.tip}</p>
+        <details class="daewoon-detail" open><summary>연도별 상세 흐름 보기</summary>${daewoon.current.yearly}</details>
+      </article>
+      <article class="daewoon-card past">
+        <small>🕰 지나온 대운</small>
+        <strong>${daewoon.past.label}</strong>
+        <p>${daewoon.past.text}</p>
+        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.past.tip}</p>
+        <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.past.yearly}</details>
+      </article>
+      <article class="daewoon-card future">
+        <small>🔜 다가올 대운</small>
+        <strong>${daewoon.future.label}</strong>
+        <p>${daewoon.future.text}</p>
+        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.future.tip}</p>
+        <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.future.yearly}</details>
+      </article>
     </div>`;
 
   engineBox.innerHTML = `<h3>🧮 엔진 정보</h3>
