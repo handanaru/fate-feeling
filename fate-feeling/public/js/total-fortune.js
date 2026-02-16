@@ -249,6 +249,14 @@ function renderInputForm(intake = {}) {
   });
 }
 
+function scrollToConfirmBox() {
+  if (!tfConfirmBox) return;
+  requestAnimationFrame(() => {
+    tfConfirmBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => window.scrollBy({ top: -72, behavior: 'smooth' }), 120);
+  });
+}
+
 function renderConfirm(payload) {
   if (!tfConfirmBox) return;
   tfConfirmBox.hidden = false;
@@ -265,6 +273,8 @@ function renderConfirm(payload) {
       <p><strong>적용 표준시</strong><span>${kstTime} · ${norm.tz}</span></p>
     </div>
     <div class="cta-row"><button class="btn secondary" id="tfEditBtn" type="button">수정하기</button><button class="btn" id="tfRunBtn" type="button">맞습니다 · 분석하기</button></div>`;
+
+  scrollToConfirmBox();
 
   document.getElementById('tfEditBtn')?.addEventListener('click', () => {
     tfConfirmBox.hidden = true;
