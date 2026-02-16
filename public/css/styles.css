@@ -2651,6 +2651,91 @@ body.tf-nav-open { overflow: hidden; }
   0%, 100% { transform: scale(.92); opacity: .7; }
   50% { transform: scale(1.15); opacity: 1; }
 }
+
+.tf-mobile-dock { display: none; }
+
+@media (max-width: 768px) {
+  .total-fortune-page .container.reveal-page {
+    padding: 12px 12px calc(96px + env(safe-area-inset-bottom));
+  }
+  .total-fortune-page .minimal-report-header {
+    position: sticky;
+    top: 6px;
+    z-index: 20;
+    padding: 8px 10px;
+    border-radius: 14px;
+    background: rgba(10, 10, 24, .64);
+    backdrop-filter: blur(10px);
+  }
+  .total-fortune-page .minimal-report-header .btn {
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  .total-fortune-page .report-title { font-size: 14px; }
+
+  .total-fortune-page .card {
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .total-fortune-page .fortune-acc summary .txt,
+  .total-fortune-page .fortune-body p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .total-fortune-page .tf-journey-drawer {
+    top: auto;
+    bottom: 0;
+    width: 100vw;
+    height: min(82dvh, 760px);
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,.2);
+    border-radius: 18px 18px 0 0;
+    animation: tfBottomSheetIn .24s ease both;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .tf-mobile-dock {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(13,12,27,.82);
+    backdrop-filter: blur(12px);
+  }
+  .tf-mobile-dock .item {
+    min-height: 52px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #d8def5;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid transparent;
+  }
+  .tf-mobile-dock .item span { font-size: 15px; }
+  .tf-mobile-dock .item.active {
+    color: #f3d37a;
+    border-color: rgba(243,211,122,.5);
+    background: rgba(243,211,122,.12);
+    box-shadow: 0 0 12px rgba(243,211,122,.25);
+  }
+}
+
+@keyframes tfBottomSheetIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 .mode-hero-badge {
   display: inline-flex;
   align-items: center;
