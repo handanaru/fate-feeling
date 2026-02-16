@@ -4986,3 +4986,39 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     line-height: 1.56;
   }
 }
+
+/* Global mystic BGM toggle */
+.ff-bgm-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+  z-index: 2500;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(20, 16, 34, .78);
+  color: #efe7ff;
+  border-radius: 999px;
+  min-height: 40px;
+  padding: 8px 12px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.28);
+  font-weight: 700;
+  font-size: 12px;
+}
+.ff-bgm-toggle.on {
+  border-color: rgba(245,210,120,.68);
+  color: #ffd88d;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3), 0 0 0 1px rgba(245,210,120,.18) inset;
+}
+.ff-bgm-toggle b { font-size: 11px; letter-spacing: .03em; }
+@media (max-width: 640px) {
+  .ff-bgm-toggle {
+    right: 10px;
+    bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+}

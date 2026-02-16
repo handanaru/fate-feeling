@@ -427,6 +427,119 @@
     });
   }
 
+
+  function ensureMysticBgm() {
+    if (window.__ffBgmMounted) return;
+    window.__ffBgmMounted = true;
+
+    const key = 'ff-bgm-on';
+    let enabled = localStorage.getItem(key) === '1';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ff-bgm-toggle';
+    btn.setAttribute('aria-label', '배경음악 켜기/끄기');
+    document.body.appendChild(btn);
+
+    let ctx = null;
+    let master = null;
+    let nodes = [];
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function setUi() {
+      btn.classList.toggle('on', enabled);
+      btn.innerHTML = enabled ? '<span>🎵</span><b>BGM ON</b>' : '<span>🔇</span><b>BGM OFF</b>';
+    }
+
+    function stopAmbient() {
+      nodes.forEach((n) => {
+        try { n.stop?.(); } catch (_) {}
+        try { n.disconnect?.(); } catch (_) {}
+      });
+      nodes = [];
+      if (master) {
+        try { master.disconnect(); } catch (_) {}
+      }
+      master = null;
+    }
+
+    async function startAmbient() {
+      if (!enabled) return;
+      if (!ctx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        ctx = new Ctx();
+      }
+      if (ctx.state === 'suspended') {
+        try { await ctx.resume(); } catch (_) {}
+      }
+
+      stopAmbient();
+      master = ctx.createGain();
+      master.gain.value = 0.02;
+      master.connect(ctx.destination);
+
+      const freqs = [174.61, 220, 261.63];
+      freqs.forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 900 + i * 220;
+        osc.type = i === 0 ? 'sine' : 'triangle';
+        osc.frequency.value = f;
+        g.gain.value = i === 0 ? 0.45 : 0.23;
+        osc.connect(filter);
+        filter.connect(g);
+        g.connect(master);
+        osc.start();
+        nodes.push(osc, g, filter);
+      });
+
+      if (!reduced) {
+        const lfo = ctx.createOscillator();
+        const lfoGain = ctx.createGain();
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.08;
+        lfoGain.gain.value = 0.008;
+        lfo.connect(lfoGain);
+        lfoGain.connect(master.gain);
+        lfo.start();
+        nodes.push(lfo, lfoGain);
+      }
+    }
+
+    async function applyState() {
+      setUi();
+      if (enabled) {
+        await startAmbient();
+        window.ffToast?.('신비로운 배경음악 켰어 ✨');
+      } else {
+        stopAmbient();
+        window.ffToast?.('배경음악 껐어');
+      }
+    }
+
+    btn.addEventListener('click', async () => {
+      enabled = !enabled;
+      localStorage.setItem(key, enabled ? '1' : '0');
+      await applyState();
+    });
+
+    setUi();
+    if (enabled) {
+      // autoplay 제한 대응: 첫 사용자 인터랙션에서 시작
+      const boot = async () => {
+        window.removeEventListener('pointerdown', boot);
+        window.removeEventListener('keydown', boot);
+        await startAmbient();
+      };
+      window.addEventListener('pointerdown', boot, { once: true });
+      window.addEventListener('keydown', boot, { once: true });
+    }
+  }
+
   function init() {
     ensurePhaseStyles();
     attachStarfield();
@@ -437,6 +550,7 @@
     ensureTfMobileDock();
     ensureExpertWaitlist();
     ensureQuickMenu();
+    ensureMysticBgm();
     initCardParallax();
   }
 
