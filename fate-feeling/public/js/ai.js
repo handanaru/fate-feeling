@@ -2,6 +2,7 @@ const chatPanel = document.getElementById('chatPanel');
 const sendBtn = document.getElementById('coachBtn');
 const situationInput = document.getElementById('situation');
 const goalInput = document.getElementById('goal');
+const goalChips = [...document.querySelectorAll('.goal-chip[data-goal]')];
 
 function addBubble(text, role = 'ai', extraClass = '') {
   const bubble = document.createElement('div');
@@ -60,7 +61,7 @@ async function typeBubbleHtml(html) {
 function sendMessage() {
   const situation = situationInput.value.trim();
   const goal = goalInput.value.trim();
-  if (!situation) return alert('메시지를 입력해주세요.');
+  if (!situation) return alert('고민 내용을 먼저 적어줘.');
 
   addBubble(situation, 'user');
   situationInput.value = '';
@@ -71,6 +72,21 @@ function sendMessage() {
     await typeBubbleHtml(buildAdvice(situation, goal));
   }, 850);
 }
+
+goalChips.forEach((chip) => {
+  chip.addEventListener('click', () => {
+    goalChips.forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    goalInput.value = chip.dataset.goal || '';
+  });
+});
+
+goalInput.addEventListener('input', () => {
+  goalChips.forEach((c) => {
+    const active = (c.dataset.goal || '') === goalInput.value.trim();
+    c.classList.toggle('active', active);
+  });
+});
 
 sendBtn.addEventListener('click', sendMessage);
 situationInput.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') sendMessage(); });

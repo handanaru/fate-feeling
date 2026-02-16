@@ -596,6 +596,35 @@ input[type="date"]::-webkit-date-and-time-value {
   font-size: 12px;
   padding: 6px 10px;
 }
+.ai-intake-card #situation {
+  min-height: 150px;
+  resize: vertical;
+}
+.goal-chip-row {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.goal-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.04);
+  color: #dfe7ff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 10px;
+}
+.goal-chip.active {
+  color: #ffd88d;
+  border-color: rgba(255,216,141,.48);
+  background: rgba(255,216,141,.08);
+}
+.ai-send-btn {
+  background: linear-gradient(135deg, #f5d57a, #d89642, #9264ff) !important;
+  color: #2a1800 !important;
+  font-weight: 800;
+}
 
 /* EXPERT TAROT */
 .tarot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
