@@ -379,6 +379,7 @@
           <a href="${getTotalMenuHref()}">🔮 전체총운</a>
           <a href="/fortune-reports.html">🗺️ 내 보관함</a>
           <a href="/ai.html">🤖 AI 상담</a>
+          <a href="/invest-sector.html">📈 투자 섹터</a>
           <button type="button" class="btn secondary" data-close>닫기</button>
         </div>
       `;
