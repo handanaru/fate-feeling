@@ -179,47 +179,6 @@ function render() {
   renderWave(theme, daily);
 }
 
-function ensureSavePreviewModal() {
-  let modal = document.getElementById('savePreviewModal');
-  if (modal) return modal;
-  modal = document.createElement('div');
-  modal.id = 'savePreviewModal';
-  modal.className = 'save-preview-modal';
-  modal.hidden = true;
-  modal.innerHTML = `
-    <div class="save-preview-sheet">
-      <p>자동 다운로드가 안 되면 아래 이미지를 길게 눌러 저장해줘.</p>
-      <img id="savePreviewImg" alt="저장용 카드 미리보기" />
-      <div class="cta-row">
-        <button type="button" class="btn secondary" id="savePreviewCloseBtn" data-close>닫기</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  const close = () => { modal.hidden = true; };
-  const closeBtn = modal.querySelector('#savePreviewCloseBtn');
-  closeBtn?.addEventListener('click', close);
-
-  modal.addEventListener('click', (e) => {
-    const t = e.target;
-    if (!(t instanceof Element)) return;
-    if (t === modal || t.closest('[data-close]')) close();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.hidden) close();
-  });
-  return modal;
-}
-
-function showSavePreview(dataUrl) {
-  const modal = ensureSavePreviewModal();
-  const img = document.getElementById('savePreviewImg');
-  if (img) img.src = dataUrl;
-  modal.hidden = false;
-}
-
 async function saveCardImage() {
   if (!window.html2canvas || !cardEl) {
     window.ffToast?.('이미지 저장 기능을 준비 중이야.');
@@ -256,8 +215,7 @@ async function saveCardImage() {
     link.click();
     link.remove();
 
-    showSavePreview(dataUrl);
-    window.ffToast?.('다운로드 시도했어. 안 되면 아래 미리보기 이미지를 길게 눌러 저장해줘 ✨');
+    window.ffToast?.('이미지 다운로드를 시작했어 ✨');
   } catch (e) {
     console.error(e);
     window.ffToast?.('이미지 저장에 실패했어. 한 번 더 시도해줘.');
