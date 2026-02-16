@@ -170,12 +170,19 @@ function render() {
     .reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
   const mainElem = Object.entries(elemCount).sort((a, b) => b[1] - a[1])[0]?.[0] || 'earth';
   const elemIcon = { wood: '🌿', fire: '🔥', earth: '⛰️', metal: '⚔️', water: '🌊' }[mainElem] || '✨';
+  const progressTone = {
+    wood: ['#4ade80', '#a3e635'],
+    fire: ['#FF4D00', '#FFD700'],
+    earth: ['#f59e0b', '#fde68a'],
+    metal: ['#cbd5e1', '#f8fafc'],
+    water: ['#38bdf8', '#60a5fa']
+  }[mainElem] || ['#FF4D00', '#FFD700'];
   const birthRaw = String(report.birth || '');
   const birthFmt = /^\d{8}$/.test(birthRaw) ? `${birthRaw.slice(0,4)}.${birthRaw.slice(4,6)}.${birthRaw.slice(6,8)}` : birthRaw.replace(/-/g, '.');
   const stems = p.map((x) => x?.stem || '·').join(' ');
   const branches = p.map((x) => x?.branch || '·').join(' ');
 
-  metaBox.innerHTML = `<div class="fr-hero-card fr-hero-${mainElem}">
+  metaBox.innerHTML = `<div class="fr-hero-card fr-hero-${mainElem}" style="--progress-start:${progressTone[0]};--progress-end:${progressTone[1]};">
     <div class="fr-hero-top">
       <span class="fr-elem-badge">${elemIcon} 핵심 ${mainElem}</span>
       <h3>${report.name}님의 전체총운 리포트</h3>
@@ -190,6 +197,8 @@ function render() {
       <p>${stems}</p>
       <p>${branches}</p>
     </div>
+    <div class="fr-progress-meta">Analysis 100% Complete ✔️</div>
+    <div class="fr-progress-track"><span class="fr-progress-fill"></span></div>
   </div>`;
 
   const stemRow = p.map((x, i) => `<div class="pillar-cell ${x?.stemElement || 'earth'} fr-pillar-big ${i === 1 ? 'fr-day-col' : ''}" data-tip="${labels[i]}주 천간 ${x?.stem || '-'} · 십신 ${x?.stemSipsin || '-'}"><small>${labels[i]}주 천간</small><strong>${x?.stem || '-'}</strong><em>${x?.stemSipsin || '-'}</em></div>`).join('');

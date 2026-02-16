@@ -3752,6 +3752,45 @@ body.tf-nav-open { overflow: hidden; }
   font-family: var(--font-number);
   font-size: 13px;
 }
+.fr-progress-meta {
+  margin-top: 10px;
+  font-size: 10px;
+  color: rgba(233,240,255,.74);
+  text-align: right;
+}
+.fr-progress-track {
+  margin-top: 6px;
+  height: 3px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  overflow: hidden;
+}
+.fr-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--progress-start, #FF4D00), var(--progress-end, #FFD700));
+  position: relative;
+  animation: frProgressFill 1.5s ease-out forwards;
+}
+.fr-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--progress-end, #FFD700);
+  box-shadow: 0 0 8px var(--progress-end, #FFD700);
+}
+@keyframes frProgressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
 .fr-hero-fire { box-shadow: 0 0 0 1px rgba(255,146,102,.2) inset, 0 0 20px rgba(255,120,86,.16); }
 .fr-hero-water { box-shadow: 0 0 0 1px rgba(121,200,255,.2) inset, 0 0 20px rgba(121,200,255,.16); }
 .fr-hero-wood { box-shadow: 0 0 0 1px rgba(114,241,184,.2) inset, 0 0 20px rgba(114,241,184,.16); }
@@ -4078,6 +4117,7 @@ body.tf-nav-open { overflow: hidden; }
   .fr-hero-top h3 { font-size: 23px; }
   .fr-meta-chips span { font-size: 11px; }
   .fr-seal-mini p { font-size: 12px; }
+  .fr-progress-meta { font-size: 9px; }
 }
 
 @media (max-width: 640px) {
