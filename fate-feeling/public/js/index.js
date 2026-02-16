@@ -53,7 +53,8 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     birth: birth || prev.birth || '2000-01-01',
     birthTime: normalizedBirthTime,
     birthTimeUnknown: normalizedBirthTime.includes('모름'),
-    birthPlace: birthPlace || prev.birthPlace || '서울',
+    birthPlace: birthPlace || prev.birthPlace || '서울특별시',
+    birthCity: birthPlace || prev.birthCity || prev.birthPlace || '서울특별시',
     concern: concern || prev.concern || '일반 궁합',
     mode: mode || prev.mode || 'saju',
     mbti: prev.mbti || 'INFP',
@@ -62,6 +63,8 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     partnerBirth: partner.birth || prev.partnerBirth || '',
     partnerBirthTime: partner.birthTime || prev.partnerBirthTime || '',
     partnerBirthTimeUnknown: !!partner.birthTimeUnknown,
+    partnerBirthPlace: partner.birthPlace || prev.partnerBirthPlace || '',
+    partnerBirthCity: partner.birthPlace || prev.partnerBirthCity || prev.partnerBirthPlace || '',
     loveState: loveState || prev.loveState || '',
     agree: true
   };
@@ -365,6 +368,29 @@ window.addEventListener('mousemove', (e) => {
   spawnSpark(e.clientX, e.clientY);
 });
 
+function makeDirectSajuResult(concern = '일반 궁합', mode = 'saju') {
+  const byConcern = {
+    '일반 궁합': { finalScore: 78, recoveryIndex: 76, reunionForce: 79, emotionTemp: 74, gradeBand: 'B' },
+    '결혼 운세': { finalScore: 80, recoveryIndex: 77, reunionForce: 82, emotionTemp: 75, gradeBand: 'B' },
+    '금전/재산': { finalScore: 76, recoveryIndex: 70, reunionForce: 74, emotionTemp: 72, gradeBand: 'B' },
+    '취업/직장': { finalScore: 74, recoveryIndex: 73, reunionForce: 71, emotionTemp: 70, gradeBand: 'B' },
+    '사업/창업': { finalScore: 75, recoveryIndex: 72, reunionForce: 73, emotionTemp: 71, gradeBand: 'B' },
+    '애정운': { finalScore: 79, recoveryIndex: 78, reunionForce: 80, emotionTemp: 76, gradeBand: 'B' },
+    '재회운': { finalScore: 72, recoveryIndex: 74, reunionForce: 68, emotionTemp: 73, gradeBand: 'C' },
+    '속궁합': { finalScore: 77, recoveryIndex: 75, reunionForce: 78, emotionTemp: 79, gradeBand: 'B' },
+    '키스 궁합': { finalScore: 76, recoveryIndex: 74, reunionForce: 77, emotionTemp: 78, gradeBand: 'B' }
+  };
+  const pick = byConcern[concern] || byConcern['일반 궁합'];
+  return {
+    ok: true,
+    troubleType: concern,
+    troubleLabel: concern,
+    mode,
+    modeLabel: modeLabel(mode),
+    ...pick
+  };
+}
+
 firstImpactForm?.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -380,6 +406,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const partnerBirth = (document.getElementById('partnerBirth')?.value || '').trim();
   const partnerBirthTime = (document.getElementById('partnerBirthTime')?.value || '').trim();
   const partnerBirthTimeUnknown = !!document.getElementById('partnerBirthTimeUnknown')?.checked;
+  const partnerBirthPlace = (document.getElementById('partnerBirthPlace')?.value || '').trim();
   const loveState = getLoveState();
 
   if (!name) return alert('이름을 입력해줘.');
@@ -392,6 +419,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   if (requiresPartner(concern, loveState)) {
     if (!partnerName) return alert('상대 이름을 입력해줘.');
     if (!partnerBirth) return alert('상대 생년월일을 입력해줘.');
+    if (!partnerBirthPlace) return alert('상대 출생지를 입력해줘.');
   }
 
   saveIntake(name, birth, birthTime, birthPlace, concern, mode, {
@@ -399,8 +427,17 @@ firstImpactForm?.addEventListener('submit', (e) => {
     gender: partnerGender,
     birth: partnerBirth,
     birthTime: partnerBirthTime,
-    birthTimeUnknown: partnerBirthTimeUnknown
+    birthTimeUnknown: partnerBirthTimeUnknown,
+    birthPlace: partnerBirthPlace
   }, gender, loveState);
+
+  // 사주 관점은 설문을 거치지 않고 만세력 기반으로 바로 리포트 진입
+  if (mode === 'saju') {
+    localStorage.setItem('ff-result', JSON.stringify(makeDirectSajuResult(concern, mode)));
+    window.location.replace('/result.html');
+    return;
+  }
+
   window.location.replace('/test.html');
 });
 

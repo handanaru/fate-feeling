@@ -177,9 +177,9 @@ function renderPillarsGrid(data, concern = '') {
   const toneMap = { wood: 'wood', fire: 'fire', earth: 'earth', metal: 'metal', water: 'water' };
   const renderPerson = (title, pillars = []) => {
     const safe = pillars.slice(0, 4);
-    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong></div>`).join('');
-    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong></div>`).join('');
-    return `<article class="pillars-person"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div></article>`;
+    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong><em>${p.stemSipsin || '-'}</em></div>`).join('');
+    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong><em>${p.unseong || p.branchSipsin || '-'}</em></div>`).join('');
+    return `<article class="pillars-person pillars-result"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div></article>`;
   };
 
   const ruleMapRows = [
@@ -190,10 +190,17 @@ function renderPillarsGrid(data, concern = '') {
     ['경청 반응 상승형', '수(水)→목(木) 흐름', '질문·경청형 대화 반응 가점']
   ];
 
+  const hasPartner = concern === '일반 궁합' && data?.partner?.pillars?.length;
+  const myDay = data?.self?.pillars?.[1]?.ganzi || '-';
+  const partnerDay = data?.partner?.pillars?.[1]?.ganzi || '-';
+  const compScore = hasPartner ? Math.max(55, Math.min(96, Math.round((data?.score || data?.finalScore || 78)))) : null;
+
   pillarsBox.innerHTML = `<h3>✨ 두 분의 타고난 기운 (사주 원국)</h3>
-    <div class="pillars-compare">
+    <p class="small">표는 제거하고 8개 원국 카드만 대칭으로 비교해. 핵심은 일주(⭐)야.</p>
+    <div class="pillars-compare pillars-compare-mirror ${hasPartner ? 'is-pair' : ''}">
       ${renderPerson('나', data?.self?.pillars || [])}
-      ${(concern === '일반 궁합' && data?.partner?.pillars?.length) ? renderPerson('상대방', data.partner.pillars) : ''}
+      ${hasPartner ? `<aside class="pillars-bridge"><strong>${myDay}</strong><span>💖 궁합 연결</span><strong>${partnerDay}</strong><em>${compScore}%</em></aside>` : ''}
+      ${hasPartner ? renderPerson('상대방', data.partner.pillars) : ''}
     </div>
     <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루)</p>
     <details class="rule-map">
@@ -384,7 +391,8 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       self: {
         birth: intake.birth,
         birthTime: intake.birthTime,
-        gender: intake.gender
+        gender: intake.gender,
+        birthCity: intake.birthCity || intake.birthPlace || '서울특별시'
       }
     };
     const needPartner = concern === '일반 궁합' && intake.partnerBirth;
@@ -392,24 +400,20 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
       payload.partner = {
         birth: intake.partnerBirth,
         birthTime: intake.partnerBirthTime,
-        gender: intake.partnerGender
+        gender: intake.partnerGender,
+        birthCity: intake.partnerBirthCity || intake.partnerBirthPlace || intake.birthCity || intake.birthPlace || '서울특별시'
       };
     }
 
-    let data;
-    try {
-      const res = await fetch('/api/orrery/saju', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const ct = res.headers.get('content-type') || '';
-      if (!res.ok || !ct.includes('application/json')) throw new Error('api_unavailable');
-      data = await res.json();
-      if (!data?.ok) throw new Error(data?.error || 'engine error');
-    } catch (_) {
-      data = await calculateClientSideOrrery(intake, concern);
-    }
+    const res = await fetch('/api/orrery/saju', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const ct = res.headers.get('content-type') || '';
+    if (!res.ok || !ct.includes('application/json')) throw new Error('api_unavailable');
+    const data = await res.json();
+    if (!data?.ok) throw new Error(data?.error || 'engine error');
 
     const selfPillars = (data.self?.pillars || []).map((p) => p.ganzi).filter(Boolean);
     const partnerPillars = (data.partner?.pillars || []).map((p) => p.ganzi).filter(Boolean);
@@ -417,6 +421,7 @@ async function renderOrreryEngineBox(intake = {}, concern = '') {
     ossEngineBox.innerHTML = `<h3>🧮 오픈소스 엔진 기반 원국</h3>
       <p class="small">${selfPillars.length ? `내 사주: <strong>${selfPillars.join(' · ')}</strong>` : '내 사주 데이터 계산 대기중'}</p>
       ${partnerPillars.length ? `<p class="small">상대 사주: <strong>${partnerPillars.join(' · ')}</strong></p>` : ''}
+      <p class="small">입력 기준: ${payload.self.birth || '-'} ${payload.self.birthTime || '모름'} · 한국/${payload.self.birthCity || '서울특별시'} · 양력</p>
       <p class="small">엔진: ${data.engine} · 라이선스: ${data.license}</p>
       <p class="small"><a href="${data.sourceUrl}" target="_blank" rel="noopener">소스코드 공개 저장소 보기</a></p>`;
 

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전체총운 리포트 목록 | Fate & Feeling</title>
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce57" />
+</head>
+<body data-no-global-nav="1" class="total-fortune-page">
+  <div class="container reveal-page ziwei-report-page">
+    <header class="minimal-report-header ff-global-gnb">
+      <a class="ff-circle-btn" href="/total-fortune.html" aria-label="입력으로">‹</a>
+      <div class="report-title-wrap">
+        <div class="brand">Fate & Feeling</div>
+      </div>
+      <button class="ff-circle-btn" type="button" onclick="toggleTheme()" aria-label="라이트/다크 전환">◐</button>
+    </header>
+
+    <section class="card">
+      <h3>📚 저장된 리포트</h3>
+      <p class="small">여러 명/여러 시점의 사주 리포트를 여기서 관리해.</p>
+    </section>
+
+    <section id="fortuneReportList" class="fortune-report-list"></section>
+  </div>
+
+  <script src="/js/common.js?v=navdock2"></script>
+  <script src="/js/fortune-reports.js?v=fr1"></script>
+</body>
+</html>

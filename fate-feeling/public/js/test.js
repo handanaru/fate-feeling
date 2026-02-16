@@ -127,6 +127,12 @@ const closeResultReadyModal = document.getElementById('closeResultReadyModal');
 const goResultNowBtn = document.getElementById('goResultNowBtn');
 
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
+
+if ((intake.mode || 'saju') === 'saju') {
+  // 사주 관점은 설문 없이 만세력 기반 리포트로 바로 이동
+  location.replace('/result.html');
+}
+
 const userName = intake.name || '나';
 const partnerName = intake.partnerName || '상대';
 let concernLabelDisplay = intake.concern || '결혼 운세';

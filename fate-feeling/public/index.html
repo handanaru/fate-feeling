@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The First Impact | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=onboard11" />
+  <link rel="stylesheet" href="/css/styles.css?v=onboard13" />
 </head>
 <body>
   <div class="container first-impact-page">
@@ -103,6 +103,9 @@
           <label for="partnerBirthTime">상대 출생시간</label>
           <input id="partnerBirthTime" placeholder="예: 22:10" />
           <label class="tiny-check"><input type="checkbox" id="partnerBirthTimeUnknown" /> 상대방 태어난 시간 모름</label>
+
+          <label for="partnerBirthPlace">상대 출생지</label>
+          <input id="partnerBirthPlace" placeholder="예: 서울" />
         </div>
 
         <label>오늘 어떤 고민을 풀어볼까?</label>
@@ -161,12 +164,28 @@
         </div>
       </form>
     </section>
+
+    <section class="card consult-hub-card">
+      <h3>상담 센터</h3>
+      <p class="small">지금은 AI 상담부터 바로 이용할 수 있어.</p>
+      <div class="consult-hub-actions">
+        <a class="btn" href="/ai.html">🤖 AI 상담 시작하기</a>
+        <button class="btn secondary is-coming" type="button" data-expert-waitlist>👩‍⚕️ 전문가 상담 · 오픈 알림 신청</button>
+      </div>
+    </section>
   </div>
 
   <div class="modal" id="firstVisitModal" hidden>
     <div class="modal-card onboarding-modal">
       <h3>어떤 관점으로 분석해볼까?</h3>
       <p class="small">사주 · 타로 · 자미두수 · 점성술 · MBTI 전부 지원해.</p>
+      <button type="button" class="total-fortune-hero" id="onboardingTotalFortuneBtn">
+        <span class="badge">종합 분석</span>
+        <strong>✨ 2026 전체 총운 바로가기</strong>
+        <em>올해의 금전 · 애정 · 건강 흐름을 한 번에</em>
+        <small>현재 가장 많은 유저가 확인 중</small>
+      </button>
+      <p class="small onboarding-divider">또는 특정 고민 선택하기</p>
       <div class="audience-tabs" id="audienceTabs">
         <button type="button" class="active" data-audience="general">일반 버전</button>
         <button type="button" data-audience="adult">19세 버전</button>
@@ -192,9 +211,6 @@
         <button type="button" data-mode="astro">◎ 점성술</button>
       </div>
       <p class="small" id="onboardingModeStatus">현재 관점: 사주</p>
-      <div class="onboarding-chips" id="onboardingExtraButtons">
-        <button type="button" id="onboardingTotalFortuneBtn">🌠 전체총운 바로가기</button>
-      </div>
       <label class="tiny-check"><input type="checkbox" id="hideOnboardingForever" /> 다시 보지 않기</label>
       <div class="cta-row">
         <button class="btn secondary" type="button" id="onboardingPreviewBtn">관점 미리보기</button>
@@ -232,12 +248,11 @@
 
   <nav class="home-bottom-nav" aria-label="하단 탐색">
     <a href="/">🏠 홈</a>
-    <a href="/experts.html">🔮 상담사</a>
-    <a href="/result.html">👤 내운세</a>
     <a href="/total-fortune.html">🌠 전체총운</a>
+    <a href="/result.html">👤 결과리포트</a>
   </nav>
 
-  <script src="/js/common.js?v=navclean1"></script>
-  <script src="/js/index.js?v=modeflow31"></script>
+  <script src="/js/common.js?v=navclean2"></script>
+  <script src="/js/index.js?v=modeflow35"></script>
 </body>
 </html>
