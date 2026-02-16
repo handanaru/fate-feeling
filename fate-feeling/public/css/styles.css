@@ -4896,3 +4896,93 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     font-size: 11px;
   }
 }
+
+
+/* AI premium visual pass */
+.ai-page {
+  background:
+    radial-gradient(120% 90% at 10% 0%, rgba(111,77,184,.22), transparent 48%),
+    radial-gradient(110% 100% at 90% 12%, rgba(38,132,160,.16), transparent 52%),
+    linear-gradient(180deg, #0b0b15 0%, #15142a 48%, #1a1a2e 100%);
+}
+.ai-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .26;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,.06) 0 1px, transparent 1px);
+  background-size: 160px 160px, 210px 210px;
+}
+.ai-page .card {
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 16px 34px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.03);
+  backdrop-filter: blur(10px);
+}
+.ai-page .consult-status-card h1 {
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+.ai-page .consult-status-card p {
+  color: rgba(225,232,248,.84);
+  font-size: 15px;
+  line-height: 1.62;
+}
+.ai-page .ai-intake-card input,
+.ai-page .ai-intake-card textarea {
+  border: 1px solid rgba(255,255,255,.16) !important;
+  background: rgba(20,20,30,.78) !important;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.ai-page .ai-intake-card input:focus,
+.ai-page .ai-intake-card textarea:focus {
+  border-color: rgba(255,216,141,.86) !important;
+  box-shadow: 0 0 0 1px rgba(255,216,141,.4), 0 0 16px rgba(255,216,141,.22);
+  transform: translateY(-1px);
+}
+.ai-page .ai-send-btn {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f7d87e, #df9c55, #b6778f) !important;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3), 0 0 0 1px rgba(255,255,255,.16) inset;
+}
+.ai-page .ai-send-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: aiShimmer 2.8s ease-in-out infinite;
+}
+@keyframes aiShimmer {
+  0% { left: -120%; }
+  55% { left: 130%; }
+  100% { left: 130%; }
+}
+.ai-page .goal-chip {
+  background: transparent;
+  border: 1px solid rgba(246,212,132,.45);
+  color: #eadfb8;
+}
+.ai-page .goal-chip.active {
+  background: rgba(255,216,141,.08);
+  border-color: rgba(255,216,141,.82);
+  box-shadow: inset 0 0 0 1px rgba(255,216,141,.36), 0 0 12px rgba(255,216,141,.16);
+}
+@media (max-width: 640px) {
+  .ai-page .card {
+    border-radius: 18px;
+  }
+  .ai-page .consult-status-card h1 {
+    font-size: 36px;
+  }
+  .ai-page .consult-status-card p {
+    font-size: 14px;
+    line-height: 1.56;
+  }
+}
