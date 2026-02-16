@@ -153,26 +153,9 @@
   }
 
   function attachGlobalNav() {
-    if (document.body?.dataset?.noGlobalNav === '1') return;
-    if (window.location.pathname === '/') return;
-    const legacyPreviewPaths = new Set(['/saju.html', '/tarot.html', '/astro.html', '/mbti.html', '/ziwei.html', '/philosophy.html', '/community.html', '/experts.html']);
-    if (legacyPreviewPaths.has(window.location.pathname)) return;
-    const header = document.querySelector('header');
-    if (!header) return;
-
-    if (!document.querySelector('.top-nav')) {
-      const topNav = document.createElement('nav');
-      topNav.className = 'top-nav';
-      topNav.innerHTML = buildLinks();
-      header.insertAdjacentElement('afterend', topNav);
-    }
-
-    if (!document.querySelector('.bottom-nav')) {
-      const bottomNav = document.createElement('nav');
-      bottomNav.className = 'bottom-nav';
-      bottomNav.innerHTML = buildLinks(mobileBottomNavItems);
-      document.body.appendChild(bottomNav);
-    }
+    // Legacy chip-style global nav is deprecated.
+    // All pages now use per-page header + unified quick menu/dock only.
+    return;
   }
 
   function getToast() {
