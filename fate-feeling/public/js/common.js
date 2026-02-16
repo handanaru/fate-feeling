@@ -379,6 +379,7 @@
           <a href="${getTotalMenuHref()}">🔮 전체총운</a>
           <a href="/fortune-reports.html">🗺️ 내 보관함</a>
           <a href="/ai.html">🤖 AI 상담</a>
+          <a href="/mode-overlap.html">🧩 겹쳐보기</a>
           <a href="/invest-sector.html">📈 투자 섹터</a>
           <button type="button" class="btn secondary" data-close>닫기</button>
         </div>
@@ -580,6 +581,35 @@
       window.addEventListener('keydown', boot, { once: true });
     }
   }
+
+
+  window.ffStoreModeSnapshot = function (result = {}, intake = null) {
+    try {
+      const mode = String(result?.mode || '').trim();
+      if (!mode) return;
+      const currentIntake = intake || (() => {
+        try { return JSON.parse(localStorage.getItem('ff-intake') || '{}'); } catch (_) { return {}; }
+      })();
+      const payload = {
+        mode,
+        modeLabel: result.modeLabel || ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술' }[mode] || mode),
+        concern: result.troubleLabel || result.troubleType || currentIntake.concern || '일반 궁합',
+        type: result.type || '균형형',
+        finalScore: Number(result.finalScore || 0),
+        gradeBand: result.gradeBand || '-',
+        recoveryIndex: Number(result.recoveryIndex || 0),
+        reunionForce: Number(result.reunionForce || 0),
+        emotionTemp: Number(result.emotionTemp || 0),
+        createdAt: Date.now()
+      };
+      const key = 'ff-mode-snapshots';
+      const prev = JSON.parse(localStorage.getItem(key) || '{}');
+      prev[mode] = payload;
+      localStorage.setItem(key, JSON.stringify(prev));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   function init() {
     ensurePhaseStyles();

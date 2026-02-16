@@ -491,11 +491,13 @@ submitBtn.addEventListener('click', () => {
   const finalScore = calculateWeightedScore(answerById, concern);
   const gradeBand = gradeBandFromScore(finalScore);
 
-  localStorage.setItem('ff-result', JSON.stringify({
+  const resultPayload = {
     mode: selectedMode, modeLabel: modeMeta[selectedMode].label, lensTitle: modeMeta[selectedMode].lensTitle,
     troubleType: concern, troubleLabel: concern, answers, answerById, partA, partB, partC,
     total, finalScore, gradeBand, recoveryIndex, reunionForce, emotionTemp, type, createdAt: Date.now()
-  }));
+  };
+  localStorage.setItem('ff-result', JSON.stringify(resultPayload));
+  window.ffStoreModeSnapshot?.(resultPayload, intake);
 
   const loader = document.getElementById('preResultLoader');
   const metricA = document.getElementById('loaderMetricA');
