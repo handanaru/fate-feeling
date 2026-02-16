@@ -2490,26 +2490,53 @@ button.scan-icon:hover {
   inset: 0;
   z-index: 9996;
   background:
-    radial-gradient(120% 120% at 100% 0%, rgba(168,128,255,.28) 0%, rgba(20,14,40,.82) 55%),
-    linear-gradient(145deg, rgba(16,12,31,.66), rgba(8,8,18,.74));
-  backdrop-filter: blur(20px);
+    radial-gradient(140% 130% at 100% 0%, rgba(168,128,255,.34) 0%, rgba(20,14,40,.88) 58%),
+    linear-gradient(145deg, rgba(10,9,20,.88), rgba(8,8,18,.9));
+  backdrop-filter: blur(22px);
   animation: tfBackdropIn .26s ease both;
+}
+.tf-nav-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: -12% -8%;
+  background:
+    radial-gradient(35% 25% at 70% 24%, rgba(123,92,255,.26), transparent 65%),
+    radial-gradient(30% 22% at 82% 62%, rgba(239,203,100,.16), transparent 70%),
+    radial-gradient(28% 20% at 45% 82%, rgba(101,129,255,.12), transparent 72%);
+  opacity: .55;
+}
+.tf-nav-backdrop::after {
+  content: '';
+  position: absolute;
+  width: min(72vmin, 540px);
+  aspect-ratio: 1;
+  right: max(8vw, 30px);
+  top: 10vh;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 0 0 18px rgba(255,255,255,.03),
+    0 0 0 40px rgba(239,203,100,.04),
+    inset 0 0 40px rgba(255,255,255,.04);
+  opacity: .26;
+  animation: tfNebulaSpin 30s linear infinite;
 }
 .total-fortune-page .tf-journey-drawer {
   position: fixed;
   top: 0;
   right: 0;
-  width: min(86vw, 380px);
+  width: min(88vw, 400px);
   height: 100dvh;
   margin: 0;
-  padding: 18px 16px 16px;
+  padding: 20px 16px 20px;
   z-index: 9997;
   justify-items: stretch;
   border-left: 1px solid rgba(255,255,255,.18);
   border-radius: 0;
   background:
-    radial-gradient(120% 120% at 90% 0%, rgba(239,203,100,.16), rgba(239,203,100,0) 45%),
-    linear-gradient(170deg, rgba(30,22,55,.94), rgba(17,13,34,.96));
+    radial-gradient(120% 120% at 90% 0%, rgba(239,203,100,.18), rgba(239,203,100,0) 45%),
+    linear-gradient(170deg, rgba(30,22,55,.78), rgba(17,13,34,.84));
+  backdrop-filter: blur(24px);
   box-shadow: -16px 0 30px rgba(0,0,0,.35), 0 0 0 1px rgba(239,203,100,.14) inset;
   overflow-y: auto;
   animation: tfDrawerIn .28s ease both;
@@ -2525,17 +2552,19 @@ button.scan-icon:hover {
 }
 .tf-drawer-profile {
   margin-top: 6px;
-  padding: 12px;
-  border-radius: 14px;
+  padding: 15px 14px;
+  border-radius: 16px;
   border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.04);
+  background: linear-gradient(150deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
 }
+.tf-drawer-profile .small { font-size: 14px; color: #eef1ff; }
 .tf-seal {
-  margin-top: 8px;
+  margin-top: 10px;
   font-family: var(--font-number);
   letter-spacing: .12em;
-  font-size: 12px;
+  font-size: 13px;
   color: #f1d995;
+  text-shadow: 0 0 10px rgba(241,217,149,.28);
 }
 .tf-menu-group {
   margin-top: 12px;
@@ -2548,36 +2577,62 @@ button.scan-icon:hover {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  min-height: 44px;
-  padding: 10px 12px;
-  border-radius: 12px;
+  min-height: 52px;
+  padding: 16px 14px;
+  border-radius: 14px;
   border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.035);
   color: #edf1ff;
   font-weight: 650;
-  font-size: 15px;
+  font-size: 16px;
+  backdrop-filter: blur(14px);
 }
+.tf-menu-item > span:last-child { flex: 1; }
 .tf-menu-item .ic {
   width: 18px;
   text-align: center;
   opacity: .95;
 }
+.tf-menu-item::after {
+  content: '✦';
+  font-size: 11px;
+  color: rgba(244,204,103,.5);
+  opacity: .6;
+}
 .tf-menu-item.sub,
 .tf-menu-item.setting {
-  font-size: 13px;
+  font-size: 14px;
   color: #d6ddf4;
-  min-height: 40px;
+  min-height: 46px;
 }
 .tf-menu-item.active {
   color: #f4cc67;
   border-color: rgba(244,204,103,.52);
   text-shadow: 0 0 10px rgba(244,204,103,.45);
+  background: linear-gradient(110deg, rgba(244,204,103,.14), rgba(244,204,103,.04) 45%, rgba(255,255,255,.04));
   box-shadow: inset 2px 0 0 rgba(244,204,103,.9), 0 0 16px rgba(244,204,103,.2);
+}
+.tf-menu-item.active::after {
+  opacity: 1;
+  color: #ffd87c;
+  text-shadow: 0 0 8px rgba(255,216,124,.65);
+  animation: tfStarPulse 1.4s ease-in-out infinite;
 }
 .tf-menu-item:hover {
   border-color: rgba(255,255,255,.3);
   background: rgba(255,255,255,.08);
+}
+.tf-journey-status {
+  margin: auto 2px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: #dbe3fa;
+  font-size: 12px;
+  line-height: 1.5;
 }
 body.tf-nav-open { overflow: hidden; }
 @keyframes tfDrawerIn {
@@ -2587,6 +2642,14 @@ body.tf-nav-open { overflow: hidden; }
 @keyframes tfBackdropIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+@keyframes tfNebulaSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes tfStarPulse {
+  0%, 100% { transform: scale(.92); opacity: .7; }
+  50% { transform: scale(1.15); opacity: 1; }
 }
 .mode-hero-badge {
   display: inline-flex;

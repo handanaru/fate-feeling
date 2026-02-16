@@ -405,6 +405,7 @@ function initTfJourneyNav(intake = {}) {
   const themeBtn = document.getElementById('tfThemeToggle');
   const nameEl = document.getElementById('tfJourneyName');
   const sealEl = document.getElementById('tfJourneySeal');
+  const statusEl = document.getElementById('tfJourneyStatus');
 
   if (!menuBtn || !drawer) return;
 
@@ -413,6 +414,10 @@ function initTfJourneyNav(intake = {}) {
   })();
   const name = intake?.name || result?.name || '당신';
   if (nameEl) nameEl.textContent = name;
+
+  const hour = new Date().getHours();
+  const phase = hour < 6 ? '고요하게 정돈' : hour < 12 ? '맑게 상승' : hour < 18 ? '안정적으로 확장' : '차분하게 수렴';
+  if (statusEl) statusEl.textContent = `${name} 님의 기운이 ${phase} 중입니다.`;
 
   const pillars = result?.evidence?.self?.pillars || result?.saju?.pillars || [];
   if (sealEl && pillars.length >= 4) {
