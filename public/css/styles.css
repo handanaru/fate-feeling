@@ -3700,6 +3700,33 @@ body.tf-nav-open { overflow: hidden; }
 }
 #frMetaBox { margin-bottom: 16px !important; }
 #frPillarsBox { margin-top: 0 !important; }
+
+.fr-report-gnb {
+  padding: 0 20px;
+  margin-bottom: 14px;
+}
+.fr-report-gnb .report-title-wrap { justify-items: center; }
+.fr-report-gnb .brand { justify-self: center; }
+.fr-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  color: #f3e6bd;
+  display: inline-grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.22);
+}
+.fr-circle-btn:hover {
+  border-color: rgba(239,203,100,.55);
+  box-shadow: 0 0 0 1px rgba(239,203,100,.25), 0 0 14px rgba(239,203,100,.24);
+}
+
 .fr-hero-top {
   display: grid;
   gap: 8px;
