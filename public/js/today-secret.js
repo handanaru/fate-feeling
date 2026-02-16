@@ -198,41 +198,16 @@ async function saveCardImage() {
     const stamp = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
     const filename = `today-secret-${stamp}.png`;
 
-    // 모바일 우선: 공유 시트가 가능하면 파일로 공유
-    if (canvas.toBlob && navigator.canShare && navigator.share) {
-      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-      if (blob) {
-        const file = new File([blob], filename, { type: 'image/png' });
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: '오늘의 비책', text: '오늘의 비책 카드 저장' });
-          window.ffToast?.('공유 시트를 열었어 ✨');
-          return;
-        }
-      }
-    }
-
-    // 일반 다운로드
+    // 일반 다운로드(공유 시트 강제 사용 안 함)
     const link = document.createElement('a');
     link.download = filename;
     link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
     link.click();
+    link.remove();
 
-    // iOS 사파리 대비: 새 탭 열기 fallback
-    setTimeout(() => {
-      if (!document.hidden) {
-        try {
-          const dataUrl = canvas.toDataURL('image/png');
-          const win = window.open('', '_blank');
-          if (win) {
-            win.document.write(`<title>${filename}</title><img src="${dataUrl}" style="max-width:100%;height:auto;display:block;margin:0 auto;"/>`);
-            win.document.close();
-            window.ffToast?.('길게 눌러 이미지 저장해줘 📸');
-          }
-        } catch (_) {}
-      }
-    }, 180);
-
-    window.ffToast?.('오늘의 비책 카드를 저장했어 ✨');
+    // iOS/인앱 일부 환경은 download 속성이 무시될 수 있어 사용자 안내만 제공
+    window.ffToast?.('이미지를 다운로드했어. 안 보이면 파일 앱 > 다운로드를 확인해줘 ✨');
   } catch (e) {
     console.error(e);
     window.ffToast?.('이미지 저장에 실패했어. 한 번 더 시도해줘.');
