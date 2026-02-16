@@ -4773,3 +4773,37 @@ body::after {
     line-height: 1.5;
   }
 }
+
+/* AI 상담 폰트 일관성 핫픽스 */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.ai-intake-card #chatPanel .bubble.ai,
+.ai-intake-card #chatPanel .bubble.user {
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  line-height: 1.62 !important;
+  font-weight: 500;
+}
+.ai-intake-card #chatPanel .bubble.ai {
+  font-weight: 450;
+}
+.ai-intake-card label,
+.ai-intake-card input,
+.ai-intake-card textarea,
+.ai-intake-card .goal-chip {
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .ai-intake-card #chatPanel .bubble.ai,
+  .ai-intake-card #chatPanel .bubble.user {
+    font-size: 13px !important;
+    line-height: 1.56 !important;
+    padding: 10px 12px;
+  }
+  .ai-intake-card label,
+  .ai-intake-card input,
+  .ai-intake-card textarea,
+  .ai-intake-card .goal-chip {
+    font-size: 13px !important;
+  }
+}
