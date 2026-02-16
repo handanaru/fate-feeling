@@ -3946,11 +3946,42 @@ body.tf-nav-open { overflow: hidden; }
   line-height: 1.5;
 }
 .daewoon-story-grid .daewoon-card.current { grid-column: span 3; }
+.daewoon-main {
+  min-height: 60vh;
+  padding: 16px 14px;
+  border-image: linear-gradient(135deg, rgba(241,216,139,.95), rgba(243,140,60,.55)) 1;
+}
+.daewoon-stage-scroll {
+  margin-top: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(78%, 1fr);
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x mandatory;
+}
+.daewoon-stage-scroll > * { scroll-snap-align: start; }
+.daewoon-stage-card {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  background: rgba(255,255,255,.03);
+  padding: 8px;
+}
+.daewoon-stage-card summary {
+  cursor: pointer;
+  color: #cfd7f1;
+  font-size: 12px;
+  font-weight: 700;
+}
+.daewoon-sub { min-height: 220px; }
 
 @media (max-width: 640px) {
   .tf-form-grid { grid-template-columns: 1fr; }
   .daewoon-grid { grid-template-columns: 1fr; }
   .daewoon-story-grid .daewoon-card.current { grid-column: span 1; }
+  .daewoon-main { min-height: 56vh; }
+  .daewoon-stage-scroll { grid-auto-columns: minmax(92%, 1fr); }
   .fr-pillar-big strong { font-size: 24px; }
   .fr-pillar-big em { font-size: 10px; }
 }

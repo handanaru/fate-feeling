@@ -126,11 +126,14 @@ function buildDaewoonNarrative(report, pillars = []) {
   const pastText = `지나온 ${past.label} 구간은 기반을 세우는 시기였어. 지금의 선택 기준과 관계 패턴이 이때 만들어졌고, 특히 실패/성공의 반복에서 너만의 의사결정 프레임이 완성됐을 가능성이 커. 이 시기 경험을 버리지 말고 자산화하면 현재 대운의 성과 속도가 확실히 올라가.`;
   const futureText = `다가올 ${future.label} 구간은 결실과 안정의 밀도를 높이는 흐름이야. 현재에 만든 인맥·평판·전문성이 구조화되면서 장기 계약, 자산 배분, 라이프 밸런스 재설계 이슈가 커져. 지금부터 기준을 정리해두면 다음 구간에서 시행착오를 크게 줄일 수 있어.`;
 
+  const birthYear = parseBirth(report.birth || '').year || 2000;
   const yearlyLines = (range) => {
     const lines = [];
     for (let y = range.start; y <= range.end; y += 1) {
+      const year = birthYear + y - 1;
       const tone = y % 3 === 0 ? '확장' : y % 3 === 1 ? '정비' : '결실';
-      lines.push(`<li><strong>${y}세</strong> · ${tone} 흐름: ${tone === '확장' ? '새 제안과 이동 운이 강함' : tone === '정비' ? '관계·건강 루틴 정리 우선' : '성과 회수와 자산화 집중'}</li>`);
+      const phase = y === range.end ? ' [!] 교운기' : '';
+      lines.push(`<li><strong>${y}세 (${year}년)</strong> · <b>${tone}</b> · ${tone === '확장' ? '새 제안과 이동 운이 강함' : tone === '정비' ? '관계·건강 루틴 정리 우선' : '성과 회수와 자산화 집중'}${phase}</li>`);
     }
     return `<ul class="daewoon-yearly">${lines.join('')}</ul>`;
   };
@@ -176,23 +179,27 @@ function render() {
     <div class="total-fortune-list">${rows.map((r, i) => `<details class="fortune-acc" ${i === 0 ? 'open' : ''}><summary><span class="icon">${r.icon}</span><span class="txt">${r.summary}</span><span class="arr">⌄</span></summary><div class="fortune-body"><strong>${r.title}</strong><p>${r.body}</p><p>${r.guide}</p><div class="fortune-tags">${r.tags.map((t) => `<span>${t}</span>`).join('')}</div></div></details>`).join('')}</div>
 
     <h3 style="margin-top:18px;">🧭 연령별 대운 타임라인</h3>
-    <p class="small">현재 ${daewoon.age}세 기준 · 현재 대운을 최상단으로 강조했어.</p>
-    <div class="daewoon-grid daewoon-story-grid" style="margin-top:10px;">
-      <article class="daewoon-card current">
-        <small>🔥 현재 대운 (최우선)</small>
-        <strong>${daewoon.current.label}</strong>
-        <p>${daewoon.current.text}</p>
-        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.current.tip}</p>
-        <details class="daewoon-detail" open><summary>연도별 상세 흐름 보기</summary>${daewoon.current.yearly}</details>
-      </article>
-      <article class="daewoon-card past">
-        <small>🕰 지나온 대운</small>
-        <strong>${daewoon.past.label}</strong>
-        <p>${daewoon.past.text}</p>
-        <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.past.tip}</p>
-        <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.past.yearly}</details>
-      </article>
-      <article class="daewoon-card future">
+    <p class="small">현재 ${daewoon.age}세 기준 · 지금 서 있는 대운을 가장 크게 보여줘.</p>
+
+    <article class="daewoon-card current daewoon-main" style="margin-top:10px;">
+      <small>🔥 지금 당신의 대운 (최우선)</small>
+      <strong>${daewoon.current.label}</strong>
+      <p>${daewoon.current.text}</p>
+      <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.current.tip}</p>
+      <details class="daewoon-detail" open><summary>내년부터 10년 흐름 보기</summary>${daewoon.current.yearly}</details>
+    </article>
+
+    <div class="daewoon-stage-scroll" aria-label="과거/미래 대운">
+      <details class="daewoon-stage-card past-collapse">
+        <summary>◀ 과거 운 보기 · ${daewoon.past.label}</summary>
+        <article class="daewoon-card past">
+          <p>${daewoon.past.text}</p>
+          <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.past.tip}</p>
+          <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.past.yearly}</details>
+        </article>
+      </details>
+
+      <article class="daewoon-card future daewoon-sub">
         <small>🔜 다가올 대운</small>
         <strong>${daewoon.future.label}</strong>
         <p>${daewoon.future.text}</p>
