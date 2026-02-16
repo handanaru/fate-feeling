@@ -389,10 +389,15 @@ async function runAnalysis(payload) {
   const failSafe = setTimeout(() => hideLoading(), 9000);
   try {
     const birthParsed = parseBirth(payload.birth || '2000-01-01');
+    const parsedTime = parseTime(payload.birthTime || '');
+    const normalizedBirthTime = parsedTime.unknownTime
+      ? ''
+      : `${String(parsedTime.hour).padStart(2, '0')}:${String(parsedTime.minute).padStart(2, '0')}`;
+
     const self = {
       birth: `${birthParsed.year}-${String(birthParsed.month).padStart(2, '0')}-${String(birthParsed.day).padStart(2, '0')}`,
-      // 만세력 불일치 방지: 사용자가 입력한 시간을 그대로 엔진에 전달
-      birthTime: (payload.birthTime || '').trim(),
+      // 만세력 불일치 방지: 공백은 미상으로, 입력 시간은 HH:MM으로 정규화해 엔진에 전달
+      birthTime: normalizedBirthTime,
       gender: payload.gender || '기타',
       birthCity: payload.birthCity || '서울특별시'
     };
