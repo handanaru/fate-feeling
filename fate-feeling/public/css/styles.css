@@ -4844,3 +4844,57 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     padding: 6px 9px;
   }
 }
+
+
+/* AI 상담 결과/재입력 분리 개선 */
+.ai-intake-card #chatPanel .bubble.ai {
+  border-radius: 20px;
+  padding: 24px 18px 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.24);
+}
+.ai-intake-card #chatPanel .bubble.ai::before {
+  content: '✨ AI 가이드';
+  display: block;
+  font-size: 11px;
+  letter-spacing: .03em;
+  color: #f3d58d;
+  margin-bottom: 8px;
+}
+.ai-intake-divider {
+  height: 1px;
+  margin: 14px 0 10px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.24), transparent);
+}
+.ai-intake-caption {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: rgba(226,235,255,.8);
+}
+.ai-intake-card label {
+  display: block;
+  margin: 0 0 12px;
+}
+.ai-intake-card #situation,
+.ai-intake-card #goal {
+  background: #1a1a1a !important;
+  border-radius: 14px !important;
+}
+.goal-chip {
+  border-radius: 14px;
+}
+.goal-chip.active {
+  border-image: linear-gradient(135deg, rgba(245,210,120,.95), rgba(242,146,66,.75), rgba(146,100,255,.8)) 1;
+  box-shadow: 0 0 0 1px rgba(245,210,120,.35), 0 0 10px rgba(245,210,120,.16);
+}
+@media (max-width: 640px) {
+  .ai-intake-card #chatPanel .bubble.ai {
+    padding: 18px 14px 12px;
+  }
+  .ai-intake-card #chatPanel .bubble.ai::before {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+  .ai-intake-caption {
+    font-size: 11px;
+  }
+}

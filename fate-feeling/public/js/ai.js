@@ -37,7 +37,7 @@ function buildAdvice(situation, goal) {
   return [
     `지금 "${cleanSituation}" 같은 상황이면 마음이 크게 흔들리는 게 자연스러워요. 먼저 스스로를 탓하지 않아도 괜찮아요.`,
     `${goalLine}오늘은 "보내기 전 10분 멈춤"을 실험해보세요. 감정이 올라올 때 바로 결론 내리기보다, 짧게 메모하고 숨을 고르는 방식이 도움이 됩니다.`,
-    '실행 가이드: ① 지금 감정 3단어 적기 ② 전달하고 싶은 핵심 문장 1개만 남기기 ③ 내일 같은 시간에 다시 읽고 수정하기.'
+    '📌 실행 가이드\n• 지금 감정 3단어 적기\n• 전달하고 싶은 핵심 문장 1개만 남기기\n• 내일 같은 시간에 다시 읽고 수정하기'
   ].join('<br/><br/>');
 }
 
@@ -56,6 +56,7 @@ async function typeBubbleHtml(html) {
     bubble.innerHTML = out.replace(/\n/g, '<br/>');
     await new Promise((resolve) => setTimeout(resolve, randomDelay(plain[i])));
   }
+  bubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 
 function sendMessage() {
