@@ -251,10 +251,9 @@ function renderInputForm(intake = {}) {
 
 function scrollToConfirmBox() {
   if (!tfConfirmBox) return;
-  requestAnimationFrame(() => {
-    tfConfirmBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setTimeout(() => window.scrollBy({ top: -72, behavior: 'smooth' }), 120);
-  });
+  const headerOffset = 84;
+  const y = Math.max(0, window.scrollY + tfConfirmBox.getBoundingClientRect().top - headerOffset);
+  window.scrollTo({ top: y, behavior: 'auto' });
 }
 
 function renderConfirm(payload) {
