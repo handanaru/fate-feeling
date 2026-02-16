@@ -2708,27 +2708,35 @@ body.tf-nav-open { overflow: hidden; }
     padding: 8px;
     border-radius: 16px;
     border: 1px solid rgba(255,255,255,.16);
-    background: rgba(13,12,27,.82);
-    backdrop-filter: blur(12px);
+    background: rgba(13,12,27,.78);
+    backdrop-filter: blur(15px);
   }
   .tf-mobile-dock .item {
-    min-height: 52px;
+    min-height: 54px;
     border-radius: 12px;
     text-decoration: none;
     color: #d8def5;
     display: grid;
     place-items: center;
-    gap: 2px;
-    font-size: 11px;
+    gap: 3px;
+    font-size: 10px;
     font-weight: 700;
     border: 1px solid transparent;
   }
-  .tf-mobile-dock .item span { font-size: 15px; }
+  .tf-mobile-dock .item span {
+    font-size: 16px;
+    text-shadow: 0 0 8px rgba(255,255,255,.22), 0 0 12px rgba(168,128,255,.25);
+  }
   .tf-mobile-dock .item.active {
-    color: #f3d37a;
-    border-color: rgba(243,211,122,.5);
-    background: rgba(243,211,122,.12);
+    color: #f7d686;
+    border-color: rgba(243,211,122,.56);
+    background: linear-gradient(145deg, rgba(243,211,122,.16), rgba(245,144,64,.14));
     box-shadow: 0 0 12px rgba(243,211,122,.25);
+  }
+  .tf-mobile-dock .item.active span,
+  .tf-mobile-dock .item.active b {
+    color: #ffd37e;
+    text-shadow: 0 0 8px rgba(255,211,126,.55), 0 0 14px rgba(245,144,64,.4);
   }
 }
 
