@@ -63,6 +63,8 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     partnerBirth: partner.birth || prev.partnerBirth || '',
     partnerBirthTime: partner.birthTime || prev.partnerBirthTime || '',
     partnerBirthTimeUnknown: !!partner.birthTimeUnknown,
+    partnerBirthPlace: partner.birthPlace || prev.partnerBirthPlace || '',
+    partnerBirthCity: partner.birthPlace || prev.partnerBirthCity || prev.partnerBirthPlace || '',
     loveState: loveState || prev.loveState || '',
     agree: true
   };
@@ -404,6 +406,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const partnerBirth = (document.getElementById('partnerBirth')?.value || '').trim();
   const partnerBirthTime = (document.getElementById('partnerBirthTime')?.value || '').trim();
   const partnerBirthTimeUnknown = !!document.getElementById('partnerBirthTimeUnknown')?.checked;
+  const partnerBirthPlace = (document.getElementById('partnerBirthPlace')?.value || '').trim();
   const loveState = getLoveState();
 
   if (!name) return alert('이름을 입력해줘.');
@@ -416,6 +419,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   if (requiresPartner(concern, loveState)) {
     if (!partnerName) return alert('상대 이름을 입력해줘.');
     if (!partnerBirth) return alert('상대 생년월일을 입력해줘.');
+    if (!partnerBirthPlace) return alert('상대 출생지를 입력해줘.');
   }
 
   saveIntake(name, birth, birthTime, birthPlace, concern, mode, {
@@ -423,7 +427,8 @@ firstImpactForm?.addEventListener('submit', (e) => {
     gender: partnerGender,
     birth: partnerBirth,
     birthTime: partnerBirthTime,
-    birthTimeUnknown: partnerBirthTimeUnknown
+    birthTimeUnknown: partnerBirthTimeUnknown,
+    birthPlace: partnerBirthPlace
   }, gender, loveState);
 
   // 사주 관점은 설문을 거치지 않고 만세력 기반으로 바로 리포트 진입
