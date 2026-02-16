@@ -155,6 +155,8 @@
   function attachGlobalNav() {
     if (document.body?.dataset?.noGlobalNav === '1') return;
     if (window.location.pathname === '/') return;
+    const legacyPreviewPaths = new Set(['/saju.html', '/tarot.html', '/astro.html', '/mbti.html', '/ziwei.html', '/philosophy.html', '/community.html', '/experts.html']);
+    if (legacyPreviewPaths.has(window.location.pathname)) return;
     const header = document.querySelector('header');
     if (!header) return;
 

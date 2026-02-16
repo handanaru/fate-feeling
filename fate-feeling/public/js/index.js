@@ -598,7 +598,7 @@ if (analysisModeSelect?.value) syncModeUI(analysisModeSelect.value);
 onboardingStartBtn?.addEventListener('click', closeOnboarding);
 onboardingPreviewBtn?.addEventListener('click', () => {
   closeOnboarding();
-  window.location.href = '/ziwei.html';
+  window.location.href = '/test.html';
 });
 firstVisitModal?.addEventListener('click', (e) => {
   if (e.target === firstVisitModal) closeOnboarding();
