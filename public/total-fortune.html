@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>만세력 전체총운 | Fate & Feeling</title>
-  <link rel="stylesheet" href="/css/styles.css?v=fontforce45" />
+  <link rel="stylesheet" href="/css/styles.css?v=fontforce46" />
 </head>
 <body data-no-global-nav="1" class="total-fortune-page">
   <div class="container reveal-page ziwei-report-page">
@@ -29,7 +29,7 @@
       <section class="tf-menu-group main">
         <a class="tf-menu-item" data-menu="home" href="/"><span class="ic">🏠</span><span>여정의 시작</span></a>
         <a class="tf-menu-item" data-menu="total" href="/total-fortune.html"><span class="ic">🔮</span><span>운명의 흐름</span></a>
-        <a class="tf-menu-item" data-menu="result" href="/result.html"><span class="ic">📜</span><span>분석의 결과</span></a>
+        <a class="tf-menu-item" data-menu="result" href="/fortune-reports.html"><span class="ic">📜</span><span>분석의 결과</span></a>
       </section>
 
       <section class="tf-menu-group sub">
@@ -51,10 +51,11 @@
 
     <section class="card briefing-card" id="tfInputBox"></section>
     <section class="card briefing-card" id="tfConfirmBox" hidden></section>
-    <section class="card" id="tfPillarsBox"></section>
-    <section class="card" id="tfTotalBox"></section>
-    <section class="card" id="tfDaewoonBox"></section>
-    <section class="card" id="tfEngineBox"></section>
+    <section class="card" id="tfAnalyzeState"><p class="small">입력 후 분석을 시작하면 리포트 목록으로 이동해.</p></section>
+    <section class="card" id="tfPillarsBox" hidden></section>
+    <section class="card" id="tfTotalBox" hidden></section>
+    <section class="card" id="tfDaewoonBox" hidden></section>
+    <section class="card" id="tfEngineBox" hidden></section>
   </div>
 
   <div id="tfLoadingOverlay" class="tf-loading-overlay" hidden>
@@ -78,11 +79,11 @@
   <nav class="tf-mobile-dock" aria-label="모바일 빠른 이동">
     <a href="/" class="item"><span>🏠</span><b>홈</b></a>
     <a href="/total-fortune.html" class="item active"><span>🔮</span><b>전체총운</b></a>
-    <a href="/result.html" class="item"><span>📜</span><b>리포트</b></a>
+    <a href="/fortune-reports.html" class="item"><span>📜</span><b>리포트</b></a>
     <a href="/test.html" class="item"><span>📝</span><b>설문</b></a>
   </nav>
 
   <script src="/js/common.js"></script>
-  <script src="/js/total-fortune.js?v=total20"></script>
+  <script src="/js/total-fortune.js?v=total21"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ const tfEngineBox = document.getElementById('tfEngineBox');
 const tfPillarsBox = document.getElementById('tfPillarsBox');
 const tfTotalBox = document.getElementById('tfTotalBox');
 const tfDaewoonBox = document.getElementById('tfDaewoonBox');
+const tfAnalyzeState = document.getElementById('tfAnalyzeState');
 const tfLoadingOverlay = document.getElementById('tfLoadingOverlay');
 const tfLoadingText = document.getElementById('tfLoadingText');
 const tfLoadingMeta = document.getElementById('tfLoadingMeta');
@@ -352,10 +353,30 @@ function renderEngineMeta(data, payload = {}, requestSelf = null) {
   tfEngineBox.innerHTML = `<h3>🧮 만세력 오픈소스 엔진 정보</h3><p class="small">엔진: ${engine}</p><p class="small">라이선스: ${license}</p><p class="small">입력(사용자): ${payload.birth || '-'} ${payload.birthTime || '모름'} · ${payload.gender || '-'} · 한국/${payload.birthCity || '서울특별시'} · 양력</p><p class="small">요청값(엔진): ${req}</p><p class="small">산출(시/일/월/년): ${pillarText}</p>${rawRows}<p class="small"><a href="${source}" target="_blank" rel="noopener">소스 저장소 보기</a></p>`;
 }
 
+function saveFortuneReport(payload, data, requestSelf) {
+  const list = (() => {
+    try { return JSON.parse(localStorage.getItem('ff-total-fortune-reports') || '[]'); } catch (e) { return []; }
+  })();
+  const id = `tfr_${Date.now()}`;
+  const report = {
+    id,
+    createdAt: new Date().toISOString(),
+    name: payload.name || '당신',
+    birth: payload.birth || '-',
+    birthTime: payload.birthTime || '-',
+    gender: payload.gender || '-',
+    birthCity: payload.birthCity || '서울특별시',
+    requestSelf,
+    data
+  };
+  list.unshift(report);
+  localStorage.setItem('ff-total-fortune-reports', JSON.stringify(list.slice(0, 50)));
+  localStorage.setItem('ff-total-fortune-active-report-id', id);
+  return id;
+}
+
 async function runAnalysis(payload) {
-  tfPillarsBox.innerHTML = '<p class="small">만세력 원국 계산 중...</p>';
-  tfTotalBox.innerHTML = '<p class="small">전체총운 정리 중...</p>';
-  if (tfEngineBox) tfEngineBox.innerHTML = '<p class="small">오픈소스 엔진 정보 확인 중...</p>';
+  if (tfAnalyzeState) tfAnalyzeState.innerHTML = '<p class="small">원국 계산 중... 완료되면 리포트 목록으로 이동해.</p>';
   const failSafe = setTimeout(() => hideLoading(), 9000);
   try {
     const norm = normalizeByKoreaStandardTime(payload.birth, payload.birthTime || '12:00');
@@ -382,15 +403,11 @@ async function runAnalysis(payload) {
     if (!data?.ok) throw new Error(data?.error || '분석 실패');
 
     await playPillarLoading(data);
-    renderEngineMeta(data, payload, self);
-    renderPillars(data);
-    renderTotal(data, payload.name || '당신');
-    renderDaewoonSection(data, payload, payload.name || '당신');
+    const id = saveFortuneReport(payload, data, self);
+    window.location.href = `/fortune-report.html?id=${encodeURIComponent(id)}`;
   } catch (e) {
     console.error(e);
-    tfPillarsBox.innerHTML = '<p class="small">원국 계산에 실패했어. 입력값 다시 확인해줘.</p>';
-    tfTotalBox.innerHTML = '';
-    if (tfEngineBox) tfEngineBox.innerHTML = `<p class="small">오픈소스 엔진 조회 실패: ${e.message || 'unknown'}</p>`;
+    if (tfAnalyzeState) tfAnalyzeState.innerHTML = `<p class="small">분석 실패: ${e.message || 'unknown'} · 입력값 확인 후 다시 시도해줘.</p>`;
   } finally {
     clearTimeout(failSafe);
     hideLoading();
@@ -428,6 +445,8 @@ function initTfJourneyNav(intake = {}) {
 
   const map = [
     ['/total-fortune.html', 'total'],
+    ['/fortune-reports.html', 'result'],
+    ['/fortune-report.html', 'result'],
     ['/result.html', 'result'],
     ['/test.html', 'test'],
     ['/experts.html', 'experts'],
@@ -475,10 +494,7 @@ function initTfJourneyNav(intake = {}) {
   hideLoading();
   const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
   renderInputForm(intake);
-  if (tfEngineBox) tfEngineBox.innerHTML = '<p class="small">분석 실행 후 오픈소스 엔진 정보가 표시돼.</p>';
-  tfPillarsBox.innerHTML = '<p class="small">입력 정보 확인 후 분석을 시작해줘.</p>';
-  tfTotalBox.innerHTML = '';
-  if (tfDaewoonBox) tfDaewoonBox.innerHTML = '';
+  if (tfAnalyzeState) tfAnalyzeState.innerHTML = '<p class="small">입력이 끝나면 분석 후 리포트 페이지(목록/상세)로 이동해.</p>';
 
   initTfJourneyNav(intake);
 })();
