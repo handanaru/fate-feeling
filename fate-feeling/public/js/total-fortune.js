@@ -419,7 +419,6 @@ function initTfJourneyNav(intake = {}) {
   const drawer = document.getElementById('tfDrawer');
   const backdrop = document.getElementById('tfNavBackdrop');
   const closeBtn = document.getElementById('tfDrawerClose');
-  const themeBtn = document.getElementById('tfThemeToggle');
   const nameEl = document.getElementById('tfJourneyName');
   const sealEl = document.getElementById('tfJourneySeal');
   const statusEl = document.getElementById('tfJourneyStatus');
@@ -482,9 +481,6 @@ function initTfJourneyNav(intake = {}) {
   });
   closeBtn?.addEventListener('click', closeDrawer);
   backdrop?.addEventListener('click', closeDrawer);
-  themeBtn?.addEventListener('click', () => {
-    window.toggleTheme?.();
-  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !drawer.hidden) closeDrawer();
   });

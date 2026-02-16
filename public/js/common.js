@@ -1,7 +1,8 @@
 (function () {
   const root = document.documentElement;
-  const saved = localStorage.getItem('ff-theme') || 'dark';
+  const saved = 'dark';
   root.setAttribute('data-theme', saved);
+  localStorage.setItem('ff-theme', 'dark');
 
   function normalizeTrouble(concern = '') {
     if (concern.includes('짝사랑') || concern.includes('썸')) return 'crush';
@@ -49,10 +50,8 @@
   };
 
   window.toggleTheme = function () {
-    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('ff-theme', next);
+    root.setAttribute('data-theme', 'dark');
+    localStorage.setItem('ff-theme', 'dark');
   };
 
   function attachStarfield() {
