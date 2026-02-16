@@ -224,10 +224,10 @@
     const isAi = path === '/ai.html';
     dock.innerHTML = `
       <a href="/" class="item ${path === '/' ? 'active' : ''}"><span>🏠</span><b>홈</b></a>
-      <a href="/today-secret.html" class="item ${isDaily ? 'active' : ''}"><span>☀️</span><b>오늘의 비책</b></a>
-      <a href="/total-fortune.html" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>전체총운</b></a>
-      <a href="/ai.html" class="item ${isAi ? 'active' : ''}"><span>🤖</span><b>AI 상담</b></a>
-      <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>🗺️</span><b>내 보관함</b></a>
+      <a href="/today-secret.html" class="item ${isDaily ? 'active' : ''}"><span>☀️</span><b>비책</b></a>
+      <a href="/ai.html" class="item ${isAi ? 'active' : ''}"><span>🤖</span><b>상담</b></a>
+      <a href="/total-fortune.html" class="item ${isTotal ? 'active' : ''}"><span>🔮</span><b>총운</b></a>
+      <a href="/fortune-reports.html" class="item ${isReport ? 'active' : ''}"><span>🗂️</span><b>보관함</b></a>
     `;
     document.body.classList.add('has-global-dock');
     document.body.appendChild(dock);
