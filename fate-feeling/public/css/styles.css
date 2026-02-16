@@ -601,7 +601,8 @@ input[type="date"]::-webkit-date-and-time-value {
   padding: 6px 10px;
 }
 .ai-intake-card #situation {
-  min-height: 150px;
+  min-height: 96px;
+  max-height: 128px;
   resize: vertical;
 }
 .goal-chip-row {
@@ -4766,6 +4767,10 @@ body::after {
   }
   .ai-intake-card label {
     font-size: 14px;
+  }
+  .ai-intake-card #situation {
+    min-height: 88px;
+    max-height: 116px;
   }
   .ai-intake-card #situation,
   .ai-intake-card #goal {
