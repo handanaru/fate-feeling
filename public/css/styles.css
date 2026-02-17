@@ -5077,3 +5077,81 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .fr-prescription-card h3 { margin-bottom: 8px; color: #ffd88d; }
 .fr-prescription-card p { margin: 0; color: #fff4d4; font-weight: 600; line-height: 1.62; }
+
+/* Ziwei CTA banner under fortune report */
+.fr-ziwei-cta {
+  margin-top: 14px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid rgba(182, 162, 255, .36);
+  background: linear-gradient(140deg, rgba(15,18,42,.9), rgba(35,20,62,.82));
+  box-shadow: 0 12px 26px rgba(0,0,0,.32);
+}
+.fr-ziwei-cta .nebula {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 80% at 8% 0%, rgba(138,92,255,.26), transparent 52%),
+    radial-gradient(90% 80% at 92% 100%, rgba(73,157,255,.2), transparent 52%);
+  pointer-events: none;
+}
+.fr-ziwei-cta small,
+.fr-ziwei-cta h3,
+.fr-ziwei-cta p,
+.fr-ziwei-cta .fr-ziwei-go { position: relative; z-index: 1; }
+.fr-ziwei-cta small { color: #dbc8ff; }
+.fr-ziwei-cta h3 { margin: 6px 0 8px; color: #f5ecff; }
+.fr-ziwei-cta p { margin: 0 0 12px; color: rgba(224,232,255,.86); }
+.fr-ziwei-go {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 28px;
+  font-size: 15px;
+  background: linear-gradient(135deg, #f6da8d, #f0ad5f, #c988a0) !important;
+  color: #2a1731 !important;
+  box-shadow: 0 10px 24px rgba(245, 194, 112, .28), 0 0 0 1px rgba(255,255,255,.2) inset;
+}
+
+/* Ziwei transition overlay */
+.ziwei-transit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4500;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 42%, rgba(43,35,77,.74), rgba(7,8,16,.95));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+.ziwei-transit-overlay.show { opacity: 1; pointer-events: auto; }
+.ziwei-transit-core {
+  width: min(420px, 88vw);
+  text-align: center;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(8px);
+}
+.ziwei-transit-core h3 { margin: 0 0 8px; color: #f4e9ff; }
+.ziwei-transit-core p { margin: 0 0 12px; color: rgba(227,233,250,.8); }
+.ziwei-transit-stars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.ziwei-transit-stars span {
+  height: 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(120,95,210,.52), rgba(78,136,228,.38));
+  border: 1px solid rgba(255,255,255,.16);
+  animation: ziweiPulse 1.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .06s);
+}
+@keyframes ziweiPulse {
+  0%,100% { transform: scale(.96); opacity: .55; }
+  50% { transform: scale(1); opacity: 1; }
+}

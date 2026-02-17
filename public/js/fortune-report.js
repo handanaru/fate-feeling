@@ -231,6 +231,49 @@ function buildDaewoonNarrative(report, pillars = []) {
   };
 }
 
+function buildZiweiLink(report = {}) {
+  const q = new URLSearchParams();
+  q.set('from', 'fortune-report');
+  q.set('birth', report.birth || '');
+  q.set('birthTime', report.birthTime || '');
+  q.set('gender', report.gender || '');
+  q.set('birthCity', report.birthCity || '');
+  return `/ziwei.html?${q.toString()}`;
+}
+
+function openZiweiWithTransition(report = {}) {
+  try {
+    const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
+    intake.birth = report.birth || intake.birth || '';
+    intake.birthTime = report.birthTime || intake.birthTime || '';
+    intake.gender = report.gender || intake.gender || '';
+    intake.birthCity = report.birthCity || intake.birthCity || '';
+    localStorage.setItem('ff-intake', JSON.stringify(intake));
+  } catch (_) {}
+
+  try { navigator.vibrate?.(12); } catch (_) {}
+
+  let overlay = document.getElementById('ziweiTransitOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'ziweiTransitOverlay';
+    overlay.className = 'ziwei-transit-overlay';
+    overlay.innerHTML = `
+      <div class="ziwei-transit-core">
+        <h3>✦ 자미두수 명반 정렬 중...</h3>
+        <p>별의 좌표를 12궁 지도에 맞추고 있어.</p>
+        <div class="ziwei-transit-stars">${Array.from({ length: 12 }).map((_, i) => `<span style="--i:${i}"></span>`).join('')}</div>
+      </div>`;
+    document.body.appendChild(overlay);
+  }
+  overlay.hidden = false;
+  requestAnimationFrame(() => overlay.classList.add('show'));
+
+  setTimeout(() => {
+    location.href = buildZiweiLink(report);
+  }, 760);
+}
+
 function render() {
   const report = getReport();
   if (!report) {
@@ -349,6 +392,14 @@ function render() {
     <section class="fr-prescription-card">
       <h3>📜 AI 운명 처방전</h3>
       <p>${actionPack.prescription}</p>
+    </section>
+
+    <section class="fr-ziwei-cta" aria-label="자미두수 전환 배너">
+      <div class="nebula"></div>
+      <small>✦ 별들의 운명 지도</small>
+      <h3>나의 또 다른 운명 지도, 자미두수 명반 보기</h3>
+      <p>사주 입력 정보 그대로 이어서 12궁 명반을 바로 열어볼 수 있어.</p>
+      <button type="button" class="btn fr-ziwei-go" id="frZiweiGoBtn">나의 자미두수 명반 확인하기</button>
     </section>`;
 
   engineBox.innerHTML = `<h3>🧮 엔진 정보</h3>
@@ -366,6 +417,9 @@ function render() {
       window.__frPillarTipTimer = setTimeout(() => { tip.hidden = true; }, 1800);
     });
   });
+
+  const ziweiBtn = document.getElementById('frZiweiGoBtn');
+  ziweiBtn?.addEventListener('click', () => openZiweiWithTransition(report));
 }
 
 render();
