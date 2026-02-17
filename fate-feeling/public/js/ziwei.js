@@ -1,3 +1,49 @@
+const params = new URLSearchParams(location.search);
+
+function syncIntakeFromQuery() {
+  const birth = (params.get('birth') || '').trim();
+  const birthTime = (params.get('birthTime') || '').trim();
+  const gender = (params.get('gender') || '').trim();
+  const birthCity = (params.get('birthCity') || '').trim();
+  if (!birth && !birthTime && !gender && !birthCity) return;
+  try {
+    const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
+    const next = {
+      ...prev,
+      birth: birth || prev.birth || '',
+      birthTime: birthTime || prev.birthTime || '',
+      gender: gender || prev.gender || '',
+      birthCity: birthCity || prev.birthCity || ''
+    };
+    localStorage.setItem('ff-intake', JSON.stringify(next));
+  } catch (_) {}
+}
+
+function showZiweiEntryLoader() {
+  const from = params.get('from');
+  if (from !== 'fortune-report') return;
+  let overlay = document.getElementById('ziweiTransitOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'ziweiTransitOverlay';
+    overlay.className = 'ziwei-transit-overlay show';
+    overlay.innerHTML = `
+      <div class="ziwei-transit-core">
+        <h3>✦ 자미두수 명반 정렬 중...</h3>
+        <p>사주 흐름과 연결해 12궁 좌표를 맞추는 중이야.</p>
+        <div class="ziwei-transit-stars">${Array.from({ length: 12 }).map((_, i) => `<span style="--i:${i}"></span>`).join('')}</div>
+      </div>`;
+    document.body.appendChild(overlay);
+  }
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    setTimeout(() => overlay.remove(), 260);
+  }, 900);
+}
+
+syncIntakeFromQuery();
+showZiweiEntryLoader();
+
 const result = window.getFFResult?.();
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
 const personal = document.getElementById('ziweiPersonal');
