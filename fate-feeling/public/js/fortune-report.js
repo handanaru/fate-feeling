@@ -91,6 +91,83 @@ function buildFortuneRows(pillars = [], userName = '당신') {
   return { rows, strong, weak };
 }
 
+
+function hashSeed(text = '') {
+  let h = 2166136261;
+  const str = String(text || '');
+  for (let i = 0; i < str.length; i += 1) {
+    h ^= str.charCodeAt(i);
+    h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
+  }
+  return Math.abs(h >>> 0);
+}
+
+function buildActionPack(report = {}, pillars = []) {
+  const seed = hashSeed(`${report.id || ''}|${report.birth || ''}|${report.birthTime || ''}|${report.name || ''}`);
+  const elems = pillars.flatMap((x) => [x?.stemElement, x?.branchElement]).filter(Boolean);
+  const count = elems.reduce((acc, e) => ({ ...acc, [e]: (acc[e] || 0) + 1 }), {});
+  const strong = Object.entries(count).sort((a, b) => b[1] - a[1])[0]?.[0] || 'earth';
+
+  const base = {
+    wealth: 54,
+    love: 56,
+    health: 58,
+    honor: 55
+  };
+  const boostMap = {
+    wood: { love: 8, honor: 5 },
+    fire: { honor: 9, love: 6 },
+    earth: { wealth: 9, health: 6 },
+    metal: { wealth: 8, honor: 7 },
+    water: { love: 7, health: 7 }
+  };
+  const boost = boostMap[strong] || boostMap.earth;
+  Object.keys(boost).forEach((k) => { base[k] += boost[k]; });
+
+  const jitter = (n, m) => (n % m) - Math.floor(m / 2);
+  const energy = {
+    wealth: Math.max(35, Math.min(92, base.wealth + jitter(seed, 11))),
+    love: Math.max(35, Math.min(92, base.love + jitter(seed >> 3, 13))),
+    health: Math.max(35, Math.min(92, base.health + jitter(seed >> 7, 9))),
+    honor: Math.max(35, Math.min(92, base.honor + jitter(seed >> 11, 15)))
+  };
+
+  const colors = ['에메랄드 그린', '딥 바이올렛', '문라이트 골드', '미드나잇 네이비'];
+  const places = ['강변 산책로', '도서관 창가석', '조용한 카페 코너', '해 질 무렵 공원'];
+  const foods = ['허브티', '다크초콜릿', '따뜻한 국물', '견과류 요거트'];
+  const lucky = {
+    color: colors[seed % colors.length],
+    number: `${(seed % 9) + 1}`,
+    place: places[(seed >> 2) % places.length],
+    food: foods[(seed >> 4) % foods.length]
+  };
+
+  const top = Object.entries(energy).sort((a, b) => b[1] - a[1])[0][0];
+  const summaryMap = {
+    wealth: '지금은 확장보다 수익 구조를 단단히 잠그는 한 수가 이기는 흐름이야.',
+    love: '관계는 속도보다 톤이 승부야. 오늘은 말 수를 줄이고 진심 밀도를 올려봐.',
+    health: '성과를 지키려면 컨디션이 먼저야. 오늘은 쉬는 리듬 자체가 전략이야.',
+    honor: '평판 운이 열려 있어. 완성도 높은 한 번의 결과물이 판을 바꿔줄 수 있어.'
+  };
+
+  const points = [energy.wealth, energy.love, energy.health, energy.honor];
+  const width = 320;
+  const height = 110;
+  const step = width / (points.length - 1);
+  const y = (v) => Math.round(height - ((v / 100) * 84 + 12));
+  const coords = points.map((v, i) => [Math.round(i * step), y(v)]);
+  const path = coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c[0]} ${c[1]}`).join(' ');
+
+  const waveSvg = `<svg viewBox="0 0 ${width} ${height}" class="fortune-wave" role="img" aria-label="이번 달 에너지 흐름"><path d="${path}"/><g>${coords.map((c, i) => `<circle cx="${c[0]}" cy="${c[1]}" r="3.5"/><text x="${c[0]}" y="${Math.min(height - 4, c[1] + 16)}">${['재물','애정','건강','명예'][i]}</text>`).join('')}</g></svg>`;
+
+  return {
+    energy,
+    lucky,
+    prescription: summaryMap[top],
+    waveSvg
+  };
+}
+
 function calcKoreanAge(birth = '') {
   const b = parseBirth(birth);
   const now = new Date();
@@ -214,6 +291,7 @@ function render() {
 
   const { rows, strong, weak } = buildFortuneRows(p, report.name || '당신');
   const daewoon = buildDaewoonNarrative(report, p);
+  const actionPack = buildActionPack(report, p);
 
   totalBox.innerHTML = `<h3>🌠 전체총운 해설</h3>
     <p class="small">중심 기운 <strong>${strong}</strong> · 보완 기운 <strong>${weak}</strong></p>
@@ -245,7 +323,33 @@ function render() {
       <p>${daewoon.future.text}</p>
       <p class="small"><strong>🗝️ 핵심 비책</strong> ${daewoon.future.tip}</p>
       <details class="daewoon-detail"><summary>연도별 상세 흐름 보기</summary>${daewoon.future.yearly}</details>
-    </article>`;
+    </article>
+
+    <section class="fr-action-section" style="margin-top:14px;">
+      <h3>📈 이번 달 나의 에너지 흐름</h3>
+      <div class="fr-wave-wrap">${actionPack.waveSvg}</div>
+      <div class="fortune-tags">
+        <span>재물 ${actionPack.energy.wealth}</span>
+        <span>애정 ${actionPack.energy.love}</span>
+        <span>건강 ${actionPack.energy.health}</span>
+        <span>명예 ${actionPack.energy.honor}</span>
+      </div>
+    </section>
+
+    <section class="fr-action-section">
+      <h3>🍀 나의 행운 요소</h3>
+      <div class="fr-lucky-grid">
+        <article><small>🎨 행운 색상</small><strong>${actionPack.lucky.color}</strong></article>
+        <article><small>🔢 행운 숫자</small><strong>${actionPack.lucky.number}</strong></article>
+        <article><small>📍 행운 장소</small><strong>${actionPack.lucky.place}</strong></article>
+        <article><small>🍵 행운 음식</small><strong>${actionPack.lucky.food}</strong></article>
+      </div>
+    </section>
+
+    <section class="fr-prescription-card">
+      <h3>📜 AI 운명 처방전</h3>
+      <p>${actionPack.prescription}</p>
+    </section>`;
 
   engineBox.innerHTML = `<h3>🧮 엔진 정보</h3>
   <p class="small">엔진: ${report?.data?.engine || '@orrery/core'}</p>
