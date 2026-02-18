@@ -652,7 +652,7 @@ function renderLuckyGuide(elementPack) {
     <div class="cta-row"><a class="btn secondary" href="${placeLink}" target="_blank" rel="noopener">근처 행운 장소 보기</a><a class="btn secondary" href="${itemLink}" target="_blank" rel="noopener">행운의 아이템 보기</a></div>`;
 }
 
-function setupWebtoonView({ concern, userName, targetName, totalScore }) {
+function setupWebtoonView({ concern, userName, targetName, totalScore, initialMode = 'report' }) {
   if (!webtoonModeBox || !viewModeSwitch) return;
   const concernLine = concern === '일반 궁합' ? `${userName}와 ${targetName || '상대'}의 인연선을 따라가보자.` : `${userName}의 ${concern} 흐름을 컷으로 풀어볼게.`;
   webtoonModeBox.innerHTML = `<div class="wt-cut reveal">
@@ -711,7 +711,7 @@ function setupWebtoonView({ concern, userName, targetName, totalScore }) {
   }, { threshold: 0.2 });
   webtoonModeBox.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-  setMode('report');
+  setMode(initialMode === 'webtoon' ? 'webtoon' : 'report');
 }
 
 if (!saved) {
@@ -1270,7 +1270,8 @@ if (!saved) {
       menuBtn.setAttribute('aria-expanded', String(!drawer.hidden));
     });
 
-    setupWebtoonView({ concern, userName, targetName, totalScore });
+    const preferredViewMode = intake.resultViewMode || localStorage.getItem('ff-result-view-mode') || 'report';
+    setupWebtoonView({ concern, userName, targetName, totalScore, initialMode: preferredViewMode });
   } catch (error) {
     console.error('result render error:', error);
     location.href = '/test.html';

@@ -161,6 +161,17 @@
           <option value="japan">일본관점</option>
         </select>
 
+
+        <label for="reportViewMode" class="small">결과 보기 방식</label>
+        <div class="analysis-mode-grid" id="reportViewGrid">
+          <button type="button" data-result-view="report" class="active">🧠 전문가 리포트</button>
+          <button type="button" data-result-view="webtoon">📚 웹툰으로 다시 보기</button>
+        </div>
+        <select id="reportViewMode" hidden>
+          <option value="report" selected>전문가 리포트</option>
+          <option value="webtoon">웹툰으로 다시 보기</option>
+        </select>
+
         <button class="btn impact-cta" id="startSubmitBtn" type="submit">사주로 궁합 확인하기</button>
 
         <div class="soft-cross-sell">

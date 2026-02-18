@@ -19,6 +19,8 @@ const onboardingStartBtn = document.getElementById('onboardingStartBtn');
 const analysisModeSelect = document.getElementById('analysisMode');
 const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButtons [data-mode]')];
 const analysisModeGridButtons = [...document.querySelectorAll('#analysisModeGrid [data-mode]')];
+const reportViewSelect = document.getElementById('reportViewMode');
+const reportViewButtons = [...document.querySelectorAll('#reportViewGrid [data-result-view]')];
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 const onboardingTotalFortuneBtn = document.getElementById('onboardingTotalFortuneBtn');
 const modeCard = document.getElementById('modeCard');
@@ -42,7 +44,7 @@ const selfFields = document.getElementById('selfFields');
 const dualStepNav = document.getElementById('dualStepNav');
 const dualStepButtons = [...document.querySelectorAll('#dualStepNav [data-step]')];
 
-function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner = {}, gender = '기타', loveState = '') {
+function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner = {}, gender = '기타', loveState = '', resultViewMode = 'report') {
   const prev = JSON.parse(localStorage.getItem('ff-intake') || '{}');
   const normalizedBirthTime = birthTime || prev.birthTime || '모름(입력 안 함)';
   const payload = {
@@ -65,6 +67,7 @@ function saveIntake(name, birth, birthTime, birthPlace, concern, mode, partner =
     partnerBirthPlace: partner.birthPlace || prev.partnerBirthPlace || '',
     partnerBirthCity: partner.birthPlace || prev.partnerBirthCity || prev.partnerBirthPlace || '',
     loveState: loveState || prev.loveState || '',
+    resultViewMode: resultViewMode || prev.resultViewMode || 'report',
     agree: true
   };
   localStorage.setItem('ff-intake', JSON.stringify(payload));
@@ -452,6 +455,7 @@ firstImpactForm?.addEventListener('submit', (e) => {
   const partnerBirthTimeUnknown = !!document.getElementById('partnerBirthTimeUnknown')?.checked;
   const partnerBirthPlace = (document.getElementById('partnerBirthPlace')?.value || '').trim();
   const loveState = getLoveState();
+  const resultViewMode = (reportViewSelect?.value || localStorage.getItem('ff-result-view-mode') || 'report').trim();
 
   if (!name) return alert('이름을 입력해줘.');
   if (!birth) return alert('생년월일을 입력해줘.');
@@ -473,7 +477,9 @@ firstImpactForm?.addEventListener('submit', (e) => {
     birthTime: partnerBirthTime,
     birthTimeUnknown: partnerBirthTimeUnknown,
     birthPlace: partnerBirthPlace
-  }, gender, loveState);
+  }, gender, loveState, resultViewMode);
+
+  localStorage.setItem('ff-result-view-mode', resultViewMode);
 
   // 사주 관점은 설문을 거치지 않고 만세력 기반으로 바로 리포트 진입
   if (mode === 'saju') {
@@ -520,6 +526,13 @@ const modeCardMeta = {
 
 function modeLabel(mode) {
   return ({ saju: '사주', tarot: '타로', ziwei: '자미두수', astro: '점성술', vedic: '인도관점', japan: '일본관점' }[mode] || '자미두수');
+}
+
+function syncReportViewUI(view = 'report') {
+  const next = view === 'webtoon' ? 'webtoon' : 'report';
+  if (reportViewSelect) reportViewSelect.value = next;
+  reportViewButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.resultView === next));
+  localStorage.setItem('ff-result-view-mode', next);
 }
 
 function syncModeUI(mode) {
@@ -701,3 +714,12 @@ bindBirthTimeAutoFormat();
 syncConcernSelection(concernSelect?.value || '일반 궁합');
 syncConcernUI();
 openOnboardingIfNeeded();
+
+
+reportViewButtons.forEach((btn) => {
+  btn.addEventListener('click', () => syncReportViewUI(btn.dataset.resultView || 'report'));
+});
+
+if (reportViewSelect) {
+  syncReportViewUI(localStorage.getItem('ff-result-view-mode') || reportViewSelect.value || 'report');
+}
