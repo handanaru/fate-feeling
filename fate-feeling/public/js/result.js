@@ -19,6 +19,8 @@ const lockedReportBox = document.getElementById('lockedReportBox');
 const revealCtaCard = document.getElementById('revealCtaCard');
 const overlay = document.getElementById('resultOverlay');
 const reportTitle = document.getElementById('reportTitle');
+const viewModeSwitch = document.getElementById('viewModeSwitch');
+const webtoonModeBox = document.getElementById('webtoonModeBox');
 const saved = localStorage.getItem('ff-result');
 if (totalFortuneBox) totalFortuneBox.hidden = true;
 let pendingOrreryEvidence = null;
@@ -650,6 +652,68 @@ function renderLuckyGuide(elementPack) {
     <div class="cta-row"><a class="btn secondary" href="${placeLink}" target="_blank" rel="noopener">근처 행운 장소 보기</a><a class="btn secondary" href="${itemLink}" target="_blank" rel="noopener">행운의 아이템 보기</a></div>`;
 }
 
+function setupWebtoonView({ concern, userName, targetName, totalScore }) {
+  if (!webtoonModeBox || !viewModeSwitch) return;
+  const concernLine = concern === '일반 궁합' ? `${userName}와 ${targetName || '상대'}의 인연선을 따라가보자.` : `${userName}의 ${concern} 흐름을 컷으로 풀어볼게.`;
+  webtoonModeBox.innerHTML = `<div class="wt-cut reveal">
+      <p class="wt-badge">특별 부록</p>
+      <h3>웹툰으로 보는 내 사주</h3>
+      <div class="wt-speech">오늘 당신의 핵심 기운은 <strong>${totalScore >= 75 ? '상승 흐름' : '정비 흐름'}</strong>이야.</div>
+    </div>
+    <div class="wt-cut reveal">
+      <h4>컷 1 · 원국의 보석 상자</h4>
+      <p>${concernLine}</p>
+      <div class="wt-panel-placeholder">원국 8글자 컷</div>
+    </div>
+    <div class="wt-cut reveal">
+      <h4>컷 2 · 대운 타임라인</h4>
+      <div class="wt-timeline"><span>초년</span><span>청년</span><span>중년</span><span>말년</span></div>
+      <p class="small">초년→청년→중년→말년으로 흐름을 만화 컷처럼 읽어줘.</p>
+    </div>
+    <div class="wt-cut reveal">
+      <h4>컷 3 · 신강/신약 게이지</h4>
+      <div class="wt-gauge"><i style="width:${Math.max(12, Math.min(100, totalScore))}%"></i></div>
+      <p class="wt-speech">지금은 ${totalScore >= 70 ? '밀고 나갈 힘이 충분한' : '속도 조절이 필요한'} 구간이야.</p>
+    </div>`;
+
+  const contentSections = [
+    resultBox, gradeBox, shareBox, fiveElementsBox, pillarsBox, totalFortuneBox,
+    coreMetricsBox, luckyGuideBox, bridgeBox, chartsBox, timelineBox, briefingBox,
+    goldenTimeCard, mindKeywordCard, lockedReportBox, counselorBox, socialShareBox,
+    revealCtaCard, ossEngineBox
+  ];
+
+  const setMode = (mode = 'report') => {
+    const isWebtoon = mode === 'webtoon';
+    webtoonModeBox.hidden = !isWebtoon;
+    contentSections.forEach((el) => {
+      if (!el) return;
+      if (isWebtoon) {
+        el.dataset.prevHidden = el.hidden ? '1' : '0';
+        el.hidden = true;
+      } else {
+        el.hidden = el.dataset.prevHidden === '1';
+      }
+    });
+    viewModeSwitch.querySelectorAll('[data-view-mode]').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-view-mode') === mode);
+    });
+  };
+
+  viewModeSwitch.querySelectorAll('[data-view-mode]').forEach((btn) => {
+    btn.addEventListener('click', () => setMode(btn.getAttribute('data-view-mode') || 'report'));
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('on');
+    });
+  }, { threshold: 0.2 });
+  webtoonModeBox.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  setMode('report');
+}
+
 if (!saved) {
   location.href = '/test.html';
 } else {
@@ -1205,6 +1269,8 @@ if (!saved) {
       drawer.hidden = !drawer.hidden;
       menuBtn.setAttribute('aria-expanded', String(!drawer.hidden));
     });
+
+    setupWebtoonView({ concern, userName, targetName, totalScore });
   } catch (error) {
     console.error('result render error:', error);
     location.href = '/test.html';

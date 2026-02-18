@@ -5303,3 +5303,90 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     z-index: -1;
   }
 }
+
+/* --- Webtoon view mode v1 --- */
+.view-mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.view-mode-switch .mode-tab {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.12);
+  color: var(--text);
+  min-height: 42px;
+  font-size: 13px;
+}
+.view-mode-switch .mode-tab.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+}
+.webtoon-mode-root {
+  background: #F9F7F2;
+  color: #222;
+  border: 1px solid rgba(20,20,20,.15);
+}
+.wt-cut {
+  margin-bottom: 14px;
+  border: 2px solid rgba(20,20,20,.3);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,.8);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.wt-cut.on { opacity: 1; transform: translateY(0); }
+.wt-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  border: 1px solid rgba(0,0,0,.2);
+  background: #fff;
+}
+.wt-speech {
+  margin-top: 10px;
+  border: 2px solid rgba(0,0,0,.28);
+  border-radius: 999px;
+  padding: 12px 14px;
+  background: #fff;
+  text-align: center;
+  font-weight: 600;
+}
+.wt-panel-placeholder {
+  margin-top: 8px;
+  border: 2px dashed rgba(0,0,0,.28);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  background: rgba(245,245,245,.8);
+}
+.wt-timeline {
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.wt-timeline span {
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px 4px;
+  background: #fff;
+  font-size: 12px;
+}
+.wt-gauge {
+  margin: 10px 0 6px;
+  height: 12px;
+  border-radius: 999px;
+  background: #ddd;
+  overflow: hidden;
+}
+.wt-gauge i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #ffce6b, #cc5f7b, #6747c8);
+}
