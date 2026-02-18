@@ -21,6 +21,8 @@ const onboardingModeButtons = [...document.querySelectorAll('#onboardingModeButt
 const analysisModeGridButtons = [...document.querySelectorAll('#analysisModeGrid [data-mode]')];
 const reportViewSelect = document.getElementById('reportViewMode');
 const reportViewButtons = [...document.querySelectorAll('#reportViewGrid [data-result-view]')];
+const webtoonStartBtn = document.getElementById('webtoonStartBtn');
+const firstImpactSection = document.getElementById('firstImpact');
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 const onboardingTotalFortuneBtn = document.getElementById('onboardingTotalFortuneBtn');
 const modeCard = document.getElementById('modeCard');
@@ -719,6 +721,14 @@ openOnboardingIfNeeded();
 reportViewButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncReportViewUI(btn.dataset.resultView || 'report'));
 });
+
+if (webtoonStartBtn) {
+  webtoonStartBtn.addEventListener('click', () => {
+    syncReportViewUI('webtoon');
+    firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => document.getElementById('name')?.focus(), 260);
+  });
+}
 
 if (reportViewSelect) {
   syncReportViewUI(localStorage.getItem('ff-result-view-mode') || reportViewSelect.value || 'report');

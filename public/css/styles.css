@@ -5390,3 +5390,34 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   height: 100%;
   background: linear-gradient(90deg, #ffce6b, #cc5f7b, #6747c8);
 }
+
+/* webtoon onboarding intro block */
+.webtoon-intro-card {
+  border: 1px solid rgba(255,255,255,.2);
+  background:
+    linear-gradient(180deg, rgba(12,16,31,.75), rgba(12,16,31,.88)),
+    radial-gradient(circle at 25% 10%, rgba(115,151,255,.28), transparent 40%),
+    radial-gradient(circle at 75% 80%, rgba(119,88,202,.25), transparent 38%);
+  color: #f7f4ff;
+}
+.webtoon-intro-card h3 { margin: 8px 0; color: #fff; font-size: 24px; }
+.webtoon-intro-card p { color: rgba(245,241,255,.86); }
+.webtoon-start-btn {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 48px;
+  background: linear-gradient(135deg, #1f4fa3, #0e356f);
+}
+.webtoon-dialog {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+.webtoon-dialog .speech {
+  background: #fff;
+  color: #1f1f1f;
+  border-radius: 18px;
+  border: 2px solid rgba(0,0,0,.24);
+  padding: 12px 14px;
+  font-weight: 600;
+}
