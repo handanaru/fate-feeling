@@ -1,4 +1,7 @@
 const firstImpactForm = document.getElementById('firstImpactForm');
+const enterWebtoonModeBtn = document.getElementById('enterWebtoonMode');
+const enterReportModeBtn = document.getElementById('enterReportMode');
+const modeCurrentText = document.getElementById('modeCurrentText');
 const trustCounter = document.getElementById('trustCounterValue');
 const trustCounterText = document.getElementById('trustCounterText');
 const trustCounterTail = document.getElementById('trustCounterTail');
@@ -537,6 +540,15 @@ function syncReportViewUI(view = 'report') {
   localStorage.setItem('ff-result-view-mode', next);
 }
 
+function setExperienceMode(mode = 'webtoon') {
+  const next = mode === 'report' ? 'report' : 'webtoon';
+  localStorage.setItem('ff-experience-mode', next);
+  document.body.classList.toggle('experience-report', next === 'report');
+  document.body.classList.toggle('experience-webtoon', next === 'webtoon');
+  if (modeCurrentText) modeCurrentText.textContent = next === 'webtoon' ? '웹툰 모드' : '정통 리포트 모드';
+  syncReportViewUI(next === 'webtoon' ? 'webtoon' : 'report');
+}
+
 function syncModeUI(mode) {
   if (!mode) return;
   if (analysisModeSelect) analysisModeSelect.value = mode;
@@ -718,6 +730,15 @@ syncConcernUI();
 openOnboardingIfNeeded();
 
 
+enterWebtoonModeBtn?.addEventListener('click', () => {
+  setExperienceMode('webtoon');
+  firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+enterReportModeBtn?.addEventListener('click', () => {
+  setExperienceMode('report');
+  firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 reportViewButtons.forEach((btn) => {
   btn.addEventListener('click', () => syncReportViewUI(btn.dataset.resultView || 'report'));
 });
@@ -731,5 +752,6 @@ if (webtoonStartBtn) {
 }
 
 if (reportViewSelect) {
-  syncReportViewUI(localStorage.getItem('ff-result-view-mode') || reportViewSelect.value || 'report');
+  const preferred = localStorage.getItem('ff-experience-mode') || localStorage.getItem('ff-result-view-mode') || reportViewSelect.value || 'webtoon';
+  setExperienceMode(preferred);
 }

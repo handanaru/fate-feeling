@@ -5421,3 +5421,47 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   padding: 12px 14px;
   font-weight: 600;
 }
+
+/* gateway home + dual mode */
+.gateway-home {
+  border: 1px solid rgba(255,255,255,.16);
+  background: linear-gradient(145deg, rgba(18,18,34,.92), rgba(28,20,48,.9));
+}
+.gateway-kicker { font-size: 11px; letter-spacing: .08em; color: rgba(238,221,255,.72); }
+.gateway-home h1 { font-size: clamp(24px, 6vw, 32px); color: #fff; margin: 6px 0; }
+.gateway-home p { color: rgba(239,234,255,.84); }
+.gateway-actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+.gateway-btn.webtoon { background: linear-gradient(135deg, #1b4b9a, #102f63); }
+.gateway-quick-cards { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.gateway-quick-cards article { border:1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 10px; background: rgba(255,255,255,.06); color: #fff; }
+.mode-current-banner { margin-bottom: 10px; border:1px solid var(--border); border-radius: 12px; padding: 8px 10px; background: rgba(255,255,255,.08); font-size: 13px; }
+
+/* report mode: practical light cards */
+body.experience-report .first-impact-page { background: #f3f4f8; }
+body.experience-report .card {
+  background: #fff;
+  border: 1px solid #e7e9f0;
+  box-shadow: 0 8px 18px rgba(15,20,40,.08);
+  color: #1c2333;
+}
+body.experience-report .home-hero-banner,
+body.experience-report .webtoon-intro-card {
+  background: linear-gradient(180deg, #fdfefe, #f4f7ff);
+  color: #1c2333;
+}
+body.experience-report .hero-eyebrow,
+body.experience-report .small,
+body.experience-report p { color: #53607a; }
+body.experience-report .impact-copy,
+body.experience-report label,
+body.experience-report h1,
+body.experience-report h2,
+body.experience-report h3 { color: #1c2333; }
+body.experience-report input,
+body.experience-report select,
+body.experience-report textarea {
+  background: #fff;
+  border-color: #d8dce8;
+  color: #1c2333;
+}
+body.experience-report .mode-current-banner { background: #f5f7ff; border-color: #d8dff0; }
