@@ -5465,3 +5465,63 @@ body.experience-report textarea {
   color: #1c2333;
 }
 body.experience-report .mode-current-banner { background: #f5f7ff; border-color: #d8dff0; }
+
+/* full rebuild step: no input on first view + mode-specific input surface */
+#firstImpact[hidden] { display: none !important; }
+.first-impact.as-report-sheet {
+  position: sticky;
+  bottom: 12px;
+  z-index: 18;
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.28);
+}
+
+.impact-form.webtoon-question-mode .dual-step-nav,
+.impact-form.webtoon-question-mode .soft-cross-sell,
+.impact-form.webtoon-question-mode #partnerFields,
+.impact-form.webtoon-question-mode #subConcernWrap,
+.impact-form.webtoon-question-mode #adultEntryCard,
+.impact-form.webtoon-question-mode #reportViewGrid,
+.impact-form.webtoon-question-mode #reportViewMode,
+.impact-form.webtoon-question-mode #analysisMode,
+.impact-form.webtoon-question-mode #concern,
+.impact-form.webtoon-question-mode .impact-cta {
+  display: none !important;
+}
+
+.impact-form.webtoon-question-mode label,
+.impact-form.webtoon-question-mode input,
+.impact-form.webtoon-question-mode select,
+.impact-form.webtoon-question-mode #analysisModeGrid,
+.impact-form.webtoon-question-mode #concernGridMain {
+  display: none;
+}
+
+.impact-form.webtoon-question-mode[data-active-field="name"] label[for="name"],
+.impact-form.webtoon-question-mode[data-active-field="name"] #name,
+.impact-form.webtoon-question-mode[data-active-field="birth"] label[for="birth"],
+.impact-form.webtoon-question-mode[data-active-field="birth"] #birth,
+.impact-form.webtoon-question-mode[data-active-field="birthTime"] label[for="birthTime"],
+.impact-form.webtoon-question-mode[data-active-field="birthTime"] #birthTime,
+.impact-form.webtoon-question-mode[data-active-field="birthPlace"] label[for="birthPlace"],
+.impact-form.webtoon-question-mode[data-active-field="birthPlace"] #birthPlace,
+.impact-form.webtoon-question-mode[data-active-field="gender"] label[for="gender"],
+.impact-form.webtoon-question-mode[data-active-field="gender"] #gender,
+.impact-form.webtoon-question-mode[data-active-field="analysisModeGrid"] #analysisModeLabel,
+.impact-form.webtoon-question-mode[data-active-field="analysisModeGrid"] #analysisModeGrid,
+.impact-form.webtoon-question-mode[data-active-field="concernGridMain"] #concernMainLabel,
+.impact-form.webtoon-question-mode[data-active-field="concernGridMain"] #concernGridMain {
+  display: block;
+}
+.impact-form.webtoon-question-mode[data-active-field="analysisModeGrid"] #analysisModeGrid,
+.impact-form.webtoon-question-mode[data-active-field="concernGridMain"] #concernGridMain {
+  display: grid;
+}
+.webtoon-step-nav {
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(255,255,255,.08);
+}
+.webtoon-step-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }

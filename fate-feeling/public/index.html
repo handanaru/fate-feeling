@@ -62,7 +62,7 @@
       <p id="trustCounterText">지금까지 <strong id="trustCounterValue" class="number-metric">12,405</strong><span id="trustCounterTail">명이 결혼/궁합 흐름을 확인했습니다.</span></p>
     </section>
 
-    <section class="card first-impact" id="firstImpact">
+    <section class="card first-impact" id="firstImpact" hidden>
       <div class="impact-glow" aria-hidden="true"></div>
       <p class="impact-copy" id="impactCopy">어긋난 인연에도 다시 만날 '때'는 반드시 있습니다.</p>
 
@@ -140,7 +140,7 @@
           <input id="partnerBirthPlace" placeholder="예: 서울" />
         </div>
 
-        <label>오늘 어떤 고민을 풀어볼까?</label>
+        <label id="concernMainLabel">오늘 어떤 고민을 풀어볼까?</label>
         <div class="concern-grid-main" id="concernGridMain">
           <button type="button" data-group="money" data-concern="금전/재산">💰 금전</button>
           <button type="button" data-group="career" data-concern="취업/직장">💼 취업</button>
@@ -175,7 +175,7 @@
           <button type="button" class="btn secondary" id="adultQuickBtn">성인 전용 분석 열기</button>
         </div>
 
-        <label for="analysisMode" class="small">분석 관점 선택</label>
+        <label for="analysisMode" class="small" id="analysisModeLabel">분석 관점 선택</label>
         <div class="analysis-mode-grid" id="analysisModeGrid">
           <button type="button" data-mode="saju" class="active">☯ 사주</button>
           <button type="button" data-mode="astro">🪐 별자리</button>
@@ -203,6 +203,14 @@
           <option value="report" selected>전문가 리포트</option>
           <option value="webtoon">웹툰으로 다시 보기</option>
         </select>
+
+        <div class="webtoon-step-nav" id="webtoonStepNav" hidden>
+          <p class="small" id="webtoonStepHint">질문에 답해줘.</p>
+          <div class="webtoon-step-actions">
+            <button class="btn secondary" id="webtoonPrevBtn" type="button">이전</button>
+            <button class="btn" id="webtoonNextBtn" type="button">다음</button>
+          </div>
+        </div>
 
         <button class="btn impact-cta" id="startSubmitBtn" type="submit">사주로 궁합 확인하기</button>
 

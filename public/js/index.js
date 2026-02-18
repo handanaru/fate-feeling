@@ -26,6 +26,10 @@ const reportViewSelect = document.getElementById('reportViewMode');
 const reportViewButtons = [...document.querySelectorAll('#reportViewGrid [data-result-view]')];
 const webtoonStartBtn = document.getElementById('webtoonStartBtn');
 const firstImpactSection = document.getElementById('firstImpact');
+const webtoonStepNav = document.getElementById('webtoonStepNav');
+const webtoonStepHint = document.getElementById('webtoonStepHint');
+const webtoonPrevBtn = document.getElementById('webtoonPrevBtn');
+const webtoonNextBtn = document.getElementById('webtoonNextBtn');
 const onboardingModeStatus = document.getElementById('onboardingModeStatus');
 const onboardingTotalFortuneBtn = document.getElementById('onboardingTotalFortuneBtn');
 const modeCard = document.getElementById('modeCard');
@@ -549,6 +553,65 @@ function setExperienceMode(mode = 'webtoon') {
   syncReportViewUI(next === 'webtoon' ? 'webtoon' : 'report');
 }
 
+const webtoonFieldSteps = [
+  { key: 'name', label: '먼저 이름을 알려줘.', validate: () => !!document.getElementById('name')?.value.trim() },
+  { key: 'birth', label: '생년월일을 입력해줘.', validate: () => !!document.getElementById('birth')?.value.trim() },
+  { key: 'birthTime', label: '태어난 시간을 입력해줘. 모르면 모름으로 적어도 돼.', validate: () => true },
+  { key: 'gender', label: '성별을 선택해줘.', validate: () => !!document.getElementById('gender')?.value.trim() },
+  { key: 'birthPlace', label: '출생지를 입력해줘.', validate: () => !!document.getElementById('birthPlace')?.value.trim() },
+  { key: 'concernGridMain', label: '오늘 어떤 고민을 풀어볼까?', validate: () => !!document.getElementById('concern')?.value.trim() },
+  { key: 'analysisModeGrid', label: '어떤 관점으로 분석할까?', validate: () => !!document.getElementById('analysisMode')?.value.trim() }
+];
+let webtoonStepIndex = 0;
+
+function applyWebtoonStepUI() {
+  if (!firstImpactForm) return;
+  const step = webtoonFieldSteps[webtoonStepIndex];
+  if (!step) return;
+  firstImpactForm.dataset.activeField = step.key;
+  if (webtoonStepHint) webtoonStepHint.textContent = `[${webtoonStepIndex + 1}/${webtoonFieldSteps.length}] ${step.label}`;
+  if (webtoonPrevBtn) webtoonPrevBtn.disabled = webtoonStepIndex <= 0;
+  if (webtoonNextBtn) webtoonNextBtn.textContent = webtoonStepIndex >= webtoonFieldSteps.length - 1 ? '결과 보기' : '다음';
+  const el = document.getElementById(step.key);
+  if (el && typeof el.focus === 'function') setTimeout(() => el.focus(), 120);
+}
+
+function setInputPresentation(mode = 'webtoon') {
+  if (!firstImpactSection || !firstImpactForm) return;
+  firstImpactSection.hidden = false;
+  const isWebtoon = mode === 'webtoon';
+  firstImpactSection.classList.toggle('as-report-sheet', !isWebtoon);
+  firstImpactForm.classList.toggle('webtoon-question-mode', isWebtoon);
+  if (webtoonStepNav) webtoonStepNav.hidden = !isWebtoon;
+  if (startSubmitBtn) startSubmitBtn.hidden = isWebtoon;
+  if (isWebtoon) {
+    webtoonStepIndex = 0;
+    applyWebtoonStepUI();
+  } else {
+    delete firstImpactForm.dataset.activeField;
+  }
+}
+
+webtoonPrevBtn?.addEventListener('click', () => {
+  if (webtoonStepIndex <= 0) return;
+  webtoonStepIndex -= 1;
+  applyWebtoonStepUI();
+});
+
+webtoonNextBtn?.addEventListener('click', () => {
+  const step = webtoonFieldSteps[webtoonStepIndex];
+  if (!step) return;
+  if (typeof step.validate === 'function' && !step.validate()) {
+    return alert('먼저 현재 질문에 답해줘.');
+  }
+  if (webtoonStepIndex >= webtoonFieldSteps.length - 1) {
+    firstImpactForm.requestSubmit();
+    return;
+  }
+  webtoonStepIndex += 1;
+  applyWebtoonStepUI();
+});
+
 function syncModeUI(mode) {
   if (!mode) return;
   if (analysisModeSelect) analysisModeSelect.value = mode;
@@ -732,10 +795,12 @@ openOnboardingIfNeeded();
 
 enterWebtoonModeBtn?.addEventListener('click', () => {
   setExperienceMode('webtoon');
+  setInputPresentation('webtoon');
   firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 enterReportModeBtn?.addEventListener('click', () => {
   setExperienceMode('report');
+  setInputPresentation('report');
   firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
@@ -745,7 +810,8 @@ reportViewButtons.forEach((btn) => {
 
 if (webtoonStartBtn) {
   webtoonStartBtn.addEventListener('click', () => {
-    syncReportViewUI('webtoon');
+    setExperienceMode('webtoon');
+    setInputPresentation('webtoon');
     firstImpactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => document.getElementById('name')?.focus(), 260);
   });
@@ -754,4 +820,5 @@ if (webtoonStartBtn) {
 if (reportViewSelect) {
   const preferred = localStorage.getItem('ff-experience-mode') || localStorage.getItem('ff-result-view-mode') || reportViewSelect.value || 'webtoon';
   setExperienceMode(preferred);
+  if (firstImpactSection) firstImpactSection.hidden = true;
 }
