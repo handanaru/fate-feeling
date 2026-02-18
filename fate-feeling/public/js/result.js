@@ -175,38 +175,48 @@ function renderPillarsGrid(data, concern = '') {
   if (!pillarsBox) return;
   const cols = ['시', '일', '월', '년'];
   const toneMap = { wood: 'wood', fire: 'fire', earth: 'earth', metal: 'metal', water: 'water' };
-  const renderPerson = (title, pillars = []) => {
-    const safe = pillars.slice(0, 4);
-    const stemCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.stemElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.stem || '-'}</strong><em>${p.stemSipsin || '-'}</em></div>`).join('');
-    const branchCells = safe.map((p, i) => `<div class="pillar-cell ${toneMap[p.branchElement] || 'earth'} ${i === 1 ? 'col-day' : ''}"><small>${cols[i]}</small><strong>${p.branch || '-'}</strong><em>${p.unseong || p.branchSipsin || '-'}</em></div>`).join('');
-    return `<article class="pillars-person pillars-result"><h4>${title}</h4><div class="pillars-row-label">천간</div><div class="pillars-grid">${stemCells}</div><div class="pillars-row-label">지지</div><div class="pillars-grid">${branchCells}</div></article>`;
+
+  const renderCell = (p = {}, i = 0, type = 'stem') => {
+    const isDay = i === 1;
+    const tone = toneMap[type === 'stem' ? p.stemElement : p.branchElement] || 'earth';
+    const main = type === 'stem' ? (p.stem || '-') : (p.branch || '-');
+    const sub = type === 'stem' ? (p.stemSipsin || '-') : (p.unseong || p.branchSipsin || '-');
+    return `<div class="webtoon-cell ${tone} ${isDay ? 'is-day' : ''}"><small>${cols[i]}</small><strong>${main}</strong><em>${sub}</em></div>`;
   };
 
-  const ruleMapRows = [
-    ['열정-원칙 충돌형', '화(火)+금(金) 동시 강세', '충돌 시 완충 지연 → 안정도 보수 반영'],
-    ['상생 추진형', '목(木)→화(火) 상생', '관계 추진/회복 탄력 가점'],
-    ['감정 냉각 보완형', '수(水) 기운 부족', '감정 냉각 지연 가능성 반영'],
-    ['직설 소통 보완형', '양(陽) 기질 우세', '선발언 성향으로 소통 반응도 보정'],
-    ['경청 반응 상승형', '수(水)→목(木) 흐름', '질문·경청형 대화 반응 가점']
-  ];
+  const renderClassicTable = (title, pillars = []) => {
+    const safe = pillars.slice(0, 4);
+    return `<article class="webtoon-pillar-panel">
+      <h4>${title}</h4>
+      <div class="webtoon-pillar-table">
+        <div class="row-label">천간</div>
+        ${safe.map((p, i) => renderCell(p, i, 'stem')).join('')}
+        <div class="row-label">지지</div>
+        ${safe.map((p, i) => renderCell(p, i, 'branch')).join('')}
+      </div>
+      <p class="small">*예시용 카드 구성처럼 원국 가독성 우선으로 보여줘.</p>
+    </article>`;
+  };
 
   const hasPartner = concern === '일반 궁합' && data?.partner?.pillars?.length;
   const myDay = data?.self?.pillars?.[1]?.ganzi || '-';
   const partnerDay = data?.partner?.pillars?.[1]?.ganzi || '-';
-  const compScore = hasPartner ? Math.max(55, Math.min(96, Math.round((data?.score || data?.finalScore || 78)))) : null;
 
-  pillarsBox.innerHTML = `<h3>✨ 두 분의 타고난 기운 (사주 원국)</h3>
-    <p class="small">표는 제거하고 8개 원국 카드만 대칭으로 비교해. 핵심은 일주(⭐)야.</p>
-    <div class="pillars-compare pillars-compare-mirror ${hasPartner ? 'is-pair' : ''}">
-      ${renderPerson('나', data?.self?.pillars || [])}
-      ${hasPartner ? `<aside class="pillars-bridge"><strong>${myDay}</strong><span>💖 궁합 연결</span><strong>${partnerDay}</strong><em>${compScore}%</em></aside>` : ''}
-      ${hasPartner ? renderPerson('상대방', data.partner.pillars) : ''}
+  pillarsBox.innerHTML = `<section class="webtoon-chapter" id="chapter-pillar">
+    <header class="chapter-head">
+      <span class="chapter-no">제1장</span>
+      <h3>나의 사주팔자</h3>
+      <p class="small">생년월일시를 기반으로 시·일·월·년 기둥을 읽어. 핵심은 일주(일간/일지)야.</p>
+    </header>
+
+    <div class="speech-row">
+      <div class="speech-bubble">각각의 기둥은 위아래로 나뉘어 하늘의 기운(천간)과 땅의 기운(지지)을 보여줘.</div>
+      <div class="speech-bubble">그중에서도 가장 중요한 건 일주(⭐) — 나라는 사람의 중심 축이야.</div>
     </div>
-    <p class="small">오행 색상: 목(그린) · 화(레드) · 토(옐로우) · 금(화이트) · 수(블루)</p>
-    <details class="rule-map">
-      <summary>📘 해석 기준 보기</summary>
-      <div class="rule-map-table">${ruleMapRows.map((r) => `<div><strong>${r[0]}</strong></div><div>${r[1]}</div><div>${r[2]}</div>`).join('')}</div>
-    </details>`;
+
+    ${renderClassicTable('내 원국', data?.self?.pillars || [])}
+    ${hasPartner ? `<div class="speech-row single"><div class="speech-bubble emphasis">궁합 비교 포인트: ${myDay} ↔ ${partnerDay} (일주 연결)</div></div>${renderClassicTable('상대 원국', data.partner.pillars)}` : ''}
+  </section>`;
 }
 
 function renderTotalFortuneSection(data, concern = '', userName = '당신', targetName = '') {
