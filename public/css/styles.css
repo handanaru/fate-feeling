@@ -5525,3 +5525,76 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   background: rgba(255,255,255,.08);
 }
 .webtoon-step-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+
+/* ===== Rebuild Home v1 ===== */
+.ff-rebuild-home {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(255,214,144,.16), transparent 34%),
+    radial-gradient(circle at 80% 80%, rgba(143,122,255,.14), transparent 36%),
+    linear-gradient(180deg, #0b0f22 0%, #13102a 56%, #1a1231 100%);
+}
+.ff-home-shell { padding-bottom: 92px; }
+.ff-home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.ff-home-menu {
+  font-size: 12px;
+  color: #d9d8ff;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+.ff-home-hero {
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 22px;
+  padding: 18px;
+  background: linear-gradient(150deg, rgba(29,32,67,.78), rgba(45,26,75,.74));
+}
+.ff-home-kicker { font-size: 11px; letter-spacing: .1em; color: rgba(230,222,255,.74); margin: 0 0 8px; }
+.ff-home-hero h1 { margin: 0; font-size: clamp(24px, 6.4vw, 34px); line-height: 1.3; white-space: pre-line; }
+.ff-home-sub { margin: 10px 0 0; color: rgba(238,237,255,.82); }
+.ff-home-cta-grid {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+.ff-home-cta {
+  min-height: 50px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+.ff-home-cta.webtoon {
+  background: linear-gradient(135deg, #2c66cf, #1f469b);
+}
+.ff-home-cta.report {
+  background: rgba(255,255,255,.14);
+}
+.ff-home-category,
+.ff-home-proof {
+  margin-top: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(12,12,27,.48);
+}
+.ff-home-category h3,
+.ff-home-proof h3 { margin: 0 0 10px; font-size: 17px; }
+.ff-home-category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.ff-home-category-grid article {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.06);
+}
+.ff-home-category-grid strong { display: block; font-size: 14px; }
+.ff-home-category-grid p { margin: 6px 0 0; font-size: 12px; color: rgba(238,234,255,.78); }
+.ff-home-proof ul { margin: 0; padding-left: 18px; color: rgba(238,234,255,.84); }
+.ff-home-proof li + li { margin-top: 6px; }
