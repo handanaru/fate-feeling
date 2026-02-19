@@ -5594,24 +5594,10 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-hero-sky .s5 { top: 28%; right: 20%; }
 .ff-hero-sky .s6 { top: 54%; right: 14%; }
 .ff-hero-sky .s7 { top: 66%; left: 14%; }
-.ff-hero-character {
-  position: absolute;
-  right: -42px;
-  bottom: 190px;
-  width: min(56vw, 280px);
-  margin: 0;
-  opacity: .9;
-  filter: drop-shadow(0 16px 28px rgba(12, 8, 38, .6));
-  pointer-events: none;
-}
-.ff-hero-character img { width: 100%; height: auto; display: block; border-radius: 18px; }
-
-.ff-home-kicker { position: relative; z-index: 2; font-size: 11px; letter-spacing: .1em; color: rgba(238,231,255,.82); margin: 0 0 8px; }
-.ff-home-hero h1 { position: relative; z-index: 2; margin: 0; font-size: clamp(28px, 7.2vw, 38px); line-height: 1.25; white-space: pre-line; text-shadow: 0 4px 20px rgba(128,89,206,.45); max-width: 74%; }
-.ff-home-sub { position: relative; z-index: 2; margin: 12px 0 0; color: rgba(238,237,255,.9); font-size: 15px; max-width: 72%; }
+.ff-home-kicker { position: relative; z-index: 1; font-size: 11px; letter-spacing: .1em; color: rgba(238,231,255,.82); margin: 0 0 8px; }
+.ff-home-hero h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(28px, 7.2vw, 38px); line-height: 1.25; white-space: pre-line; text-shadow: 0 4px 20px rgba(128,89,206,.45); }
+.ff-home-sub { position: relative; z-index: 1; margin: 12px 0 0; color: rgba(238,237,255,.9); font-size: 15px; }
 .ff-home-cta-grid {
-  position: relative;
-  z-index: 2;
   margin-top: 20px;
   display: grid;
   gap: 12px;
@@ -5672,14 +5658,3 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-home-category-grid p { margin: 6px 0 0; font-size: 12px; color: rgba(238,234,255,.78); }
 .ff-home-proof ul { margin: 0; padding-left: 18px; color: rgba(238,234,255,.84); }
 .ff-home-proof li + li { margin-top: 6px; }
-
-@media (max-width: 430px) {
-  .ff-hero-character {
-    right: -56px;
-    bottom: 204px;
-    width: 58vw;
-    opacity: .84;
-  }
-  .ff-home-hero h1 { max-width: 76%; }
-  .ff-home-sub { max-width: 74%; }
-}
