@@ -5733,3 +5733,44 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .ff-poster-sub { font-size: 20px; }
   .ff-mega-cta { font-size: 19px; }
 }
+
+.ff-home-rail-wrap {
+  margin-top: 14px;
+}
+.ff-home-rail-wrap h3 { margin: 0 0 10px; font-size: 20px; }
+.ff-home-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 82%;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 6px;
+}
+.ff-home-rail::-webkit-scrollbar { height: 6px; }
+.ff-home-rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,.25); border-radius: 999px; }
+.ff-theme-card {
+  scroll-snap-align: start;
+  min-height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid rgba(255,255,255,.22);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78)),
+    var(--bg) center/cover no-repeat;
+}
+.ff-theme-card .year { font-size: 18px; opacity: .9; margin-bottom: 2px; }
+.ff-theme-card strong { font-size: 52px; line-height: .95; letter-spacing: -0.02em; }
+.ff-theme-card em { font-style: normal; font-size: 18px; margin-top: 8px; color: rgba(244,241,255,.92); }
+
+@media (max-width: 430px) {
+  .ff-home-rail { grid-auto-columns: 88%; }
+  .ff-theme-card { min-height: 340px; }
+  .ff-theme-card strong { font-size: 46px; }
+}
