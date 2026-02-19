@@ -5831,3 +5831,79 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-list-card strong {
   padding-right: 66px;
 }
+
+/* Seong-un guide v1 */
+.ff-poster-card--seongun {
+  position: relative;
+  overflow: hidden;
+}
+.ff-poster-card--seongun::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+.seongun-stage {
+  position: absolute;
+  right: 12px;
+  top: 16px;
+  width: 140px;
+  height: 180px;
+  pointer-events: none;
+}
+.seongun-avatar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 118px;
+  height: 152px;
+  border-radius: 60px 60px 24px 24px;
+  background:
+    radial-gradient(circle at 52% 26%, rgba(255,245,236,.95) 0 18%, transparent 19%),
+    radial-gradient(circle at 55% 32%, rgba(249,220,205,.95) 0 22%, transparent 23%),
+    linear-gradient(180deg, #2f4f8f 0%, #24386d 48%, #1a2348 100%);
+  border: 1px solid rgba(255,255,255,.25);
+  box-shadow: 0 12px 26px rgba(7,6,24,.55);
+}
+.seongun-avatar::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 54px 54px 18px 18px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.03));
+}
+.zodiac-ring {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px dashed rgba(183,164,255,.56);
+  box-shadow: inset 0 0 18px rgba(160,137,255,.22), 0 0 20px rgba(160,137,255,.2);
+}
+.seongun-line {
+  margin: 14px 0 0;
+  max-width: 82%;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(240,233,255,.9);
+  text-shadow: 0 2px 12px rgba(0,0,0,.44);
+}
+
+@media (max-width: 430px) {
+  .seongun-stage { width: 126px; height: 166px; right: 8px; }
+  .seongun-avatar { width: 106px; height: 138px; }
+  .zodiac-ring { width: 106px; height: 106px; }
+  .seongun-line { max-width: 90%; font-size: 13px; }
+}
