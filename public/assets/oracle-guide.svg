@@ -1,0 +1,40 @@
+<svg width="720" height="980" viewBox="0 0 720 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="120" x2="620" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2B2B64"/>
+      <stop offset="1" stop-color="#171739"/>
+    </linearGradient>
+    <linearGradient id="robe" x1="230" y1="380" x2="500" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D4FB3"/>
+      <stop offset="1" stop-color="#1C2F78"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="250" y1="180" x2="440" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A1429"/>
+      <stop offset="1" stop-color="#3E3459"/>
+    </linearGradient>
+  </defs>
+  <rect x="30" y="30" width="660" height="920" rx="40" fill="url(#bg)" stroke="#8D7FD8" stroke-opacity="0.45"/>
+  <circle cx="510" cy="170" r="56" fill="#F5EFD0" fill-opacity="0.95"/>
+  <circle cx="510" cy="170" r="78" fill="#F5EFD0" fill-opacity="0.2"/>
+
+  <ellipse cx="360" cy="820" rx="210" ry="115" fill="#0E112A" fill-opacity="0.55"/>
+
+  <path d="M208 890C220 682 254 526 360 516C466 526 500 682 512 890H208Z" fill="url(#robe)"/>
+  <path d="M272 610C304 640 332 654 360 654C388 654 416 640 448 610" stroke="#D8C77B" stroke-width="8" stroke-linecap="round"/>
+
+  <ellipse cx="360" cy="340" rx="114" ry="132" fill="#F3D9CA"/>
+  <path d="M246 342C246 264 296 198 360 198C424 198 474 264 474 342" fill="url(#hair)"/>
+  <path d="M248 338C248 264 296 206 360 206C424 206 472 264 472 338" stroke="#A89AE3" stroke-opacity="0.3" stroke-width="8"/>
+
+  <ellipse cx="316" cy="344" rx="11" ry="8" fill="#2B253B"/>
+  <ellipse cx="404" cy="344" rx="11" ry="8" fill="#2B253B"/>
+  <path d="M332 392C348 405 372 405 388 392" stroke="#8E4E68" stroke-width="7" stroke-linecap="round"/>
+
+  <path d="M258 260C220 292 202 356 220 432" stroke="url(#hair)" stroke-width="30" stroke-linecap="round"/>
+  <path d="M466 260C504 292 522 356 504 432" stroke="url(#hair)" stroke-width="30" stroke-linecap="round"/>
+
+  <circle cx="198" cy="210" r="4" fill="white" fill-opacity="0.9"/>
+  <circle cx="228" cy="154" r="3" fill="white" fill-opacity="0.8"/>
+  <circle cx="576" cy="230" r="4" fill="white" fill-opacity="0.9"/>
+  <circle cx="560" cy="302" r="3" fill="white" fill-opacity="0.75"/>
+</svg>
