@@ -5774,3 +5774,35 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .ff-theme-card { min-height: 340px; }
   .ff-theme-card strong { font-size: 46px; }
 }
+
+/* rail refinement v2 */
+.ff-theme-card {
+  position: relative;
+}
+.ff-theme-card .progress {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  background: rgba(0,0,0,.46);
+  border: 1px solid rgba(255,255,255,.24);
+}
+.ff-theme-card strong {
+  white-space: pre-line;
+  font-size: 58px;
+  line-height: .92;
+  text-shadow: 0 6px 18px rgba(0,0,0,.55);
+}
+.ff-theme-card.is-adult {
+  border-color: rgba(255,140,188,.75);
+  box-shadow: 0 0 0 1px rgba(255,140,188,.35), 0 18px 32px rgba(255,89,162,.22);
+}
+.ff-theme-card.is-adult em { color: rgba(255,223,242,.94); }
+
+@media (max-width: 430px) {
+  .ff-theme-card strong { font-size: 50px; }
+  .ff-theme-card .progress { font-size: 13px; padding: 5px 9px; }
+}
