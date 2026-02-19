@@ -500,18 +500,26 @@ firstImpactForm?.addEventListener('submit', (e) => {
   window.location.replace('/test.html');
 });
 
+function todayKey() {
+  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }); // YYYY-MM-DD
+}
+
 function closeOnboarding() {
   if (!firstVisitModal) return;
   firstVisitModal.hidden = true;
   if (hideOnboardingForever?.checked) {
-    localStorage.setItem('ff-hide-onboarding', '1');
+    localStorage.setItem('ff-hide-onboarding-date', todayKey());
   }
 }
 
 function openOnboardingIfNeeded() {
   if (!firstVisitModal) return;
-  const hide = localStorage.getItem('ff-hide-onboarding') === '1';
-  if (hide) return;
+  const hiddenDate = localStorage.getItem('ff-hide-onboarding-date');
+  const legacyHide = localStorage.getItem('ff-hide-onboarding') === '1';
+  const hideToday = hiddenDate === todayKey() || legacyHide;
+  if (hideToday) return;
+
+  if (hideOnboardingForever) hideOnboardingForever.checked = false;
 
   // 최초 노출은 항상 일반 버전으로 시작
   setAudience('general');
