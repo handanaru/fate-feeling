@@ -5806,3 +5806,28 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .ff-theme-card strong { font-size: 50px; }
   .ff-theme-card .progress { font-size: 13px; padding: 5px 9px; }
 }
+
+.ff-list-lead {
+  margin: -2px 0 10px;
+  color: rgba(224,218,245,.82);
+  font-size: 13px;
+}
+.ff-list-card {
+  position: relative;
+}
+.ff-list-card .tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: #ffdca4;
+  border: 1px solid rgba(255,220,164,.45);
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(0,0,0,.28);
+}
+.ff-list-card strong {
+  padding-right: 66px;
+}
