@@ -5907,3 +5907,53 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .zodiac-ring { width: 106px; height: 106px; }
   .seongun-line { max-width: 90%; font-size: 13px; }
 }
+
+.ff-featured-grid-wrap {
+  margin-top: 14px;
+}
+.ff-featured-grid-wrap h3 { margin: 0 0 10px; font-size: 20px; }
+.ff-featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ff-featured-card {
+  min-height: 154px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 12px;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.62)), var(--bg) center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+}
+.ff-featured-card strong { white-space: pre-line; font-size: 26px; line-height: 1.06; text-shadow: 0 4px 12px rgba(0,0,0,.45); }
+
+.ff-mid-cta {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  min-height: 50px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.24);
+  background: linear-gradient(135deg, #214ea2, #173c82);
+  font-weight: 700;
+}
+
+.ff-home-proof--cards .ff-proof-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.ff-home-proof--cards article {
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.04);
+}
+.ff-home-proof--cards strong { display: block; margin-bottom: 4px; }
+.ff-home-proof--cards p { margin: 0; color: rgba(226,220,245,.85); font-size: 13px; }
