@@ -5549,26 +5549,64 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   text-decoration: none;
 }
 .ff-home-hero {
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 24px;
   padding: 20px;
   min-height: calc(100vh - 170px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(150deg, rgba(29,32,67,.88), rgba(45,26,75,.84));
+  background:
+    radial-gradient(circle at 78% 15%, rgba(193,164,255,.22), transparent 34%),
+    radial-gradient(circle at 15% 78%, rgba(117,84,255,.22), transparent 36%),
+    linear-gradient(150deg, rgba(25,29,65,.92), rgba(52,25,81,.9));
 }
-.ff-home-kicker { font-size: 11px; letter-spacing: .1em; color: rgba(230,222,255,.74); margin: 0 0 8px; }
-.ff-home-hero h1 { margin: 0; font-size: clamp(28px, 7.2vw, 38px); line-height: 1.25; white-space: pre-line; }
-.ff-home-sub { margin: 12px 0 0; color: rgba(238,237,255,.86); font-size: 15px; }
+.ff-hero-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ff-hero-sky .moon {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 28%, #fffef2, #e5dcff 60%, rgba(229,220,255,.2));
+  box-shadow: 0 0 28px rgba(232,223,255,.45);
+}
+.ff-hero-sky .star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,.9);
+  opacity: .85;
+}
+.ff-hero-sky .s1 { top: 22%; left: 16%; }
+.ff-hero-sky .s2 { top: 18%; left: 30%; }
+.ff-hero-sky .s3 { top: 32%; left: 10%; }
+.ff-hero-sky .s4 { top: 44%; left: 22%; }
+.ff-hero-sky .s5 { top: 28%; right: 20%; }
+.ff-hero-sky .s6 { top: 54%; right: 14%; }
+.ff-hero-sky .s7 { top: 66%; left: 14%; }
+.ff-home-kicker { position: relative; z-index: 1; font-size: 11px; letter-spacing: .1em; color: rgba(238,231,255,.82); margin: 0 0 8px; }
+.ff-home-hero h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(28px, 7.2vw, 38px); line-height: 1.25; white-space: pre-line; text-shadow: 0 4px 20px rgba(128,89,206,.45); }
+.ff-home-sub { position: relative; z-index: 1; margin: 12px 0 0; color: rgba(238,237,255,.9); font-size: 15px; }
 .ff-home-cta-grid {
   margin-top: 20px;
   display: grid;
   gap: 12px;
 }
 .ff-home-cta {
-  min-height: 110px;
-  border-radius: 16px;
+  position: relative;
+  z-index: 1;
+  min-height: 116px;
+  border-radius: 18px;
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -5577,9 +5615,10 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   gap: 4px;
   text-align: left;
   padding: 16px 18px;
+  border: 1px solid rgba(255,255,255,.24);
 }
-.ff-home-cta strong { font-size: 20px; line-height: 1.25; }
-.ff-home-cta em { font-style: normal; font-size: 13px; opacity: .9; }
+.ff-home-cta strong { font-size: 20px; line-height: 1.25; text-shadow: 0 2px 14px rgba(0,0,0,.28); }
+.ff-home-cta em { font-style: normal; font-size: 13px; opacity: .94; }
 .ff-cta-kicker {
   display: inline-flex;
   padding: 3px 8px;
@@ -5588,11 +5627,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   background: rgba(255,255,255,.2);
 }
 .ff-home-cta.webtoon {
-  background: linear-gradient(135deg, #2c66cf, #1f469b);
-  box-shadow: 0 12px 24px rgba(38,82,176,.45);
+  background: linear-gradient(140deg, rgba(74,123,255,.95), rgba(57,67,197,.95));
+  box-shadow: 0 12px 30px rgba(87,88,225,.5);
 }
 .ff-home-cta.report {
-  background: rgba(255,255,255,.16);
+  background: linear-gradient(140deg, rgba(84,57,122,.86), rgba(41,35,76,.86));
 }
 .ff-home-category,
 .ff-home-proof {
