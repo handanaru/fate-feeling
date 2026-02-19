@@ -5658,3 +5658,78 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-home-category-grid p { margin: 6px 0 0; font-size: 12px; color: rgba(238,234,255,.78); }
 .ff-home-proof ul { margin: 0; padding-left: 18px; color: rgba(238,234,255,.84); }
 .ff-home-proof li + li { margin-top: 6px; }
+
+/* Rebuild home v2 - single flow poster + list */
+.ff-home-hero--poster {
+  min-height: auto;
+  padding: 16px;
+}
+.ff-poster-card {
+  position: relative;
+  z-index: 2;
+  border-radius: 18px;
+  min-height: 55vh;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(180deg, rgba(9,10,24,.15) 20%, rgba(7,7,20,.75) 100%),
+    radial-gradient(circle at 72% 22%, rgba(139,115,240,.38), transparent 38%),
+    radial-gradient(circle at 18% 18%, rgba(170,154,255,.25), transparent 42%),
+    linear-gradient(145deg, #232852, #19152f 60%, #110f1f);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.ff-poster-year {
+  margin: 0 0 4px;
+  font-size: 36px;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: rgba(248,243,255,.95);
+}
+.ff-poster-card h1 {
+  margin: 0;
+  font-size: clamp(54px, 14vw, 72px);
+  line-height: 1;
+  letter-spacing: .01em;
+  color: #fff;
+  text-shadow: 0 6px 24px rgba(0,0,0,.5);
+}
+.ff-poster-sub {
+  margin: 10px 0 0;
+  font-size: 24px;
+  color: rgba(247,240,255,.92);
+}
+.ff-mega-cta {
+  position: relative;
+  z-index: 2;
+  margin-top: 12px;
+  min-height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1f4da3, #123677);
+  font-size: 21px;
+  font-weight: 800;
+}
+.ff-home-category--list { margin-top: 14px; }
+.ff-home-category--list h3 { font-size: 22px; }
+.ff-list-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.ff-list-card {
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 14px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(33,34,61,.72), rgba(20,20,38,.72));
+}
+.ff-list-card strong { display:block; font-size: 20px; margin-bottom: 4px; }
+.ff-list-card p { margin: 0; color: rgba(227,220,248,.82); font-size: 14px; }
+
+@media (max-width: 430px) {
+  .ff-poster-card { min-height: 50vh; }
+  .ff-poster-card h1 { font-size: 58px; }
+  .ff-poster-sub { font-size: 20px; }
+  .ff-mega-cta { font-size: 19px; }
+}
