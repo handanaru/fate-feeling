@@ -1,0 +1,22 @@
+{
+  "character": "seongun",
+  "version": "1.0.0",
+  "states": {
+    "base": {
+      "label": "기본",
+      "file": "/assets/seongun/seongun-base.svg"
+    },
+    "smile": {
+      "label": "웃음",
+      "file": "/assets/seongun/seongun-smile.svg"
+    },
+    "serious": {
+      "label": "진지",
+      "file": "/assets/seongun/seongun-serious.svg"
+    },
+    "empathy": {
+      "label": "공감",
+      "file": "/assets/seongun/seongun-empathy.svg"
+    }
+  }
+}

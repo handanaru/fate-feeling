@@ -1,0 +1,23 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hair" x1="120" y1="70" x2="370" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B245A"/>
+      <stop offset="1" stop-color="#0D1236"/>
+    </linearGradient>
+    <linearGradient id="robe" x1="170" y1="280" x2="350" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3C57B8"/>
+      <stop offset="1" stop-color="#23397D"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="252" fill="none"/>
+  <path d="M128 214C128 124 183 78 256 78C329 78 384 124 384 214V310H128V214Z" fill="url(#hair)"/>
+  <ellipse cx="256" cy="220" rx="95" ry="108" fill="#F6E7DF"/>
+  <path d="M168 220C168 152 205 109 256 109C307 109 344 152 344 220V244C344 312 307 355 256 355C205 355 168 312 168 244V220Z" fill="#F8EAE3"/>
+  <path d="M189 208C197 193 214 184 232 184" stroke="#2A1A2B" stroke-width="8" stroke-linecap="round"/>
+  <path d="M280 184C298 184 315 193 323 208" stroke="#2A1A2B" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="222" cy="231" rx="11" ry="9" fill="#1C1933"/>
+  <ellipse cx="290" cy="231" rx="11" ry="9" fill="#1C1933"/>
+  <path d="M241 274C247 279 265 279 271 274" stroke="#A67884" stroke-width="6" stroke-linecap="round"/>
+  <path d="M170 402C170 340 208 308 256 308C304 308 342 340 342 402V470H170V402Z" fill="url(#robe)"/>
+  <path d="M204 346C214 362 236 372 256 372C276 372 298 362 308 346" stroke="#EAD9A0" stroke-width="6" stroke-linecap="round"/>
+</svg>
