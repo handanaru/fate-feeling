@@ -6000,16 +6000,44 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: none;
 }
 
-.ff-home-proof--cards .ff-proof-cards {
+.ff-home-snack {
+  margin-top: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 14px;
+  background: rgba(9,11,20,.55);
+  padding: 12px;
+}
+.ff-home-snack h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.ff-home-snack-sub {
+  margin: 6px 0 10px;
+  color: rgba(226,220,245,.8);
+  font-size: 12px;
+}
+.ff-snack-cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
 }
-.ff-home-proof--cards article {
-  border: 1px solid rgba(255,255,255,.18);
+.ff-snack-card {
+  display: block;
+  text-decoration: none;
+  color: #efeaff;
+  border: 1px solid rgba(255,255,255,.14);
   border-radius: 12px;
   padding: 10px;
-  background: rgba(255,255,255,.04);
+  background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
 }
-.ff-home-proof--cards strong { display: block; margin-bottom: 4px; }
-.ff-home-proof--cards p { margin: 0; color: rgba(226,220,245,.85); font-size: 13px; }
+.ff-snack-card strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.ff-snack-card em {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  color: rgba(226,220,245,.8);
+}
