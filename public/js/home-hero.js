@@ -90,37 +90,3 @@
     apply(gamma / 20, beta / 20);
   });
 })();
-
-(() => {
-  const hub = document.querySelector('[data-nav-hub]');
-  if (!hub) return;
-  const btn = hub.querySelector('.ff-nav-hub-main');
-  if (!btn) return;
-
-  const close = () => {
-    hub.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
-  };
-  const toggle = () => {
-    const open = hub.classList.toggle('is-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  };
-
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggle();
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!hub.contains(e.target)) close();
-  });
-
-  hub.querySelectorAll('.hub-item').forEach((item) => {
-    item.addEventListener('click', () => close());
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
-})();
