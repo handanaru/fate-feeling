@@ -5944,6 +5944,57 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   font-weight: 700;
 }
 
+.ff-home-ranking {
+  margin-top: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 14px;
+  background: rgba(6,8,16,.6);
+  padding: 12px;
+}
+.ff-home-ranking h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+.ff-ranking-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+.ff-ranking-list li a {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #efeaff;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  padding: 9px 10px;
+  background: rgba(255,255,255,.03);
+}
+.ff-ranking-list .rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f0c86a, #9d6bff);
+  color: #190f2d;
+}
+.ff-ranking-list strong {
+  font-size: 13px;
+  line-height: 1.25;
+}
+.ff-ranking-list em {
+  font-style: normal;
+  font-size: 11px;
+  color: rgba(226,218,245,.8);
+}
+
 .ff-home-proof--cards .ff-proof-cards {
   display: grid;
   grid-template-columns: 1fr;
