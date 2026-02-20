@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fate & Feeling | 운명의 시작</title>
-  <link rel="stylesheet" href="/css/styles.css?v=rebuild-home-v9" />
+  <link rel="stylesheet" href="/css/styles.css?v=rebuild-home-v10" />
 </head>
 <body class="ff-rebuild-home">
   <div class="container ff-home-shell">
@@ -19,14 +19,17 @@
       </div>
     </header>
 
-    <section class="ff-home-hero ff-home-hero--poster">
-      <div class="ff-hero-sky" aria-hidden="true">
+    <section class="ff-home-hero ff-home-hero--poster" data-parallax-scene>
+      <div class="ff-hero-sky" aria-hidden="true" data-parallax-layer data-depth="6">
         <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span><span class="star s4"></span>
         <span class="star s5"></span><span class="star s6"></span><span class="star s7"></span>
         <i class="moon"></i>
       </div>
-      <div class="ff-poster-card ff-poster-card--seongun" aria-label="웹툰형 메인 사주">
-        <div class="seongun-hero-illust" aria-hidden="true"></div>
+      <div class="ff-hero-library" aria-hidden="true" data-parallax-layer data-depth="10"></div>
+      <div class="ff-hero-character" aria-hidden="true" data-parallax-layer data-depth="14">
+        <img src="/assets/seongun/seongun-base.svg" alt="" />
+      </div>
+      <div class="ff-poster-card ff-poster-card--seongun" aria-label="웹툰형 메인 사주" data-parallax-layer data-depth="20">
         <div class="seongun-stage" aria-hidden="true">
           <div class="seongun-avatar"></div>
           <div class="zodiac-ring"></div>
@@ -112,6 +115,6 @@
   </nav>
 
   <script src="/js/common.js?v=navclean15"></script>
-  <script src="/js/home-hero.js?v=typewriter1"></script>
+  <script src="/js/home-hero.js?v=typewriter2"></script>
 </body>
 </html>

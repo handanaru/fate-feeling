@@ -54,3 +54,39 @@
 
   setTimeout(tick, 480);
 })();
+
+(() => {
+  const scene = document.querySelector('[data-parallax-scene]');
+  if (!scene) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const layers = [...scene.querySelectorAll('[data-parallax-layer]')];
+  if (!layers.length) return;
+
+  const apply = (rx = 0, ry = 0) => {
+    layers.forEach((layer) => {
+      const depth = Number(layer.dataset.depth || 10);
+      const x = (rx * depth) / 120;
+      const y = (ry * depth) / 120;
+      layer.style.setProperty('--px', `${x.toFixed(2)}px`);
+      layer.style.setProperty('--py', `${y.toFixed(2)}px`);
+    });
+  };
+
+  scene.addEventListener('mousemove', (e) => {
+    const rect = scene.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const rx = (e.clientX - cx) / (rect.width / 2);
+    const ry = (e.clientY - cy) / (rect.height / 2);
+    apply(rx, ry);
+  });
+
+  scene.addEventListener('mouseleave', () => apply(0, 0));
+
+  window.addEventListener('deviceorientation', (e) => {
+    const gamma = Math.max(-20, Math.min(20, Number(e.gamma) || 0));
+    const beta = Math.max(-20, Math.min(20, Number(e.beta) || 0));
+    apply(gamma / 20, beta / 20);
+  });
+})();
