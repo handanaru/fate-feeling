@@ -130,34 +130,25 @@ header {
   display: inline-grid;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--gold) 74%, var(--primary));
-  background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.85), rgba(212,175,55,.18) 32%, rgba(75,54,124,.9));
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255,255,255,.36), rgba(255,255,255,0) 40%),
+    rgba(17, 24, 51, .45);
   position: relative;
   overflow: hidden;
-}
-.brand-logo::before,
-.brand-logo::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
 }
 .brand-logo::before {
-  width: 18px;
-  height: 18px;
-  border: 1px dashed rgba(255,255,255,.55);
-  animation: orbit 6s linear infinite;
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: url('/assets/brand-cosmic-eye.svg') center/cover no-repeat;
+  opacity: .95;
 }
-.brand-logo::after {
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(255,255,255,.9);
-  top: 6px;
-  left: 18px;
-}
+.brand-logo::after,
 .brand-logo .spark {
-  font-size: 10px;
-  color: #fff;
-  transform: translate(-1px, -1px);
+  display: none;
 }
 .brand-wordmark {
   display: inline-flex;
@@ -1167,8 +1158,11 @@ input[type="date"]::-webkit-date-and-time-value {
   -webkit-backdrop-filter: blur(8px);
 }
 .ff-nav-hub-icon {
-  font-size: 23px;
-  text-shadow: 0 0 12px rgba(255, 214, 128, .6);
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  background: url('/assets/brand-cosmic-eye.svg') center/contain no-repeat;
+  filter: drop-shadow(0 0 8px rgba(255, 214, 128, .45));
 }
 .ff-nav-hub-fan {
   position: absolute;
@@ -5726,9 +5720,19 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   border-radius: 999px;
   display: grid;
   place-items: center;
-  font-size: 12px;
-  background: radial-gradient(circle at 30% 25%, #fff8dc, #c5b3ff 60%, rgba(118,94,190,.45));
-  box-shadow: 0 0 10px rgba(190,171,255,.4);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255,255,255,.35), rgba(255,255,255,0) 42%),
+    rgba(18, 22, 48, .45);
+  border: 1px solid rgba(255,215,120,.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(190,171,255,.3);
+}
+.ff-guide-avatar::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background: url('/assets/brand-cosmic-eye.svg') center/contain no-repeat;
 }
 .ff-guide-text {
   font-size: 11px;
