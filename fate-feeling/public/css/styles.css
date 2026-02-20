@@ -5906,29 +5906,36 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .seongun-avatar { width: 106px; height: 138px; }
   .zodiac-ring { width: 106px; height: 106px; }
   .seongun-line { max-width: 90%; font-size: 13px; }
+  .ff-featured-card { min-height: 132px; padding: 10px; }
+  .ff-featured-card strong { font-size: 19px; }
+  .ff-mid-cta { min-height: 46px; font-size: 13px; }
+  .ff-home-rail-wrap h3,
+  .ff-featured-grid-wrap h3 { font-size: 16px; }
+  .ff-home-ranking { padding: 9px; }
+  .ff-ranking-list strong { font-size: 11.5px; }
 }
 
 .ff-featured-grid-wrap {
-  margin-top: 14px;
+  margin-top: 12px;
 }
-.ff-featured-grid-wrap h3 { margin: 0 0 10px; font-size: 20px; }
+.ff-featured-grid-wrap h3 { margin: 0 0 8px; font-size: 18px; }
 .ff-featured-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 9px;
 }
 .ff-featured-card {
-  min-height: 154px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.2);
-  padding: 12px;
+  min-height: 142px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 11px;
   text-decoration: none;
   color: #fff;
   background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.62)), var(--bg) center/cover no-repeat;
   display: flex;
   align-items: flex-end;
 }
-.ff-featured-card strong { white-space: pre-line; font-size: 26px; line-height: 1.06; text-shadow: 0 4px 12px rgba(0,0,0,.45); }
+.ff-featured-card strong { white-space: pre-line; font-size: 22px; line-height: 1.08; text-shadow: 0 4px 12px rgba(0,0,0,.45); }
 
 .ff-mid-cta {
   margin-top: 12px;
@@ -5945,54 +5952,52 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 .ff-home-ranking {
-  margin-top: 12px;
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 14px;
-  background: rgba(6,8,16,.6);
-  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  background: rgba(6,8,16,.56);
+  padding: 10px;
 }
 .ff-home-ranking h3 {
-  margin: 0 0 10px;
-  font-size: 16px;
+  margin: 0 0 8px;
+  font-size: 15px;
 }
 .ff-ranking-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 7px;
+  gap: 6px;
 }
 .ff-ranking-list li a {
   display: grid;
-  grid-template-columns: 28px 1fr auto;
+  grid-template-columns: 24px 1fr;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-decoration: none;
   color: #efeaff;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px;
-  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 9px;
+  padding: 8px 9px;
   background: rgba(255,255,255,.03);
 }
 .ff-ranking-list .rank {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 999px;
   display: grid;
   place-items: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   background: linear-gradient(135deg, #f0c86a, #9d6bff);
   color: #190f2d;
 }
 .ff-ranking-list strong {
-  font-size: 13px;
-  line-height: 1.25;
+  font-size: 12px;
+  line-height: 1.22;
 }
 .ff-ranking-list em {
-  font-style: normal;
-  font-size: 11px;
-  color: rgba(226,218,245,.8);
+  display: none;
 }
 
 .ff-home-proof--cards .ff-proof-cards {
