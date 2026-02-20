@@ -6007,14 +6007,20 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   color: rgba(240,233,255,.9);
   text-shadow: 0 2px 12px rgba(0,0,0,.44);
 }
-.seongun-line.is-typing::after {
+.seongun-line.is-typing::after,
+.seongun-line.is-typed::after {
   content: '▋';
   margin-left: 2px;
+  display: inline-block;
+  width: 8px;
+}
+.seongun-line.is-typing::after {
   color: rgba(255,238,196,.9);
   animation: seongunCaretBlink 0.9s steps(1, end) infinite;
 }
 .seongun-line.is-typed::after {
-  content: '';
+  color: transparent;
+  animation: none;
 }
 .seongun-badge {
   margin-top: 10px;
