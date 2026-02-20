@@ -116,13 +116,18 @@
       </span>
       <span class="ff-nav-label">홈</span>
     </a>
-    <a href="/test.html?entry=webtoon" class="ff-nav-item ff-nav-item--primary">
-      <span class="ff-nav-icon" aria-hidden="true">
-        <svg class="icon-line" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8.2"/></svg>
-        <svg class="icon-solid" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10" stroke="#221407" stroke-width="2" stroke-linecap="round"/></svg>
-      </span>
-      <span class="ff-nav-label">사주 확인하기</span>
-    </a>
+    <div class="ff-nav-hub" data-nav-hub>
+      <button type="button" class="ff-nav-hub-main" aria-label="사주 메뉴 열기" aria-expanded="false">
+        <span class="ff-nav-hub-icon" aria-hidden="true">✶</span>
+      </button>
+      <div class="ff-nav-hub-fan" aria-label="사주 빠른 메뉴">
+        <a href="/test.html?entry=webtoon" class="hub-item" style="--fan-x:-68px;--fan-y:-64px;">사주 확인</a>
+        <a href="/ai.html" class="hub-item" style="--fan-x:-22px;--fan-y:-88px;">상담하기</a>
+        <a href="/total-fortune.html" class="hub-item" style="--fan-x:22px;--fan-y:-88px;">전체총운</a>
+        <a href="/today-secret.html" class="hub-item" style="--fan-x:68px;--fan-y:-64px;">오늘 비책</a>
+      </div>
+      <span class="ff-nav-hub-label">사주 확인</span>
+    </div>
     <a href="/result.html" class="ff-nav-item">
       <span class="ff-nav-icon" aria-hidden="true">
         <svg class="icon-line" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h6"/></svg>
