@@ -1644,6 +1644,10 @@ button,.btn,.option,.select-like,.concern-item { border-radius: 24px; }
   36% { left: 118%; opacity: 0; }
   100% { left: 118%; opacity: 0; }
 }
+@keyframes seongunCaretBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
 
 .ff-toast {
   position: fixed;
@@ -6001,6 +6005,15 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   line-height: 1.45;
   color: rgba(240,233,255,.9);
   text-shadow: 0 2px 12px rgba(0,0,0,.44);
+}
+.seongun-line.is-typing::after {
+  content: '▋';
+  margin-left: 2px;
+  color: rgba(255,238,196,.9);
+  animation: seongunCaretBlink 0.9s steps(1, end) infinite;
+}
+.seongun-line.is-typed::after {
+  content: '';
 }
 .seongun-badge {
   margin-top: 10px;
