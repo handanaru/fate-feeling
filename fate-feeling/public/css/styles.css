@@ -5818,6 +5818,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 
 .ff-home-rail-wrap {
   margin-top: 14px;
+  margin-bottom: 20px;
 }
 .ff-home-rail-wrap h3 { margin: 0 0 10px; font-size: 20px; }
 .ff-home-rail {
@@ -6047,6 +6048,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 
 .ff-featured-grid-wrap {
   margin-top: 12px;
+  margin-bottom: 20px;
 }
 .ff-featured-grid-wrap h3 { margin: 0 0 8px; font-size: 18px; }
 .ff-featured-grid {
@@ -6099,6 +6101,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 
 .ff-home-ranking {
   margin-top: 10px;
+  margin-bottom: 20px;
   border: 1px solid rgba(255,255,255,.14);
   border-radius: 12px;
   background: rgba(6,8,16,.56);
