@@ -5737,7 +5737,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-home-rail-wrap {
   margin-top: 14px;
 }
-.ff-home-rail-wrap h3 { margin: 0 0 10px; font-size: 20px; }
+.ff-home-rail-wrap h3 { margin: 0 0 8px; font-size: 17px; }
 .ff-home-rail {
   display: grid;
   grid-auto-flow: column;
@@ -5962,6 +5962,16 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   margin: 0 0 8px;
   font-size: 15px;
 }
+
+.ff-home-ranking summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ff-home-ranking summary::-webkit-details-marker { display: none; }
+.ff-home-ranking[open] summary { margin-bottom: 8px; }
 .ff-ranking-list {
   list-style: none;
   margin: 0;
@@ -6000,44 +6010,34 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: none;
 }
 
-.ff-home-snack {
-  margin-top: 12px;
-  border: 1px solid rgba(255,255,255,.16);
-  border-radius: 14px;
-  background: rgba(9,11,20,.55);
-  padding: 12px;
+
+/* minimal-balance tuning */
+.ff-home-rail-wrap { margin-top: 10px; }
+.ff-home-rail { gap: 8px; }
+.ff-theme-card {
+  min-height: 288px;
+  padding: 14px;
 }
-.ff-home-snack h3 {
-  margin: 0;
-  font-size: 16px;
-}
-.ff-home-snack-sub {
-  margin: 6px 0 10px;
-  color: rgba(226,220,245,.8);
+.ff-theme-card .progress {
+  top: 10px;
+  right: 10px;
   font-size: 12px;
+  padding: 4px 8px;
 }
-.ff-snack-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-}
-.ff-snack-card {
-  display: block;
-  text-decoration: none;
-  color: #efeaff;
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 12px;
-  padding: 10px;
-  background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-}
-.ff-snack-card strong {
-  display: block;
+.ff-theme-card .year {
   font-size: 14px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
-.ff-snack-card em {
-  display: block;
-  font-style: normal;
-  font-size: 12px;
-  color: rgba(226,220,245,.8);
+.ff-theme-card strong {
+  font-size: 42px;
+  line-height: 0.95;
+}
+.ff-theme-card em {
+  font-size: 14px;
+  margin-top: 6px;
+}
+@media (max-width: 430px) {
+  .ff-theme-card { min-height: 250px; padding: 12px; }
+  .ff-theme-card strong { font-size: 34px; }
+  .ff-theme-card em { font-size: 13px; }
 }
