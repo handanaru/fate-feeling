@@ -296,6 +296,33 @@
     window.addEventListener('resize', onScroll);
   }
 
+  function initScrollHideDock() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let lastY = window.scrollY || 0;
+    let ticking = false;
+
+    const apply = () => {
+      ticking = false;
+      const y = window.scrollY || 0;
+      const delta = y - lastY;
+
+      if (y < 24 || delta < -6) {
+        document.body.classList.remove('ff-scroll-down');
+      } else if (delta > 6) {
+        document.body.classList.add('ff-scroll-down');
+      }
+
+      lastY = y;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    }, { passive: true });
+  }
+
   function ensureExpertWaitlist() {
     if (document.getElementById('expertWaitlistModal')) return;
 
@@ -624,6 +651,7 @@
     ensureQuickMenu();
     ensureMysticBgm();
     initCardParallax();
+    initScrollHideDock();
   }
 
   if (document.readyState === 'loading') {

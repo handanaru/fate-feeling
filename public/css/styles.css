@@ -6310,3 +6310,21 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   font-size: 12px;
   color: rgba(226,220,245,.8);
 }
+
+/* scroll-to-hide floating dock */
+.home-bottom-nav,
+.bottom-nav,
+.tf-mobile-dock {
+  transition: transform .28s ease, opacity .22s ease;
+}
+body.ff-scroll-down .home-bottom-nav,
+body.ff-scroll-down .bottom-nav {
+  transform: translateX(-50%) translateY(18px);
+  opacity: .02;
+  pointer-events: none;
+}
+body.ff-scroll-down .tf-mobile-dock {
+  transform: translateY(18px);
+  opacity: .02;
+  pointer-events: none;
+}
