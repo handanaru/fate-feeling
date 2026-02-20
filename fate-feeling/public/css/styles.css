@@ -1096,14 +1096,24 @@ input[type="date"]::-webkit-date-and-time-value {
 }
 .home-bottom-nav a {
   text-decoration: none;
-  color: var(--text);
+  color: rgba(255, 246, 220, .92);
   text-align: center;
   padding: 8px 6px;
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(255,255,255,.08);
   font-size: 13px;
+  text-shadow: 0 0 10px rgba(255, 216, 140, .25);
 }
-.home-bottom-nav a:hover { border-color: var(--border); }
+.home-bottom-nav a:hover {
+  border-color: rgba(255, 216, 140, .45);
+  color: #fff7dd;
+}
+.home-bottom-nav a[aria-current="page"] {
+  color: #fff8e3;
+  border-color: rgba(255, 216, 140, .55);
+  background: linear-gradient(135deg, rgba(255, 214, 132, .2), rgba(170, 130, 255, .16));
+  box-shadow: 0 0 14px rgba(255, 214, 132, .22);
+}
 .first-impact-page { padding-bottom: 90px; }
 .concern-item { background: var(--primary-soft); color: var(--text); border:1px solid var(--border); }
 .concern-item.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color:#fff; }
