@@ -5774,7 +5774,6 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-poster-card--seongun .seongun-badge {
   position: relative;
   z-index: 2;
-  max-width: 56%;
 }
 .ff-mega-cta {
   position: relative;
@@ -5955,17 +5954,19 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 .seongun-hero-illust {
   position: absolute;
-  right: -12px;
-  top: 6px;
-  width: 46%;
-  height: 72%;
+  right: -34px;
+  top: 2px;
+  width: 48%;
+  height: 74%;
   border-radius: 20px 20px 18px 18px;
   background:
-    linear-gradient(180deg, rgba(8,10,22,0) 0%, rgba(8,10,22,.5) 58%, rgba(8,10,22,.84) 100%),
+    linear-gradient(180deg, rgba(8,10,22,0) 0%, rgba(8,10,22,.45) 58%, rgba(8,10,22,.8) 100%),
     url('/assets/home-ref/charm.jpg') center 14%/cover no-repeat;
   border: 1px solid rgba(255,255,255,.22);
-  box-shadow: 0 14px 28px rgba(6,5,18,.45);
-  opacity: .88;
+  box-shadow: 0 18px 34px rgba(6,5,18,.48);
+  opacity: .92;
+  transform: translateX(8px) scale(1.03);
+  transform-origin: right top;
   pointer-events: none;
 }
 .seongun-stage {
@@ -6046,15 +6047,10 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 @media (max-width: 430px) {
-  .seongun-hero-illust { width: 48%; height: 66%; right: -10px; top: 10px; }
+  .seongun-hero-illust { width: 50%; height: 66%; right: -22px; top: 10px; transform: translateX(8px) scale(1.02); }
   .seongun-stage { width: 126px; height: 166px; right: 8px; }
   .seongun-avatar { width: 106px; height: 138px; }
   .zodiac-ring { width: 106px; height: 106px; }
-  .ff-poster-card--seongun .ff-poster-year,
-  .ff-poster-card--seongun h1,
-  .ff-poster-card--seongun .ff-poster-sub,
-  .ff-poster-card--seongun .seongun-line,
-  .ff-poster-card--seongun .seongun-badge { max-width: 54%; }
   .seongun-line { font-size: 13px; }
   .seongun-badge { font-size: 10px; padding: 5px 8px; }
   .ff-featured-card { min-height: 132px; padding: 10px; }
