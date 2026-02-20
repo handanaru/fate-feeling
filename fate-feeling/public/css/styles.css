@@ -5540,6 +5540,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   justify-content: space-between;
   margin-bottom: 14px;
 }
+.ff-home-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .ff-home-menu {
   font-size: 12px;
   color: #d9d8ff;
@@ -5547,6 +5552,41 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   border-radius: 999px;
   padding: 8px 12px;
   text-decoration: none;
+}
+.ff-guide-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  color: #ddd6ff;
+  padding: 5px 9px 5px 6px;
+  min-height: 34px;
+}
+.ff-guide-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  background: radial-gradient(circle at 30% 25%, #fff8dc, #c5b3ff 60%, rgba(118,94,190,.45));
+  box-shadow: 0 0 10px rgba(190,171,255,.4);
+}
+.ff-guide-text {
+  font-size: 11px;
+  white-space: nowrap;
+}
+@media (max-width: 430px) {
+  .ff-home-header-actions { gap: 6px; }
+  .ff-home-menu { padding: 7px 10px; }
+  .ff-guide-status { padding: 5px 7px; }
+  .ff-guide-text {
+    max-width: 84px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .ff-home-hero {
   position: relative;
