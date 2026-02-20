@@ -1139,29 +1139,6 @@ input[type="date"]::-webkit-date-and-time-value {
 }
 .ff-nav-label { line-height: 1.1; letter-spacing: -.01em; }
 
-.ff-nav-item--primary {
-  transform: translateY(-8px);
-  padding: 9px 8px 8px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 219, 146, .78) !important;
-  background: linear-gradient(145deg, rgba(255, 220, 132, .96), rgba(228, 170, 82, .92)) !important;
-  box-shadow: 0 10px 20px rgba(191, 124, 26, .3), 0 0 0 1px rgba(255, 240, 192, .35);
-  color: #241508 !important;
-}
-.ff-nav-item--primary .ff-nav-icon { width: 20px; height: 20px; }
-.ff-nav-item--primary .icon-line {
-  stroke: rgba(62, 36, 8, .95);
-}
-.ff-nav-item--primary .icon-solid {
-  opacity: 1;
-  fill: rgba(248, 195, 102, .98);
-}
-.ff-nav-item--primary .ff-nav-label {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
 .home-bottom-nav .ff-nav-item:hover {
   border-color: rgba(255, 216, 140, .45);
   color: #fff7dd;
@@ -5674,13 +5651,6 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     max-width: 84px;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  .ff-nav-item--primary {
-    transform: translateY(-6px);
-    padding: 8px 6px 7px;
-  }
-  .ff-nav-item--primary .ff-nav-label {
-    font-size: 11px;
   }
 }
 .ff-home-hero {
