@@ -5839,9 +5839,18 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   flex-direction: column;
   justify-content: flex-end;
   border: 1px solid rgba(255,255,255,.22);
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78)),
-    var(--bg) center/cover no-repeat;
+  background: var(--bg) center/cover no-repeat;
+}
+.ff-theme-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 56%);
+  pointer-events: none;
+}
+.ff-theme-card > * {
+  position: relative;
+  z-index: 1;
 }
 .ff-theme-card .year { font-size: 18px; opacity: .9; margin-bottom: 2px; }
 .ff-theme-card strong { font-size: 52px; line-height: .95; letter-spacing: -0.02em; }
@@ -6039,11 +6048,27 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   padding: 11px;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.62)), var(--bg) center/cover no-repeat;
+  background: var(--bg) center/cover no-repeat;
   display: flex;
   align-items: flex-end;
+  position: relative;
+  overflow: hidden;
 }
-.ff-featured-card strong { white-space: pre-line; font-size: 22px; line-height: 1.08; text-shadow: 0 4px 12px rgba(0,0,0,.45); }
+.ff-featured-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 58%);
+  pointer-events: none;
+}
+.ff-featured-card strong {
+  position: relative;
+  z-index: 1;
+  white-space: pre-line;
+  font-size: 22px;
+  line-height: 1.08;
+  text-shadow: 0 4px 12px rgba(0,0,0,.45);
+}
 
 .ff-mid-cta {
   margin-top: 12px;
