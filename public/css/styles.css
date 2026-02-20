@@ -130,7 +130,7 @@ header {
   display: inline-grid;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--gold) 74%, var(--primary));
-  background: rgba(17, 24, 51, .38);
+  background: rgba(17, 24, 51, .22);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(6px) saturate(120%);
@@ -139,25 +139,13 @@ header {
 .brand-logo::before {
   content: '';
   position: absolute;
-  inset: 8px;
+  inset: 2px;
   border-radius: 50%;
-  background: url('/assets/brand/cosmic-eye-exact.jpg') center/cover no-repeat;
+  background: url('/assets/brand/cosmic-eye-final.png') center/cover no-repeat;
 }
-.brand-logo::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 7px;
-  border: 1px solid rgba(255, 217, 141, .82);
-  transform: rotate(42deg);
-}
+.brand-logo::after,
 .brand-logo .spark {
-  display: block;
-  position: absolute;
-  inset: 6px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 227, 174, .55);
-  transform: rotate(-42deg);
+  display: none;
 }
 .brand-wordmark {
   display: inline-flex;
@@ -1167,40 +1155,16 @@ input[type="date"]::-webkit-date-and-time-value {
   -webkit-backdrop-filter: blur(8px);
   position: relative;
 }
-.ff-nav-hub-main::before {
-  content: '';
-  position: absolute;
-  inset: 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 231, 176, .55);
-  transform: rotate(-42deg);
-  pointer-events: none;
-}
 .ff-nav-hub-icon {
   width: 30px;
   height: 30px;
   display: inline-block;
-  position: relative;
+  background: url('/assets/brand/cosmic-eye-final.png') center/contain no-repeat;
   filter: drop-shadow(0 0 8px rgba(255, 214, 128, .45));
 }
-.ff-nav-hub-icon::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: url('/assets/brand/cosmic-eye-exact.jpg') center/cover no-repeat;
-}
+.ff-nav-hub-icon::before,
 .ff-nav-hub-icon::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 217, 141, .82);
-  transform: rotate(42deg);
+  display: none;
 }
 .ff-nav-hub-fan {
   position: absolute;
@@ -5758,27 +5722,21 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: rgba(18, 22, 48, .42);
-  border: 1px solid rgba(255,215,120,.35);
+  background: rgba(18, 22, 48, .24);
+  border: 1px solid rgba(255,215,120,.32);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 0 10px rgba(190,171,255,.3);
-  position: relative;
+  box-shadow: 0 0 10px rgba(190,171,255,.24);
 }
 .ff-guide-avatar::before {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: url('/assets/brand/cosmic-eye-exact.jpg') center/cover no-repeat;
+  background: url('/assets/brand/cosmic-eye-final.png') center/cover no-repeat;
 }
 .ff-guide-avatar::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 5px;
-  border: 1px solid rgba(255, 217, 141, .72);
-  transform: rotate(42deg);
+  display: none;
 }
 .ff-guide-text {
   font-size: 11px;
