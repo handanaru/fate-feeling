@@ -5743,14 +5743,18 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-poster-year {
   margin: 0 0 4px;
   font-size: 36px;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Pretendard', var(--font-body);
+  font-weight: 900;
+  letter-spacing: -0.02em;
   color: rgba(248,243,255,.95);
 }
 .ff-poster-card h1 {
   margin: 0;
   font-size: clamp(54px, 14vw, 72px);
+  font-family: 'Pretendard', var(--font-body);
+  font-weight: 900;
   line-height: 1;
-  letter-spacing: .01em;
+  letter-spacing: -0.02em;
   color: #fff;
   text-shadow: 0 6px 24px rgba(0,0,0,.5);
 }
