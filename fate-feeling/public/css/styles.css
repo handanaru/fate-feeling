@@ -130,34 +130,22 @@ header {
   display: inline-grid;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--gold) 74%, var(--primary));
-  background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.85), rgba(212,175,55,.18) 32%, rgba(75,54,124,.9));
+  background: rgba(17, 24, 51, .22);
   position: relative;
   overflow: hidden;
-}
-.brand-logo::before,
-.brand-logo::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
 }
 .brand-logo::before {
-  width: 18px;
-  height: 18px;
-  border: 1px dashed rgba(255,255,255,.55);
-  animation: orbit 6s linear infinite;
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/cover no-repeat;
 }
-.brand-logo::after {
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(255,255,255,.9);
-  top: 6px;
-  left: 18px;
-}
+.brand-logo::after,
 .brand-logo .spark {
-  font-size: 10px;
-  color: #fff;
-  transform: translate(-1px, -1px);
+  display: none;
 }
 .brand-wordmark {
   display: inline-flex;
@@ -1081,18 +1069,21 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav {
   position: fixed;
   left: 50%;
-  bottom: 14px;
+  bottom: 12px;
   transform: translateX(-50%);
   z-index: 80;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  gap: 6px;
-  width: min(560px, calc(100% - 20px));
-  padding: 6px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--card) 90%, #0e0a1a);
-  box-shadow: var(--shadow);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: min(540px, calc(100% - 32px));
+  padding: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-top: 1px solid rgba(255,255,255,.34);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 -1px 6px rgba(255,255,255,.08), 0 18px 32px rgba(5, 4, 18, .48), inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .home-bottom-nav a {
   text-decoration: none;
@@ -1101,18 +1092,49 @@ input[type="date"]::-webkit-date-and-time-value {
   padding: 8px 6px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,.08);
-  font-size: 13px;
+  font-size: 12px;
   text-shadow: 0 0 10px rgba(255, 216, 140, .25);
+  display: grid;
+  justify-items: center;
+  gap: 3px;
 }
 .home-bottom-nav a:hover {
   border-color: rgba(255, 216, 140, .45);
   color: #fff7dd;
 }
 .home-bottom-nav a[aria-current="page"] {
-  color: #fff8e3;
+  color: #FFD700;
   border-color: rgba(255, 216, 140, .55);
   background: linear-gradient(135deg, rgba(255, 214, 132, .2), rgba(170, 130, 255, .16));
   box-shadow: 0 0 14px rgba(255, 214, 132, .22);
+  transform: scale(1.06);
+}
+.home-bottom-nav .ff-nav-fab {
+  transform: translateY(-18px);
+  border-radius: 999px;
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  margin: 0 auto -18px;
+  border: 1px solid rgba(255, 216, 140, .78);
+  background: linear-gradient(145deg, rgba(11,18,43,.95), rgba(21,32,70,.92));
+  box-shadow: 0 12px 24px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,215,120,.25);
+}
+.home-bottom-nav .ff-nav-fab-icon {
+  width: 30px;
+  height: 30px;
+  display: block;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/contain no-repeat;
+  transition: transform .16s ease;
+}
+.home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
+.home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
+  transform: scale(1.12);
+}
+.home-bottom-nav .ff-nav-fab span:last-child {
+  font-size: 10px;
+  line-height: 1;
+  color: #ffdca0;
 }
 .first-impact-page { padding-bottom: 90px; }
 .concern-item { background: var(--primary-soft); color: var(--text); border:1px solid var(--border); }
@@ -3376,13 +3398,36 @@ button.status-chip {
   background: radial-gradient(circle, rgba(255,230,154,.18), transparent 68%);
   animation: pulseGlow 1.6s ease-in-out infinite;
 }
-.pre-result-core {
+.pre-result-eye {
   position: absolute;
-  inset: 36px;
+  inset: 34px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(129,88,206,.9));
-  box-shadow: 0 0 32px rgba(239,203,100,.65);
+  background: url('/assets/brand/cosmic-eye-exact.png') center/cover no-repeat;
+  box-shadow: 0 0 28px rgba(239,203,100,.45);
+  animation: loaderEyePulse 1.8s ease-in-out infinite;
 }
+.pre-result-dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pre-result-dust span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 234, 176, .9);
+  box-shadow: 0 0 10px rgba(255, 225, 145, .72);
+  left: 50%;
+  top: 50%;
+  animation: loaderDustBurst 2.2s ease-out infinite;
+}
+.pre-result-dust span:nth-child(1) { --dx: 48px; --dy: -8px; animation-delay: 0s; }
+.pre-result-dust span:nth-child(2) { --dx: -42px; --dy: -22px; animation-delay: .3s; }
+.pre-result-dust span:nth-child(3) { --dx: 26px; --dy: 44px; animation-delay: .55s; }
+.pre-result-dust span:nth-child(4) { --dx: -30px; --dy: 40px; animation-delay: .85s; }
+.pre-result-dust span:nth-child(5) { --dx: 0px; --dy: -52px; animation-delay: 1.2s; }
+.pre-result-dust span:nth-child(6) { --dx: 58px; --dy: 18px; animation-delay: 1.5s; }
 .pre-result-metrics strong { color: #fff; font-size: 32px; }
 
 .gold-highlight-card {
@@ -3435,6 +3480,15 @@ button.status-chip {
 @keyframes pulseGlow {
   0%,100% { opacity: .55; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.08); }
+}
+@keyframes loaderEyePulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.06); filter: brightness(1.08); }
+}
+@keyframes loaderDustBurst {
+  0% { transform: translate(-50%, -50%) scale(.4); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1); opacity: 0; }
 }
 
 /* Phase5 conversion + mystic impact */

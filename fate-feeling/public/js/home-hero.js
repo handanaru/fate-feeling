@@ -54,3 +54,12 @@
 
   setTimeout(tick, 480);
 })();
+
+(() => {
+  const fab = document.querySelector('.ff-nav-fab');
+  if (!fab) return;
+  fab.addEventListener('click', () => {
+    fab.classList.add('is-tap');
+    setTimeout(() => fab.classList.remove('is-tap'), 180);
+  });
+})();

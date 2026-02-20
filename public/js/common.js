@@ -145,7 +145,7 @@
       const raw = (brand.textContent || '').trim();
       const suffix = raw.includes('·') ? raw.split('·').slice(1).join('·').trim() : '';
       brand.innerHTML = `
-        <span class="brand-logo" aria-hidden="true"><span class="spark">✦</span></span>
+        <span class="brand-logo" aria-hidden="true"><span class="spark"></span></span>
         <span class="brand-wordmark">Fate <span class="amp">&</span> Feeling</span>
         ${suffix ? `<span class="brand-extra">· ${suffix}</span>` : ''}
       `;
