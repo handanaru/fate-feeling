@@ -5627,42 +5627,10 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     radial-gradient(circle at 15% 78%, rgba(117,84,255,.22), transparent 36%),
     linear-gradient(150deg, rgba(25,29,65,.92), rgba(52,25,81,.9));
 }
-.ff-home-hero [data-parallax-layer] {
-  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
-  transition: transform .18s ease-out;
-  will-change: transform;
-}
 .ff-hero-sky {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
-}
-.ff-hero-library {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 72% 28%, rgba(255,236,196,.1), transparent 34%),
-    linear-gradient(180deg, rgba(9,12,28,.15), rgba(9,12,28,.65)),
-    url('/assets/home-ref/master.jpg') center/cover no-repeat;
-  opacity: .34;
-}
-.ff-hero-character {
-  position: absolute;
-  right: -26px;
-  top: 18px;
-  width: min(230px, 42%);
-  z-index: 1;
-  pointer-events: none;
-  opacity: .86;
-  filter: drop-shadow(0 16px 20px rgba(8,10,22,.55));
-}
-.ff-hero-character img {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 .ff-hero-sky .moon {
   position: absolute;
@@ -6079,7 +6047,6 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 @media (max-width: 430px) {
-  .ff-hero-character { right: -24px; top: 24px; width: 45%; opacity: .82; }
   .seongun-hero-illust { width: 50%; height: 66%; right: -22px; top: 10px; transform: translateX(8px) scale(1.02); }
   .seongun-stage { width: 126px; height: 166px; right: 8px; }
   .seongun-avatar { width: 106px; height: 138px; }
