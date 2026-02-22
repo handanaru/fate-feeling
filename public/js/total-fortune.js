@@ -488,7 +488,7 @@ function initTfJourneyNav(intake = {}) {
     backdrop && (backdrop.hidden = false);
     menuBtn.setAttribute('aria-expanded', 'true');
     menuBtn.classList.add('active');
-    menuBtn.textContent = '✦';
+    menuBtn.textContent = '◉';
     document.body.classList.add('tf-nav-open');
   };
   const closeDrawer = () => {

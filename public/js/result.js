@@ -213,7 +213,7 @@ function renderPillarsGrid(data, concern = '') {
 
     <div class="speech-row">
       <div class="speech-bubble">각각의 기둥은 위아래로 나뉘어 하늘의 기운(천간)과 땅의 기운(지지)을 보여줘.</div>
-      <div class="speech-bubble">그중에서도 가장 중요한 건 일주(⭐) — 나라는 사람의 중심 축이야.</div>
+      <div class="speech-bubble">그중에서도 가장 중요한 건 일주(◉) — 나라는 사람의 중심 축이야.</div>
     </div>
 
     ${renderClassicTable('내 원국', data?.self?.pillars || [])}
@@ -1111,7 +1111,7 @@ if (!saved) {
     coreMetricsBox.innerHTML = `<h3>${isCompat ? '<span class="section-badge">2</span> 상세 분석' : '핵심 운명 지표'}</h3>
       <div class="core-metric-grid wizard-dashboard detail-metric-grid">
         <article class="gauge-card gauge-detail ${metricState(firstGauge)}" data-target="${firstGauge}">
-          <div class="gauge-head"><span class="metric-icon">✦</span><span>${firstLabel}</span><span class="metric-info" title="두 사람의 충돌 빈도, 회복 탄력, 생활 리듬 합을 바탕으로 계산">i</span></div>
+          <div class="gauge-head"><span class="metric-icon">◉</span><span>${firstLabel}</span><span class="metric-info" title="두 사람의 충돌 빈도, 회복 탄력, 생활 리듬 합을 바탕으로 계산">i</span></div>
           <div class="gauge-layout">
             <div class="gauge-wrap">
               <svg viewBox="0 0 120 120" class="gauge-svg" aria-hidden="true">
@@ -1188,7 +1188,7 @@ if (!saved) {
       '분산': { icon: '🧩', tone: 'good' },
       '기회포착': { icon: '📈', tone: 'good' },
       '문서운': { icon: '📄', tone: 'good' },
-      '평판': { icon: '⭐', tone: 'good' },
+      '평판': { icon: '◉', tone: 'good' },
       '이동수': { icon: '🧭', tone: 'warn' },
       '검증': { icon: '🔎', tone: 'warn' },
       '확장': { icon: '🚀', tone: 'good' },

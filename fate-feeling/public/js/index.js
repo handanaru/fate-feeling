@@ -534,8 +534,8 @@ function openOnboardingIfNeeded() {
 
 const modeCardMeta = {
   saju: { title: 'FLOW', icon: '☯' },
-  tarot: { title: 'DESTINY', icon: '✶' },
-  ziwei: { title: 'ZODIAC', icon: '✦' },
+  tarot: { title: 'DESTINY', icon: '◍' },
+  ziwei: { title: 'ZODIAC', icon: '◉' },
   astro: { title: 'UNIVERSE', icon: '🪐' },
   vedic: { title: 'VEDIC', icon: '🇮🇳' },
   japan: { title: 'WAFU', icon: '🇯🇵' }

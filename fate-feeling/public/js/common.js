@@ -380,7 +380,7 @@
           <a href="/fortune-reports.html">🗺️ 내 보관함</a>
           <a href="/ai.html">🤖 AI 상담</a>
           <a href="/mode-overlap.html">🧩 겹쳐보기</a>
-          <a href="/ziwei-validate.html">✦ 자미두수 검증</a>
+          <a href="/ziwei-validate.html"><span class="ff-eye-inline" aria-hidden="true"></span> 자미두수 검증</a>
           <a href="/invest-sector.html">📈 투자 섹터</a>
           <button type="button" class="btn secondary" data-close>닫기</button>
         </div>

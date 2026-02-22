@@ -133,17 +133,23 @@ header {
   background: rgba(17, 24, 51, .22);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(6px) saturate(120%);
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
 }
 .brand-logo::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(7px) saturate(118%);
+  -webkit-backdrop-filter: blur(7px) saturate(118%);
+}
+.brand-logo::after {
   content: '';
   position: absolute;
   inset: 2px;
   border-radius: 50%;
   background: url('/assets/brand/cosmic-eye-exact.png') center/cover no-repeat;
 }
-.brand-logo::after,
 .brand-logo .spark {
   display: none;
 }
@@ -1124,8 +1130,23 @@ input[type="date"]::-webkit-date-and-time-value {
   width: 30px;
   height: 30px;
   display: block;
-  background: url('/assets/brand/cosmic-eye-exact.png') center/contain no-repeat;
+  position: relative;
   transition: transform .16s ease;
+}
+.home-bottom-nav .ff-nav-fab-icon::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px) saturate(116%);
+  -webkit-backdrop-filter: blur(6px) saturate(116%);
+}
+.home-bottom-nav .ff-nav-fab-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/contain no-repeat;
 }
 .home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
 .home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
@@ -2484,6 +2505,29 @@ button.scan-icon:hover {
   transform: none;
 }
 .scan-icon span { display: block; font-size: 11px; }
+.ff-eye-inline {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+.ff-eye-inline::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.09);
+  backdrop-filter: blur(4px) saturate(116%);
+  -webkit-backdrop-filter: blur(4px) saturate(116%);
+}
+.ff-eye-inline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/contain no-repeat;
+}
 .scan-icon.active { color: #fff; border-color: rgba(255,235,167,.9); box-shadow: 0 0 0 1px rgba(255,235,167,.45), 0 0 18px rgba(239,203,100,.28); }
 .scan-icon.scanning { animation: scanPulse .45s ease 2; }
 .scan-icon.clicked-pulse { animation: borderWave .5s ease; }
@@ -3402,9 +3446,24 @@ button.status-chip {
   position: absolute;
   inset: 34px;
   border-radius: 50%;
-  background: url('/assets/brand/cosmic-eye-exact.png') center/cover no-repeat;
   box-shadow: 0 0 28px rgba(239,203,100,.45);
   animation: loaderEyePulse 1.8s ease-in-out infinite;
+}
+.pre-result-eye::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(7px) saturate(116%);
+  -webkit-backdrop-filter: blur(7px) saturate(116%);
+}
+.pre-result-eye::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/cover no-repeat;
 }
 .pre-result-dust {
   position: absolute;
