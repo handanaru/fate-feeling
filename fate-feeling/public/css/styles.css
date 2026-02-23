@@ -1268,7 +1268,7 @@ input[type="date"]::-webkit-date-and-time-value {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/assets/brand/cosmic-eye-exact.png') center/contain no-repeat;
+  background: url('/assets/brand/cosmic-eye-center-user.png') center/contain no-repeat;
 }
 .home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
 .home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
