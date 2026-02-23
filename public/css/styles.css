@@ -5985,7 +5985,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 56%);
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   pointer-events: none;
 }
 .ff-theme-card > * {
@@ -6216,7 +6216,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 58%);
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   pointer-events: none;
 }
 .ff-featured-card strong {
@@ -6321,6 +6321,20 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   border-radius: 12px;
   padding: 10px;
   background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  position: relative;
+  overflow: hidden;
+}
+.ff-snack-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  pointer-events: none;
+}
+.ff-snack-card strong,
+.ff-snack-card em {
+  position: relative;
+  z-index: 1;
 }
 .ff-snack-card strong {
   display: block;
