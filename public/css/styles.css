@@ -1268,8 +1268,8 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav .ff-nav-fab-icon::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: url('/assets/brand/cosmic-eye-exact.png') center/120% no-repeat;
+  inset: -2px;
+  background: url('/assets/brand/cosmic-eye-exact.png') center/130% no-repeat;
 }
 .home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
 .home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
