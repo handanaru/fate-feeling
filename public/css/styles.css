@@ -1142,7 +1142,7 @@ input[type="date"]::-webkit-date-and-time-value {
   position: absolute;
   left: 0;
   bottom: 0;
-  transform: translate(-50%, 0) scale(.86);
+  transform: translate(-50%, 10px) scale(.82);
   opacity: 0;
   text-decoration: none;
   color: #fff6df;
@@ -1192,6 +1192,8 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav.is-fan-open .ff-fan-item {
   opacity: 1;
   transform: translate(calc(-50% + var(--fan-x)), var(--fan-y)) scale(1);
+  animation: ffFanRise .34s cubic-bezier(.18,.84,.24,1) both;
+  animation-delay: calc(var(--fan-i, 0) * 0.1s);
 }
 .home-bottom-nav .ff-nav-fab {
   transform: translateY(-18px);
@@ -1763,6 +1765,16 @@ button,.btn,.option,.select-like,.concern-item { border-radius: 24px; }
   0% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
   100% { transform: translateY(0); }
+}
+@keyframes ffFanRise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 14px) scale(.76);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--fan-x)), var(--fan-y)) scale(1);
+  }
 }
 @keyframes ctaPulse {
   0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 8px 20px rgba(27, 80, 172, .25); }
