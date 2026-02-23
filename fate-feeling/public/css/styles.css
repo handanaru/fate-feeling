@@ -5955,7 +5955,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   margin-top: 14px;
   margin-bottom: 20px;
 }
-.ff-home-rail-wrap h3 { margin: 0 0 10px; font-size: 20px; }
+.ff-home-rail-wrap h3 { margin: 0 0 10px; font-size: 20px; font-weight: 800; }
 .ff-home-rail {
   display: grid;
   grid-auto-flow: column;
@@ -6193,7 +6193,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   margin-top: 12px;
   margin-bottom: 20px;
 }
-.ff-featured-grid-wrap h3 { margin: 0 0 8px; font-size: 18px; }
+.ff-featured-grid-wrap h3 { margin: 0 0 8px; font-size: 18px; font-weight: 800; }
 .ff-featured-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -6253,6 +6253,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-home-ranking h3 {
   margin: 0 0 8px;
   font-size: 15px;
+  font-weight: 800;
 }
 .ff-ranking-list {
   list-style: none;
@@ -6302,6 +6303,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-home-snack h3 {
   margin: 0;
   font-size: 16px;
+  font-weight: 800;
 }
 .ff-home-snack-sub {
   margin: 6px 0 10px;
