@@ -588,9 +588,9 @@
     const dock = document.querySelector('.home-bottom-nav');
     if (!dock) return;
 
-    dock.querySelectorAll('a').forEach((item) => {
+    dock.querySelectorAll('a, button').forEach((item) => {
       item.addEventListener('click', () => {
-        const icon = item.querySelector('.ff-nav-fab-icon, .ff-nav-icon');
+        const icon = item.querySelector('.ff-nav-fab-icon, .ff-nav-icon, .ff-fan-icon-shell');
         if (!icon) return;
         icon.classList.remove('is-bounce');
         // reflow to restart animation on repeated taps
@@ -598,6 +598,47 @@
         icon.classList.add('is-bounce');
         setTimeout(() => icon.classList.remove('is-bounce'), 320);
       });
+    });
+  }
+
+  function initBottomNavFanOut() {
+    const dock = document.querySelector('.home-bottom-nav');
+    const toggle = dock?.querySelector('.ff-nav-fab-toggle');
+    const fan = dock?.querySelector('.ff-fan-menu');
+    if (!dock || !toggle || !fan) return;
+
+    const closeFan = () => {
+      dock.classList.remove('is-fan-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      fan.setAttribute('aria-hidden', 'true');
+    };
+
+    const openFan = () => {
+      dock.classList.add('is-fan-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      fan.setAttribute('aria-hidden', 'false');
+    };
+
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (dock.classList.contains('is-fan-open')) {
+        closeFan();
+      } else {
+        openFan();
+      }
+    });
+
+    fan.querySelectorAll('a').forEach((item) => {
+      item.addEventListener('click', () => closeFan());
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target instanceof Element)) return;
+      if (!dock.contains(e.target)) closeFan();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeFan();
     });
   }
 
@@ -642,6 +683,7 @@
     ensureMysticBgm();
     initCardParallax();
     initBottomNavMicroInteraction();
+    initBottomNavFanOut();
   }
 
   if (document.readyState === 'loading') {

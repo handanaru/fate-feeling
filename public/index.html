@@ -107,10 +107,29 @@
 
   <nav class="home-bottom-nav" aria-label="하단 탐색">
     <a href="/" aria-current="page"><span class="ff-nav-icon" aria-hidden="true">🏠</span> 홈</a>
-    <a href="/test.html?entry=webtoon" class="ff-nav-fab" aria-label="사주 확인하기">
-      <span class="ff-nav-fab-icon" aria-hidden="true"></span>
-      <span>사주확인</span>
-    </a>
+
+    <div class="ff-fan-wrap">
+      <div id="ffFanMenu" class="ff-fan-menu" aria-hidden="true">
+        <a href="/test.html?entry=webtoon" class="ff-fan-item" style="--fan-x:-72px;--fan-y:-54px;" aria-label="사주 시작">
+          <span class="ff-fan-icon-shell" aria-hidden="true">🔮</span>
+          <em>시작</em>
+        </a>
+        <a href="/tarot.html" class="ff-fan-item" style="--fan-x:0px;--fan-y:-84px;" aria-label="타로 보기">
+          <span class="ff-fan-icon-shell" aria-hidden="true">🃏</span>
+          <em>타로</em>
+        </a>
+        <a href="/fortune-reports.html" class="ff-fan-item" style="--fan-x:72px;--fan-y:-54px;" aria-label="보관함">
+          <span class="ff-fan-icon-shell" aria-hidden="true">🗂️</span>
+          <em>보관함</em>
+        </a>
+      </div>
+
+      <button type="button" class="ff-nav-fab ff-nav-fab-toggle" aria-label="부채꼴 메뉴 열기" aria-expanded="false" aria-controls="ffFanMenu">
+        <span class="ff-nav-fab-icon" aria-hidden="true"></span>
+        <span>사주확인</span>
+      </button>
+    </div>
+
     <a href="/result.html"><span class="ff-nav-icon" aria-hidden="true">👤</span> 결과리포트</a>
   </nav>
 
