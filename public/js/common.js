@@ -584,6 +584,23 @@
   }
 
 
+  function initBottomNavMicroInteraction() {
+    const dock = document.querySelector('.home-bottom-nav');
+    if (!dock) return;
+
+    dock.querySelectorAll('a').forEach((item) => {
+      item.addEventListener('click', () => {
+        const icon = item.querySelector('.ff-nav-fab-icon, .ff-nav-icon');
+        if (!icon) return;
+        icon.classList.remove('is-bounce');
+        // reflow to restart animation on repeated taps
+        void icon.offsetWidth;
+        icon.classList.add('is-bounce');
+        setTimeout(() => icon.classList.remove('is-bounce'), 320);
+      });
+    });
+  }
+
   window.ffStoreModeSnapshot = function (result = {}, intake = null) {
     try {
       const mode = String(result?.mode || '').trim();
@@ -624,6 +641,7 @@
     ensureQuickMenu();
     ensureMysticBgm();
     initCardParallax();
+    initBottomNavMicroInteraction();
   }
 
   if (document.readyState === 'loading') {

@@ -1104,6 +1104,14 @@ input[type="date"]::-webkit-date-and-time-value {
   justify-items: center;
   gap: 3px;
 }
+.home-bottom-nav .ff-nav-icon {
+  display: inline-block;
+  will-change: transform;
+}
+.home-bottom-nav .ff-nav-icon.is-bounce,
+.home-bottom-nav .ff-nav-fab-icon.is-bounce {
+  animation: ffNavIconBounce .28s cubic-bezier(.2,.8,.2,1);
+}
 .home-bottom-nav a:hover {
   border-color: rgba(255, 216, 140, .45);
   color: #fff7dd;
@@ -1677,6 +1685,11 @@ button,.btn,.option,.select-like,.concern-item { border-radius: 24px; }
   0% { transform: scale(1); filter: brightness(1); }
   40% { transform: scale(1.07); filter: brightness(1.25); }
   100% { transform: scale(1); filter: brightness(1); }
+}
+@keyframes ffNavIconBounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }
 @keyframes ctaPulse {
   0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 8px 20px rgba(27, 80, 172, .25); }
