@@ -1256,7 +1256,9 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav .ff-nav-fab-icon {
   width: 33px;
   height: 33px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   transition: transform .16s ease;
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.24);
@@ -1274,8 +1276,11 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav .ff-nav-fab-icon::after {
   content: '';
   position: absolute;
-  inset: -2px;
-  background: url('/assets/brand/cosmic-eye-exact.png') center/130% no-repeat;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/brand/cosmic-eye-exact.png') center center/130% no-repeat;
 }
 .home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
 .home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
