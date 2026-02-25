@@ -1075,54 +1075,98 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav {
   position: fixed;
   left: 50%;
-  bottom: 12px;
+  bottom: 16px;
   transform: translateX(-50%);
   z-index: 80;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  width: min(540px, calc(100% - 32px));
-  padding: 8px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.16);
-  border-top: 1px solid rgba(255,255,255,.34);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 -1px 6px rgba(255,255,255,.08), 0 18px 32px rgba(5, 4, 18, .48), inset 0 1px 0 rgba(255,255,255,.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  align-items: end;
+  gap: 14px;
+  width: min(560px, calc(100% - 30px));
+  padding: 11px 14px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-top: 1px solid rgba(255,255,255,.26);
+  background: rgba(10, 16, 38, .42);
+  box-shadow: 0 14px 30px rgba(5, 8, 20, .5), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(16px) saturate(122%);
+  -webkit-backdrop-filter: blur(16px) saturate(122%);
   overflow: visible;
 }
 .home-bottom-nav a {
   text-decoration: none;
-  color: rgba(255, 246, 220, .92);
+  color: rgba(232, 222, 200, .92);
   text-align: center;
-  padding: 8px 6px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.08);
+  padding: 8px 4px;
+  border-radius: 12px;
+  border: 1px solid transparent;
   font-size: 12px;
-  text-shadow: 0 0 10px rgba(255, 216, 140, .25);
+  letter-spacing: .01em;
   display: grid;
   justify-items: center;
-  gap: 3px;
+  gap: 6px;
+  min-width: 86px;
 }
 .home-bottom-nav .ff-nav-icon {
-  display: inline-block;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(232, 222, 200, .95);
   will-change: transform;
+  position: relative;
 }
 .home-bottom-nav .ff-nav-icon.is-bounce,
 .home-bottom-nav .ff-nav-fab-icon.is-bounce {
   animation: ffNavIconBounce .28s cubic-bezier(.2,.8,.2,1);
 }
+.home-bottom-nav .ff-nav-icon-home::before {
+  content: '';
+  width: 11px;
+  height: 9px;
+  border: 1.8px solid currentColor;
+  border-top: none;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 3px;
+}
+.home-bottom-nav .ff-nav-icon-home::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-top: 1.8px solid currentColor;
+  border-left: 1.8px solid currentColor;
+  position: absolute;
+  transform: rotate(45deg);
+  top: 1px;
+}
+.home-bottom-nav .ff-nav-icon-report::before {
+  content: '';
+  width: 13px;
+  height: 16px;
+  border: 1.8px solid currentColor;
+  border-radius: 3px;
+  position: absolute;
+}
+.home-bottom-nav .ff-nav-icon-report::after {
+  content: '';
+  width: 7px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  box-shadow: 0 4px 0 currentColor, 0 8px 0 currentColor;
+}
 .home-bottom-nav a:hover {
-  border-color: rgba(255, 216, 140, .45);
-  color: #fff7dd;
+  border-color: rgba(224, 198, 146, .32);
+  color: #f2e8d3;
 }
 .home-bottom-nav a[aria-current="page"] {
-  color: #FFD700;
-  border-color: rgba(255, 216, 140, .55);
-  background: linear-gradient(135deg, rgba(255, 214, 132, .2), rgba(170, 130, 255, .16));
-  box-shadow: 0 0 14px rgba(255, 214, 132, .22);
-  transform: scale(1.06);
+  color: #e2c787;
+  border-color: rgba(224, 198, 146, .38);
+  background: rgba(226, 199, 135, .08);
 }
 .ff-fan-wrap {
   position: relative;
@@ -1237,50 +1281,53 @@ input[type="date"]::-webkit-date-and-time-value {
   animation-delay: calc(var(--fan-i, 0) * 0.1s);
 }
 .home-bottom-nav .ff-nav-fab {
-  transform: translateY(-16px);
+  transform: translateY(-18px);
   justify-self: center;
   align-self: end;
   border-radius: 999px;
-  width: 64px;
-  height: 64px;
-  padding: 6px;
-  margin: 0 auto -16px;
-  border: 1px solid rgba(255, 216, 140, .48);
+  width: 66px;
+  height: 66px;
+  padding: 5px;
+  margin: 0 auto -18px;
+  border: 1px solid rgba(224, 198, 146, .55);
   background: rgba(10, 18, 44, .28);
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-  box-shadow: 0 10px 22px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,215,120,.14);
+  backdrop-filter: blur(14px) saturate(122%);
+  -webkit-backdrop-filter: blur(14px) saturate(122%);
+  box-shadow: 0 12px 24px rgba(0,0,0,.3), inset 0 0 0 1px rgba(255,255,255,.08);
   appearance: none;
   -webkit-appearance: none;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2px;
 }
 .home-bottom-nav .ff-nav-fab-icon {
-  width: 33px;
-  height: 33px;
+  width: 54px;
+  height: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   transition: transform .16s ease;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.24);
 }
 .home-bottom-nav .ff-nav-fab-icon::before {
   content: '';
   position: absolute;
-  inset: 2px;
+  inset: 1px;
   border-radius: 50%;
-  background: rgba(8, 14, 34, .24);
-  border: 1px solid rgba(255, 215, 140, .16);
-  backdrop-filter: blur(8px) saturate(115%);
-  -webkit-backdrop-filter: blur(8px) saturate(115%);
+  background: rgba(8, 14, 34, .2);
+  border: 1px solid rgba(224, 198, 146, .2);
+  backdrop-filter: blur(9px) saturate(115%);
+  -webkit-backdrop-filter: blur(9px) saturate(115%);
 }
 .home-bottom-nav .ff-nav-fab-icon::after {
   content: '';
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 100%;
-  height: 100%;
-  background: url('/assets/brand/cosmic-eye-exact.png') center center/130% no-repeat;
+  width: 96%;
+  height: 96%;
+  background: url('/assets/brand/cosmic-eye-mark.svg') center center/contain no-repeat;
 }
 .home-bottom-nav .ff-nav-fab:active .ff-nav-fab-icon,
 .home-bottom-nav .ff-nav-fab.is-tap .ff-nav-fab-icon {
@@ -1292,7 +1339,7 @@ input[type="date"]::-webkit-date-and-time-value {
 .home-bottom-nav .ff-nav-fab span:last-child {
   font-size: 10px;
   line-height: 1;
-  color: #ffdca0;
+  color: #e2c787;
 }
 .first-impact-page { padding-bottom: 90px; }
 .concern-item { background: var(--primary-soft); color: var(--text); border:1px solid var(--border); }
