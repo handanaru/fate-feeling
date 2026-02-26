@@ -6941,3 +6941,30 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-entry-cta {
   display: none !important;
 }
+
+/* final width/spacing lock (explicit, non-fluid): keep below area same visual width as hero */
+.ff-rebuild-home .ff-home-hero {
+  min-height: auto !important;
+}
+.ff-rebuild-home .ff-home-hero--poster {
+  padding: 14px !important;
+  margin-bottom: 10px !important;
+}
+.ff-rebuild-home .ff-mega-cta,
+.ff-rebuild-home .ff-trust-strip,
+.ff-rebuild-home .ff-concern-picker,
+.ff-rebuild-home .ff-featured-grid-wrap,
+.ff-rebuild-home .ff-mid-cta,
+.ff-rebuild-home .ff-home-ranking,
+.ff-rebuild-home .ff-home-rail-wrap,
+.ff-rebuild-home .ff-home-snack,
+.ff-rebuild-home .ff-state-entry,
+.ff-rebuild-home .ff-funnel-strip {
+  width: calc(var(--mobile-app-max) - 28px) !important;
+  max-width: calc(var(--mobile-app-max) - 28px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+}
+.ff-rebuild-home .ff-mega-cta { margin-top: 4px !important; }
+.ff-rebuild-home .ff-trust-strip { margin-top: 4px !important; }
