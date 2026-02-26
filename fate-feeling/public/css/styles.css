@@ -6132,6 +6132,26 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   animation: ctaShine 2.8s ease-in-out infinite;
   pointer-events: none;
 }
+.ff-entry-cta {
+  margin-top: 8px;
+  min-height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f3ead7;
+  border: 1px solid rgba(224, 189, 112, .42);
+  background: linear-gradient(135deg, rgba(20,32,73,.9), rgba(18,28,58,.78));
+}
+.ff-trust-strip {
+  margin: 10px 2px 0;
+  font-size: 11px;
+  color: rgba(234, 226, 203, .9);
+  letter-spacing: .01em;
+}
 .ff-home-category--list { margin-top: 14px; }
 .ff-home-category--list h3 { font-size: 22px; }
 .ff-list-cards {
