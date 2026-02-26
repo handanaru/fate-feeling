@@ -6118,19 +6118,28 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(3) { transition-delay: .22s; }
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(4) { transition-delay: .29s; }
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(5) { transition-delay: .36s; }
-.ff-guide-orb {
+.ff-hero-illust-card {
   position: absolute;
   right: 14px;
-  top: 22px;
-  width: 118px;
-  height: 118px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, rgba(255,248,223,.95), rgba(173,160,255,.18) 58%, transparent 64%),
-    radial-gradient(circle at 62% 68%, rgba(120,164,255,.3), transparent 55%);
-  box-shadow: 0 10px 30px rgba(43, 62, 128, .45);
+  top: 18px;
+  width: 112px;
+  height: 168px;
+  border-radius: 18px;
   border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 14px 28px rgba(10, 16, 42, .42);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
 }
+.ff-hero-illust-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,14,30,.04) 0%, rgba(10,14,30,.3) 100%);
+}
+.ff-hero-illust-card.theme-career { background-image: url('/assets/home-ref/career.jpg'); }
+.ff-hero-illust-card.theme-love { background-image: url('/assets/home-ref/charm.jpg'); }
+.ff-hero-illust-card.theme-wealth { background-image: url('/assets/home-ref/wealth.jpg'); }
 .ff-hero-dots {
   position: absolute;
   left: 50%;
@@ -6850,11 +6859,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   background: rgba(9, 14, 30, .55);
   border: 1px solid rgba(255,255,255,.14);
 }
-.ff-guide-orb {
+.ff-hero-illust-card {
   width: 108px;
-  height: 108px;
+  height: 162px;
   border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 8px 26px rgba(33, 52, 116, .38);
+  box-shadow: 0 10px 24px rgba(22, 36, 86, .34);
 }
 .ff-mega-cta {
   min-height: 54px;
@@ -6897,6 +6906,12 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   .ff-hero-slide {
     min-height: 42vh;
     padding: 20px 14px 48px;
+  }
+  .ff-hero-illust-card {
+    right: 10px;
+    top: 14px;
+    width: 98px;
+    height: 146px;
   }
   .ff-poster-sub {
     font-size: 18px;
