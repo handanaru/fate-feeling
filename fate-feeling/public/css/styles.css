@@ -6539,3 +6539,8 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   font-size: 12px;
   color: rgba(226,220,245,.8);
 }
+
+/* Hide only the home floating bottom nav bar */
+.home-bottom-nav {
+  display: none !important;
+}
