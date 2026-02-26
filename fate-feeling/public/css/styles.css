@@ -6606,16 +6606,20 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 .seongun-stage {
-  filter: drop-shadow(0 10px 24px rgba(6, 8, 24, .42));
+  right: 6px;
+  top: 10px;
+  transform: scale(1.04);
+  transform-origin: right top;
+  filter: drop-shadow(0 12px 28px rgba(6, 8, 24, .48));
 }
 
 .seongun-line {
-  max-width: 64%;
+  max-width: 60%;
   margin-top: 12px;
-  padding: 9px 11px;
+  padding: 10px 12px;
   border-radius: 14px;
-  background: rgba(10, 15, 34, .58);
-  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(10, 15, 34, .62);
+  border: 1px solid rgba(255,255,255,.18);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   animation: ffSpeechFloat 3.2s ease-in-out infinite;
@@ -6628,7 +6632,15 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 
 .ff-poster-year,
 .ff-poster-card h1 {
-  text-shadow: 0 8px 26px rgba(0,0,0,.56), 0 0 18px rgba(52, 85, 190, .22);
+  text-shadow: 0 10px 28px rgba(0,0,0,.58), 0 0 20px rgba(52, 85, 190, .24);
+}
+
+.ff-poster-card--seongun::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 65% 34%, rgba(120, 164, 255, .12), transparent 42%);
+  pointer-events: none;
 }
 
 .ff-mega-cta {
@@ -6639,8 +6651,14 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 @media (max-width: 430px) {
+  .seongun-stage {
+    right: 4px;
+    top: 8px;
+    transform: scale(1.01);
+  }
   .seongun-line {
-    max-width: 68%;
+    max-width: 66%;
     font-size: 12.5px;
+    padding: 9px 10px;
   }
 }
