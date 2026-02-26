@@ -129,6 +129,14 @@
       <p class="ff-concern-picker-title">오늘 가장 궁금한 고민 하나만 고르면 돼</p>
       <p class="ff-concern-picker-hint" data-concern-hint>애정운 선택됨 · 지금 가장 필요한 흐름부터 1분 안에 확인</p>
       <p class="ff-concern-context" data-concern-context hidden></p>
+      <div class="ff-concern-chip-list" role="listbox" aria-label="고민 선택" data-concern-chip-list>
+        <button type="button" class="ff-concern-chip is-active" data-concern="애정운" aria-selected="true">애정운</button>
+        <button type="button" class="ff-concern-chip" data-concern="결혼 운세" aria-selected="false">결혼 운세</button>
+        <button type="button" class="ff-concern-chip" data-concern="재회운" aria-selected="false">재회운</button>
+        <button type="button" class="ff-concern-chip" data-concern="취업/직장" aria-selected="false">취업/직장</button>
+        <button type="button" class="ff-concern-chip" data-concern="금전/재산" aria-selected="false">금전/재산</button>
+      </div>
+      <p class="ff-concern-scroll-hint" data-concern-scroll-hint aria-live="polite">좌우로 밀어서 고민 더 보기</p>
       <div class="ff-concern-preview" data-concern-preview aria-live="polite">
         <span class="ff-concern-preview-badge">추천 포커스</span>
         <strong data-concern-preview-focus>감정 흐름 · 타이밍</strong>
@@ -146,15 +154,7 @@
           <span class="ff-concern-progress-fill" data-concern-progress-fill></span>
         </div>
       </div>
-      <div class="ff-concern-chip-list" role="listbox" aria-label="고민 선택" data-concern-chip-list>
-        <button type="button" class="ff-concern-chip is-active" data-concern="애정운" aria-selected="true">애정운</button>
-        <button type="button" class="ff-concern-chip" data-concern="결혼 운세" aria-selected="false">결혼 운세</button>
-        <button type="button" class="ff-concern-chip" data-concern="재회운" aria-selected="false">재회운</button>
-        <button type="button" class="ff-concern-chip" data-concern="취업/직장" aria-selected="false">취업/직장</button>
-        <button type="button" class="ff-concern-chip" data-concern="금전/재산" aria-selected="false">금전/재산</button>
-      </div>
-      <p class="ff-concern-scroll-hint" data-concern-scroll-hint aria-live="polite">좌우로 밀어서 고민 더 보기</p>
-      <p class="ff-concern-selection-summary" data-concern-selection-summary aria-live="polite">
+            <p class="ff-concern-selection-summary" data-concern-selection-summary aria-live="polite">
         <span class="ff-concern-selection-pill">선택 완료</span>
         <strong data-concern-selection-name>애정운</strong>
         <em data-concern-selection-note>질문 12개 · 약 1분</em>
