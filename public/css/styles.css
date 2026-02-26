@@ -6921,6 +6921,12 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: none !important;
 }
 
+/* center-bias fix: keep gutter balanced even when vertical scrollbar appears */
+html,
+body.ff-rebuild-home {
+  scrollbar-gutter: stable both-edges;
+}
+
 /* width lock: body sections must not expand wider than hero card block */
 .ff-rebuild-home .ff-home-shell {
   --home-inner-inset: 14px;
