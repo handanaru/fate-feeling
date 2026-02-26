@@ -6061,6 +6061,63 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   min-height: auto;
   padding: 16px;
 }
+.ff-hero-carousel {
+  position: relative;
+  z-index: 2;
+  border-radius: 18px;
+  min-height: 56vh;
+  padding: 22px 18px 52px;
+  border: 1px solid rgba(255,255,255,.2);
+  background:
+    radial-gradient(ellipse at 78% 26%, rgba(96, 124, 240, .34), transparent 52%),
+    radial-gradient(ellipse at 62% 54%, rgba(84, 116, 232, .22), transparent 48%),
+    radial-gradient(ellipse at 22% 22%, rgba(148, 111, 255, .2), transparent 44%),
+    linear-gradient(165deg, #151b3d 0%, #16132f 56%, #110f20 100%);
+  overflow: hidden;
+}
+.ff-hero-slide {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 44vh;
+}
+.ff-hero-slide.is-active {
+  display: flex;
+}
+.ff-guide-orb {
+  position: absolute;
+  right: 14px;
+  top: 22px;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,248,223,.95), rgba(173,160,255,.18) 58%, transparent 64%),
+    radial-gradient(circle at 62% 68%, rgba(120,164,255,.3), transparent 55%);
+  box-shadow: 0 10px 30px rgba(43, 62, 128, .45);
+  border: 1px solid rgba(255,255,255,.18);
+}
+.ff-hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.ff-hero-dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255,255,255,.34);
+  padding: 0;
+}
+.ff-hero-dots button.is-active {
+  width: 18px;
+  background: rgba(224, 189, 112, .95);
+}
 .ff-poster-card {
   position: relative;
   z-index: 2;
