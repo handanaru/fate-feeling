@@ -6942,6 +6942,18 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: none !important;
 }
 
+/* fix: primary CTA alignment must follow same centered width rule */
+.ff-rebuild-home .ff-mega-cta {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--mobile-app-max) - 28px) !important;
+  max-width: calc(var(--mobile-app-max) - 28px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+}
+
 /* final width/spacing lock (explicit, non-fluid): keep below area same visual width as hero */
 .ff-rebuild-home .ff-home-hero {
   min-height: auto !important;
