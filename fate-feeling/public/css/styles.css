@@ -7027,3 +7027,26 @@ body.ff-rebuild-home {
 }
 .ff-rebuild-home .ff-mega-cta { margin-top: 4px !important; }
 .ff-rebuild-home .ff-trust-strip { margin-top: 4px !important; }
+
+/* hero polish (approved direction): remove bottom hero button, use taller vertical card, lower text stack */
+.ff-rebuild-home .ff-home-hero--poster .ff-trust-strip {
+  margin-top: 8px !important;
+  padding-inline: 2px;
+}
+.ff-rebuild-home .ff-hero-carousel {
+  min-height: 62vh;
+}
+.ff-rebuild-home .ff-hero-slide {
+  min-height: 50vh;
+  padding: 26px 16px 30px;
+}
+
+@media (max-width: 430px) {
+  .ff-rebuild-home .ff-hero-carousel {
+    min-height: 60vh;
+  }
+  .ff-rebuild-home .ff-hero-slide {
+    min-height: 48vh;
+    padding: 18px 12px 26px;
+  }
+}
