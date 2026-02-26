@@ -6084,6 +6084,20 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-hero-slide.is-active {
   display: flex;
 }
+.ff-hero-copy {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .36s ease, transform .36s ease;
+}
+.ff-hero-slide.is-active .ff-hero-copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(1) { transition-delay: .04s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(2) { transition-delay: .1s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(3) { transition-delay: .16s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(4) { transition-delay: .22s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(5) { transition-delay: .28s; }
 .ff-guide-orb {
   position: absolute;
   right: 14px;
