@@ -1,0 +1,306 @@
+.ff-concern-picker {
+  margin: 14px 0 20px;
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(20, 26, 48, 0.92), rgba(35, 20, 58, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 24px rgba(8, 7, 18, 0.26);
+}
+
+.ff-concern-picker-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(243, 237, 255, 0.95);
+}
+
+.ff-concern-picker-hint {
+  margin: 7px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(222, 209, 255, 0.9);
+}
+
+.ff-concern-context {
+  margin: 6px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(216, 195, 255, 0.38);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.68rem;
+  color: rgba(239, 228, 255, 0.95);
+}
+
+.ff-concern-preview {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 190, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ff-concern-preview-badge {
+  display: inline-flex;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fdf4ff;
+  background: rgba(167, 123, 255, 0.35);
+}
+
+.ff-concern-preview strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: rgba(250, 243, 255, 0.97);
+}
+
+.ff-concern-preview p {
+  margin: 4px 0 0;
+  font-size: 0.74rem;
+  color: rgba(223, 209, 248, 0.9);
+}
+
+.ff-concern-preview-peek {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px dashed rgba(214, 191, 255, 0.3);
+  font-size: 0.71rem;
+  line-height: 1.45;
+  color: rgba(232, 218, 255, 0.92);
+}
+
+.ff-concern-preview-points {
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px solid rgba(214, 191, 255, 0.2);
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+
+.ff-concern-preview-points li {
+  font-size: 0.69rem;
+  line-height: 1.4;
+  color: rgba(236, 224, 255, 0.93);
+}
+
+.ff-concern-progress {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(194, 170, 255, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ff-concern-progress-text {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: rgba(233, 222, 255, 0.94);
+}
+
+.ff-concern-progress-text strong {
+  margin-right: 4px;
+  color: #fff;
+  font-size: 0.78rem;
+}
+
+.ff-concern-progress-track {
+  margin-top: 7px;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ff-concern-progress-fill {
+  display: block;
+  width: 58%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #a879ff, #ff77be);
+  box-shadow: 0 0 10px rgba(184, 120, 255, 0.42);
+  transition: width 0.25s ease;
+}
+
+.ff-concern-chip-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ff-concern-scroll-hint {
+  display: none;
+  margin: 7px 2px 0;
+  font-size: 0.68rem;
+  color: rgba(210, 191, 246, 0.92);
+}
+
+.ff-concern-chip {
+  border: 1px solid rgba(206, 184, 255, 0.36);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(244, 237, 255, 0.94);
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ff-concern-chip.is-active {
+  border-color: rgba(255, 255, 255, 0.86);
+  background: linear-gradient(120deg, #a275ff, #cf6de6);
+  box-shadow: 0 8px 18px rgba(141, 94, 255, 0.35);
+  color: #fff;
+}
+
+.ff-concern-start {
+  margin-top: 12px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background: linear-gradient(120deg, #ff6f6f, #ff4795);
+  box-shadow: 0 12px 24px rgba(255, 88, 139, 0.32);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.ff-concern-start:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(255, 88, 139, 0.36);
+}
+
+.ff-concern-start.is-confirmed,
+.ff-concern-start[aria-busy='true'] {
+  background: linear-gradient(120deg, #845dff, #ff7fc3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28), 0 14px 28px rgba(133, 93, 255, 0.34);
+  filter: saturate(1.06);
+}
+
+.ff-concern-start.is-ready {
+  animation: ffConcernReadyPulse 0.42s ease;
+}
+
+@keyframes ffConcernReadyPulse {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 24px rgba(255, 88, 139, 0.32);
+  }
+  45% {
+    transform: translateY(-1px) scale(1.015);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2), 0 15px 30px rgba(255, 88, 139, 0.38);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 24px rgba(255, 88, 139, 0.32);
+  }
+}
+
+@media (max-width: 430px) {
+  .ff-concern-picker {
+    margin-top: 12px;
+  }
+
+  .ff-concern-picker-hint {
+    font-size: 0.75rem;
+  }
+
+  .ff-concern-context {
+    font-size: 0.65rem;
+  }
+
+  .ff-concern-preview {
+    padding: 9px 10px;
+  }
+
+  .ff-concern-preview strong {
+    font-size: 0.79rem;
+  }
+
+  .ff-concern-preview p {
+    font-size: 0.72rem;
+  }
+
+  .ff-concern-preview-peek {
+    margin-top: 6px;
+    padding-top: 6px;
+    font-size: 0.69rem;
+  }
+
+  .ff-concern-preview-points {
+    margin-top: 7px;
+    padding-top: 7px;
+    gap: 3px;
+  }
+
+  .ff-concern-preview-points li {
+    font-size: 0.67rem;
+  }
+
+  .ff-concern-progress {
+    padding: 8px 9px;
+  }
+
+  .ff-concern-progress-text {
+    font-size: 0.71rem;
+  }
+
+  .ff-concern-chip-list {
+    position: relative;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding-bottom: 2px;
+    mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+  }
+
+  .ff-concern-scroll-hint {
+    display: block;
+  }
+
+  .ff-concern-scroll-hint.is-done {
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+
+  .ff-concern-chip-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ff-concern-chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+
+  .ff-concern-start {
+    position: sticky;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    z-index: 18;
+    font-size: 0.92rem;
+    box-shadow: 0 16px 28px rgba(255, 88, 139, 0.34);
+  }
+}
+
+@media (min-width: 431px) and (max-width: 768px) {
+  .ff-concern-start {
+    position: sticky;
+    bottom: 16px;
+    z-index: 14;
+  }
+}
