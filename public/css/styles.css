@@ -6906,3 +6906,9 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     font-size: 12.5px;
   }
 }
+
+
+/* user request: remove small yellow carousel indicators on mobile */
+.ff-hero-dots {
+  display: none !important;
+}
