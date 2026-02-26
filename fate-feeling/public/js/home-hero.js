@@ -65,6 +65,8 @@
 
   let idx = 0;
   let timer = null;
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   const render = (next) => {
     idx = (next + slides.length) % slides.length;
@@ -74,7 +76,7 @@
 
   const start = () => {
     stop();
-    timer = setInterval(() => render(idx + 1), 4200);
+    timer = setInterval(() => render(idx + 1), 4600);
   };
 
   const stop = () => {
@@ -83,12 +85,34 @@
     timer = null;
   };
 
+  const handleSwipe = () => {
+    const dx = touchEndX - touchStartX;
+    if (Math.abs(dx) < 36) return;
+    if (dx < 0) render(idx + 1);
+    else render(idx - 1);
+    start();
+  };
+
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
       render(i);
       start();
     });
   });
+
+  carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0]?.clientX || 0;
+    touchEndX = touchStartX;
+    stop();
+  }, { passive: true });
+
+  carousel.addEventListener('touchmove', (e) => {
+    touchEndX = e.changedTouches[0]?.clientX || touchStartX;
+  }, { passive: true });
+
+  carousel.addEventListener('touchend', () => {
+    handleSwipe();
+  }, { passive: true });
 
   carousel.addEventListener('mouseenter', stop);
   carousel.addEventListener('mouseleave', start);

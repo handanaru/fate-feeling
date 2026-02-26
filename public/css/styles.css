@@ -6796,3 +6796,90 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .zodiac-ring {
   display: none !important;
 }
+
+/* Hybrid refresh (A 70 + B 30): premium base + stronger conversion touchpoints */
+.ff-home-hero--poster {
+  padding: 14px;
+}
+.ff-hero-carousel {
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 14px 34px rgba(8, 10, 28, .44);
+  background:
+    radial-gradient(ellipse at 74% 24%, rgba(106, 136, 255, .28), transparent 52%),
+    radial-gradient(ellipse at 28% 30%, rgba(139, 116, 236, .16), transparent 48%),
+    linear-gradient(162deg, #131a39 0%, #12162f 58%, #0e1122 100%);
+}
+.ff-poster-year {
+  color: rgba(244, 238, 224, .96);
+}
+.ff-poster-card h1,
+.ff-hero-slide h1 {
+  font-size: clamp(48px, 12.4vw, 64px);
+  letter-spacing: -0.03em;
+}
+.ff-poster-sub {
+  margin-top: 8px;
+  font-size: 20px;
+  color: rgba(240, 234, 222, .9);
+}
+.seongun-line {
+  max-width: 64%;
+  background: rgba(9, 14, 30, .55);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.ff-guide-orb {
+  width: 108px;
+  height: 108px;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 8px 26px rgba(33, 52, 116, .38);
+}
+.ff-mega-cta {
+  min-height: 54px;
+  border-radius: 12px;
+  font-size: 19px;
+  animation: none;
+  background: linear-gradient(135deg, #2457b6 0%, #163f8e 62%, #112f70 100%);
+  box-shadow: 0 8px 18px rgba(14, 38, 97, .36), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.ff-entry-cta {
+  min-height: 42px;
+  font-size: 13px;
+  border-color: rgba(228, 196, 126, .46);
+}
+.ff-trust-strip {
+  font-size: 10.5px;
+  color: rgba(227, 218, 194, .84);
+}
+.ff-state-entry,
+.ff-funnel-strip {
+  border-color: rgba(255,255,255,.1);
+  background: rgba(13, 18, 35, .48);
+}
+.ff-state-item {
+  border-color: rgba(227, 193, 120, .22);
+  background: linear-gradient(140deg, rgba(29,38,79,.4), rgba(17,24,51,.4));
+  font-weight: 600;
+}
+.ff-hero-dots button {
+  background: rgba(242, 242, 242, .42);
+}
+.ff-hero-dots button.is-active {
+  background: rgba(226, 191, 118, .92);
+}
+@media (max-width: 430px) {
+  .ff-hero-carousel {
+    min-height: 54vh;
+    padding: 20px 14px 48px;
+  }
+  .ff-hero-slide {
+    min-height: 42vh;
+  }
+  .ff-poster-sub {
+    font-size: 18px;
+  }
+  .seongun-line {
+    max-width: 68%;
+    font-size: 12.5px;
+  }
+}
