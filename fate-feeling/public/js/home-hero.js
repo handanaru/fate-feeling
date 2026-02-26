@@ -69,8 +69,22 @@
   let touchEndX = 0;
 
   const render = (next) => {
+    const prevIdx = idx;
     idx = (next + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === idx));
+
+    const dir = ((idx - prevIdx + slides.length) % slides.length) === 1 ? 1 : -1;
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('is-active', 'is-prev', 'is-next');
+      if (i === idx) {
+        slide.classList.add('is-active');
+      } else if (dir === 1) {
+        slide.classList.add(i < idx ? 'is-prev' : 'is-next');
+      } else {
+        slide.classList.add(i > idx ? 'is-next' : 'is-prev');
+      }
+    });
+
     dots.forEach((dot, i) => dot.classList.toggle('is-active', i === idx));
   };
 

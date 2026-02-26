@@ -6076,13 +6076,33 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   overflow: hidden;
 }
 .ff-hero-slide {
-  display: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
   flex-direction: column;
   justify-content: flex-end;
   min-height: 44vh;
+  padding: 22px 18px 52px;
+  opacity: 0;
+  transform: translateX(14%);
+  transition: transform .56s cubic-bezier(.22,.64,.25,1), opacity .56s ease;
+  pointer-events: none;
 }
 .ff-hero-slide.is-active {
-  display: flex;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  z-index: 2;
+}
+.ff-hero-slide.is-prev {
+  opacity: 0;
+  transform: translateX(-14%);
+  z-index: 1;
+}
+.ff-hero-slide.is-next {
+  opacity: 0;
+  transform: translateX(14%);
+  z-index: 1;
 }
 .ff-hero-copy {
   opacity: 0;
@@ -6093,11 +6113,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   opacity: 1;
   transform: translateY(0);
 }
-.ff-hero-slide.is-active .ff-hero-copy:nth-child(1) { transition-delay: .04s; }
-.ff-hero-slide.is-active .ff-hero-copy:nth-child(2) { transition-delay: .1s; }
-.ff-hero-slide.is-active .ff-hero-copy:nth-child(3) { transition-delay: .16s; }
-.ff-hero-slide.is-active .ff-hero-copy:nth-child(4) { transition-delay: .22s; }
-.ff-hero-slide.is-active .ff-hero-copy:nth-child(5) { transition-delay: .28s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(1) { transition-delay: .08s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(2) { transition-delay: .15s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(3) { transition-delay: .22s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(4) { transition-delay: .29s; }
+.ff-hero-slide.is-active .ff-hero-copy:nth-child(5) { transition-delay: .36s; }
 .ff-guide-orb {
   position: absolute;
   right: 14px;
@@ -6802,6 +6822,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   padding: 14px;
 }
 .ff-hero-carousel {
+  position: relative;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,.14);
   box-shadow: 0 14px 34px rgba(8, 10, 28, .44);
@@ -6809,6 +6830,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     radial-gradient(ellipse at 74% 24%, rgba(106, 136, 255, .28), transparent 52%),
     radial-gradient(ellipse at 28% 30%, rgba(139, 116, 236, .16), transparent 48%),
     linear-gradient(162deg, #131a39 0%, #12162f 58%, #0e1122 100%);
+  padding: 0;
 }
 .ff-poster-year {
   color: rgba(244, 238, 224, .96);
@@ -6870,10 +6892,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 @media (max-width: 430px) {
   .ff-hero-carousel {
     min-height: 54vh;
-    padding: 20px 14px 48px;
+    padding: 0;
   }
   .ff-hero-slide {
     min-height: 42vh;
+    padding: 20px 14px 48px;
   }
   .ff-poster-sub {
     font-size: 18px;
