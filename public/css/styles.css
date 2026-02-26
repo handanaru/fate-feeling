@@ -6645,14 +6645,16 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 }
 
 @media (max-width: 430px) {
-  .seongun-stage {
-    right: 4px;
-    top: 8px;
-    transform: scale(1.01);
-  }
   .seongun-line {
     max-width: 66%;
     font-size: 12.5px;
     padding: 9px 10px;
   }
+}
+
+/* hard-remove remaining arch/moon-like objects */
+.seongun-stage,
+.seongun-avatar,
+.zodiac-ring {
+  display: none !important;
 }
