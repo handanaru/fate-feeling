@@ -6933,7 +6933,7 @@ body.ff-rebuild-home {
 }
 
 .ff-rebuild-home .ff-home-hero--poster {
-  padding: var(--home-inner-inset);
+  padding: 0 !important;
 }
 
 .ff-rebuild-home .ff-home-shell > :not(.ff-home-header):not(.ff-home-hero--poster):not(.home-bottom-nav) {
@@ -6948,15 +6948,15 @@ body.ff-rebuild-home {
   display: none !important;
 }
 
-/* fix: primary CTA alignment must follow same centered width rule */
+/* fix: primary CTA follows hero width (no extra shrinking) */
 .ff-rebuild-home .ff-mega-cta {
   display: flex !important;
   align-items: center;
   justify-content: center;
-  width: calc(100% - (var(--home-inner-inset) * 2)) !important;
-  max-width: calc(100% - (var(--home-inner-inset) * 2)) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   box-sizing: border-box;
 }
 
@@ -6965,8 +6965,14 @@ body.ff-rebuild-home {
   min-height: auto !important;
 }
 .ff-rebuild-home .ff-home-hero--poster {
-  padding: 14px !important;
+  padding: 0 !important;
   margin-bottom: 10px !important;
+}
+.ff-rebuild-home .ff-hero-carousel {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
 }
 .ff-rebuild-home .ff-hero-carousel {
   width: 100%;
@@ -6983,10 +6989,10 @@ body.ff-rebuild-home {
 .ff-rebuild-home .ff-home-snack,
 .ff-rebuild-home .ff-state-entry,
 .ff-rebuild-home .ff-funnel-strip {
-  width: calc(100% - (var(--home-inner-inset) * 2)) !important;
-  max-width: calc(100% - (var(--home-inner-inset) * 2)) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   box-sizing: border-box;
 }
 .ff-rebuild-home .ff-mega-cta { margin-top: 4px !important; }
