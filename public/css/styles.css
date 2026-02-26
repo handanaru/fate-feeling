@@ -6947,8 +6947,8 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: flex !important;
   align-items: center;
   justify-content: center;
-  width: calc(var(--mobile-app-max) - 28px) !important;
-  max-width: calc(var(--mobile-app-max) - 28px) !important;
+  width: calc(100% - (var(--home-inner-inset) * 2)) !important;
+  max-width: calc(100% - (var(--home-inner-inset) * 2)) !important;
   margin-left: auto !important;
   margin-right: auto !important;
   box-sizing: border-box;
@@ -6962,6 +6962,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   padding: 14px !important;
   margin-bottom: 10px !important;
 }
+.ff-rebuild-home .ff-hero-carousel {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 .ff-rebuild-home .ff-mega-cta,
 .ff-rebuild-home .ff-trust-strip,
 .ff-rebuild-home .ff-concern-picker,
@@ -6972,8 +6977,8 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-rebuild-home .ff-home-snack,
 .ff-rebuild-home .ff-state-entry,
 .ff-rebuild-home .ff-funnel-strip {
-  width: calc(var(--mobile-app-max) - 28px) !important;
-  max-width: calc(var(--mobile-app-max) - 28px) !important;
+  width: calc(100% - (var(--home-inner-inset) * 2)) !important;
+  max-width: calc(100% - (var(--home-inner-inset) * 2)) !important;
   margin-left: auto !important;
   margin-right: auto !important;
   box-sizing: border-box;
