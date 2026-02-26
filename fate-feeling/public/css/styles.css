@@ -6118,28 +6118,31 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(3) { transition-delay: .22s; }
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(4) { transition-delay: .29s; }
 .ff-hero-slide.is-active .ff-hero-copy:nth-child(5) { transition-delay: .36s; }
-.ff-hero-illust-card {
-  position: absolute;
-  right: 14px;
-  top: 18px;
-  width: 112px;
-  height: 168px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 14px 28px rgba(10, 16, 42, .42);
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-}
-.ff-hero-illust-card::after {
+.ff-hero-slide::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10,14,30,.04) 0%, rgba(10,14,30,.3) 100%);
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: .96;
 }
-.ff-hero-illust-card.theme-career { background-image: url('/assets/home-ref/career.jpg'); }
-.ff-hero-illust-card.theme-love { background-image: url('/assets/home-ref/charm.jpg'); }
-.ff-hero-illust-card.theme-wealth { background-image: url('/assets/home-ref/wealth.jpg'); }
+.ff-hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at 72% 22%, rgba(99, 124, 238, .28), transparent 48%),
+    linear-gradient(180deg, rgba(7,10,22,.16) 0%, rgba(7,10,22,.54) 60%, rgba(7,10,22,.84) 100%);
+}
+.ff-hero-slide > * {
+  position: relative;
+  z-index: 2;
+}
+.ff-hero-slide.theme-career::before { background-image: url('/assets/home-ref/career.jpg'); }
+.ff-hero-slide.theme-love::before { background-image: url('/assets/home-ref/charm.jpg'); }
+.ff-hero-slide.theme-wealth::before { background-image: url('/assets/home-ref/wealth.jpg'); }
 .ff-hero-dots {
   position: absolute;
   left: 50%;
@@ -6855,16 +6858,11 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   color: rgba(240, 234, 222, .9);
 }
 .seongun-line {
-  max-width: 64%;
+  max-width: 78%;
   background: rgba(9, 14, 30, .55);
   border: 1px solid rgba(255,255,255,.14);
 }
-.ff-hero-illust-card {
-  width: 108px;
-  height: 162px;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 10px 24px rgba(22, 36, 86, .34);
-}
+/* removed small teaser card slot */
 .ff-mega-cta {
   min-height: 54px;
   border-radius: 12px;
@@ -6907,17 +6905,12 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     min-height: 42vh;
     padding: 20px 14px 48px;
   }
-  .ff-hero-illust-card {
-    right: 10px;
-    top: 14px;
-    width: 98px;
-    height: 146px;
-  }
+  /* small teaser card removed */
   .ff-poster-sub {
     font-size: 18px;
   }
   .seongun-line {
-    max-width: 68%;
+    max-width: 82%;
     font-size: 12.5px;
   }
 }
