@@ -5935,6 +5935,20 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   font-size: 11px;
   white-space: nowrap;
 }
+.ff-home-compact-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.24);
+  background: rgba(255,255,255,.08);
+  color: #e9e3ff;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1;
+}
 @media (max-width: 430px) {
   .ff-home-header-actions { gap: 6px; }
   .ff-home-menu { padding: 7px 10px; }
@@ -5944,6 +5958,19 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+/* narrow viewport: keep centered layout by compacting top actions */
+@media (max-width: 390px) {
+  .ff-home-brand span { font-size: 24px; }
+  .ff-guide-status { display: none; }
+  .ff-home-menu { padding: 6px 8px; font-size: 11px; }
+}
+
+@media (max-width: 350px) {
+  .ff-home-menu { display: none; }
+  .ff-home-compact-menu { display: inline-flex; }
+  .ff-home-brand span { font-size: 22px; }
 }
 .ff-home-hero {
   position: relative;
@@ -6961,6 +6988,9 @@ body.ff-rebuild-home {
 }
 
 /* final width/spacing lock (explicit, non-fluid): keep below area same visual width as hero */
+.ff-rebuild-home .ff-home-shell {
+  margin-inline: auto !important;
+}
 .ff-rebuild-home .ff-home-hero {
   min-height: auto !important;
 }
