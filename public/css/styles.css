@@ -6576,6 +6576,53 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   color: rgba(226,220,245,.8);
 }
 
+.ff-state-entry,
+.ff-funnel-strip {
+  margin-top: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(14,16,36,.52);
+}
+.ff-state-entry h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.ff-state-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.ff-state-item {
+  text-decoration: none;
+  color: #efe7d5;
+  font-size: 12px;
+  border: 1px solid rgba(224,189,112,.26);
+  border-radius: 10px;
+  padding: 10px 9px;
+  background: rgba(29,35,74,.42);
+}
+.ff-state-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: rgba(227,220,199,.84);
+}
+.ff-funnel-strip p {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(238,232,214,.92);
+}
+.ff-funnel-actions {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.ff-funnel-actions .btn {
+  min-height: 42px;
+  font-size: 13px;
+}
+
 /* Hide only the home floating bottom nav bar */
 .home-bottom-nav {
   display: none !important;
