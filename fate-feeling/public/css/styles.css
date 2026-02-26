@@ -6560,3 +6560,23 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .home-bottom-nav {
   display: none !important;
 }
+
+/* 수정된 심플 네비게이션 바 */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 60px;
+  background: rgba(15, 15, 35, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0 10px;
+}
