@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fate & Feeling | 운명의 시작</title>
   <link rel="stylesheet" href="/css/styles.css?v=rebuild-home-v9" />
+  <link rel="stylesheet" href="/css/concern-picker.css?v=20260226c" />
 </head>
 <body class="ff-rebuild-home">
   <div class="container ff-home-shell">
     <header class="ff-home-header">
-      <div class="brand">Fate & Feeling</div>
+      <div class="brand ff-home-brand">
+        <span class="ff-home-brand-eye" aria-hidden="true"></span>
+        <span>Fate & Feeling</span>
+      </div>
       <div class="ff-home-header-actions">
         <a class="ff-home-menu" href="/fortune-reports.html" aria-label="보관함">보관함</a>
         <button type="button" class="ff-guide-status" aria-label="안내자와 대화 중" title="안내자와 대화 중">
@@ -37,7 +41,62 @@
         <p class="seongun-line" data-typewriter data-text="운명은 정해진 것이 아니라, 당신이 읽어내길 기다리는 문장 같은 거예요.">"운명은 정해진 것이 아니라, 당신이 읽어내길 기다리는 문장 같은 거예요."</p>
         <span class="seongun-badge">안내자 성운과 함께 보는 오늘의 운세</span>
       </div>
-      <a class="btn ff-mega-cta" href="/test.html?entry=webtoon">내 사주팔자 바로 확인하기</a>
+      <a class="btn ff-mega-cta" data-concern-sync-link data-concern-dynamic-copy="true" href="/test.html?entry=webtoon">애정운 흐름 바로 시작하기</a>
+    </section>
+
+    <section class="ff-concern-picker" aria-label="고민 선택 바로 시작">
+      <p class="ff-concern-picker-title">오늘 가장 궁금한 고민 하나만 고르면 돼</p>
+      <p class="ff-concern-picker-hint" data-concern-hint>애정운 선택됨 · 지금 가장 필요한 흐름부터 1분 안에 확인</p>
+      <p class="ff-concern-context" data-concern-context hidden></p>
+      <div class="ff-concern-preview" data-concern-preview aria-live="polite">
+        <span class="ff-concern-preview-badge">추천 포커스</span>
+        <strong data-concern-preview-focus>감정 흐름 · 타이밍</strong>
+        <p data-concern-preview-meta>질문 12개 · 약 1분 소요</p>
+        <p class="ff-concern-preview-peek" data-concern-preview-peek>많이 묻는 질문 · 지금 상대도 나를 같은 속도로 보고 있을까?</p>
+        <ul class="ff-concern-preview-points" data-concern-preview-points>
+          <li data-concern-point="0">✔ 지금 기준 상대 마음 신호를 먼저 확인</li>
+          <li data-concern-point="1">✔ 내가 움직일 타이밍이 안전한지 체크</li>
+          <li data-concern-point="2">✔ 바로 써먹을 한 줄 액션 제안 받기</li>
+        </ul>
+      </div>
+      <div class="ff-concern-progress" role="status" aria-live="polite">
+        <p class="ff-concern-progress-text" data-concern-progress-text><strong>1/2</strong> 고민 선택 완료 · 애정운 기준 질문으로 바로 시작</p>
+        <div class="ff-concern-progress-track" aria-hidden="true">
+          <span class="ff-concern-progress-fill" data-concern-progress-fill></span>
+        </div>
+      </div>
+      <div class="ff-concern-chip-list" role="listbox" aria-label="고민 선택" data-concern-chip-list>
+        <button type="button" class="ff-concern-chip is-active" data-concern="애정운" aria-selected="true">애정운</button>
+        <button type="button" class="ff-concern-chip" data-concern="결혼 운세" aria-selected="false">결혼 운세</button>
+        <button type="button" class="ff-concern-chip" data-concern="재회운" aria-selected="false">재회운</button>
+        <button type="button" class="ff-concern-chip" data-concern="취업/직장" aria-selected="false">취업/직장</button>
+        <button type="button" class="ff-concern-chip" data-concern="금전/재산" aria-selected="false">금전/재산</button>
+      </div>
+      <p class="ff-concern-scroll-hint" data-concern-scroll-hint aria-live="polite">좌우로 밀어서 고민 더 보기</p>
+      <p class="ff-concern-selection-summary" data-concern-selection-summary aria-live="polite">
+        <span class="ff-concern-selection-pill">선택 완료</span>
+        <strong data-concern-selection-name>애정운</strong>
+        <em data-concern-selection-note>질문 12개 · 약 1분</em>
+      </p>
+      <a class="ff-concern-start" data-concern-start href="/test.html?concern=애정운&entry=picker">애정운 바로 확인하기</a>
+    </section>
+
+    <section class="ff-home-rail-wrap">
+      <h3>10초 고민 선택, 바로 시작</h3>
+      <div class="ff-home-rail" role="list">
+        <a class="ff-theme-card" href="/test.html?concern=애정운" style="--bg:url('/assets/home-ref/charm.jpg')">
+          <span class="progress">QUICK</span><span class="year">LOVE</span><strong>썸·연애 고민</strong><em>지금 마음 흐름 먼저 체크</em>
+        </a>
+        <a class="ff-theme-card" href="/test.html?concern=결혼 운세" style="--bg:url('/assets/home-ref/master.jpg')">
+          <span class="progress">QUICK</span><span class="year">MARRIAGE</span><strong>결혼 타이밍</strong><em>열리는 시기와 변수 확인</em>
+        </a>
+        <a class="ff-theme-card" href="/test.html?concern=재회운" style="--bg:url('/assets/home-ref/charm.jpg')">
+          <span class="progress">QUICK</span><span class="year">RETRY</span><strong>재회 가능성</strong><em>연락 흐름과 감정 온도 파악</em>
+        </a>
+        <a class="ff-theme-card" href="/test.html?concern=취업/직장" style="--bg:url('/assets/home-ref/career.jpg')">
+          <span class="progress">QUICK</span><span class="year">CAREER</span><strong>취업·이직 고민</strong><em>움직일 타이밍 빠르게 점검</em>
+        </a>
+      </div>
     </section>
 
     <section class="ff-featured-grid-wrap">
@@ -54,7 +113,8 @@
       </div>
     </section>
 
-    <a class="ff-mid-cta" href="/test.html?entry=webtoon">요즘 가장 많이 보는 리포트 바로 시작하기</a>
+    <a class="ff-mid-cta" data-concern-sync-link data-concern-dynamic-copy="true" href="/test.html?entry=webtoon">요즘 가장 많이 보는 리포트 바로 시작하기</a>
+    <a id="ffResumeCta" class="ff-mid-cta" href="/test.html?entry=resume" hidden>최근 선택 이어서 시작하기</a>
 
     <section class="ff-home-ranking">
       <h3>오늘 많이 본 사주 TOP 5</h3>
@@ -110,7 +170,7 @@
 
     <div class="ff-fan-wrap">
       <div id="ffFanMenu" class="ff-fan-menu" aria-hidden="true">
-        <a href="/test.html?entry=webtoon" class="ff-fan-item" style="--fan-i:0;--fan-x:-74px;--fan-y:-44px;" aria-label="사주 시작">
+        <a href="/test.html?entry=webtoon" data-concern-sync-link class="ff-fan-item" style="--fan-i:0;--fan-x:-74px;--fan-y:-44px;" aria-label="사주 시작">
           <span class="ff-fan-icon-shell" aria-hidden="true"><i></i>🔮</span>
           <em>시작</em>
         </a>
@@ -134,6 +194,6 @@
   </nav>
 
   <script src="/js/common.js?v=navclean15"></script>
-  <script src="/js/home-hero.js?v=typewriter3"></script>
+  <script src="/js/home-hero.js?v=picker-confirm1"></script>
 </body>
 </html>
