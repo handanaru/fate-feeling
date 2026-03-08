@@ -3606,7 +3606,26 @@ button.status-chip {
 @media (max-width: 640px) {
   .weather-hero { grid-template-columns: 1fr; }
   .reveal-page .card,
-  .ziwei-report-page .card { padding: 32px 24px; }
+  .ziwei-report-page .card { padding: 22px 16px; margin-bottom: 20px; border-radius: 22px; }
+  .reveal-page .minimal-report-header { margin-bottom: 10px; }
+  .result-main-title { font-size: clamp(24px, 7vw, 30px); line-height: 1.22; }
+  .fortune-score-head { margin-bottom: 4px; font-size: 13px; }
+  .hero-chip-row { gap: 6px; margin-top: 10px; }
+  .hero-chip-row .hero-chip { font-size: 12px; padding: 6px 10px; }
+  .hero-merged-summary { margin-top: 10px; padding-top: 10px; }
+  .hero-merged-summary .small { font-size: 13px; line-height: 1.55; }
+  .hero-instant-summary { margin-top: 10px; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,.05); }
+  .hero-instant-summary-title { font-size: 12px; font-weight: 700; color: #f2e6ff; margin-bottom: 6px; }
+  .hero-instant-summary ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #d9ddea; }
+  .briefing-card p,
+  .timeline-card p,
+  .reveal-counselor p,
+  .social-share-card p { font-size: 14px; line-height: 1.6; }
+  .timeline-fold summary { list-style: none; display: grid; gap: 2px; cursor: pointer; }
+  .timeline-fold summary::-webkit-details-marker { display: none; }
+  .timeline-fold summary span { font-weight: 700; color: var(--text); }
+  .timeline-fold summary em { font-style: normal; font-size: 12px; color: var(--muted); }
+  .timeline-fold-body { margin-top: 12px; }
   .hero-mini-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .analyzing-statusbar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mini-metric { padding: 7px 8px; }

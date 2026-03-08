@@ -131,8 +131,36 @@ const goResultNowBtn = document.getElementById('goResultNowBtn');
 const intake = JSON.parse(localStorage.getItem('ff-intake') || '{}');
 
 if ((intake.mode || 'saju') === 'saju') {
-  // 사주 관점은 설문 없이 만세력 기반 리포트로 바로 이동
-  location.replace('/result.html');
+  // 사주 관점은 설문 없이 만세력 기반 리포트로 이동하되,
+  // 사용자가 "내 정보가 반영돼 계산 중"이라는 체감을 먼저 느끼게 한다.
+  const progressTextEl = document.getElementById('progressText');
+  const progressFillEl = document.getElementById('progressFill');
+  const analysisTitleEl = document.getElementById('analysisTitle');
+  const modeHintEl = document.getElementById('modeHint');
+  const liveTickerEl = document.getElementById('liveTicker');
+  const backBtnEl = document.getElementById('questionBackBtn');
+  const formEl = document.getElementById('testForm');
+  const submitBtnEl = document.getElementById('submitBtn');
+
+  if (analysisTitleEl) analysisTitleEl.textContent = `[${intake.concern || '정통사주'}] 사주 원국 분석 중`;
+  if (modeHintEl) modeHintEl.textContent = '생년월일·태어난 시간·선택한 고민을 바탕으로 핵심 흐름을 계산하고 있어.';
+  if (liveTickerEl) liveTickerEl.innerHTML = '<span>만세력 원국 계산 중...</span><span class="ticker-step">곧 결과 안내</span>';
+  if (progressTextEl) progressTextEl.textContent = '입력 정보 확인 중';
+  if (progressFillEl) progressFillEl.style.width = '68%';
+  if (backBtnEl) backBtnEl.style.display = 'none';
+  if (formEl) formEl.innerHTML = `
+    <div class="question-card slide-in">
+      <div class="small question-context">사주 원국 · 오행 밸런스 · 고민별 흐름을 순서대로 정리 중</div>
+      <h3>${intake.name || '사용자'}님의 사주 흐름을 읽고 있어</h3>
+      <p class="small" style="margin:10px 0 0; line-height:1.6; color:rgba(255,255,255,.8);">
+        질문 없이 바로 결과로 넘어가지만, 지금은 핵심 기둥과 오늘 필요한 포인트를 먼저 정리하는 단계야.
+      </p>
+    </div>`;
+  if (submitBtnEl) submitBtnEl.style.display = 'none';
+
+  setTimeout(() => {
+    location.replace('/result.html');
+  }, 1400);
 }
 
 const userName = intake.name || '나';

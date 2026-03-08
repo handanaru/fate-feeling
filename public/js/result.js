@@ -515,10 +515,10 @@ function renderTimelineCard(data, concern = '일반 궁합') {
   const thisYear = 2026;
   const title = concern === '일반 궁합' ? '두 사람의 관계 타임라인' : '나의 운세 타임라인';
   const summary = concern === '일반 궁합' ? '두 사람 궁합 흐름 기반 해석' : `인생 총운 · ${concern} 흐름 기반 해석`;
-  timelineBox.innerHTML = `<h3>${title}</h3>
-    <div class="timeline-summary">${summary}</div>
-    <div class="timeline-tabs" id="yearTabs">${years.map((y) => `<button type="button" data-year="${y}" class="${y === thisYear ? 'active' : ''}">${y}</button>`).join('')}</div>
-    <div class="timeline-panel" id="timelinePanel"></div>`;
+  const useFold = concern !== '일반 궁합';
+  timelineBox.innerHTML = useFold
+    ? `<details class="timeline-fold" open><summary><span>${title}</span><em>${summary}</em></summary><div class="timeline-fold-body"><div class="timeline-tabs" id="yearTabs">${years.map((y) => `<button type="button" data-year="${y}" class="${y === thisYear ? 'active' : ''}">${y}</button>`).join('')}</div><div class="timeline-panel" id="timelinePanel"></div></div></details>`
+    : `<h3>${title}</h3><div class="timeline-summary">${summary}</div><div class="timeline-tabs" id="yearTabs">${years.map((y) => `<button type="button" data-year="${y}" class="${y === thisYear ? 'active' : ''}">${y}</button>`).join('')}</div><div class="timeline-panel" id="timelinePanel"></div>`;
 
   const panel = timelineBox.querySelector('#timelinePanel');
   const drawYear = (year) => {
@@ -822,7 +822,18 @@ if (!saved) {
     const gradeMeta = (concern === '일반 궁합' ? compatGradeMap : defaultGradeMap)[band];
 
     if (resultBox) {
-      resultBox.insertAdjacentHTML('beforeend', `<div class="hero-merged-summary"><p class="grade-label"><strong>${gradeMeta.label}</strong></p><p class="small">${gradeMeta.brief}</p></div>`);
+      const instantSummary = isCompat
+        ? [
+            `지금 관계 온도: ${heroSub}`,
+            `${targetName || '상대'}와는 속도 조절이 결과를 좌우해.`,
+            `오늘 바로 써먹을 포인트: 첫 문장은 짧고 부드럽게.`
+          ]
+        : [
+            `현재 흐름 한줄: ${heroSub}`,
+            `지금 우선순위: 무리한 확장보다 핵심 한 가지 집중.`,
+            `오늘 행동 포인트: 감정보다 리듬을 먼저 관리해.`
+          ];
+      resultBox.insertAdjacentHTML('beforeend', `<div class="hero-merged-summary"><p class="grade-label"><strong>${gradeMeta.label}</strong></p><p class="small">${gradeMeta.brief}</p><div class="hero-instant-summary"><div class="hero-instant-summary-title">결과 먼저 요약</div><ul>${instantSummary.map((item) => `<li>${item}</li>`).join('')}</ul></div></div>`);
     }
 
     if (gradeBox) {
@@ -1168,7 +1179,7 @@ if (!saved) {
 
     renderTimelineCard(buildYearTimelineData(concern), concern);
 
-    briefingBox.innerHTML = `<h3>개인화 브리핑</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p><p class="small" id="briefingEvidence">원국 근거를 불러오면 이 브리핑에 자동 반영돼.</p>`;
+    briefingBox.innerHTML = `<h3>먼저 읽어야 할 해석</h3><p>${hourToBranchLabel(intake.birthTime || '')}에 태어난 ${userName}님은 ${concern} 고민에서 신호를 민감하게 읽는 편입니다.${targetName ? ` 특히 ${targetName}님에게는 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.` : ' 첫 문장을 짧고 부드럽게 여는 전략이 유리합니다.'}</p><p class="small" id="briefingEvidence">원국 근거를 불러오면 이 브리핑에 자동 반영돼.</p>`;
     if (pendingOrreryEvidence) applyOrreryEvidence(pendingOrreryEvidence);
 
     const keywordByConcern = {
@@ -1216,7 +1227,7 @@ if (!saved) {
 
     const successRate = Math.max(83, Math.min(97, Math.round(((data.recoveryIndex || 64) + (data.reunionForce || 72)) / 2)));
     const waitingMin = 8 + Math.floor(Math.random() * 22);
-    counselorBox.innerHTML = `<h3>가이드</h3><div class="counselor-row"><div><strong>전문 해석 상담 연계</strong><p class="small">${userName}님 케이스를 기반으로 더 깊은 해석을 연결할 수 있어.</p><div class="expert-meta"><span>추천 적합도 ${successRate}%</span><span>${waitingMin}분 내 연결 가능</span></div></div><button class="btn" data-open-counselor-modal aria-label="상담 연결"><span class="btn-inline">상담 연결</span><span class="btn-stack"><span>상담</span><span>연결</span></span></button></div>`;
+    counselorBox.innerHTML = `<h3>추가로 보고 싶다면</h3><div class="counselor-row"><div><strong>더 깊은 해석 연결</strong><p class="small">${userName}님 케이스를 바탕으로 다음 행동 가이드까지 이어서 볼 수 있어.</p><div class="expert-meta"><span>추천 적합도 ${successRate}%</span><span>${waitingMin}분 내 연결 가능</span></div></div><button class="btn" data-open-counselor-modal aria-label="추가 해석 보기"><span class="btn-inline">추가 해석 보기</span><span class="btn-stack"><span>추가</span><span>해석</span></span></button></div>`;
 
     // Compatibility page slimming: hide stitched/reunion-like blocks
     if (isCompat) {
