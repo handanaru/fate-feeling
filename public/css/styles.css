@@ -6038,6 +6038,7 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
 .ff-hero-sky .s6 { top: 54%; right: 14%; }
 .ff-hero-sky .s7 { top: 66%; left: 14%; }
 .ff-home-kicker { position: relative; z-index: 1; font-size: 11px; letter-spacing: .1em; color: rgba(238,231,255,.82); margin: 0 0 8px; }
+.ff-home-hero-intro { position: relative; z-index: 1; margin: 0 0 10px; color: rgba(238,237,255,.86); font-size: 14px; line-height: 1.5; }
 .ff-home-hero h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(28px, 7.2vw, 38px); line-height: 1.25; white-space: pre-line; text-shadow: 0 4px 20px rgba(128,89,206,.45); }
 .ff-home-sub { position: relative; z-index: 1; margin: 12px 0 0; color: rgba(238,237,255,.9); font-size: 15px; }
 .ff-home-cta-grid {
@@ -6668,12 +6669,54 @@ body.experience-report .mode-current-banner { background: #f5f7ff; border-color:
   display: none;
 }
 
+.ff-home-preview-card,
 .ff-home-snack {
   margin-top: 12px;
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 14px;
   background: rgba(9,11,20,.55);
   padding: 12px;
+}
+.ff-home-preview-head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.ff-home-preview-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(143,109,255,.18);
+  color: #f1e7ff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.ff-home-preview-body {
+  display: grid;
+  gap: 12px;
+}
+.ff-home-preview-grade {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ff-home-preview-grade span {
+  color: rgba(233,229,244,.82);
+  font-size: 13px;
+}
+.ff-home-preview-grade strong {
+  font-size: 32px;
+  line-height: 1;
+  color: #f5d878;
+}
+.ff-home-preview-list {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(237,234,246,.92);
+  display: grid;
+  gap: 6px;
 }
 .ff-home-snack h3 {
   margin: 0;
@@ -7037,7 +7080,8 @@ body.ff-rebuild-home {
 .ff-rebuild-home .ff-home-rail-wrap,
 .ff-rebuild-home .ff-home-snack,
 .ff-rebuild-home .ff-state-entry,
-.ff-rebuild-home .ff-funnel-strip {
+.ff-rebuild-home .ff-funnel-strip,
+.ff-rebuild-home .ff-home-preview-card {
   width: 100% !important;
   max-width: 100% !important;
   margin-left: 0 !important;
@@ -7053,19 +7097,19 @@ body.ff-rebuild-home {
   padding-inline: 2px;
 }
 .ff-rebuild-home .ff-hero-carousel {
-  min-height: 62vh;
+  min-height: 50vh;
 }
 .ff-rebuild-home .ff-hero-slide {
-  min-height: 50vh;
-  padding: 26px 16px 30px;
+  min-height: 40vh;
+  padding: 22px 16px 24px;
 }
 
 @media (max-width: 430px) {
   .ff-rebuild-home .ff-hero-carousel {
-    min-height: 60vh;
+    min-height: 46vh;
   }
   .ff-rebuild-home .ff-hero-slide {
-    min-height: 48vh;
-    padding: 18px 12px 26px;
+    min-height: 38vh;
+    padding: 16px 12px 22px;
   }
 }
