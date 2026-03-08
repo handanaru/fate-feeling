@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@orrery/core": "^0.3.0",
+    "@orrery/core": "file:vendor/orrery-core-0.3.0-github.tgz",
     "express": "^4.21.2"
   }
 }
